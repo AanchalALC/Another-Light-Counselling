@@ -1,0 +1,27 @@
+@import 'colors';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+
+    h1{
+        opacity: 80%;
+        font-size: 4em;
+    }
+
+    p{
+        opacity: 70%;
+        font-size: 1.1em;
+        line-height: 1.5em;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: $accent_color;
+    :visited{
+        color: $accent_color;
+    }
+}

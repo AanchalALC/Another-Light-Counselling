@@ -4,68 +4,76 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{% block title %}{% endblock %}</title>
-        <script
-            src="https://kit.fontawesome.com/d8749e6d0b.js"
-            crossorigin="anonymous"
-        ></script>
 
-        <meta
-            name="description"
-            content="{% block metadescription %}{% endblock %}"
-        />
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="description" content="{% block metadescription %}{% endblock %}"/>
 
         {% comment %} OPENGRAPH META TAGS {% endcomment %}
         <meta property="og:title" content="{% block ogtitle %}{% endblock %}" />
-        <meta
-            property="og:description"
-            content="{% block ogdescription %}{% endblock %}"
-        />
+        <meta property="og:description" content="{% block ogdescription %}{% endblock %}"/>
         <meta property="og:url" content="{% block ogurl %}{% endblock %}" />
         <meta property="og:image" content="{% block ogimage %}{% endblock %}" />
         <meta property="og:type" content="{% block ogtype %}{% endblock %}" />
 
-        {% comment %}
-        <!-- TWITTER LARGE CARD META TAGS -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:creator" content="@_abdullahalam_" />
-        <meta
-            name="twitter:title"
-            content="{% block tctitle %}{% endblock %}"
-        />
-        <meta
-            name="twitter:description"
-            content="{% block tcdescription %}{% endblock %}"
-        />
-        <meta
-            name="twitter:image"
-            content="{% block tcimage %}{% endblock %}"
-        />
-        {% endcomment %}
 
         <!-- TWITTER CARD META TAGS -->
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="@_abdullahalam_" />
-        <meta
-            name="twitter:title"
-            content="{% block tctitle %}{% endblock %}"
-        />
-        <meta
-            name="twitter:description"
-            content="{% block tcdescription %}{% endblock %}"
-        />
-        <meta
-            name="twitter:image"
-            content="{% block tcimage %}{% endblock %}"
-        />
+        <meta name="twitter:title" content="{% block tctitle %}{% endblock %}"/>
+        <meta name="twitter:description" content="{% block tcdescription %}{% endblock %}"/>
+        <meta name="twitter:image" content="{% block tcimage %}{% endblock %}"/>
 
-        <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
+        <script src="https://kit.fontawesome.com/d8749e6d0b.js" crossorigin="anonymous"></script>
+        <!-- <link rel="stylesheet" href="{% static 'css/skeleton.css' %}"> -->
 
         {% block head %}{% endblock %}
     </head>
     <body>
+
         <div id="wrapper">
-            <!-- STUFF ON ALL PAGES LIKE MENU/SIDEBAR/ETC -->
+            
+            <!-- HEADER -->
+            <div id="topheader">
+
+                
+
+                <div id="sitelogo">
+                    <img src="{% static 'img/skeleton/sitelogo.png' %}" />
+                </div>
+
+                <div id="contactrow">
+                    <a href="#"><img src="{% static 'img/skeleton/fb.svg' %}" class="site-logo"/></a>
+                    <a href="#"><img src="{% static 'img/skeleton/twitter.svg' %}" class="site-logo"/></a>
+                    <a href="#"><img src="{% static 'img/skeleton/youtube.svg' %}" class="site-logo"/></a>
+                    <a href="#"><img src="{% static 'img/skeleton/whatsapp.svg' %}" class="site-logo"/></a>
+                    <div id="header-contact"><a href="#">+91 98196 15204</a></div>
+                    <div id="searchbox">
+                        <input type="text" placeholder="SEARCH" />
+                    </div>                    
+                </div>
+
+                
+
+                
+
+                
+                <div id="menuitems">
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Resources</a>
+                    <a href="#">Reviews</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div id="rainbowdiv">
+                    <!-- THIS WILL HAVE RAINBOW BG IN CSS -->
+                </div>
+                <div id="colordiv">
+                    <!-- THIS WILL GIVE THE MENU A BG IN CSS -->
+                </div>
+                
+
+            </div>
 
             {% block body %}{% endblock %}
         </div>

@@ -1,0 +1,95 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.3rem;
+}
+body #wrapper #topheader {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 80px 80px;
+  grid-template-areas: "t" "b";
+}
+body #wrapper #topheader a {
+  text-decoration: none;
+  color: #E65359;
+  font-weight: bold;
+}
+body #wrapper #topheader #sitelogo {
+  grid-area: t;
+  place-self: start start;
+  margin-left: 50px;
+  z-index: 5;
+  -webkit-box-shadow: 6px 7px 5px -5px rgba(0, 0, 0, 0.27);
+  -moz-box-shadow: 6px 7px 5px -5px rgba(0, 0, 0, 0.27);
+  box-shadow: 6px 7px 5px -5px rgba(0, 0, 0, 0.27);
+}
+body #wrapper #topheader #contactrow {
+  margin-right: 16px;
+  grid-area: t;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  place-self: center end;
+}
+body #wrapper #topheader #contactrow * {
+  margin-left: 5px;
+}
+body #wrapper #topheader #contactrow a {
+  max-height: 100%;
+  display: grid;
+}
+body #wrapper #topheader #contactrow a img {
+  place-self: center center;
+  max-height: 100%;
+  width: 30px;
+}
+body #wrapper #topheader #contactrow #searchbox input {
+  border: 2px solid #E65359;
+  height: 30px;
+  padding-left: 10px;
+}
+body #wrapper #topheader #menuitems {
+  grid-area: b;
+  z-index: 3;
+  place-self: center end;
+  margin-right: 16px;
+}
+body #wrapper #topheader #menuitems a {
+  padding-left: 16px;
+  padding-right: 16px;
+  border-left: 2px solid #E65359;
+}
+body #wrapper #topheader #menuitems :first-child {
+  border-left: none;
+}
+body #wrapper #topheader #menuitems :last-child {
+  padding-right: 0;
+}
+body #wrapper #topheader #rainbowdiv {
+  grid-area: b;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-image: url(/static/img/skeleton/rainbow_rect_header.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body #wrapper #topheader #colordiv {
+  grid-area: b;
+  width: 100%;
+  height: 100%;
+  background: #F9ADAD;
+  z-index: 1;
+}
+
+#content {
+  margin: 2em;
+}
+
+@media screen and (min-width: 50em) {
+  #content {
+    max-width: 45em;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */

@@ -37,9 +37,9 @@
 
                 
 
-                <div id="sitelogo">
-                    <img src="{% static 'img/skeleton/sitelogo.png' %}" />
-                </div>
+                
+                <img id="sitelogo" src="{% static 'img/skeleton/sitelogo.png' %}" />
+                
 
                 <div id="contactrow">
                     <a href="#"><img src="{% static 'img/skeleton/fb.svg' %}" class="site-logo"/></a>
@@ -71,11 +71,43 @@
                 <div id="colordiv">
                     <!-- THIS WILL GIVE THE MENU A BG IN CSS -->
                 </div>
+
+
+
                 
 
             </div>
 
             {% block body %}{% endblock %}
+
+
+            <!-- FOOTER -->
+            <div id="footer">
+
+                <div id="rainbowbg">
+                    <!-- THIS WILL HAVE THE RAINBOW BG -->
+                </div>
+
+                <div id="toplinks">
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Resources</a>
+                    <a href="#">Reviews</a>
+                    <a href="#">Contact</a>
+                </div>
+
+                <div id="bottomlinks">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use & Disclaimer</a>
+                </div>
+
+                <img id="footerlogo" src="{% static 'img/skeleton/footerlogo.png' %}"
+                
+
+            </div>
+
+
         </div>
     </body>
 </html>

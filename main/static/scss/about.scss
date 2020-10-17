@@ -8,7 +8,7 @@
         background-size: cover;
         background-position: center;
         width: 100%;
-        height: 40rem;
+        height: 50rem;
 
         display: grid;
 
@@ -24,7 +24,7 @@
 
     #peoplesection{
 
-        $gap: 3rem;
+        $gap: 6rem;
 
         .person:nth-child(even){
             background: $primaryred;
@@ -92,15 +92,18 @@
                     margin-bottom: 0.1rem;
                     margin-top: 0;
                     padding-top: 0;
+                    font-size: 3rem;
                 }
 
                 h2{
                     font-weight: normal;
                     margin-top: 0.1rem;
+                    font-size: 1rem;
                 }
 
                 p{
                     max-width: 60%;
+                    // margin-top: 0;
                 }
 
                 a {
@@ -123,7 +126,7 @@
                 -webkit-box-shadow: 9px 3px 32px -2px rgba(0,0,0,0.33);
                 -moz-box-shadow: 9px 3px 32px -2px rgba(0,0,0,0.33);
                 box-shadow: 9px 3px 32px -2px rgba(0,0,0,0.33);
-                
+
             }
         }
 

@@ -23,7 +23,7 @@
         <meta name="twitter:description" content="{% block tcdescription %}{% endblock %}"/>
         <meta name="twitter:image" content="{% block tcimage %}{% endblock %}"/>
 
-        <script src="https://kit.fontawesome.com/d8749e6d0b.js" crossorigin="anonymous"></script>
+        <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet">
         <!-- <link rel="stylesheet" href="{% static 'css/skeleton.css' %}"> -->
 
         {% block head %}{% endblock %}
@@ -58,9 +58,9 @@
 
                 
                 <div id="menuitems">
-                    <a href="#">Home</a>
-                    <a href="#">About</a>
-                    <a href="#">FAQs</a>
+                    <a href="{% url 'index' %}">Home</a>
+                    <a href="{% url 'about' %}">About</a>
+                    <a href="{% url 'faqs' %}">FAQs</a>
                     <a href="#">Resources</a>
                     <a href="#">Reviews</a>
                     <a href="#">Contact</a>
@@ -89,9 +89,9 @@
                 </div>
 
                 <div id="toplinks">
-                    <a href="#">Home</a>
-                    <a href="#">About</a>
-                    <a href="#">FAQs</a>
+                    <a href="{% url 'index' %}">Home</a>
+                    <a href="{% url 'about' %}">About</a>
+                    <a href="{% url 'faqs' %}">FAQs</a>
                     <a href="#">Resources</a>
                     <a href="#">Reviews</a>
                     <a href="#">Contact</a>

@@ -1,0 +1,59 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}About - Another Light{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block body %}
+<div id="content">
+    
+    <div id="topsection">
+        <img src="{% static 'img/about/top_people.svg' %}" id="toppeople" />        
+    </div>    
+
+
+    <div id="peoplesection">
+
+        <div class="person right">
+            <div class="info">
+                <h1>Aanchal Narang</h1>
+                <h2>Therapist</h2>
+                <p>
+                    Hi. I'm Aanchal, the founder of Another Light. I'm a trained therapist with a Master's in Applied Clinical Psychology from the Tata Institute of Social Sciences (Mumbai), who specializes in customizing mental healthcare practices to suit the healing journeys and coping mechanisms of my clients.
+                </p>
+                <a href="#">READ MORE</a>
+            </div>
+            <img src="{% static 'img/about/Aanchal.jpg' %}" class="person-picture" />
+        </div>
+
+
+        <div class="person left">
+            <div class="info">
+                <h1>Utkarsha Jagga</h1>
+                <h2>Counselling Psychologist</h2>
+                <p>
+                    Hi, I am Utkarsha Jagga, and I am a queer affirmative, and trauma-informed counselling psychologist. I have completed my MA in Applied Psychology, from Tata Institute of Social Sciences, Mumbai.
+                </p>
+                <a href="#">READ MORE</a>
+            </div>
+            <img src="{% static 'img/about/Utkarsha.jpg' %}" class="person-picture" />
+        </div>
+
+        <div class="person right">
+            <div class="info">
+                <h1>Shanaya Boyce</h1>
+                <h2>Clinical Psychologist</h2>
+                <p>
+                    Shanaya Boyce am a queer affirmative, trauma informed clinical psychologist. I have Master's in Clinical Psychology from Mumbai University, I am also a singer and speech and drama coach.
+                </p>
+                <a href="#">READ MORE</a>
+            </div>
+            <img src="{% static 'img/about/Shanya.jpg' %}" class="person-picture" />
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

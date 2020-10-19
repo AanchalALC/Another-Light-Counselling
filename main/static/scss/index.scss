@@ -165,6 +165,8 @@
             text-align: right;
             margin-right: $padding * 2;
             color: $bluishpurple;
+            font-size: 3rem;
+            font-weight: bold;
             
         }
 
@@ -172,7 +174,10 @@
             grid-area: p;
             place-self: start end;
             text-align: right;
-            background: rgba(255, 0, 0, 0.164);
+            background-image: url(/static/img/index/neeche_ka_rainbow.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: right;
             display: grid;
 
             p{

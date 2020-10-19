@@ -12,6 +12,12 @@ sitemaps = {
 urlpatterns = [
  
     path('', views.index, name='index'),
+    
+    path('about', views.about, name='about'),
+    path('about/', views.about, name='about'),
+
+    path('faqs', views.faqs, name='faqs'),
+    path('faqs/', views.faqs, name='faqs'),
  
     # path('post/<slug:slug>', views.post, name='post'),
     # path('posts', views.posts, name='posts'),

@@ -160,8 +160,7 @@ body #wrapper #footer #bottomlinks :last-child {
 #content #faqssection {
   padding: 3rem;
   background-image: url(/static/img/faqs/faq_doodles.png);
-  background-size: cover auto;
-  background-repeat: repeat-y;
+  background-repeat: repeat;
 }
 #content #faqssection #topstuff {
   display: flex;
@@ -177,22 +176,29 @@ body #wrapper #footer #bottomlinks :last-child {
   margin-left: auto;
 }
 #content #faqssection #faqlist {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "f1 f2 bl";
+}
+#content #faqssection #faqlist #col1, #content #faqssection #faqlist #col2 {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  max-width: 60%;
 }
-#content #faqssection #faqlist .faq-item {
-  max-width: 50%;
+#content #faqssection #faqlist .col {
+  width: 100%;
+}
+#content #faqssection #faqlist .col .faq-item {
   border-radius: 8px;
   margin-bottom: 2rem;
   padding: 0;
+  margin-right: 2rem;
   background: white;
   -webkit-box-shadow: 1px 3px 9px 0px rgba(0, 0, 0, 0.31);
   -moz-box-shadow: 1px 3px 9px 0px rgba(0, 0, 0, 0.31);
   box-shadow: 1px 3px 9px 0px rgba(0, 0, 0, 0.31);
 }
-#content #faqssection #faqlist .faq-item .question {
+#content #faqssection #faqlist .col .faq-item .question {
   display: flex;
   align-items: baseline;
   padding-inline: 1rem;
@@ -201,21 +207,21 @@ body #wrapper #footer #bottomlinks :last-child {
   border-radius: 8px;
   cursor: pointer;
 }
-#content #faqssection #faqlist .faq-item .question h3, #content #faqssection #faqlist .faq-item .question span {
+#content #faqssection #faqlist .col .faq-item .question h3, #content #faqssection #faqlist .col .faq-item .question span {
   font-size: 1.2rem;
   font-weight: bold;
   margin: 0;
 }
-#content #faqssection #faqlist .faq-item .question span {
+#content #faqssection #faqlist .col .faq-item .question span {
   margin-left: auto;
 }
-#content #faqssection #faqlist .faq-item .answer {
+#content #faqssection #faqlist .col .faq-item .answer {
   padding-inline: 1rem;
   padding-block: 0px;
   transform-origin: top center;
   transition: transform 0.2s, margin-bottom 0.2s;
 }
-#content #faqssection #faqlist .faq-item .answer.hidden {
+#content #faqssection #faqlist .col .faq-item .answer.hidden {
   transform: scaleY(0);
   transform-origin: top center;
 }

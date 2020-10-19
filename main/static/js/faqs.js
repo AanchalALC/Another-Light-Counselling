@@ -1,5 +1,12 @@
 var answer_offset = -44;
 
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+
+
+
 function toggleFaq(thediv){
 
     // GET THE STUFF
@@ -17,15 +24,19 @@ function toggleFaq(thediv){
         answer.style.paddingBlock = "0px";
         indicator.innerHTML = "+";
 
-        setTimeout(() => {answer.style.display = "none"}, 200);
+        setTimeout(() => {
+            answer.style.display = "none";
+        }, 200);
 
     } else {
         // SHOW IF HIDDEN
         answer.style.display = "block";
+
         setTimeout(() => {
             answer.classList.remove("hidden");
             answer.style.marginBottom = "unset";
             answer.style.paddingBlock = "1rem";
+            
         }, 100);
         
         indicator.innerHTML = "-";
@@ -41,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         toggleFaq(question);
     }
 
+    // SET SENSIBLE OFFSET
     answer_offset = 32;
 
 });

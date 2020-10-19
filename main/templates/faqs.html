@@ -24,30 +24,38 @@
 
 
         <div id="faqlist">
-            
-            <div class="faq-item">
-                <div class="question" onclick="toggleFaq(this)" data-answer="a1" data-elementid="q1" id="q1">
-                    <h3>Q: How long is a session?</h3>
-                    <span>-</span>
-                </div>
-                <div class="answer" id="a1">
-                    <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis rem porro quasi tempora laborum ad labore itaque dolor est quibusdam commodi aut repellendus quia, eligendi non excepturi unde culpa. Libero obcaecati, adipisci harum, fuga sunt iste debitis quisquam soluta beatae nemo, praesentium iusto atque cumque laudantium culpa tenetur pariatur iure!
-                    </p>
-                </div>
+
+
+            <div id="col1" class="col">
+                {% for faq in faq1 %}
+                    <div class="faq-item">
+                        <div class="question" onclick="toggleFaq(this)" data-answer="a{{ faq.id }}" data-elementid="q{{ faq.id }}" id="q{{ faq.id }}">
+                            <h3>{{ faq.question }}</h3>
+                            <span>-</span>
+                        </div>
+                        <div class="answer" id="a{{ faq.id }}">
+                            {{ faq.answer | safe }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div id="col2" class="col">
+                {% for faq in faq2 %}
+                    <div class="faq-item">
+                        <div class="question" onclick="toggleFaq(this)" data-answer="a{{ faq.id }}" data-elementid="q{{ faq.id }}" id="q{{ faq.id }}">
+                            <h3>{{ faq.question }}</h3>
+                            <span>-</span>
+                        </div>
+                        <div class="answer" id="a{{ faq.id }}">
+                            {{ faq.answer | safe }}
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
 
-            <div class="faq-item">
-                <div class="question" onclick="toggleFaq(this)" data-answer="a2" id="q2">
-                    <h3>Q: How is this legal?</h3>
-                    <span>-</span>
-                </div>
-                <div class="answer" id="a2">
-                    <p>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-                </div>
-            </div>
+            
+
+                        
 
         </div>
 

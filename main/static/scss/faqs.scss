@@ -23,8 +23,7 @@
 
         padding: $padding;
         background-image: url(/static/img/faqs/faq_doodles.png);
-        background-size: cover auto;
-        background-repeat: repeat-y;
+        background-repeat: repeat;
 
         #topstuff{
 
@@ -48,63 +47,84 @@
 
         #faqlist{
 
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
+            
+            // flex-wrap: wrap;
+            // max-width: 60%; 
+            
+            
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto;
+            grid-template-areas: 
+                "f1 f2 bl"
+            ;
 
-            max-width: 60%;
 
+            #col1, #col2{
+                display: flex;
+                flex-direction: column;
+            }
 
-            .faq-item{
+            .col{
 
-                max-width: 50%;
-                border-radius: 8px;
-                margin-bottom: 2rem;
-                padding: 0;
+                width: 100%;
 
-                background: white;
-                -webkit-box-shadow: 1px 3px 9px 0px rgba(0,0,0,0.31);
-                -moz-box-shadow: 1px 3px 9px 0px rgba(0,0,0,0.31);
-                box-shadow: 1px 3px 9px 0px rgba(0,0,0,0.31);
+                .faq-item{
 
-                .question{
-
-                    display: flex;
-                    align-items: baseline;
-                    padding-inline: 1rem;
-                    padding-block: 0.5rem;
-                    background: #FEE668;
+                    // max-width: 50%;
                     border-radius: 8px;
-                    cursor: pointer;
-
-                    h3, span{
-                        font-size: 1.2rem;
-                        font-weight: bold;
-                        margin: 0;
+                    margin-bottom: 2rem;
+                    padding: 0;
+                    margin-right: 2rem;
+                    // max-width: 40%;
+    
+                    background: white;
+                    -webkit-box-shadow: 1px 3px 9px 0px rgba(0,0,0,0.31);
+                    -moz-box-shadow: 1px 3px 9px 0px rgba(0,0,0,0.31);
+                    box-shadow: 1px 3px 9px 0px rgba(0,0,0,0.31);
+    
+                    .question{
+    
+                        display: flex;
+                        align-items: baseline;
+                        padding-inline: 1rem;
+                        padding-block: 0.5rem;
+                        background: #FEE668;
+                        border-radius: 8px;
+                        cursor: pointer;
+    
+                        h3, span{
+                            font-size: 1.2rem;
+                            font-weight: bold;
+                            margin: 0;
+                        }
+    
+                        span{
+                            margin-left: auto;
+                        }
                     }
-
-                    span{
-                        margin-left: auto;
+    
+                    .answer{
+                        
+                        padding-inline: 1rem;
+                        padding-block: 0px;
+    
+                        transform-origin: top center;
+    
+                        transition: 
+                            transform 0.2s,
+                            margin-bottom 0.2s;
                     }
-                }
-
-                .answer{
-                    
-                    padding-inline: 1rem;
-                    padding-block: 0px;
-
-                    transform-origin: top center;
-
-                    transition: 
-                        transform 0.2s,
-                        margin-bottom 0.2s;
-                }
-
-                .answer.hidden{
-                    transform: scaleY(0);
-                    transform-origin: top center;
+    
+                    .answer.hidden{
+                        transform: scaleY(0);
+                        transform-origin: top center;
+                    }
                 }
             }
+
+
+            
 
         }
 

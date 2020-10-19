@@ -3,12 +3,22 @@ from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.text import slugify
 from django.urls import reverse
+from django.contrib.sites.models import Site
  
 class PostType(models.Model):
     type_name = models.CharField(max_length=30)
  
     def __str__(self):
         return str(self.type_name)
+
+
+class FAQ(models.Model):
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+    question = models.CharField(max_length=500)
+    answer = RichTextUploadingField(max_length=14000)
+
+    def __str__(self):
+        return str(self.question)
  
 class Post(models.Model):
     # image_file = models.ImageField(upload_to='photographs')

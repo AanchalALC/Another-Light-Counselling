@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType
+from .models import Post, PostType, FAQ
 
 
 def index(request):
@@ -17,7 +17,20 @@ def about(request):
     return render(request, 'about.html')
 
 def faqs(request):
-    return render(request, 'faqs.html')
+    faqs = FAQ.objects.all().order_by('id')
+
+    faq1 = faqs[:int(len(faqs)/2)]
+    faq2 = faqs[int(len(faqs)/2) :]
+
+    print(faq1)
+    print(faq2)
+
+    context = {
+        'faqs': faqs,
+        'faq1': faq1,
+        'faq2': faq2
+    }
+    return render(request, 'faqs.html', context=context)
  
 def post(request, slug):
     # FETCH OBJ

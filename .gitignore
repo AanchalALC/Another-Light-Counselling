@@ -2,6 +2,7 @@
 *.pyo
 *.mo
 .coverage
+.vscode
 db.sqlite3
 uwsgi.ini
 log/**

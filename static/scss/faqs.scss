@@ -1,0 +1,139 @@
+@import 'skeleton';
+
+#content{
+    
+    #topsection{
+        background: #F7ECB6;
+        width: 100%;
+        height: 50rem;
+
+        display: grid;
+
+        #topgal{
+            max-height: 100%;
+            min-height: 90%;
+            max-width: 100%;
+            place-self: end center;
+        }
+
+    }
+
+
+    #faqssection{
+
+        padding: $padding;
+        background-image: url(/static/img/faqs/faq_doodles.png);
+        background-repeat: repeat;
+
+        #topstuff{
+
+            display: flex;
+            align-items: flex-start;
+            // margin-top: 2rem;
+
+            * {
+                margin: 0;
+            }
+
+            h2{
+                color: #FEE569;
+            }
+
+            img{
+                margin-left: auto;
+            }
+        }
+
+
+        #faqlist{
+
+            
+            // flex-wrap: wrap;
+            // max-width: 60%; 
+            
+            
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto;
+            grid-template-areas: 
+                "f1 f2 bl"
+            ;
+
+
+            #col1, #col2{
+                display: flex;
+                flex-direction: column;
+            }
+
+            .col{
+
+                width: 100%;
+
+                .faq-item{
+
+                    // max-width: 50%;
+                    border-radius: 8px;
+                    margin-bottom: 2rem;
+                    padding: 0;
+                    margin-right: 2rem;
+                    // max-width: 40%;
+    
+                    background: white;
+                    -webkit-box-shadow: 1px 3px 9px 0px rgba(0,0,0,0.31);
+                    -moz-box-shadow: 1px 3px 9px 0px rgba(0,0,0,0.31);
+                    box-shadow: 1px 3px 9px 0px rgba(0,0,0,0.31);
+    
+                    .question{
+    
+                        display: flex;
+                        align-items: baseline;
+                        padding-inline: 1rem;
+                        padding-block: 0.5rem;
+                        background: #FEE668;
+                        border-radius: 8px;
+                        cursor: pointer;
+    
+                        h3, span{
+                            font-size: 1.2rem;
+                            font-weight: bold;
+                            margin: 0;
+                        }
+    
+                        span{
+                            margin-left: auto;
+                        }
+                    }
+    
+                    .answer{
+                        
+                        padding-inline: 1rem;
+                        padding-block: 0px;
+    
+                        transform-origin: top center;
+    
+                        transition: 
+                            transform 0.2s,
+                            margin-bottom 0.2s;
+                    }
+    
+                    .answer.hidden{
+                        transform: scaleY(0);
+                        transform-origin: top center;
+                    }
+                }
+            }
+
+
+            
+
+        }
+
+    }
+
+}
+
+// @media screen and (min-width: 50em){
+//     #content{
+//         max-width: 45em;
+//     }
+// }

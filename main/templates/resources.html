@@ -23,12 +23,12 @@
         </div>
 
         <div id="resource-list">
-            {% for i in '123456789' %}
+            {% for resource in resources %}
 
-            <a class="resource" href="#">
-                <img src="{% static 'img/resources/aanchaltemp.jpg' %}" class="thumbnail" alt="">
+            <a class="resource" href="{{ resource.link }}">
+                <img src="{{ resource.thumbnail.url }}" class="thumbnail" alt="">
                 <img src="{% static 'img/resources/play_button.png' %}" class="playbutton" alt="">
-                <h3>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa hic repellat quidem!</h3>
+                <h3>{{ resource.title }}</h3>
             </a>
 
             {% endfor %}

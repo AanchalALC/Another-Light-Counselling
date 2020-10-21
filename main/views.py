@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ
+from .models import Post, PostType, FAQ, Resource
 
 
 def index(request):
@@ -17,7 +17,13 @@ def about(request):
     return render(request, 'about.html')
 
 def resources(request):
-    return render(request, 'resources.html')
+    resources = Resource.objects.all().order_by('-id')
+
+    context = {
+        'resources': resources
+    }
+
+    return render(request, 'resources.html', context=context)
 
 def faqs(request):
     faqs = FAQ.objects.all().order_by('id')

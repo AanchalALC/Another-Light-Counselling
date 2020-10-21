@@ -19,6 +19,14 @@ class FAQ(models.Model):
 
     def __str__(self):
         return str(self.question)
+
+class Resource(models.Model):
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+    title = models.CharField(max_length=500)
+    thumbnail = models.ImageField(upload_to='photographs')
+    link = models.CharField(max_length=1000)
+    
+
  
 class Post(models.Model):
     # image_file = models.ImageField(upload_to='photographs')

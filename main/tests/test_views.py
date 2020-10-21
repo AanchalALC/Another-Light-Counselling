@@ -15,3 +15,10 @@ class ViewsTestCase(TestCase):
         print('Test FAQS')
         resp = self.client.get('/faqs')
         self.assertEqual(resp.status_code, 200)
+
+    def test_resources(self):
+        print('Test Resource')
+        page = '/resources'
+        
+        resp = self.client.get(page)
+        self.assertEqual(resp.status_code, 200, msg=f"{page} not found...")

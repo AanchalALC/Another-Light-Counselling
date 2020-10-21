@@ -23,7 +23,8 @@
 
         padding: $padding;
         background-image: url(/static/img/faqs/faq_doodles.png);
-        background-repeat: repeat;
+        background-size: 100% auto;
+        background-repeat: repeat-y;
 
         #topstuff{
 

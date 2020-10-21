@@ -146,85 +146,64 @@ body #wrapper #footer #bottomlinks :last-child {
 }
 
 #content #topsection {
-  background: #F7ECB6;
+  background: #F8B7BB;
   width: 100%;
   height: 50rem;
   display: grid;
 }
-#content #topsection #topgal {
+#content #topsection #topgraphic {
   max-height: 100%;
-  min-height: 90%;
+  min-height: 100%;
   max-width: 100%;
-  place-self: end center;
+  place-self: center end;
 }
-#content #faqssection {
+#content #resources-section {
   padding: 3rem;
-  background-image: url(/static/img/faqs/faq_doodles.png);
-  background-size: 100% auto;
+  background-image: url(/static/img/resources/resourcebg_patterm.png);
+  background-size: 50% auto;
+  background-position: center;
   background-repeat: repeat-y;
 }
-#content #faqssection #topstuff {
+#content #resources-section #topstuff {
   display: flex;
   align-items: flex-start;
 }
-#content #faqssection #topstuff * {
+#content #resources-section #topstuff * {
   margin: 0;
 }
-#content #faqssection #topstuff h2 {
-  color: #FEE569;
+#content #resources-section #topstuff h2 {
+  color: #F8B7BB;
 }
-#content #faqssection #topstuff img {
+#content #resources-section #topstuff img {
   margin-left: auto;
 }
-#content #faqssection #faqlist {
+#content #resource-list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto;
-  grid-template-areas: "f1 f2 bl";
+  grid-template-columns: 1fr 1fr;
+  margin-top: 2rem;
 }
-#content #faqssection #faqlist #col1, #content #faqssection #faqlist #col2 {
-  display: flex;
-  flex-direction: column;
+#content #resource-list .resource {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas: "i" "h";
+  width: 90%;
+  text-decoration: none;
+  color: black;
+  margin-bottom: 5rem;
 }
-#content #faqssection #faqlist .col {
+#content #resource-list .resource .thumbnail {
+  grid-area: i;
   width: 100%;
+  height: 25rem;
+  object-fit: cover;
 }
-#content #faqssection #faqlist .col .faq-item {
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  padding: 0;
-  margin-right: 2rem;
-  background: white;
-  -webkit-box-shadow: 1px 3px 9px 0px rgba(0, 0, 0, 0.31);
-  -moz-box-shadow: 1px 3px 9px 0px rgba(0, 0, 0, 0.31);
-  box-shadow: 1px 3px 9px 0px rgba(0, 0, 0, 0.31);
-}
-#content #faqssection #faqlist .col .faq-item .question {
-  display: flex;
-  align-items: baseline;
-  padding-inline: 1rem;
-  padding-block: 0.5rem;
-  background: #FEE668;
-  border-radius: 8px;
-  cursor: pointer;
-}
-#content #faqssection #faqlist .col .faq-item .question h3, #content #faqssection #faqlist .col .faq-item .question span {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 0;
-}
-#content #faqssection #faqlist .col .faq-item .question span {
-  margin-left: auto;
-}
-#content #faqssection #faqlist .col .faq-item .answer {
-  padding-inline: 1rem;
-  padding-block: 0px;
-  transform-origin: top center;
-  transition: transform 0.2s, margin-bottom 0.2s;
-}
-#content #faqssection #faqlist .col .faq-item .answer.hidden {
-  transform: scaleY(0);
-  transform-origin: top center;
+#content #resource-list .resource .playbutton {
+  grid-area: i;
+  z-index: 2;
+  height: 4rem;
+  width: 4rem;
+  place-self: center center;
 }
 
-/*# sourceMappingURL=faqs.css.map */
+/*# sourceMappingURL=resources.css.map */

@@ -18,6 +18,9 @@ urlpatterns = [
 
     path('faqs', views.faqs, name='faqs'),
     path('faqs/', views.faqs, name='faqs'),
+
+    path('resources', views.resources, name='resources'),
+    path('resources/', views.resources, name='resources'),
  
     # path('post/<slug:slug>', views.post, name='post'),
     # path('posts', views.posts, name='posts'),

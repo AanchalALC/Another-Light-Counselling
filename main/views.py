@@ -16,6 +16,9 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
+def resources(request):
+    return render(request, 'resources.html')
+
 def faqs(request):
     faqs = FAQ.objects.all().order_by('id')
 

@@ -25,7 +25,18 @@ class Resource(models.Model):
     title = models.CharField(max_length=500)
     thumbnail = models.ImageField(upload_to='photographs')
     link = models.CharField(max_length=1000)
-    
+
+
+
+class Review(models.Model):
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+    review = models.TextField()
+
+    def get_preview(self):
+        return ' '.join(str(self.review).split(' ')[:15]) + '...'
+
+    def __str__(self):
+        return self.get_preview()
 
  
 class Post(models.Model):

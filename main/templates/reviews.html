@@ -1,0 +1,48 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}Resources - Another Light{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/reviews.css' %}">
+{% endblock %}
+
+{% block body %}
+<div id="content">
+    
+    <div id="topsection">
+        <img src="{% static 'img/reviews/reviews_header.png' %}" id="topgraphic" />
+    </div>
+
+
+
+    <div id="reviews-section">
+
+        <div id="topstuff">
+            <h2>Got a question? Ask away!</h2>
+            <p>Take a look at our clients' testimonials...</p>
+        </div>
+
+        <div id="review-list">
+            {% for review in reviews %}
+
+                {% if review.type == 'doodle' %}
+                <img src="{% static review.art %}" class="doodle {{ review.position }}" alt="">
+                {% endif %}
+
+                {% if review.type == 'review' %}
+                <div class="review {{ review.position }}">
+                    <p>
+                        {{ review.obj.review }}
+                    </p>
+                </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+
+        
+
+    </div>
+
+</div>
+{% endblock %}

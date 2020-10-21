@@ -22,3 +22,10 @@ class ViewsTestCase(TestCase):
         
         resp = self.client.get(page)
         self.assertEqual(resp.status_code, 200, msg=f"{page} not found...")
+
+    def test_reviews(self):
+        print('Test Reviews')
+        page = '/reviews'
+        
+        resp = self.client.get(page)
+        self.assertEqual(resp.status_code, 200, msg=f"{page} not found...")

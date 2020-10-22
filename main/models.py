@@ -38,6 +38,13 @@ class Review(models.Model):
     def __str__(self):
         return self.get_preview()
 
+
+class Contact(models.Model):
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+    name = models.CharField(max_length=500)
+    number = models.CharField(max_length=20)
+    instahandle = models.CharField(max_length=60)
+
  
 class Post(models.Model):
     # image_file = models.ImageField(upload_to='photographs')

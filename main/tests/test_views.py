@@ -29,3 +29,10 @@ class ViewsTestCase(TestCase):
         
         resp = self.client.get(page)
         self.assertEqual(resp.status_code, 200, msg=f"{page} not found...")
+
+    def test_contact(self):
+        print('Test Contact')
+        page = '/contact'
+        
+        resp = self.client.get(page)
+        self.assertEqual(resp.status_code, 200, msg=f"{page} not found...")

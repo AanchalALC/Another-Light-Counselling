@@ -24,6 +24,9 @@ urlpatterns = [
 
     path('reviews', views.reviews, name='reviews'),
     path('reviews/', views.reviews, name='reviews'),
+
+    path('contact', views.contact, name='contact'),
+    path('contact/', views.contact, name='contact'),
  
     # path('post/<slug:slug>', views.post, name='post'),
     # path('posts', views.posts, name='posts'),

@@ -1,0 +1,85 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}Resources - Another Light{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block body %}
+<div id="content">
+    
+    <div id="topsection">
+        <img src="{% static 'img/contact/top_gal.svg' %}" id="topgraphic" />
+    </div>
+
+
+    <div id="contact-section">
+
+        <div id="info-area">
+            <h1>Contact Us</h1>
+            <p>
+                While our FAQs section answers most common questions, if you have further queries or just need to get in touch and listen to an actual human beyond this website, feel free to contact us in any of the following ways:
+            </p>
+            <p class="social-media">
+                <a href="https://instagram.com/aanchal_therapist" target="_blank">
+                    <strong><i class="fab fa-instagram"></i> Instagram:</strong> @aanchal_therapist
+                </a><br />
+
+                <a href="https://twitter.com/aanchal_therapy" target="_blank">
+                    <strong><i class="fab fa-twitter"></i> Twitter:</strong> @aanchal_therapy
+                </a><br>
+
+                <a href="tel:+919819615204" target="_blank">
+                    <strong><i class="fas fa-phone-square"></i> Phone:</strong> +91 98196 15204
+                </a><br />
+
+                <a href="mailto:anotherlightcounselling@gmail.com" target="_blank">
+                    <strong><i class="fas fa-envelope"></i> Email:</strong> anotherlightcounselling@gmail.com
+                </a><br />
+            </p>
+        </div>
+
+        <div id="form-area">
+
+            <form method="POST" action="">
+                
+                {% csrf_token %}
+
+                <h1>Reach Out To Us</h1>
+
+                <p>
+                    <label for="name_input">What would you like us to call you?</label><br>
+                    <input type="text" name="name_input" id="name_input">
+                </p>
+
+                <p>
+                    <label for="number_input">Your number? (Required)</label><br>
+                    <input type="text" name="number_input" id="number_input">
+                </p>
+
+                <p>
+                    <label for="instahandle_input">Your Insta Handle</label><br>
+                    <input type="text" name="instahandle_input" id="instahandle_input">
+                </p>
+
+                <input type="submit" value="Submit">
+
+            </form>
+
+        </div>
+
+
+        <div id="join-us-area">
+            <h1 class="reach-out">Join Us!</h1>
+            <p>
+                Do you like the work that we do, and feel we’re the kind of place you would like to be a part of? Write in to us with your CV and a cover letter at <a href="mailto:anotherlightcounselling@gmail.com">anotherlightcounselling@gmail.com.</a>
+            </p>
+        </div>
+
+    </div>
+
+    
+
+</div>
+{% endblock %}

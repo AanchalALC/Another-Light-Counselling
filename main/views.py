@@ -8,6 +8,7 @@ from django.templatetags.static import static
 from django.urls import reverse
 
 from .models import Post, PostType, FAQ, Resource, Review
+from .forms import ContactForm
 
 
 def index(request):
@@ -150,6 +151,15 @@ def reviews(request):
     }
 
     return render(request, 'reviews.html', context=context)
+
+
+def contact(request):
+
+    if request.method == 'POST':
+        print(request.POST)
+
+
+    return render(request, 'contact.html')
 
 
  

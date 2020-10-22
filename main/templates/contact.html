@@ -8,6 +8,21 @@
 
 {% block body %}
 <div id="content">
+
+    <div id="promptoverlay">
+
+        <div id="dialoguebox">
+            <p>
+                Thank you for reaching out to us!<br />
+                We will contact you shortly!
+            </p>
+            <p>
+                <a href="#">OK</a>
+            </p>
+        </div>
+
+    </div>
+
     
     <div id="topsection">
         <img src="{% static 'img/contact/top_gal.svg' %}" id="topgraphic" />
@@ -49,18 +64,26 @@
                 <h1>Reach Out To Us</h1>
 
                 <p>
-                    <label for="name_input">What would you like us to call you?</label><br>
-                    <input type="text" name="name_input" id="name_input">
+                    {{ form.non_field_errors }}
+                </p>
+                <p>
+                    {{ form.name.errors }}
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                    <!-- <label for="name_input">What would you like us to call you?</label><br> -->
+                    <!-- <input type="text" name="name_input" id="name_input"> -->
                 </p>
 
                 <p>
-                    <label for="number_input">Your number? (Required)</label><br>
-                    <input type="text" name="number_input" id="number_input">
+                    {{ form.number.errors }}
+                    {{ form.number.label_tag }}
+                    {{ form.number }}
                 </p>
 
                 <p>
-                    <label for="instahandle_input">Your Insta Handle</label><br>
-                    <input type="text" name="instahandle_input" id="instahandle_input">
+                    {{ form.instahandle.errors }}
+                    {{ form.instahandle.label_tag }}
+                    {{ form.instahandle }}
                 </p>
 
                 <input type="submit" value="Submit">

@@ -2,7 +2,7 @@ import os
 
 from django.contrib.sites.models import Site
 from django.core.paginator import Paginator
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
@@ -156,10 +156,18 @@ def reviews(request):
 def contact(request):
 
     if request.method == 'POST':
-        print(request.POST)
+        
+        cform = ContactForm(request.POST)        
+        if cform.is_valid():
+            cform.save()
+
+        return HttpResponseRedirect(reverse('contact') + '#promptoverlay')
+
+    else:
+        form = ContactForm()
 
 
-    return render(request, 'contact.html')
+    return render(request, 'contact.html', context={'form': form})
 
 
  

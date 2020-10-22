@@ -43,7 +43,17 @@ class Contact(models.Model):
     site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
     name = models.CharField(max_length=500)
     number = models.CharField(max_length=20)
-    instahandle = models.CharField(max_length=60)
+    instahandle = models.CharField(max_length=60, null=True, blank=True)
+
+    def __str__(self):
+        name = str(self.name)
+        number = str(self.number)
+        
+        return name if len(name) > 0 else number
+
+    class Meta:
+        verbose_name = 'Person Who Reached Out'
+        verbose_name_plural = 'People Who Reached Out'
 
  
 class Post(models.Model):

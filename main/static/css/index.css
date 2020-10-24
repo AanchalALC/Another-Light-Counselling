@@ -1,3 +1,7 @@
+* {
+  transition: all 0.2s;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -273,6 +277,7 @@ body #wrapper #footer #bottomlinks :last-child {
     place-self: start end;
     height: 40%;
     margin-right: 1rem;
+    display: none;
   }
 }
 
@@ -337,6 +342,53 @@ body #wrapper #footer #bottomlinks :last-child {
   place-self: end end;
   max-width: 75%;
 }
+@media screen and (max-width: 1400px) {
+  #content #topsection #heytherebox p {
+    font-size: 3rem;
+  }
+}
+@media screen and (max-width: 1100px) {
+  #content #topsection #heytherebox p {
+    font-size: 2.5rem;
+    margin-top: 1rem;
+  }
+  #content #topsection #readingthis p {
+    font-size: 1.2rem;
+  }
+}
+@media screen and (max-width: 900px) {
+  #content #topsection {
+    height: unset;
+    padding-top: 2rem;
+    grid-template-columns: unset;
+    grid-template-rows: auto auto;
+    grid-template-areas: "c" "g";
+  }
+  #content #topsection #heytherebox {
+    place-self: center center;
+    background-position: center center;
+    margin: 0;
+    height: 18rem;
+    margin-top: 2rem;
+    background-size: contain;
+  }
+  #content #topsection #heytherebox p {
+    font-size: 3rem;
+    place-self: center center;
+    margin-top: -2rem;
+  }
+  #content #topsection #readingthis {
+    grid-area: g;
+    height: unset;
+    background-size: cover;
+  }
+  #content #topsection #readingthis p {
+    margin-right: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1rem;
+    padding-top: 1rem;
+  }
+}
 #content #scarysection {
   background: #E65359;
   width: 100%;
@@ -371,6 +423,34 @@ body #wrapper #footer #bottomlinks :last-child {
 }
 #content #scarysection #content * {
   text-align: center;
+}
+@media screen and (max-width: 1250px) {
+  #content #scarysection #content {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 800px) {
+  #content #scarysection #leftelipse, #content #scarysection #rightelipse {
+    background-image: unset;
+  }
+  #content #scarysection #content {
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  #content #scarysection #content p {
+    font-size: 1rem;
+  }
+  #content #scarysection #content * {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+@media screen and (max-width: 800px) {
+  #content #scarysection #content * {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 #content #providesection {
   margin-top: 3rem;
@@ -426,6 +506,64 @@ body #wrapper #footer #bottomlinks :last-child {
   margin-right: 6rem;
   font-weight: bold;
   margin-top: 3rem;
+}
+@media screen and (max-width: 1300px) {
+  #content #providesection #p p {
+    font-size: 1.4rem;
+  }
+  #content #providesection #rainbowgal {
+    width: 30rem;
+    margin-right: -15%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  #content #providesection #p p {
+    font-size: 1.2rem;
+    width: 70%;
+  }
+  #content #providesection #rainbowgal {
+    width: 20rem;
+    margin-right: -5%;
+  }
+}
+@media screen and (max-width: 900px) {
+  #content #providesection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 2rem;
+  }
+  #content #providesection h2 {
+    color: #2DAAE2;
+    align-self: center;
+    margin-right: 0;
+  }
+  #content #providesection #chaticon {
+    align-self: center;
+    margin-right: 0;
+  }
+  #content #providesection #p {
+    align-self: center;
+    margin-right: 0;
+    width: 100%;
+    background-position: center;
+  }
+  #content #providesection #p p {
+    text-align: center;
+    margin-right: 0;
+    place-self: center center;
+  }
+  #content #providesection #rainbowgal {
+    width: 80%;
+    margin-right: 0;
+    align-self: center;
+    margin-top: 2rem;
+  }
+  #content #providesection #readmore {
+    align-self: center;
+    margin-right: 0;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

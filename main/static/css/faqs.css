@@ -289,6 +289,13 @@ body #wrapper #footer #bottomlinks :last-child {
   max-width: 100%;
   place-self: end center;
 }
+@media screen and (max-width: 700px) {
+  #content #topsection {
+    height: unset;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+}
 #content #faqssection {
   padding: 3rem;
   background-image: url(/static/img/faqs/faq_doodles.png);
@@ -334,8 +341,10 @@ body #wrapper #footer #bottomlinks :last-child {
 #content #faqssection #faqlist .col .faq-item .question {
   display: flex;
   align-items: baseline;
-  padding-inline: 1rem;
-  padding-block: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   background: #FEE668;
   border-radius: 8px;
   cursor: pointer;
@@ -349,14 +358,29 @@ body #wrapper #footer #bottomlinks :last-child {
   margin-left: auto;
 }
 #content #faqssection #faqlist .col .faq-item .answer {
-  padding-inline: 1rem;
-  padding-block: 0px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0px;
+  padding-bottom: 0px;
   transform-origin: top center;
   transition: transform 0.2s, margin-bottom 0.2s;
 }
 #content #faqssection #faqlist .col .faq-item .answer.hidden {
   transform: scaleY(0);
   transform-origin: top center;
+}
+@media screen and (max-width: 1200px) {
+  #content #faqssection #faqlist {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "f1 f2";
+  }
+}
+@media screen and (max-width: 800px) {
+  #content #faqssection #faqlist {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+  }
 }
 
 /*# sourceMappingURL=faqs.css.map */

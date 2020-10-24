@@ -8,13 +8,12 @@
         background-size: cover;
         background-position: center;
         width: 100%;
-        height: 50rem;
-
         display: grid;
 
         #toppeople{
-            max-height: 100%;
-            min-height: 90%;
+            padding-top: 10rem;
+            max-height: 100%;            
+            max-width: 100%;
             place-self: end center;
         }
 
@@ -75,7 +74,8 @@
             
 
             color: white;
-            padding-block: 2rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
             margin-top: $gap;
 
 
@@ -85,7 +85,8 @@
                 place-self: center end;
                 display: flex;
                 flex-direction: column;
-                padding-block: 2rem;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
                 
 
                 h1{
@@ -110,8 +111,10 @@
                     background: snow;
                     text-decoration: none;
                     color: $bluishpurple;
-                    padding-inline: 1rem;
-                    padding-block: 0.5rem;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                    padding-top: 0.5rem;
+                    padding-bottom: 0.5rem;
                 }
             }
 
@@ -129,6 +132,85 @@
 
             }
         }
+
+
+
+
+
+
+
+        @media screen and (max-width: 1250px) {
+            
+            .person{
+
+                .info{
+
+                    h1{
+                        margin-left: $padding;
+                    }
+    
+                    p{
+                        max-width: 90% !important;
+                        // background: red;
+                    }
+                }
+
+                img{
+                    height: 20rem;
+                }
+            }
+
+        }
+
+
+
+
+        @media screen and (max-width: 700px) {
+
+            
+            
+            .person{
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 0;
+                margin-bottom: 0 !important;
+
+                .info{
+
+                    order: 2;
+                    border: none !important;
+                    align-items: center !important;
+
+                    padding-right: 0 !important;
+
+                    h1{
+                        margin: 0;
+                    }
+    
+                    p{
+                        max-width: 90% !important;
+                        text-align: center !important;
+                    }
+                }
+
+
+                img{
+                    height: 20rem;
+                    order: 1;
+                }
+            }
+
+            .person:first-child{
+                margin-top: 6rem;
+            }
+
+        }
+
+
+
+
 
     }
 

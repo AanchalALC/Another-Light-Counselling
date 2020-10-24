@@ -315,13 +315,12 @@ body #wrapper #footer #bottomlinks :last-child {
 #content #topsection {
   background: #C9EFB6;
   width: 100%;
-  height: 50rem;
   display: grid;
 }
 #content #topsection #topgraphic {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   place-self: start center;
 }
 #content #contact-section {
@@ -350,13 +349,14 @@ body #wrapper #footer #bottomlinks :last-child {
   grid-area: f;
   place-self: start end;
   text-align: right;
-  margin-right: 6rem;
 }
 #content #contact-section #form-area input[type=text] {
   border: 2px solid #5F996C;
   border-radius: 4px;
-  padding-inline: 1rem;
-  padding-block: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   width: 100%;
   margin-top: 0.5rem;
   box-sizing: border-box;
@@ -374,6 +374,25 @@ body #wrapper #footer #bottomlinks :last-child {
 #content #contact-section #join-us-area {
   grid-area: j;
   width: 60%;
+}
+@media screen and (max-width: 1000px) {
+  #content #contact-section {
+    display: flex;
+    flex-direction: column;
+    background-image: unset;
+  }
+  #content #contact-section #info-area {
+    width: unset;
+  }
+  #content #contact-section #form-area {
+    margin-top: 2rem;
+    text-align: left;
+    margin-right: 0;
+  }
+  #content #contact-section #join-us-area {
+    margin-top: 2rem;
+    width: unset;
+  }
 }
 
 /*# sourceMappingURL=contact.css.map */

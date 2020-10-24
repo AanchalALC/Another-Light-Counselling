@@ -46,7 +46,7 @@
                     <a href="#"><img src="{% static 'img/skeleton/twitter.svg' %}" class="site-logo"/></a>
                     <a href="#"><img src="{% static 'img/skeleton/youtube.svg' %}" class="site-logo"/></a>
                     <a href="#"><img src="{% static 'img/skeleton/whatsapp.svg' %}" class="site-logo"/></a>
-                    <div id="header-contact"><a href="#">+91 98196 15204</a></div>
+                    <a href="#"><span class="textnumber" >+91 98196 15204</span><i class="fas fa-phone phoneicon"></i></a>
                     <div id="searchbox">
                         <input type="text" placeholder="SEARCH" />
                     </div>                    
@@ -58,12 +58,16 @@
 
                 
                 <div id="menuitems">
-                    <a href="{% url 'index' %}">Home</a>
-                    <a href="{% url 'about' %}">About</a>
-                    <a href="{% url 'faqs' %}">FAQs</a>
-                    <a href="{% url 'resources' %}">Resources</a>
-                    <a href="{% url 'reviews' %}">Reviews</a>
-                    <a href="#">Contact</a>
+                    <div id="themenu">
+                        <a href="#" id="closemenu"><i class="fas fa-times"></i></a>
+                        <a href="{% url 'index' %}">Home</a>
+                        <a href="{% url 'about' %}">About</a>
+                        <a href="{% url 'faqs' %}">FAQs</a>
+                        <a href="{% url 'resources' %}">Resources</a>
+                        <a href="{% url 'reviews' %}">Reviews</a>
+                        <a href="#">Contact</a>
+                    </div>                    
+                    <a href="#themenu" id="hamburger"><i class="fas fa-bars"></i></a>
                 </div>
                 <div id="rainbowdiv">
                     <!-- THIS WILL HAVE RAINBOW BG IN CSS -->

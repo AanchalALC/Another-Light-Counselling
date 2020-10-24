@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 body #wrapper #topheader {
   display: grid;
@@ -43,6 +44,9 @@ body #wrapper #topheader #contactrow a img {
   max-height: 100%;
   width: 30px;
 }
+body #wrapper #topheader #contactrow a .phoneicon {
+  display: none;
+}
 body #wrapper #topheader #contactrow #searchbox input {
   border: 2px solid #E65359;
   height: 30px;
@@ -53,6 +57,12 @@ body #wrapper #topheader #menuitems {
   z-index: 3;
   place-self: center end;
   margin-right: 3rem;
+}
+body #wrapper #topheader #menuitems #hamburger {
+  display: none;
+}
+body #wrapper #topheader #menuitems #closemenu {
+  display: none;
 }
 body #wrapper #topheader #menuitems a {
   padding-left: 1.5rem;
@@ -80,6 +90,94 @@ body #wrapper #topheader #colordiv {
   height: 100%;
   background: #F9ADAD;
   z-index: 1;
+}
+@media screen and (max-width: 1000px) {
+  body #wrapper #topheader #sitelogo {
+    margin-left: 0;
+    height: 160px;
+  }
+}
+@media screen and (max-width: 850px) {
+  body #wrapper #topheader {
+    grid-template-rows: 50px 50px;
+  }
+  body #wrapper #topheader #sitelogo {
+    margin-left: 0;
+    height: 100px;
+  }
+  body #wrapper #topheader #contactrow {
+    margin-right: 1rem;
+  }
+  body #wrapper #topheader #contactrow a .textnumber {
+    display: none;
+  }
+  body #wrapper #topheader #contactrow a .phoneicon {
+    display: block;
+  }
+  body #wrapper #topheader #menuitems {
+    margin-right: 1rem;
+    font-size: 1rem;
+  }
+  body #wrapper #topheader #menuitems a {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  body #wrapper #topheader #sitelogo {
+    height: 160px;
+  }
+  body #wrapper #topheader #menuitems #themenu {
+    display: block;
+    position: fixed;
+    background: #F9ADAD;
+    right: -100vw;
+    top: 0;
+    width: 70vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 1.3rem;
+    padding-bottom: 2rem;
+    -webkit-box-shadow: -1px 2px 9px 3px rgba(0, 0, 0, 0.31);
+    -moz-box-shadow: -1px 2px 9px 3px rgba(0, 0, 0, 0.31);
+    box-shadow: -1px 2px 9px 3px rgba(0, 0, 0, 0.31);
+    transition: right 0.2s;
+  }
+  body #wrapper #topheader #menuitems #themenu a {
+    border: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 2px solid white;
+    margin-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: white;
+  }
+  body #wrapper #topheader #menuitems #themenu :first-child {
+    border-bottom: none;
+    padding-bottom: 1rem;
+  }
+  body #wrapper #topheader #menuitems #themenu :last-child {
+    border-bottom: none;
+  }
+  body #wrapper #topheader #menuitems #hamburger {
+    display: initial;
+    border-left: none;
+    font-size: 1.5rem;
+  }
+  body #wrapper #topheader #menuitems #closemenu {
+    display: initial;
+  }
+  body #wrapper #topheader #menuitems #themenu:target {
+    right: 0;
+  }
+}
+@media screen and (max-width: 500px) {
+  body #wrapper #topheader #contactrow #searchbox {
+    display: none;
+  }
 }
 body #wrapper #footer {
   display: grid;
@@ -143,6 +241,39 @@ body #wrapper #footer #bottomlinks :first-child {
 }
 body #wrapper #footer #bottomlinks :last-child {
   border-right: none;
+}
+@media screen and (max-width: 800px) {
+  body #wrapper #footer {
+    grid-template-rows: auto auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  body #wrapper #footer #toplinks, body #wrapper #footer #bottomlinks {
+    display: flex;
+    flex-direction: column;
+  }
+  body #wrapper #footer #toplinks a, body #wrapper #footer #bottomlinks a {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+  body #wrapper #footer #toplinks a {
+    margin-bottom: 0.5rem;
+  }
+  body #wrapper #footer #bottomlinks {
+    margin-top: 2rem;
+  }
+  body #wrapper #footer #rainbowbg {
+    grid-row: 2/3;
+    background-position: bottom right;
+  }
+  body #wrapper #footer #footerlogo {
+    grid-row: 1/2;
+    object-fit: contain;
+    place-self: start end;
+    height: 40%;
+    margin-right: 1rem;
+  }
 }
 
 #content #promptoverlay {

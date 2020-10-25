@@ -324,11 +324,11 @@ body #wrapper #footer #bottomlinks :last-child {
   background-position: left;
   background-repeat: no-repeat;
   min-height: 25rem;
+  display: grid;
 }
 #content #reviews-section #review-list .review p {
-  padding-inline: 3rem;
-  padding-bottom: 5rem;
-  padding-top: 1rem;
+  place-self: center start;
+  padding-bottom: 2rem;
   max-width: 50%;
   opacity: 80%;
 }
@@ -337,8 +337,57 @@ body #wrapper #footer #bottomlinks :last-child {
   background-position: right;
 }
 #content #reviews-section #review-list .review.left p {
-  place-self: start end;
+  place-self: center end;
   text-align: right;
+}
+@media screen and (max-width: 1400px) {
+  #content #reviews-section #review-list .review p {
+    max-width: 70%;
+  }
+}
+@media screen and (max-width: 1200px) {
+  #content #reviews-section #review-list .review p {
+    max-width: 90%;
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 900px) {
+  #content #reviews-section {
+    padding: 1rem;
+  }
+  #content #reviews-section #review-list {
+    display: flex;
+    flex-direction: column;
+  }
+  #content #reviews-section #review-list * {
+    margin: 0;
+  }
+  #content #reviews-section #review-list .doodle {
+    display: none;
+  }
+  #content #reviews-section #review-list .review {
+    background-position: left !important;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+  #content #reviews-section #review-list .review p {
+    place-self: center start !important;
+    max-width: 400px;
+    font-size: 1rem;
+    text-align: left !important;
+    padding-left: 2rem;
+    font-size: 1.2rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  #content #reviews-section #review-list .review {
+    margin-bottom: 2rem;
+    min-height: 18rem;
+  }
+  #content #reviews-section #review-list .review p {
+    font-size: 0.8rem;
+    padding-right: 2rem;
+  }
 }
 
 /*# sourceMappingURL=reviews.css.map */

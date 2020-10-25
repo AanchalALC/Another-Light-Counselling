@@ -107,6 +107,10 @@ body #wrapper #topheader #colordiv {
   }
   body #wrapper #topheader #contactrow {
     margin-right: 1rem;
+    font-size: 1.2rem;
+  }
+  body #wrapper #topheader #contactrow .site-logo {
+    font-size: 2rem;
   }
   body #wrapper #topheader #contactrow a .textnumber {
     display: none;

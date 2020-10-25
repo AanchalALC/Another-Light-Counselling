@@ -283,10 +283,17 @@ body #wrapper #footer #bottomlinks :last-child {
 }
 
 #content #topsection {
-  background: #F8B7BB;
+  background: url(/static/img/reviews/topgraphic.svg);
+  min-height: 50rem;
+  background-size: cover;
+  background-position: center;
   width: 100%;
-  height: 50rem;
   display: grid;
+}
+@media screen and (max-width: 500px) {
+  #content #topsection {
+    min-height: 30rem;
+  }
 }
 #content #topsection #topgraphic {
   max-height: 100%;
@@ -300,6 +307,10 @@ body #wrapper #footer #bottomlinks :last-child {
   background-size: 100% auto;
   background-position: center;
   background-repeat: repeat-y;
+  padding-top: 9rem;
+}
+#content #reviews-section #topstuff {
+  padding-left: 20rem;
 }
 #content #reviews-section #topstuff * {
   margin: 0;
@@ -324,7 +335,7 @@ body #wrapper #footer #bottomlinks :last-child {
   place-self: end start;
 }
 #content #reviews-section #review-list .review {
-  background: url(/static/img/reviews/chatboxes/large.png);
+  background: url(/static/img/reviews/chatboxes/chatboxwhite.svg);
   background-size: contain;
   background-position: left;
   background-repeat: no-repeat;
@@ -360,6 +371,9 @@ body #wrapper #footer #bottomlinks :last-child {
   #content #reviews-section {
     padding: 1rem;
   }
+  #content #reviews-section #topstuff {
+    padding-left: unset;
+  }
   #content #reviews-section #review-list {
     display: flex;
     flex-direction: column;
@@ -388,11 +402,15 @@ body #wrapper #footer #bottomlinks :last-child {
 @media screen and (max-width: 500px) {
   #content #reviews-section #review-list .review {
     margin-bottom: 2rem;
-    min-height: 18rem;
   }
   #content #reviews-section #review-list .review p {
     font-size: 0.8rem;
     padding-right: 2rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  #content #reviews-section #review-list .review {
+    min-height: 18rem;
   }
 }
 

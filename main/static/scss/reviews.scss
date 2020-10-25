@@ -5,9 +5,15 @@ $thepink: #F8B7BB;
 #content{
     
     #topsection{
-        background: $thepink;
+        background: url(/static/img/reviews/topgraphic.svg);
+        min-height: 50rem;
+        @media screen and (max-width: 500px) {
+            min-height: 30rem;
+        }
+        background-size: cover;
+        background-position: center;
         width: 100%;
-        height: 50rem;
+        // height: 50rem;
 
         display: grid;
 
@@ -29,12 +35,14 @@ $thepink: #F8B7BB;
         background-size: 100% auto;
         background-position: center;
         background-repeat: repeat-y;
+        padding-top: $padding * 3;
 
         #topstuff{
 
             // display: flex;
             // align-items: flex-start;
             // margin-top: 2rem;
+            padding-left: 20rem;
 
             * {
                 margin: 0;
@@ -68,7 +76,7 @@ $thepink: #F8B7BB;
 
             .review{
 
-                background: url(/static/img/reviews/chatboxes/large.png);
+                background: url(/static/img/reviews/chatboxes/chatboxwhite.svg);
                 background-size: contain;
                 background-position: left;
                 background-repeat: no-repeat;
@@ -140,6 +148,10 @@ $thepink: #F8B7BB;
         @media screen and (max-width: 900px) {
 
             padding: $small_padding;
+
+            #topstuff{
+                padding-left: unset;
+            }
             
             #review-list{
                 
@@ -160,6 +172,7 @@ $thepink: #F8B7BB;
                     background-position: left !important;
                     margin-bottom: 2rem;
                     width: 100%;
+                    // min-height: 20rem;
                     
 
                     p{
@@ -188,7 +201,7 @@ $thepink: #F8B7BB;
                 .review{
 
                     margin-bottom: 2rem;
-                    min-height: 18rem;
+                    // min-height: 18rem;
 
                     p{
                         font-size: 0.8rem;
@@ -198,6 +211,16 @@ $thepink: #F8B7BB;
 
             }
 
+        }
+
+
+
+        @media screen and (max-width: 400px) {
+            #review-list{
+                .review{                    
+                    min-height: 18rem;
+                }
+            }
         }
 
 

@@ -277,16 +277,19 @@ body #wrapper #footer #bottomlinks :last-child {
   }
 }
 
+* {
+  transition: all 0.2s;
+}
+
 #content #topsection {
   background: #F8B7BB;
   width: 100%;
-  height: 50rem;
   display: grid;
 }
 #content #topsection #topgraphic {
-  max-height: 100%;
-  min-height: 100%;
-  max-width: 100%;
+  padding-top: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   place-self: center end;
 }
 #content #resources-section {
@@ -309,6 +312,11 @@ body #wrapper #footer #bottomlinks :last-child {
 #content #resources-section #topstuff img {
   margin-left: auto;
 }
+@media screen and (max-width: 500px) {
+  #content #resources-section {
+    padding: 1rem;
+  }
+}
 #content #resource-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -327,7 +335,7 @@ body #wrapper #footer #bottomlinks :last-child {
 #content #resource-list .resource .thumbnail {
   grid-area: i;
   width: 100%;
-  height: 25rem;
+  height: 30rem;
   object-fit: cover;
 }
 #content #resource-list .resource .playbutton {
@@ -336,6 +344,39 @@ body #wrapper #footer #bottomlinks :last-child {
   height: 4rem;
   width: 4rem;
   place-self: center center;
+}
+@media screen and (max-width: 1600px) {
+  #content #resource-list .resource .thumbnail {
+    height: 25rem;
+  }
+}
+@media screen and (max-width: 1300px) {
+  #content #resource-list .resource .thumbnail {
+    height: 20rem;
+  }
+}
+@media screen and (max-width: 1000px) {
+  #content #resource-list .resource .thumbnail {
+    height: 15rem;
+  }
+}
+@media screen and (max-width: 700px) {
+  #content #resource-list {
+    display: flex;
+    flex-direction: column;
+  }
+  #content #resource-list .resource {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  #content #resource-list .resource .thumbnail {
+    height: 20rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  #content #resource-list .resource .thumbnail {
+    height: 15rem;
+  }
 }
 
 /*# sourceMappingURL=resources.css.map */

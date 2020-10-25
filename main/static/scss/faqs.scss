@@ -158,10 +158,18 @@
 
         @media screen and (max-width: 800px) {
 
+            padding: $small_padding;
+
             #faqlist{
                 display: flex;
                 flex-direction: column;
                 margin-top: 3rem;
+
+                .col{
+                    .faq-item{
+                        margin-right: 0;
+                    }
+                }
             }
             
         }

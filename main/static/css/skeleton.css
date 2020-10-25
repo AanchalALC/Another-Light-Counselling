@@ -251,6 +251,7 @@ body #wrapper #footer #bottomlinks :last-child {
   body #wrapper #footer #toplinks, body #wrapper #footer #bottomlinks {
     display: flex;
     flex-direction: column;
+    margin-left: 1rem;
   }
   body #wrapper #footer #toplinks a, body #wrapper #footer #bottomlinks a {
     margin: 0;

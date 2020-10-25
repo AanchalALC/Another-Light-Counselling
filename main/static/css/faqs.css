@@ -251,6 +251,7 @@ body #wrapper #footer #bottomlinks :last-child {
   body #wrapper #footer #toplinks, body #wrapper #footer #bottomlinks {
     display: flex;
     flex-direction: column;
+    margin-left: 1rem;
   }
   body #wrapper #footer #toplinks a, body #wrapper #footer #bottomlinks a {
     margin: 0;
@@ -376,10 +377,16 @@ body #wrapper #footer #bottomlinks :last-child {
   }
 }
 @media screen and (max-width: 800px) {
+  #content #faqssection {
+    padding: 1rem;
+  }
   #content #faqssection #faqlist {
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
+  }
+  #content #faqssection #faqlist .col .faq-item {
+    margin-right: 0;
   }
 }
 

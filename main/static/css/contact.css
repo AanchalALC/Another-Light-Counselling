@@ -251,6 +251,7 @@ body #wrapper #footer #bottomlinks :last-child {
   body #wrapper #footer #toplinks, body #wrapper #footer #bottomlinks {
     display: flex;
     flex-direction: column;
+    margin-left: 1rem;
   }
   body #wrapper #footer #toplinks a, body #wrapper #footer #bottomlinks a {
     margin: 0;
@@ -304,8 +305,10 @@ body #wrapper #footer #bottomlinks :last-child {
 }
 #content #promptoverlay:target #dialoguebox a {
   background: #457545;
-  padding-inline: 1.5rem;
-  padding-block: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   border-radius: 12px;
   border: none;
   color: snow;
@@ -318,8 +321,6 @@ body #wrapper #footer #bottomlinks :last-child {
   display: grid;
 }
 #content #topsection #topgraphic {
-  width: 100%;
-  height: 100%;
   object-fit: contain;
   place-self: start center;
 }
@@ -363,8 +364,10 @@ body #wrapper #footer #bottomlinks :last-child {
 }
 #content #contact-section #form-area input[type=submit] {
   background: #457545;
-  padding-inline: 1.5rem;
-  padding-block: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   border-radius: 12px;
   border: none;
   color: snow;
@@ -380,6 +383,7 @@ body #wrapper #footer #bottomlinks :last-child {
     display: flex;
     flex-direction: column;
     background-image: unset;
+    padding: 1rem;
   }
   #content #contact-section #info-area {
     width: unset;

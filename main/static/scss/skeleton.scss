@@ -364,6 +364,7 @@ body{
                 #toplinks, #bottomlinks {
                     display: flex;
                     flex-direction: column;
+                    margin-left: $small_padding;
 
                     a {
                         margin: 0;

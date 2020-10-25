@@ -37,8 +37,10 @@
 
             a {
                 background: #457545;
-                padding-inline: 1.5rem;
-                padding-block: 1rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
                 border-radius: 12px;
                 border: none;
                 color: snow;
@@ -56,8 +58,7 @@
         display: grid;
 
         #topgraphic{
-            width: 100%;
-            height: 100%;
+
             object-fit: contain;
             place-self: start center;
         }
@@ -121,8 +122,10 @@
 
             input[type="submit"]{
                 background: #457545;
-                padding-inline: 1.5rem;
-                padding-block: 1rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
                 border-radius: 12px;
                 border: none;
                 color: snow;
@@ -145,6 +148,7 @@
             display: flex;
             flex-direction: column;
             background-image: unset;
+            padding: $small_padding;
 
             #info-area{
                 width: unset;
@@ -169,3 +173,4 @@
         
 
 }
+

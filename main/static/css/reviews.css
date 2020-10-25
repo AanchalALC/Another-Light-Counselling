@@ -251,6 +251,7 @@ body #wrapper #footer #bottomlinks :last-child {
   body #wrapper #footer #toplinks, body #wrapper #footer #bottomlinks {
     display: flex;
     flex-direction: column;
+    margin-left: 1rem;
   }
   body #wrapper #footer #toplinks a, body #wrapper #footer #bottomlinks a {
     margin: 0;
@@ -300,7 +301,7 @@ body #wrapper #footer #bottomlinks :last-child {
   margin: 0;
 }
 #content #reviews-section #topstuff h2 {
-  color: #F8B7BB;
+  color: #2CA9E2;
 }
 #content #reviews-section #topstuff img {
   margin-left: auto;
@@ -358,6 +359,7 @@ body #wrapper #footer #bottomlinks :last-child {
   #content #reviews-section #review-list {
     display: flex;
     flex-direction: column;
+    margin-top: 3rem;
   }
   #content #reviews-section #review-list * {
     margin: 0;

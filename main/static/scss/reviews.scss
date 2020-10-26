@@ -204,8 +204,12 @@ $thepink: #F8B7BB;
                     // min-height: 18rem;
 
                     p{
-                        font-size: 0.8rem;
+                        font-size: 1rem;
                         padding-right: $small_padding * 2;
+                    }
+
+                    p.largereview{
+                        font-size: 0.8rem;
                     }
                 }
 

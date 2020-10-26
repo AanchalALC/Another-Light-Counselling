@@ -1,8 +1,17 @@
+@font-face {
+  font-family: AttenNew;
+  src: url("/static/fonts/AttenNewRegular.otf") format("opentype");
+}
+@font-face {
+  font-family: AttenNew;
+  font-weight: bold;
+  src: url("/static/fonts/AttenNewExtraBold.otf") format("opentype");
+}
 body {
   margin: 0;
   padding: 0;
   font-size: 1.3rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: AttenNew, Arial, Helvetica, sans-serif;
 }
 body .mytooltip {
   text-decoration: underline;
@@ -409,8 +418,11 @@ body #wrapper #footer #bottomlinks :last-child {
     margin-bottom: 2rem;
   }
   #content #reviews-section #review-list .review p {
-    font-size: 0.8rem;
+    font-size: 1rem;
     padding-right: 2rem;
+  }
+  #content #reviews-section #review-list .review p.largereview {
+    font-size: 0.8rem;
   }
 }
 @media screen and (max-width: 400px) {

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FAQ, Resource, Review, Contact
+from .models import FAQ, Resource, Review, Contact, Member
  
 # @admin.register(PostType)
 # class PostTypeAdmin(admin.ModelAdmin):
@@ -32,6 +32,12 @@ class ReviewAdmin(admin.ModelAdmin):
     exclude = ('site',)
     ordering = ('id',)
     search_fields = ('review',)
+
+@admin.register(Member)
+class MemberAdmin(admin.ModelAdmin):
+    exclude = ('site',)
+    ordering = ('name',)
+    search_fields = ('name',)
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):

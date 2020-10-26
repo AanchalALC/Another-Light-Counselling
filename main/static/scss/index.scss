@@ -174,7 +174,8 @@
     #scarysection{
         background: $primaryred;
         width: 100%;
-        padding-block: 2rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
 
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -211,7 +212,8 @@
             grid-column: 1/3;
             place-self: center center;
             width: 40%;
-            padding-block: 2rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
 
             *{
                 text-align: center;

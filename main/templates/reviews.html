@@ -4,7 +4,6 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/reviews.css' %}">
-<script src="{% static 'js/reviews.js' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -32,9 +31,7 @@
 
                 {% if review.type == 'review' %}
                 <div class="review {{ review.position }}">
-                    <p>
-                        {{ review.obj.review }}
-                    </p>
+                    <p class="mypara">{{ review.obj.review }}</p>
                 </div>
                 {% endif %}
 
@@ -46,4 +43,5 @@
     </div>
 
 </div>
+<script src="{% static 'js/reviews.js' %}"></script>
 {% endblock %}

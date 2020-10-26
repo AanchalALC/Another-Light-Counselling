@@ -42,8 +42,41 @@ class FAQ(models.Model):
 class Resource(models.Model):
     site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
     title = models.CharField(max_length=500)
-    thumbnail = models.ImageField(upload_to='photographs')
+    thumbnail = models.ImageField(upload_to='resources')
     link = models.CharField(max_length=1000)
+
+    
+
+class Member(models.Model):
+    thumbnail = models.ImageField(upload_to='members')
+    name = models.CharField(max_length=700)
+    designation = models.CharField(max_length=700)
+    info = models.TextField()
+    readmore = models.CharField(max_length=900, default='')
+    
+    # HELPER VARIABLE
+    layout_position = ''
+
+    def generate_tooltip_markup(self):
+        self.tippy_info = self.info
+        tooltips = [
+            'depression',
+            'dissociation',
+            'anxiety',
+            'addiction',
+            'gender',
+            'sexuality',
+            'trauma'
+        ]
+
+        for word in tooltips:
+            self.tippy_info = str(self.tippy_info).replace(
+                word, 
+                '<span class="mytooltip {word}tippy">{word}</span>'.format(word=word)
+            )
+
+    def __str__(self):
+        return str(self.name)
 
 
 

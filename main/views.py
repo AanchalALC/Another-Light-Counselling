@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ, Resource, Review
+from .models import Post, PostType, FAQ, Resource, Review, Member
 from .forms import ContactForm
 
 
@@ -15,7 +15,27 @@ def index(request):
     return render(request, 'index.html')
 
 def about(request):
-    return render(request, 'about.html')
+    members = Member.objects.all().order_by('id')
+
+    # PROCESSING
+    for i in range(0, len(members)):
+        memberobj = members[i]
+        
+        # SET LAYOUT POSITION
+        if i == 0 or i%2 == 0:
+            memberobj.layout_position = 'right'
+        else:
+            memberobj.layout_position = 'left'
+
+        # SET TOOLTIP HTMLS
+        memberobj.generate_tooltip_markup()
+
+    # CONTEXT
+    context = {
+        'members': members
+    }
+
+    return render(request, 'about.html', context=context)
 
 def faqs(request):
     faqs = FAQ.objects.all().order_by('id')

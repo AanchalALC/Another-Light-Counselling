@@ -16,6 +16,25 @@ class FAQ(models.Model):
     site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
     question = models.CharField(max_length=500)
     answer = RichTextUploadingField(max_length=14000)
+    tippy_answer = ''
+
+    def generate_tooltip_markup(self):
+        self.tippy_answer = self.answer
+        tooltips = [
+            'depression',
+            'dissociation',
+            'anxiety',
+            'addiction',
+            'gender',
+            'sexuality',
+            'trauma'
+        ]
+
+        for word in tooltips:
+            self.tippy_answer = str(self.tippy_answer).replace(
+                word, 
+                '<span class="mytooltip {word}tippy">{word}</span>'.format(word=word)
+            )
 
     def __str__(self):
         return str(self.question)

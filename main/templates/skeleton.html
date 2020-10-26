@@ -23,8 +23,10 @@
         <meta name="twitter:description" content="{% block tcdescription %}{% endblock %}"/>
         <meta name="twitter:image" content="{% block tcimage %}{% endblock %}"/>
 
+        <!-- FONTAWESOME -->
         <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet">
-        <!-- <link rel="stylesheet" href="{% static 'css/skeleton.css' %}"> -->
+        <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css"/>
+        
 
         {% block head %}{% endblock %}
     </head>
@@ -112,5 +114,11 @@
 
 
         </div>
+
+        <!-- TOOLTIPS -->
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/tippy.js@6"></script>
+        <script src="{% static 'js/tooltips.js' %}"></script>
+
     </body>
 </html>

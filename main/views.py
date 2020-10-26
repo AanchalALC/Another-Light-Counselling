@@ -20,11 +20,17 @@ def about(request):
 def faqs(request):
     faqs = FAQ.objects.all().order_by('id')
 
+    # GENERATE ALL TOOLTIP HTMLS
+    for obj in faqs:
+        obj.generate_tooltip_markup()
+        print(obj.tippy_answer)
+
+    # SPLIT INTO COLUMNS
     faq1 = faqs[:int(len(faqs)/2)]
     faq2 = faqs[int(len(faqs)/2) :]
 
-    print(faq1)
-    print(faq2)
+    # print(faq1)
+    # print(faq2)
 
     context = {
         'faqs': faqs,

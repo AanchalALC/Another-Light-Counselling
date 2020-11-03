@@ -12,9 +12,9 @@ log/**
 media/**
 !media/**/init.txt
 
-static
-static/**
-!static/**/init.txt
+/static
+/static/**
+!/static/**/init.txt
 
 **/migrations/**
 !**/migrations

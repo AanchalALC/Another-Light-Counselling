@@ -102,9 +102,13 @@
                     font-size: 1rem;
                 }
 
-                p{
+                .memberinfo{
                     max-width: 60%;
                     // margin-top: 0;
+
+                    .hidden{
+                        display: none;
+                    }
                 }
 
                 a {
@@ -115,6 +119,7 @@
                     padding-right: 1rem;
                     padding-top: 0.5rem;
                     padding-bottom: 0.5rem;
+                    cursor: pointer;
                 }
             }
 
@@ -149,7 +154,7 @@
                         // margin-left: $padding;
                     }
     
-                    p{
+                    .memberinfo{
                         max-width: 90% !important;
                         // background: red;
                     }
@@ -189,7 +194,7 @@
                         margin: 0;
                     }
     
-                    p{
+                    .memberinfo{
                         max-width: 90% !important;
                         text-align: center !important;
                     }

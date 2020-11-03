@@ -51,8 +51,8 @@ class Member(models.Model):
     thumbnail = models.ImageField(upload_to='members')
     name = models.CharField(max_length=700)
     designation = models.CharField(max_length=700)
-    info = models.TextField()
-    readmore = models.CharField(max_length=900, default='')
+    info = RichTextUploadingField(max_length=14000)
+    # readmore = models.CharField(max_length=900, default='')
     
     # HELPER VARIABLE
     layout_position = ''

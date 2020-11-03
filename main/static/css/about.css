@@ -366,8 +366,11 @@ body #wrapper #footer #bottomlinks :last-child {
   margin-top: 0.1rem;
   font-size: 1rem;
 }
-#content #peoplesection .person .info p {
+#content #peoplesection .person .info .memberinfo {
   max-width: 60%;
+}
+#content #peoplesection .person .info .memberinfo .hidden {
+  display: none;
 }
 #content #peoplesection .person .info a {
   background: snow;
@@ -377,6 +380,7 @@ body #wrapper #footer #bottomlinks :last-child {
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  cursor: pointer;
 }
 #content #peoplesection .person img {
   place-self: center center;
@@ -388,7 +392,7 @@ body #wrapper #footer #bottomlinks :last-child {
   box-shadow: 9px 3px 32px -2px rgba(0, 0, 0, 0.33);
 }
 @media screen and (max-width: 1250px) {
-  #content #peoplesection .person .info p {
+  #content #peoplesection .person .info .memberinfo {
     max-width: 90% !important;
   }
   #content #peoplesection .person img {
@@ -412,7 +416,7 @@ body #wrapper #footer #bottomlinks :last-child {
   #content #peoplesection .person .info h1 {
     margin: 0;
   }
-  #content #peoplesection .person .info p {
+  #content #peoplesection .person .info .memberinfo {
     max-width: 90% !important;
     text-align: center !important;
   }

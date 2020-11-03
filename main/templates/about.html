@@ -22,10 +22,10 @@
             <div class="info">
                 <h1>{{ member.name }}</h1>
                 <h2>{{ member.designation }}</h2>
-                <p>
+                <div class="memberinfo" id="{{ member.id }}" data-state="collapsed">
                     {{ member.tippy_info | safe }}
-                </p>
-                <a href="{{ member.readmore }}">READ MORE</a>
+                </div>
+                <a onclick="toggleInfo(this)" data-id="{{ member.id }}">READ MORE</a>
             </div>
             <img src="{{ member.thumbnail.url }}" class="person-picture" />
         </div>
@@ -34,5 +34,6 @@
 
     </div>
 
+    <script src="{% static 'js/about.js' %}"></script>
 </div>
 {% endblock %}

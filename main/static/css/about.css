@@ -412,6 +412,7 @@ body #wrapper #footer #bottomlinks :last-child {
     border: none !important;
     align-items: center !important;
     padding-right: 0 !important;
+    padding-left: 0 !important;
   }
   #content #peoplesection .person .info h1 {
     margin: 0;

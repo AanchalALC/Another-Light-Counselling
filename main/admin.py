@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FAQ, Resource, Review, Contact, Member
+from .models import FAQ, Resource, Review, Contact, Member, Post
  
 # @admin.register(PostType)
 # class PostTypeAdmin(admin.ModelAdmin):
@@ -7,11 +7,11 @@ from .models import FAQ, Resource, Review, Contact, Member
 #     ordering = ('type_name',)
 #     search_fields = ('type_name',)
  
-# @admin.register(Post)
-# class PostAdmin(admin.ModelAdmin):
-#     list_display = ('title', 'p_type')
-#     ordering = ('title',)
-#     search_fields = ('title', 'p_type',)
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    ordering = ('title',)
+    search_fields = ('title',)
 
 @admin.register(Resource)
 class ResourceAdmin(admin.ModelAdmin):

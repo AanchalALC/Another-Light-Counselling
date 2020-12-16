@@ -109,9 +109,9 @@ class Contact(models.Model):
 
  
 class Post(models.Model):
-    # image_file = models.ImageField(upload_to='photographs')
+    image_file = models.ImageField(upload_to='post_headers')
     title = models.CharField(max_length=250)
-    p_type=models.ForeignKey(PostType, on_delete=models.CASCADE)
+    # p_type=models.ForeignKey(PostType, on_delete=models.CASCADE)
     content = RichTextUploadingField(max_length=14000)
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField(editable=False)

@@ -28,10 +28,10 @@ urlpatterns = [
     path('contact', views.contact, name='contact'),
     path('contact/', views.contact, name='contact'),
  
-    # path('post/<slug:slug>', views.post, name='post'),
-    # path('posts', views.posts, name='posts'),
-    # path('posts/', views.posts, name='posts'),
-    # path('posts/page/<int:pageno>', views.posts, name='posts'),
+    path('post/<slug:slug>', views.post, name='post'),
+    path('blog', views.blog, name='blog'),
+    path('blog/', views.blog, name='blog'),
+    path('blog/page/<int:pageno>', views.blog, name='blog'),
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
  

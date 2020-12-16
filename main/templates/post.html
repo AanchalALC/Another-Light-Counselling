@@ -10,31 +10,24 @@
 <div id="content">
     
     <div id="topsection">
-        <img src="{% static 'img/resources/graphic.svg' %}" id="topgraphic" />
+        <img src="{{ post.image_file.url }}" id="topgraphic" />
     </div>
 
 
 
-    <div id="resources-section">
+    <div id="blog-post">
 
-        <div id="topstuff">
-            <h2>Resources</h2>
-            <img src="{% static 'img/faqs/chat_icon.png' %}">
+        <h2>{{ post.title }}</h2>
+        <p>
+            <small>
+                <em>
+                    {{ post.created }}
+                </em>
+            </small>
+        </p>
+        <div class="post-content">
+            {{ post.content | safe }}
         </div>
-
-        <div id="resource-list">
-            {% for resource in resources %}
-
-            <a class="resource" href="{{ resource.link }}">
-                <img src="{{ resource.thumbnail.url }}" class="thumbnail" alt="">
-                <img src="{% static 'img/resources/play_button.png' %}" class="playbutton" alt="">
-                <h3>{{ resource.title }}</h3>
-            </a>
-
-            {% endfor %}
-        </div>
-
-        
 
     </div>
 

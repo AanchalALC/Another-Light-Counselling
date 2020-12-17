@@ -1,6 +1,15 @@
 {% extends 'skeleton.html' %}
 {% load static %}
-{% block title %}Resources - Another Light{% endblock %}
+{% block title %}{{post.title}} - Another Light{% endblock %}
+
+{% block ogtitle %}{{post.title}}{% endblock %}
+{% block tctitle %}{{post.title}}{% endblock %}
+
+{% block ogdescription %}{{description}}{% endblock %}
+{% block tcdescription %}{{description}}{% endblock %}
+
+{% block ogimage %}{{full_header_url}}{% endblock %}
+{% block tcimage %}{{full_header_url}}{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/post.css' %}">
@@ -27,6 +36,28 @@
         </p>
         <div class="post-content">
             {{ post.content | safe }}
+        </div>
+
+        <div id="commentsection">
+            <div id="disqus_thread"></div>
+            <script>
+                /**
+                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+                
+                var disqus_config = function () {
+                    this.page.url = '{{canon_url}}';  // page's canonical URL variable
+                    this.page.identifier = '{{post.slug}}'; // page's unique identifier variable
+                };
+                
+                (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://another-light-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         </div>
 
     </div>

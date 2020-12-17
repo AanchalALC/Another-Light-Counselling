@@ -11,6 +11,34 @@ from .models import Post, PostType, FAQ, Resource, Review, Member
 from .forms import ContactForm
 
 
+def get_paragraph_preview(content):
+    preview = ''
+
+    try:
+        first_para = str(content).split('</p>')[0].split('<p>')[1]
+        first_twenty = first_para.split(' ')[:35]
+        # remove comma from last
+        if first_twenty[-1][-1] == ',':
+            first_twenty[-1] = first_twenty[-1][:-1]
+
+        preview = '{}...'.format(' '.join(first_twenty), '...')
+    except IndexError as ie:
+        print(str(ie))
+        preview = content
+
+    return preview
+
+
+def get_protocol():
+    if os.environ.get('DEBUG').lower() == 'true':
+        return 'http'
+    else:
+        return 'https'
+
+def get_full_url(ending):
+    return '%s://%s%s' % (get_protocol(), Site.objects.get_current().domain, ending)
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -207,6 +235,10 @@ def post(request, slug):
  
     # CREATE CONTEXT
     context = {
+        'title': post_obj.title,
+        'description': get_paragraph_preview(str(post_obj.content)),
+        'canon_url': get_full_url(reverse('post', args=[slug])),
+        'full_header_url': get_full_url(post_obj.image_file.url),
         'post': post_obj,
     }
  

@@ -345,6 +345,9 @@ body #wrapper #footer #bottomlinks :last-child {
     padding: 1rem;
   }
 }
+#content #commentsection {
+  margin-top: 3rem;
+}
 #content #resource-list {
   display: grid;
   grid-template-columns: 1fr 1fr;

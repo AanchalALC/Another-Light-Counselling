@@ -163,13 +163,13 @@ body{
             }
 
 
-            @media screen and (max-width: 850px) {
+            @media screen and (max-width: 1200px) {
                 grid-template-rows: $small_header_height/2 $small_header_height/2;
 
-                #sitelogo{
-                    margin-left: 0;
-                    height: $small_header_height; 
-                }
+                // #sitelogo{
+                //     margin-left: 0;
+                //     height: $small_header_height; 
+                // }
 
                 #contactrow{
                     margin-right: $small_padding;

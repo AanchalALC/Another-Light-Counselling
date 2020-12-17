@@ -112,13 +112,9 @@ body #wrapper #topheader #colordiv {
     height: 160px;
   }
 }
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 1200px) {
   body #wrapper #topheader {
     grid-template-rows: 50px 50px;
-  }
-  body #wrapper #topheader #sitelogo {
-    margin-left: 0;
-    height: 100px;
   }
   body #wrapper #topheader #contactrow {
     margin-right: 1rem;
@@ -310,9 +306,23 @@ body #wrapper #footer #bottomlinks :last-child {
   width: 60%;
   object-fit: cover;
 }
+@media screen and (max-width: 800px) {
+  #content #topsection #topgraphic {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+  }
+}
 #content #blog-post {
   padding: 3rem;
   max-width: 60%;
+}
+@media screen and (max-width: 800px) {
+  #content #blog-post {
+    max-width: 100%;
+    padding: 1rem;
+  }
 }
 #content #blog-post * {
   margin: 0;

@@ -103,6 +103,14 @@ $thepink: #F8B7BB;
                 place-self: center center;
             }
 
+            h3{
+                margin-bottom: 0;
+            }
+
+            p{
+                margin-top: 0;
+            }
+
         }
 
 
@@ -169,6 +177,46 @@ $thepink: #F8B7BB;
         }
 
 
+
+    }
+
+
+    #pagination{
+
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-top: 4rem;
+        margin-right: 5rem;
+
+        @media screen and (max-width: 1200px) {
+            margin-right: 4rem;
+        }
+
+        @media screen and (max-width: 900px) {
+            margin-right: 3rem;
+        }
+
+        @media screen and (max-width: 700px) {
+            margin-right: 0;
+        }
+
+        .pagination-item{
+
+            font-size: 1.3rem;
+            display: inline-block;
+            box-sizing: border-box;            
+
+            a {                
+                text-decoration: none;
+                color: #E65359;
+                padding-bottom: 1rem;                
+            }
+
+            #older{
+                margin-left: auto;
+            }
+        }
 
     }
 

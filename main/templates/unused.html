@@ -2,3 +2,11 @@
 <a href="#">Privacy Policy</a>
 <a href="#">Terms of Use & Disclaimer</a> 
 -->
+
+
+
+{% if page_obj.has_next %}
+    <div id="current-page" class="pagination-item">
+        page {{ page_obj.number }}
+    </div>
+{% endif %}

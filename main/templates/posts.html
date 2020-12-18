@@ -23,6 +23,12 @@
         </div>
 
         <div id="resource-list">
+
+            {% if postscount == 0 %}
+                <h3>There are no posts yet!</h3>
+            {% endif %}
+
+
             {% for post in posts %}
 
             <a class="resource" href="{% url 'post' post.slug %}">
@@ -36,23 +42,27 @@
         </div>
 
         <!-- PAGINATION -->
-        <div id="pagination">
-            {% if page_obj.has_previous %}
-                <div id="newer" class="pagination-item">
-                    <a href="{% url 'blog' page_obj.previous_page_number %}"><i class="fas fa-arrow-left"></i> newer</a>
-                </div>
-            {% endif %}
-            
-            <div id="current-page" class="pagination-item">
-                Page {{ page_obj.number }}
-            </div>            
-            
-            {% if page_obj.has_next %}
-                <div id="older" class="pagination-item">
-                    <a href="{% url 'blog' page_obj.next_page_number %}">older <i class="fas fa-arrow-right"></i></a>
-                </div>
-            {% endif %}
-        </div>
+        {% if postscount > 0 %}
+            <div id="pagination">
+                {% if page_obj.has_previous %}
+                    <div id="newer" class="pagination-item">
+                        <a href="{% url 'blog' page_obj.previous_page_number %}"><i class="fas fa-arrow-left"></i> newer</a>
+                    </div>
+                {% endif %}
+                
+                {% if postscount > 10 %}
+                    <div id="current-page" class="pagination-item">
+                        Page {{ page_obj.number }}
+                    </div>
+                {% endif %}
+                
+                {% if page_obj.has_next %}
+                    <div id="older" class="pagination-item">
+                        <a href="{% url 'blog' page_obj.next_page_number %}">older <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
 
     </div>
 

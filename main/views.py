@@ -249,6 +249,7 @@ def blog(request, pageno=1):
     # FETCH ALL POSTS
     # posts = Post.objects.filter(p_type__type_name = typename).exclude(slug='about').order_by('-created', 'title')
     posts = Post.objects.all().order_by('-created', 'title')
+    postscount = len(posts)
  
     # PAGINATE
     paginator = Paginator(posts, 10)
@@ -266,6 +267,7 @@ def blog(request, pageno=1):
     # SET CONTEXT
     context = {
         'posts': posts,
+        'postscount': postscount,
         'pageinator': paginator,
         'page_obj': page_obj,
     }

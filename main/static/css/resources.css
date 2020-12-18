@@ -257,7 +257,7 @@ body #wrapper #footer #bottomlinks :first-child {
 body #wrapper #footer #bottomlinks :last-child {
   border-right: none;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 975px) {
   body #wrapper #footer {
     grid-template-rows: auto auto;
     padding-top: 2rem;

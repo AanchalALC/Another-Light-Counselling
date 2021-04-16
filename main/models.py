@@ -107,6 +107,22 @@ class Contact(models.Model):
         verbose_name = 'Person Who Reached Out'
         verbose_name_plural = 'People Who Reached Out'
 
+
+class ContactDetails(models.Model):
+    key = models.CharField(max_length=250, verbose_name="Key (Do Not Change)")
+    symbol = models.CharField(max_length=250, verbose_name="Symbol (font-awesome)")
+    title = models.CharField(max_length=250)
+    value = models.CharField(max_length=250)
+
+    def __str__(self):
+        name = str(self.title)
+        val = str(self.value)
+
+        return f'{name}: {val}'
+
+    class Meta:
+        verbose_name = 'Another Light Contact Detail'
+        verbose_name_plural = 'Another Light Contact Details'
  
 class Post(models.Model):
     image_file = models.ImageField(upload_to='post_headers')

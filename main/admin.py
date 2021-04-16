@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import FAQ, Resource, Review, Contact, Member, Post
+from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails
  
 # @admin.register(PostType)
 # class PostTypeAdmin(admin.ModelAdmin):
 #     list_display = ('type_name',)
 #     ordering = ('type_name',)
 #     search_fields = ('type_name',)
- 
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title',)
@@ -44,3 +44,9 @@ class ContactAdmin(admin.ModelAdmin):
     exclude = ('site',)
     ordering = ('name', 'id', )
     search_fields = ('name', 'number', 'instahandle',)
+
+@admin.register(ContactDetails)
+class ContactDetailsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'value',)
+    ordering = ('title',)
+    search_fields = ('title', 'value',)

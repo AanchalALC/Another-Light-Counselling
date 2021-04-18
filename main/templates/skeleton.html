@@ -70,9 +70,9 @@
                 
 
                 <div id="contactrow">
-                    <a href="https://instagram.com/another_light_counselling" target="_blank"><i class="fab fa-instagram site-logo"></i></a>
-                    <a href="https://wa.me/+918879260310"><i class="fab fa-whatsapp site-logo"></i></a>
-                    <a href="tel:+918879260310" target="_blank"><span class="textnumber site-logo" >+91 88792 60310</span><i class="fas fa-phone phoneicon site-logo" ></i></a>
+                    <a href="{{ h_contacts.instagram.url }}" target="_blank"><i class="{{h_contacts.instagram.symbol}} site-logo"></i></a>
+                    <a href="https://wa.me/{{h_contacts.phone.value}}"><i class="fab fa-whatsapp site-logo"></i></a>
+                    <a href="{{h_contacts.phone.url}}" target="_blank"><span class="textnumber site-logo" >{{h_contacts.phone.value}}</span><i class="{{h_contacts.phone.symbol}} phoneicon site-logo" ></i></a>
                     <!-- <div id="searchbox">
                         <input type="text" placeholder="SEARCH" />
                     </div>                     -->

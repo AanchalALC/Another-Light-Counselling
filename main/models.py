@@ -113,6 +113,7 @@ class ContactDetails(models.Model):
     symbol = models.CharField(max_length=250, verbose_name="Symbol (font-awesome)")
     title = models.CharField(max_length=250)
     value = models.CharField(max_length=250)
+    url = models.CharField(max_length=400, default="")
 
     def __str__(self):
         name = str(self.title)

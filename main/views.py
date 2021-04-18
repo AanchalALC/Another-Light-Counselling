@@ -28,7 +28,6 @@ def get_paragraph_preview(content):
 
     return preview
 
-
 def get_protocol():
     if os.environ.get('DEBUG').lower() == 'true':
         return 'http'
@@ -38,6 +37,14 @@ def get_protocol():
 def get_full_url(ending):
     return '%s://%s%s' % (get_protocol(), Site.objects.get_current().domain, ending)
 
+def get_header_contacts():
+    contactdetails = ContactDetails.objects.all()
+    h_contacts = {}
+
+    for cd in contactdetails:
+        h_contacts[cd.key] = cd
+
+    return h_contacts
 
 def index(request):
 
@@ -46,7 +53,8 @@ def index(request):
 
     # set context
     context = {
-        'stats': stats
+        'stats': stats,
+        'h_contacts': get_header_contacts()
     }
 
     return render(request, 'index.html', context=context)
@@ -69,7 +77,8 @@ def about(request):
 
     # CONTEXT
     context = {
-        'members': members
+        'members': members,
+        'h_contacts': get_header_contacts()
     }
 
     return render(request, 'about.html', context=context)
@@ -92,7 +101,8 @@ def faqs(request):
     context = {
         'faqs': faqs,
         'faq1': faq1,
-        'faq2': faq2
+        'faq2': faq2,
+        'h_contacts': get_header_contacts()
     }
     return render(request, 'faqs.html', context=context)
 
@@ -100,7 +110,8 @@ def resources(request):
     resources = Resource.objects.all().order_by('-id')
 
     context = {
-        'resources': resources
+        'resources': resources,
+        'h_contacts': get_header_contacts()
     }
 
     return render(request, 'resources.html', context=context)
@@ -210,7 +221,8 @@ def reviews(request):
     reviews = Review.objects.all().order_by('-id')
     reviews_and_doodles = get_review_doodle_list(reviews)
     context = {
-        'reviews': reviews_and_doodles
+        'reviews': reviews_and_doodles,
+        'h_contacts': get_header_contacts()
     }
 
     return render(request, 'reviews.html', context=context)
@@ -227,10 +239,17 @@ def contact(request):
         return HttpResponseRedirect(reverse('contact') + '#promptoverlay')
 
     else:
+        contactdetails = ContactDetails.objects.all()
         form = ContactForm()
 
+        context = {
+            'form': form,
+            'contactdetails': contactdetails,
+            'h_contacts': get_header_contacts()
+        }
 
-    return render(request, 'contact.html', context={'form': form})
+
+        return render(request, 'contact.html', context=context)
 
 
  
@@ -249,6 +268,7 @@ def post(request, slug):
         'canon_url': get_full_url(reverse('post', args=[slug])),
         'full_header_url': get_full_url(post_obj.image_file.url),
         'post': post_obj,
+        'h_contacts': get_header_contacts()
     }
  
     # RETURN
@@ -279,6 +299,7 @@ def blog(request, pageno=1):
         'postscount': postscount,
         'pageinator': paginator,
         'page_obj': page_obj,
+        'h_contacts': get_header_contacts()
     }
  
     # RETURN

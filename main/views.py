@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ, Resource, Review, Member
+from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails
 from .forms import ContactForm
 
 
@@ -40,7 +40,16 @@ def get_full_url(ending):
 
 
 def index(request):
-    return render(request, 'index.html')
+
+    # GET STATS
+    stats = Statistic.objects.all()
+
+    # set context
+    context = {
+        'stats': stats
+    }
+
+    return render(request, 'index.html', context=context)
 
 def about(request):
     members = Member.objects.all().order_by('id')

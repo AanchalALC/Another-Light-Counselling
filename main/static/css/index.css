@@ -439,6 +439,26 @@ body #wrapper #footer #bottomlinks :last-child {
 #content #scarysection #content * {
   text-align: center;
 }
+#content #scarysection #content #stats .stat {
+  display: inline-block;
+  padding: 1rem;
+  margin: 1rem;
+}
+@media screen and (max-width: 580px) {
+  #content #scarysection #content #stats .stat {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+}
+#content #scarysection #content #stats .stat .count {
+  font-weight: bold;
+  font-size: 3.5rem;
+  margin-bottom: 0;
+}
+#content #scarysection #content #stats .stat .subtitle {
+  margin-top: 0;
+}
 @media screen and (max-width: 1250px) {
   #content #scarysection #content {
     width: 60%;

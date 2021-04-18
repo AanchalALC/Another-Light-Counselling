@@ -41,6 +41,20 @@
             <p>
                 There are no questions we won’t hear out, nothing that classifies as ‘too much information’ and there are no wrong answers when you’re at our center. Because no matter who you are, what you’ve done (yes, we help everybody) or what you’re facing, when you’re at Another Light, you are cared for.
             </p>
+            <div id="stats">
+
+
+                {% for stat in stats %}
+                <div class="stat">
+                    <p class="count counter">{{ stat.value }}</p>
+                    <p class="subtitle">{{ stat.name }}</p>
+                </div>
+                {% endfor %}
+
+
+            </div>
+
+
         </div>
     </div>
 

@@ -219,11 +219,40 @@
             *{
                 text-align: center;
             }
+
+
+            #stats{
+
+                .stat{
+
+                    display: inline-block;
+                    padding: 1rem;
+                    margin: 1rem;
+
+                    @media screen and (max-width: 580px) {
+                        margin-bottom: 0;
+                        margin-top: 0;
+                        padding-bottom: 0;
+                    }
+
+                    .count{
+                        font-weight: bold;
+                        font-size: 3.5rem;
+                        margin-bottom: 0;
+                    }
+
+                    .subtitle{
+                        margin-top: 0;
+                    }
+                }
+            }
+
+
         }
 
 
 
-        @media screen and (max-width: 1250px) {            
+        @media screen and (max-width: 1250px) {
             #content{
                 width: 60%;
             }

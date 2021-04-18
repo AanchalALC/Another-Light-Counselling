@@ -123,6 +123,21 @@ class ContactDetails(models.Model):
     class Meta:
         verbose_name = 'Another Light Contact Detail'
         verbose_name_plural = 'Another Light Contact Details'
+
+
+class Statistic(models.Model):
+    name = models.CharField(max_length=250)
+    value = models.IntegerField(default=0)
+
+    def __str__(self):
+        name = str(self.name)
+        val = str(self.value)
+
+        return f'{name}: {val}'
+
+    class Meta:
+        verbose_name = 'Statistic'
+        verbose_name_plural = 'Statistics'
  
 class Post(models.Model):
     image_file = models.ImageField(upload_to='post_headers')

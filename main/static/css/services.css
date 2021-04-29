@@ -372,11 +372,13 @@ body #wrapper #footer #bottomlinks :last-child {
   font-size: 1.1rem;
 }
 #content #service-section .service img {
+  padding: 1.5rem;
   width: 20% !important;
   height: unset !important;
 }
 @media screen and (max-width: 675px) {
   #content #service-section .service img {
+    padding: 0.8rem;
     width: 35% !important;
   }
 }

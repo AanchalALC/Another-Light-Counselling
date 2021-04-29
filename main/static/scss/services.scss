@@ -106,10 +106,12 @@
             $mobilewidth: 35%;
             
             img{
+                padding: 1.5rem;
                 width: $desktopwidth !important;
                 height: unset !important;
 
                 @media screen and (max-width: 675px) {
+                    padding: 0.8rem;
                     width: $mobilewidth !important;
                 }
 

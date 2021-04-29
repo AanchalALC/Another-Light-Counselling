@@ -28,6 +28,9 @@ urlpatterns = [
 
     path('contact', views.contact, name='contact'),
     path('contact/', views.contact, name='contact'),
+
+    path('services', views.services, name='services'),
+    path('services/', views.services, name='services'),
  
     path('post/<slug:slug>', views.post, name='post'),
     path('blog', views.blog, name='blog'),

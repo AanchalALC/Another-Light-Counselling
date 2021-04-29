@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails
+from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service
 from .forms import ContactForm
 
 
@@ -116,8 +116,6 @@ def resources(request):
 
     return render(request, 'resources.html', context=context)
 
-
-
 def get_review_doodle_list(reviews):
     # CREATE NEEDED OBJECTS
     left_item = {
@@ -214,9 +212,6 @@ def get_review_doodle_list(reviews):
 
     return review_list
     
-
-
-
 def reviews(request):
     reviews = Review.objects.all().order_by('-id')
     reviews_and_doodles = get_review_doodle_list(reviews)
@@ -226,6 +221,16 @@ def reviews(request):
     }
 
     return render(request, 'reviews.html', context=context)
+
+def services(request):
+    services = Service.objects.all().order_by('id')
+    # reviews_and_doodles = get_review_doodle_list(reviews)
+    context = {
+        'services': services,
+        'h_contacts': get_header_contacts()
+    }
+
+    return render(request, 'services.html', context=context)
 
 
 def contact(request):
@@ -251,8 +256,6 @@ def contact(request):
 
         return render(request, 'contact.html', context=context)
 
-
- 
 def post(request, slug):
     # FETCH OBJ
     post_obj=Post.objects.get(slug = str(slug))

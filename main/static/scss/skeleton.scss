@@ -163,7 +163,7 @@ body{
             }
 
 
-            @media screen and (max-width: 1200px) {
+            @media screen and (max-width: 1300px) {
                 grid-template-rows: $small_header_height/2 $small_header_height/2;
 
                 // #sitelogo{
@@ -201,7 +201,7 @@ body{
             }
 
 
-            @media screen and (max-width: 600px) {
+            @media screen and (max-width: 790px) {
 
                 #sitelogo{
                     height: $header_height; 

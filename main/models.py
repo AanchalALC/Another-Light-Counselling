@@ -139,6 +139,21 @@ class Statistic(models.Model):
     class Meta:
         verbose_name = 'Statistic'
         verbose_name_plural = 'Statistics'
+
+class Service(models.Model):
+    title = models.CharField(max_length=250, editable=False)
+    content = RichTextUploadingField(max_length=14000)
+
+    def save(self, *args, **kwargs):
+        part1 = self.content.split('<h')[1]
+        part2 = part1.split('</h')[0]
+        part3 = part2.split('>')[1]
+        print(part3)
+
+        self.title = part3
+
+        return super(Service, self).save(*args, **kwargs)
+        
  
 class Post(models.Model):
     image_file = models.ImageField(upload_to='post_headers')

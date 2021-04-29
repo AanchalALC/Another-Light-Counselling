@@ -1,0 +1,32 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}Services - Another Light{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/services.css' %}">
+{% endblock %}
+
+{% block body %}
+<div id="content">
+
+    <div id="topsection">
+        <img src="{% static 'img/services/header.svg' %}" id="topgraphic" />
+    </div>
+
+
+    <div id="service-section">
+
+        <h2>Services</h2>
+        {% for service in services %}
+        <div class="service">
+            {{ service.content | safe }}
+        </div>
+        {% endfor %}
+
+
+    </div>
+
+    
+
+</div>
+{% endblock %}

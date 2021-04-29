@@ -144,13 +144,31 @@ class Service(models.Model):
     title = models.CharField(max_length=250, editable=False)
     content = RichTextUploadingField(max_length=14000)
 
-    def save(self, *args, **kwargs):
+    def __str__(self):
+        return str(self.title)
+
+    def get_first_header(self):
         part1 = self.content.split('<h')[1]
         part2 = part1.split('</h')[0]
         part3 = part2.split('>')[1]
-        print(part3)
+        return part3
 
-        self.title = part3
+    def get_first_para_preview(self):
+        first_para = str(self.content).split('</p>')[0].split('<p>')[1]
+        first_twenty = first_para.split(' ')[:6]
+        # remove comma from last
+        if first_twenty[-1][-1] == ',':
+            first_twenty[-1] = first_twenty[-1][:-1]
+
+        excerpt = '{}...'.format(' '.join(first_twenty), '...')
+
+        return excerpt
+
+    def save(self, *args, **kwargs):
+        try:
+            self.title = self.get_first_header()
+        except IndexError:
+            self.title = self.get_first_para_preview()
 
         return super(Service, self).save(*args, **kwargs)
         

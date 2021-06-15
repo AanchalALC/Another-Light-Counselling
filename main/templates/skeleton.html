@@ -116,11 +116,22 @@
             <!-- FOOTER -->
             <div id="footer">
 
-                <div id="rainbowbg">
+                <!-- <div id="rainbowbg"> -->
                     <!-- THIS WILL HAVE THE RAINBOW BG -->
+                <!-- </div> -->
+
+
+                <div id="footercontacts" class="footersection">
+                    <h4>Contact Details</h4>
+                    {% for contactdetail in contactdetails %}
+                    <a href="{{contactdetail.url}}" target="_blank">
+                        <strong><i class="{{contactdetail.symbol}}"></i></strong> {{contactdetail.value}}
+                    </a>
+                    {% endfor %}
                 </div>
 
-                <div id="toplinks">
+                <div id="footerlinks" class="footersection">
+                    <h4>Important Links</h4>
                     <a href="{% url 'index' %}">Home</a>
                     <a href="{% url 'about' %}">About</a>
                     <a href="{% url 'services' %}">Services</a>
@@ -131,11 +142,23 @@
                     <a href="{% url 'contact' %}">Contact</a>
                 </div>
 
+
+                <div id="footerservices" class="footersection">
+                    <h4>Services Offered</h4>
+                    <a href="{% url 'index' %}">Home</a>
+                    <a href="{% url 'about' %}">About</a>
+                    <a href="{% url 'services' %}">Services</a>
+                    <a href="{% url 'faqs' %}">FAQs</a>
+                    <a href="{% url 'resources' %}">Resources</a>
+                </div>
+
+
+
                 <div id="bottomlinks">
                     
                 </div>
 
-                <img id="footerlogo" src="{% static 'img/skeleton/footerlogo.png' %}" />
+                <!-- <img id="footerlogo" src="{% static 'img/skeleton/footerlogo.png' %}" /> -->
                 
 
             </div>

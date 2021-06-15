@@ -51,9 +51,13 @@ def index(request):
     # GET STATS
     stats = Statistic.objects.all()
 
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
+
     # set context
     context = {
         'stats': stats,
+        'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
 
@@ -61,6 +65,9 @@ def index(request):
 
 def about(request):
     members = Member.objects.all().order_by('id')
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
 
     # PROCESSING
     for i in range(0, len(members)):
@@ -78,6 +85,7 @@ def about(request):
     # CONTEXT
     context = {
         'members': members,
+        'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
 
@@ -85,6 +93,9 @@ def about(request):
 
 def faqs(request):
     faqs = FAQ.objects.all().order_by('id')
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
 
     # GENERATE ALL TOOLTIP HTMLS
     for obj in faqs:
@@ -102,6 +113,7 @@ def faqs(request):
         'faqs': faqs,
         'faq1': faq1,
         'faq2': faq2,
+        'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
     return render(request, 'faqs.html', context=context)
@@ -109,8 +121,12 @@ def faqs(request):
 def resources(request):
     resources = Resource.objects.all().order_by('-id')
 
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
+
     context = {
         'resources': resources,
+        'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
 
@@ -214,9 +230,14 @@ def get_review_doodle_list(reviews):
     
 def reviews(request):
     reviews = Review.objects.all().order_by('-id')
+    
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
+
     reviews_and_doodles = get_review_doodle_list(reviews)
     context = {
         'reviews': reviews_and_doodles,
+        'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
 
@@ -225,8 +246,13 @@ def reviews(request):
 def services(request):
     services = Service.objects.all().order_by('id')
     # reviews_and_doodles = get_review_doodle_list(reviews)
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
+
     context = {
         'services': services,
+        'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
 
@@ -234,11 +260,15 @@ def services(request):
 
 def service(request, slug):
     # FETCH OBJ
-    service_obj=Service.objects.get(slug = str(slug))    
+    service_obj=Service.objects.get(slug = str(slug))
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
  
     # CREATE CONTEXT
     context = {
         'service': service_obj,
+        'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
  
@@ -276,6 +306,9 @@ def post(request, slug):
     # HUMAN FRIENDLY DATE
     hfr_date = post_obj.created.strftime('%e %b %Y')
     post_obj.hfr_date = hfr_date
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
  
     # CREATE CONTEXT
     context = {
@@ -284,6 +317,7 @@ def post(request, slug):
         'canon_url': get_full_url(reverse('post', args=[slug])),
         'full_header_url': get_full_url(post_obj.image_file.url),
         'post': post_obj,
+        'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
  
@@ -301,6 +335,9 @@ def blog(request, pageno=1):
     page_num = int(pageno)
     page_obj = paginator.get_page(page_num)
     posts = page_obj.object_list
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
  
     # HUMAN FRIENDLY DATE
     for post in posts:
@@ -315,6 +352,7 @@ def blog(request, pageno=1):
         'postscount': postscount,
         'pageinator': paginator,
         'page_obj': page_obj,
+        'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
  

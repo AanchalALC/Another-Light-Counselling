@@ -31,6 +31,7 @@ urlpatterns = [
 
     path('services', views.services, name='services'),
     path('services/', views.services, name='services'),
+    path('service/<slug:slug>', views.service, name='service'),
  
     path('post/<slug:slug>', views.post, name='post'),
     path('blog', views.blog, name='blog'),

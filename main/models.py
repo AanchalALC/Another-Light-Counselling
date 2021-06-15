@@ -141,8 +141,9 @@ class Statistic(models.Model):
         verbose_name_plural = 'Statistics'
 
 class Service(models.Model):
-    title = models.CharField(max_length=250, editable=False)
+    title = models.CharField(max_length=250)
     content = RichTextUploadingField(max_length=14000)
+    slug = models.SlugField(max_length=100, blank=True)
 
     def __str__(self):
         return str(self.title)
@@ -165,12 +166,23 @@ class Service(models.Model):
         return excerpt
 
     def save(self, *args, **kwargs):
-        try:
-            self.title = self.get_first_header()
-        except IndexError:
-            self.title = self.get_first_para_preview()
+
+        # GENERATE TITLE
+        # try:
+        #     self.title = self.get_first_header()
+        # except IndexError:
+        #     self.title = self.get_first_para_preview()
+
+
+        # GENERATE SLUG
+        if not self.slug or self.slug == '':
+            self.slug = slugify(self.title)
+        
 
         return super(Service, self).save(*args, **kwargs)
+
+
+
         
  
 class Post(models.Model):

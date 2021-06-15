@@ -232,6 +232,19 @@ def services(request):
 
     return render(request, 'services.html', context=context)
 
+def service(request, slug):
+    # FETCH OBJ
+    service_obj=Service.objects.get(slug = str(slug))    
+ 
+    # CREATE CONTEXT
+    context = {
+        'service': service_obj,
+        'h_contacts': get_header_contacts()
+    }
+ 
+    # RETURN
+    return render(request, 'service.html', context=context)
+
 
 def contact(request):
 

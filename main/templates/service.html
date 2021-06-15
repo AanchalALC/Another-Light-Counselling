@@ -16,14 +16,10 @@
 
     <div id="service-section">
 
-        <h2>Services</h2>
-        {% for service in services %}
+        <h2>{{service.title}}</h2>
         <div class="service">
-            <h3>{{service.title}}</h3>
             {{ service.content | safe }}
         </div>
-        {% endfor %}
-
 
     </div>
 

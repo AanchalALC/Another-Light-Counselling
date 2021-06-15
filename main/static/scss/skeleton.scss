@@ -291,7 +291,7 @@ body{
 
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            // grid-template-rows: $header_height/3 $header_height/3;
+            
 
             width: 100%;
             padding-left: $padding;
@@ -420,16 +420,20 @@ body{
 
 
 
-            @media screen and (max-width: 975px) {
+            @media screen and (max-width: 1250px) {
                 
-                grid-template-rows: auto auto;
+                display: flex;
+                flex-wrap: wrap;
+                padding-left: $small_padding;
                 
-                padding-top: 2rem;
-                padding-bottom: 2rem;
-
-                a {
-                    border: none;
+                .footersection{
+                    margin-right: 2rem;
                 }
+                
+
+                // a {
+                //     border: none;
+                // }
 
                 // #toplinks, #bottomlinks {
                 //     display: flex;

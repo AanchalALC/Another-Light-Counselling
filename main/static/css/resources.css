@@ -242,14 +242,14 @@ body #wrapper #footer #footercontacts a:hover {
   background: #E65359;
   color: white;
 }
-@media screen and (max-width: 975px) {
+@media screen and (max-width: 1250px) {
   body #wrapper #footer {
-    grid-template-rows: auto auto;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 1rem;
   }
-  body #wrapper #footer a {
-    border: none;
+  body #wrapper #footer .footersection {
+    margin-right: 2rem;
   }
 }
 

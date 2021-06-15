@@ -145,11 +145,9 @@
 
                 <div id="footerservices" class="footersection">
                     <h4>Services Offered</h4>
-                    <a href="{% url 'index' %}">Home</a>
-                    <a href="{% url 'about' %}">About</a>
-                    <a href="{% url 'services' %}">Services</a>
-                    <a href="{% url 'faqs' %}">FAQs</a>
-                    <a href="{% url 'resources' %}">Resources</a>
+                    {% for service in services %}
+                        <a href="{% url 'service' service.slug %}">{{service.title}}</a>
+                    {% endfor %}
                 </div>
 
 

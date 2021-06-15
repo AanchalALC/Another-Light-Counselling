@@ -11,6 +11,8 @@ from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, Co
 from .forms import ContactForm
 
 
+# ------------------- HELPERS --------------------------
+
 def get_paragraph_preview(content):
     preview = ''
 
@@ -46,6 +48,10 @@ def get_header_contacts():
 
     return h_contacts
 
+
+# ------------------- VIEWS --------------------------
+
+
 def index(request):
 
     # GET STATS
@@ -54,10 +60,14 @@ def index(request):
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')    
+
     # set context
     context = {
         'stats': stats,
         'contactdetails': contactdetails,
+        'services': services,
         'h_contacts': get_header_contacts()
     }
 
@@ -68,6 +78,9 @@ def about(request):
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
+
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
 
     # PROCESSING
     for i in range(0, len(members)):
@@ -86,6 +99,7 @@ def about(request):
     context = {
         'members': members,
         'contactdetails': contactdetails,
+        'services': services,
         'h_contacts': get_header_contacts()
     }
 
@@ -96,6 +110,9 @@ def faqs(request):
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
+
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
 
     # GENERATE ALL TOOLTIP HTMLS
     for obj in faqs:
@@ -114,6 +131,7 @@ def faqs(request):
         'faq1': faq1,
         'faq2': faq2,
         'contactdetails': contactdetails,
+        'services': services,
         'h_contacts': get_header_contacts()
     }
     return render(request, 'faqs.html', context=context)
@@ -124,9 +142,13 @@ def resources(request):
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
+
     context = {
         'resources': resources,
         'contactdetails': contactdetails,
+        'services': services,
         'h_contacts': get_header_contacts()
     }
 
@@ -234,10 +256,14 @@ def reviews(request):
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
+
     reviews_and_doodles = get_review_doodle_list(reviews)
     context = {
         'reviews': reviews_and_doodles,
         'contactdetails': contactdetails,
+        'services': services,
         'h_contacts': get_header_contacts()
     }
 
@@ -264,17 +290,20 @@ def service(request, slug):
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
+
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
  
     # CREATE CONTEXT
     context = {
         'service': service_obj,
         'contactdetails': contactdetails,
+        'services': services,
         'h_contacts': get_header_contacts()
     }
  
     # RETURN
     return render(request, 'service.html', context=context)
-
 
 def contact(request):
 
@@ -290,9 +319,13 @@ def contact(request):
         contactdetails = ContactDetails.objects.all()
         form = ContactForm()
 
+        # GET SERVICES FOR FOOTER
+        services = Service.objects.all().order_by('id')
+
         context = {
             'form': form,
             'contactdetails': contactdetails,
+            'services': services,
             'h_contacts': get_header_contacts()
         }
 
@@ -309,6 +342,9 @@ def post(request, slug):
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
+
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
  
     # CREATE CONTEXT
     context = {
@@ -318,6 +354,7 @@ def post(request, slug):
         'full_header_url': get_full_url(post_obj.image_file.url),
         'post': post_obj,
         'contactdetails': contactdetails,
+        'services': services,
         'h_contacts': get_header_contacts()
     }
  
@@ -338,6 +375,9 @@ def blog(request, pageno=1):
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
+
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
  
     # HUMAN FRIENDLY DATE
     for post in posts:
@@ -353,6 +393,7 @@ def blog(request, pageno=1):
         'pageinator': paginator,
         'page_obj': page_obj,
         'contactdetails': contactdetails,
+        'services': services,
         'h_contacts': get_header_contacts()
     }
  

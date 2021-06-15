@@ -1,2 +1,3 @@
-#Hey There
-This is a django project
+# Hey There
+
+Repo for Another-Light, Aanchal Narang's counselling website.

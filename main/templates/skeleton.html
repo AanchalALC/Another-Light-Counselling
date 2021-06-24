@@ -88,7 +88,14 @@
                         <a href="#" id="closemenu"><i class="fas fa-times"></i></a>
                         <a href="{% url 'index' %}">Home</a>
                         <a href="{% url 'about' %}">About</a>
-                        <a href="{% url 'services' %}">Services</a>
+                        <div id="servicedropdown">
+                            <a id="servicebutton">Services</a>
+                            <div id="dropdowncontent">
+                                {% for service in services %}
+                                    <a href="{% url 'service' service.slug %}">{{service.title}}</a><br/>
+                                {% endfor %}
+                            </div>
+                        </div>
                         <a href="{% url 'faqs' %}">FAQs</a>
                         <a href="{% url 'resources' %}">Resources</a>
                         <a href="{% url 'reviews' %}">Reviews</a>

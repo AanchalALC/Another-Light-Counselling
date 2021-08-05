@@ -345,11 +345,22 @@ def post(request, slug):
 
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
+
+    # INTELLIGENT META TITLE
+    metatitle = post_obj.meta_title
+    if str(metatitle) == '':
+        metatitle = post_obj.title
+
+    # INTELLIGENT META DESCRIPTION
+    metadescription = post_obj.meta_description
+    if str(metadescription) == '':
+        metadescription = get_paragraph_preview(str(post_obj.content))
  
     # CREATE CONTEXT
     context = {
         'title': post_obj.title,
-        'description': get_paragraph_preview(str(post_obj.content)),
+        'metatitle': metatitle,
+        'description': metadescription,
         'canon_url': get_full_url(reverse('post', args=[slug])),
         'full_header_url': get_full_url(post_obj.image_file.url),
         'post': post_obj,

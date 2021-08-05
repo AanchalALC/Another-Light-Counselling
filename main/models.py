@@ -193,6 +193,10 @@ class Post(models.Model):
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField(editable=False)
     slug = models.SlugField(unique=True, max_length=100, blank=True)
+
+    # SEO FIELDS
+    meta_title = models.CharField(max_length=250, blank=True, default='')
+    meta_description = models.TextField(blank=True, default='')
  
     def save(self, *args, **kwargs):
         # UPDATE TIMESTAMPS
@@ -203,6 +207,17 @@ class Post(models.Model):
         # GENERATE SLUG
         if not self.slug:
             self.slug = slugify(self.title)
+        
+
+
+        # SET META TITLE AND DESCRIPTIONS IF NOT MANUALLY SET
+        if not self.meta_title:
+            self.meta_title = self.title
+
+        if not self.meta_description:
+            self.meta_description = self.get_paragraph_preview(str(self.content))
+
+        # FINALLY, RETURN super
         return super(Post, self).save(*args, **kwargs)
  
     def __str__(self):
@@ -210,6 +225,23 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post', args=[str(self.slug)])
+
+    def get_paragraph_preview(self, content):
+        preview = ''
+
+        try:
+            first_para = str(content).split('</p>')[0].split('<p>')[1]
+            first_twenty = first_para.split(' ')[:35]
+            # remove comma from last
+            if first_twenty[-1][-1] == ',':
+                first_twenty[-1] = first_twenty[-1][:-1]
+
+            preview = '{}...'.format(' '.join(first_twenty), '...')
+        except IndexError as ie:
+            print(str(ie))
+            preview = content
+
+        return preview
  
     class Meta:
         verbose_name = 'Post'

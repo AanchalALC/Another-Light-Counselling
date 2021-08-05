@@ -1,7 +1,7 @@
 {% extends 'skeleton.html' %}
 {% load static %}
 {% block title %}{{metatitle}}{% endblock %}
-{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+{% block metakeywords %}{{ post.meta_keywords }}{% endblock %}
 
 {% block ogtitle %}{{metatitle}}{% endblock %}
 {% block tctitle %}{{metatitle}}{% endblock %}

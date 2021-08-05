@@ -197,6 +197,7 @@ class Post(models.Model):
     # SEO FIELDS
     meta_title = models.CharField(max_length=250, blank=True, default='')
     meta_description = models.TextField(blank=True, default='')
+    meta_keywords = models.CharField(max_length=500, blank=True, default='')
  
     def save(self, *args, **kwargs):
         # UPDATE TIMESTAMPS

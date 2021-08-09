@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic, Service
+from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic, Service, Policy, Committee
  
 # @admin.register(PostType)
 # class PostTypeAdmin(admin.ModelAdmin):
@@ -59,6 +59,18 @@ class StatisticAdmin(admin.ModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    ordering = ('title',)
+    search_fields = ('title', )
+
+@admin.register(Policy)
+class PolicyAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    ordering = ('title',)
+    search_fields = ('title', )
+
+@admin.register(Committee)
+class CommitteeAdmin(admin.ModelAdmin):
     list_display = ('title',)
     ordering = ('title',)
     search_fields = ('title', )

@@ -247,3 +247,42 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
+
+
+
+
+class Policy(models.Model):
+    title = models.CharField(max_length=250)
+    content = RichTextUploadingField(max_length=40000)
+    slug = models.SlugField(unique=True, max_length=100, blank=True)
+
+    def save(self, *args, **kwargs):
+ 
+        # GENERATE SLUG
+        if not self.slug:
+            self.slug = slugify(self.title)    
+
+        # FINALLY, RETURN super
+        return super(Policy, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Policy'
+        verbose_name_plural = 'Policies'
+
+
+class Committee(models.Model):
+    title = models.CharField(max_length=250)
+    content = RichTextUploadingField(max_length=40000)
+    slug = models.SlugField(unique=True, max_length=100, blank=True)
+
+    def save(self, *args, **kwargs):
+ 
+        # GENERATE SLUG
+        if not self.slug:
+            self.slug = slugify(self.title)    
+
+        # FINALLY, RETURN super
+        return super(Committee, self).save(*args, **kwargs)
+
+    
+

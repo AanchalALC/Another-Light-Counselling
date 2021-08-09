@@ -29,6 +29,9 @@ urlpatterns = [
     path('contact', views.contact, name='contact'),
     path('contact/', views.contact, name='contact'),
 
+    path('policy/<slug:slug>', views.policy, name='policy'),
+    path('committee/<slug:slug>', views.committee, name='committee'),
+
     path('services', views.services, name='services'),
     path('services/', views.services, name='services'),
     path('service/<slug:slug>', views.service, name='service'),

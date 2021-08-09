@@ -1,0 +1,19 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}{{ policy.title }}{% endblock %}
+{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/policy.css' %}">
+{% endblock %}
+
+{% block body %}
+<div id="content">
+    
+        <div id="policycontents">
+            <h1>{{ policy.title }}</h1>
+            {{ policy.content | safe }}
+        </div>
+    
+</div>
+{% endblock %}

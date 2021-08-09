@@ -1,0 +1,19 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}{{ committee.title }}{% endblock %}
+{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/committee.css' %}">
+{% endblock %}
+
+{% block body %}
+<div id="content">
+    
+        <div id="committeecontents">
+            <h1>{{ committee.title }}</h1>
+            {{ committee.content | safe }}
+        </div>
+    
+</div>
+{% endblock %}

@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service
+from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service, Policy, Committee
 from .forms import ContactForm
 
 
@@ -410,3 +410,27 @@ def blog(request, pageno=1):
  
     # RETURN
     return render(request, 'posts.html', context=context)
+
+
+def policy(request, slug):
+
+    # FETCH OBJ
+    policy_obj=Policy.objects.get(slug = str(slug))
+
+    context = {
+        'policy': policy_obj
+    }
+
+    return render(request, 'policy.html', context=context)
+
+def committee(request, slug):
+
+    # FETCH OBJ
+    committee_obj=Committee.objects.get(slug = str(slug))
+
+    context = {
+        'committee': committee_obj
+    }
+
+    return render(request, 'committee.html', context=context)
+    

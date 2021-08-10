@@ -8,11 +8,31 @@
   font-weight: bold;
   src: url("/static/fonts/AttenNewExtraBold.otf") format("opentype");
 }
+@font-face {
+  font-family: OpenDyslexic;
+  src: url("/static/fonts/OpenDyslexic-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-weight: bold;
+  src: url("/static/fonts/OpenDyslexic-Bold.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-style: italic;
+  src: url("/static/fonts/OpenDyslexic-Italic.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-style: italic;
+  font-weight: bold;
+  src: url("/static/fonts/OpenDyslexic-BoldItalic.otf") format("opentype");
+}
 body {
   margin: 0;
   padding: 0;
   font-size: 1.3rem;
-  font-family: "Poppins", sans-serif;
+  font-family: "OpenDyslexic", sans-serif;
 }
 body .mytooltip {
   text-decoration: underline;
@@ -272,7 +292,7 @@ body #wrapper #footer .footersection a {
   color: black;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  font-family: AttenNew;
+  font-family: "OpenDyslexic", sans-serif;
   transition: color 0.5s;
 }
 body #wrapper #footer .footersection a:hover {
@@ -341,7 +361,8 @@ body #wrapper #footer #footercontacts a:hover {
 }
 #content #blog-post p {
   font-size: 1.2rem;
-  margin-top: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.5em;
 }
 #content #blog-post p:first-child {
   margin-top: 2rem;

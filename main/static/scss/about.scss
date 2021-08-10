@@ -129,7 +129,7 @@
                 place-self: center center;
                 grid-area: p;
                 height: $imgheight;
-                border-radius: $imgheight / 2;
+                border-radius: math.div($imgheight, 2);
 
                 -webkit-box-shadow: 9px 3px 32px -2px rgba(0,0,0,0.33);
                 -moz-box-shadow: 9px 3px 32px -2px rgba(0,0,0,0.33);

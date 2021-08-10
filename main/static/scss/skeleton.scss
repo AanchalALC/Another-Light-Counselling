@@ -1,3 +1,4 @@
+@use "sass:math";
 @import 'colors';
 @import 'fonts';
 
@@ -35,7 +36,7 @@ body{
 
             display: grid;
             grid-template-columns: 1fr;
-            grid-template-rows: $header_height/2 $header_height/2;
+            grid-template-rows: math.div($header_height, 2) math.div($header_height,2);
             grid-template-areas: 
                 "t"
                 "b"
@@ -69,7 +70,7 @@ body{
                 justify-items: center;
                 place-self: center end;
 
-                $itemsizing: ($header_height/2) - 50px;
+                $itemsizing: math.div($header_height, 2) - 50px;
 
                 * {
                     margin-left: 5px;
@@ -120,8 +121,8 @@ body{
                 }
 
                 a{
-                    padding-left: $padding/2;
-                    padding-right: $padding/2;
+                    padding-left: math.div($padding, 2);
+                    padding-right: math.div($padding, 2);
                     border-left: 2px solid $primaryred;
                 }
 
@@ -205,7 +206,7 @@ body{
 
 
             @media screen and (max-width: 1300px) {
-                grid-template-rows: $small_header_height/2 $small_header_height/2;
+                grid-template-rows: math.div($small_header_height,2) math.div($small_header_height,2);
 
                 // #sitelogo{
                 //     margin-left: 0;
@@ -235,8 +236,8 @@ body{
                     font-size: 1rem;
 
                     a {
-                        padding-left: $small_padding/2;
-                        padding-right: $small_padding/2;
+                        padding-left: math.div($small_padding, 2);
+                        padding-right: math.div($small_padding,2);
                     }
                 }
             }
@@ -378,6 +379,7 @@ body{
                     font-family: AttenNew;
                     color: $primaryred;
                 }
+
 
                 a{
                     text-decoration: none;

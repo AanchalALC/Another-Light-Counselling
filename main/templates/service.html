@@ -1,7 +1,14 @@
 {% extends 'skeleton.html' %}
 {% load static %}
-{% block title %}Services - Another Light{% endblock %}
-{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+{% block title %}{{ service.meta_title }}{% endblock %}
+{% block metakeywords %}{{service.meta_keywords}}{% endblock %}
+
+{% block ogtitle %}{{service.meta_title}}{% endblock %}
+{% block tctitle %}{{service.meta_title}}{% endblock %}
+
+{% block metadescription %}{{service.meta_description}}{% endblock %}
+{% block ogdescription %}{{service.meta_description}}{% endblock %}
+{% block tcdescription %}{{service.meta_description}}{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/services.css' %}">

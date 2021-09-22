@@ -223,6 +223,7 @@ class Post(models.Model):
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField(editable=False)
     slug = models.SlugField(unique=True, max_length=100, blank=True)
+    
 
     # SEO FIELDS
     meta_title = models.CharField(max_length=250, blank=True, default='')

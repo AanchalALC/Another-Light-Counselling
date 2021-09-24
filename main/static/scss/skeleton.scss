@@ -12,6 +12,11 @@ $small_padding: 1rem;
 //     transition: all 0.2s;
 // }
 
+body, html {
+    position: relative;
+    overflow-x: hidden;
+}
+
 body{
     margin: 0;
     padding: 0;

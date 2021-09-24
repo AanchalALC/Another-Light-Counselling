@@ -316,4 +316,8 @@ class Committee(models.Model):
         return super(Committee, self).save(*args, **kwargs)
 
     
-
+class DynamicContent(models.Model):
+    key = models.CharField(max_length=250)
+    title = models.CharField(max_length=250, blank=True)
+    content = RichTextUploadingField(max_length=40000, blank=True)
+    image_file = models.ImageField(upload_to='dynamic_images', blank=True)

@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service, Policy, Committee
+from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service, Policy, Committee, DynamicContent
 from .forms import ContactForm
 
 
@@ -61,14 +61,22 @@ def index(request):
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')    
+    services = Service.objects.all().order_by('id')
+
+    # GET DYANMIC CONTENT
+    s1 = DynamicContent.objects.get(key='home_section_1')
+    s2 = DynamicContent.objects.get(key='home_section_2')
+    s3 = DynamicContent.objects.get(key='home_section_3')
 
     # set context
     context = {
         'stats': stats,
         'contactdetails': contactdetails,
         'services': services,
-        'h_contacts': get_header_contacts()
+        'h_contacts': get_header_contacts(),
+        's1': s1,
+        's2': s2,
+        's3': s3
     }
 
     return render(request, 'index.html', context=context)

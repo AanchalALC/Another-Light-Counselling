@@ -17,14 +17,15 @@
 
         <div id="heytherebox">
             <p>
-                Hey,<br>Fellow<br>Human!
+                {{ s1.title | safe }}
             </p>
         </div>
 
         <div id="readingthis">
-            <p>
+            {{ s1.content | safe }}
+            <!-- <p>
                 If you’re reading this, you’ve landed on Another Light’s website. A safe space where you can freely express your feeling, ask any questions you need to, and face no judgment whatsoever!
-            </p>
+            </p> -->
         </div>
 
     </div>
@@ -34,13 +35,14 @@
         <div id="leftelipse"></div>
         <div id="rightelipse"></div>
         <div id="content">
-            <h1>Hey, asking for help can be scary. And we get it.</h1>
-            <p>
+            <h1>{{s2.title}}</h1>
+            {{ s2.content | safe }}
+            <!-- <p>
                 Founded by Aanchal Narag, you can find at Another Light friendly faces and ears that are willing to listen. Whether you’re looking for a quick resolution, or are interested in long-term solutions, you will find someone who will work with you at your speed and convenience. The therapy sessions cater to anybody who is brave enough to walk through our doors.
             </p>
             <p>
                 There are no questions we won’t hear out, nothing that classifies as ‘too much information’ and there are no wrong answers when you’re at our center. Because no matter who you are, what you’ve done (yes, we help everybody) or what you’re facing, when you’re at Another Light, you are cared for.
-            </p>
+            </p> -->
             <div id="stats">
 
 
@@ -63,7 +65,7 @@
 
         <a href="https://wa.me/+919819615204" id="chaticon"><img src="{% static 'img/index/chat_icon.png' %}" /></a>
 
-        <h2>Another Light</h2>
+        <h2>{{s3.title}}</h2>
         <div id="p">
             <p>
                 ...provides cost-effective mental healthcare to those in need of it. Specializing in care for everything from <span class="mytooltip depressiontippy" >depression</span> and <span class="mytooltip anxietytippy" >anxiety</span> to struggles with <span class="mytooltip addictiontippy" >addiction</span>, <span class="mytooltip gendertippy" >gender</span> and <span class="mytooltip sexualitytippy" >sexuality</span> and working on <span class="mytooltip traumatippy" >trauma</span> symptoms and <span class="mytooltip traumatippy" >trauma</span>, we co-chart the path towards healing and walk down it with you.

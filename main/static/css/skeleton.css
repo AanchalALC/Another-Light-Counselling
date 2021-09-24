@@ -28,6 +28,11 @@
   font-weight: bold;
   src: url("/static/fonts/OpenDyslexic-BoldItalic.otf") format("opentype");
 }
+body, html {
+  position: relative;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   padding: 0;

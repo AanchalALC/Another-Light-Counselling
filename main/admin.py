@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic, Service, Policy, Committee
+from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic, Service, Policy, Committee, DynamicContent
  
 # @admin.register(PostType)
 # class PostTypeAdmin(admin.ModelAdmin):
@@ -74,3 +74,9 @@ class CommitteeAdmin(admin.ModelAdmin):
     list_display = ('title',)
     ordering = ('title',)
     search_fields = ('title', )
+
+@admin.register(DynamicContent)
+class DynamicContentAdmin(admin.ModelAdmin):
+    list_display = ('key', 'title',)
+    ordering = ('key',)
+    search_fields = ('key', 'title', )

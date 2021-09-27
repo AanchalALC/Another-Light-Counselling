@@ -247,7 +247,13 @@ body #wrapper #topheader #colordiv {
     min-width: unset;
     box-shadow: unset;
     padding: 1;
-    padding-right: 2rem;
+    padding-right: 1rem;
+    padding-left: 2rem;
+    padding-bottom: 2rem;
+  }
+  body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontent.visible a {
+    color: #E65359;
+    border-bottom: 2px solid #E65359;
   }
   body #wrapper #topheader #menuitems #themenu #servicedropdown:hover {
     cursor: pointer;
@@ -258,10 +264,6 @@ body #wrapper #topheader #colordiv {
   body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontent.visible {
     display: block;
     position: absolute;
-  }
-  body #wrapper #topheader #menuitems #themenu :first-child {
-    border-bottom: none;
-    padding-bottom: 1rem;
   }
   body #wrapper #topheader #menuitems #themenu :last-child {
     border-bottom: none;

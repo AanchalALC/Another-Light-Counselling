@@ -315,7 +315,14 @@ body{
                                 min-width: unset;
                                 box-shadow: unset;
                                 padding: 1;
-                                padding-right: 2rem;
+                                padding-right: 1rem;
+                                padding-left: 2rem;
+                                padding-bottom: 2rem;
+
+                                a{
+                                    color: #E65359;
+                                    border-bottom: 2px solid #E65359;
+                                }
                             }
 
                         }
@@ -336,8 +343,8 @@ body{
                         
 
                         :first-child {
-                            border-bottom: none;
-                            padding-bottom: 1rem;
+                            // border-bottom: none;
+                            // padding-bottom: 1rem;
                         }
 
                         :last-child {

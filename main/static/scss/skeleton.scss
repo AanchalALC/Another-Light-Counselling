@@ -295,6 +295,7 @@ body{
                             display: initial;
                             text-align: right;
 
+
                             #servicebutton{
                                 border-left: none;
                                 border-bottom: 2px solid white;
@@ -302,10 +303,15 @@ body{
                                 display: inline-block;
                             }
 
-                            #dropdowncontent{
+                            #dropdowncontent.visible{
+
                                 display: block;
-                                position: initial;
-                                background: unset;
+                                position: absolute;
+                                right: 1rem;
+                                
+                                background: #F6DE96;
+                                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
                                 min-width: unset;
                                 box-shadow: unset;
                                 padding: 1;
@@ -313,6 +319,21 @@ body{
                             }
 
                         }
+
+                        #servicedropdown:hover{
+                            cursor: pointer;
+                        }
+
+                        #servicedropdown:hover #dropdowncontent{
+                            display: none;
+                        }
+
+                        #servicedropdown:hover #dropdowncontent.visible{
+                            display: block;
+                            position: absolute;
+                        }
+
+                        
 
                         :first-child {
                             border-bottom: none;

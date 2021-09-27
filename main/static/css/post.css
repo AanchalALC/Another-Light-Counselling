@@ -237,14 +237,26 @@ body #wrapper #topheader #colordiv {
     padding-bottom: 0.5rem;
     display: inline-block;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontent {
+  body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontent.visible {
     display: block;
-    position: initial;
-    background: unset;
+    position: absolute;
+    right: 1rem;
+    background: #F6DE96;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     min-width: unset;
     box-shadow: unset;
     padding: 1;
     padding-right: 2rem;
+  }
+  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover {
+    cursor: pointer;
+  }
+  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontent {
+    display: none;
+  }
+  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontent.visible {
+    display: block;
+    position: absolute;
   }
   body #wrapper #topheader #menuitems #themenu :first-child {
     border-bottom: none;

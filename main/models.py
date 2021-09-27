@@ -321,3 +321,7 @@ class DynamicContent(models.Model):
     title = models.CharField(max_length=250, blank=True)
     content = RichTextUploadingField(max_length=40000, blank=True)
     image_file = models.ImageField(upload_to='dynamic_images', blank=True)
+
+    class Meta:
+        verbose_name = 'Dynamic Content'
+        verbose_name_plural = 'Dynamic Content'

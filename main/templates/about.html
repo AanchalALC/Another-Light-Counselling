@@ -12,7 +12,12 @@
     
     <div id="topsection">
         <img src="{% static 'img/about/top_people.svg' %}" id="toppeople" />        
-    </div>    
+    </div>
+
+
+    <div id="aboutcard">
+        {{ cardcontent.content | safe }}
+    </div>
 
 
     <div id="peoplesection">

@@ -84,6 +84,9 @@ def index(request):
 def about(request):
     members = Member.objects.all().order_by('id')
 
+    # GET CARD CONTENT
+    cardcontent = DynamicContent.objects.get(key='about_card')
+
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
@@ -108,6 +111,7 @@ def about(request):
         'members': members,
         'contactdetails': contactdetails,
         'services': services,
+        'cardcontent': cardcontent,
         'h_contacts': get_header_contacts()
     }
 

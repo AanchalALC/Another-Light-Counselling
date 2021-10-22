@@ -24,7 +24,7 @@
 
         {% for member in members %}
 
-        <div class="person {{ member.layout_position }}">
+        <div class="person {{ member.layout_position }}" style="order: {{member.order}}">
             <div class="info">
                 <h1>{{ member.name }}</h1>
                 <h2>{{ member.designation }}</h2>

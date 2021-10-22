@@ -376,6 +376,10 @@ body #wrapper #footer #footercontacts a:hover {
     margin-right: 1rem;
   }
 }
+#content #peoplesection {
+  display: flex;
+  flex-direction: column;
+}
 #content #peoplesection .person:nth-child(even) {
   background: #E65359;
 }

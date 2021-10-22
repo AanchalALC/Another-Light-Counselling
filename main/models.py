@@ -52,6 +52,7 @@ class Member(models.Model):
     name = models.CharField(max_length=700)
     designation = models.CharField(max_length=700)
     info = RichTextUploadingField(max_length=14000)
+    order = models.IntegerField(default=1)
     # readmore = models.CharField(max_length=900, default='')
     
     # HELPER VARIABLE

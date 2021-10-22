@@ -51,6 +51,8 @@
     #peoplesection{
 
         $gap: 6rem;
+        display: flex;
+        flex-direction: column;
 
         .person:nth-child(even){
             background: $primaryred;

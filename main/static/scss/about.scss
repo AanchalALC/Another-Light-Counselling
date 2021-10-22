@@ -35,6 +35,15 @@
         border-radius: 1rem;
 
         border-top: 5px solid #5A79BC;
+
+        @media screen and (max-width: 790px){
+
+            max-width: unset;
+            margin-left: $small_padding;
+            margin-right: $small_padding;
+
+        }
+
     }
 
 

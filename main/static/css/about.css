@@ -369,6 +369,13 @@ body #wrapper #footer #footercontacts a:hover {
   border-radius: 1rem;
   border-top: 5px solid #5A79BC;
 }
+@media screen and (max-width: 790px) {
+  #content #aboutcard {
+    max-width: unset;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
 #content #peoplesection .person:nth-child(even) {
   background: #E65359;
 }

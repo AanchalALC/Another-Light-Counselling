@@ -1,6 +1,7 @@
 {% extends 'skeleton.html' %}
 {% load static %}
-{% block title %}About - Another Light{% endblock %}
+{% block title %}About Another Light Counselling{% endblock %}
+{% block metadescription %}Another Light founded by expert psychologist Aanchal Narang offers affordable mental health and counselling services by junior and senior mental health counsellors.{% endblock %}
 {% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
 
 {% block head %}
@@ -11,7 +12,7 @@
 <div id="content">
     
     <div id="topsection">
-        <img src="{% static 'img/about/top_people.svg' %}" id="toppeople" />        
+        <img src="{% static 'img/about/top_people.svg' %}" id="toppeople" alt="Mental Health & Counselling Services by Expert Counsellors"/>        
     </div>
 
 
@@ -33,7 +34,7 @@
                 </div>
                 <a onclick="toggleInfo(this)" data-id="{{ member.id }}">READ MORE</a>
             </div>
-            <img src="{{ member.thumbnail.url }}" class="person-picture" />
+            <img src="{{ member.thumbnail.url }}" class="person-picture" alt="{{ member.img_alt }}"/>
         </div>
 
         {% endfor %}

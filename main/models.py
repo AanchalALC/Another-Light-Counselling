@@ -53,7 +53,7 @@ class Member(models.Model):
     designation = models.CharField(max_length=700)
     info = RichTextUploadingField(max_length=14000)
     order = models.IntegerField(default=1)
-    # readmore = models.CharField(max_length=900, default='')
+    img_alt = models.CharField(max_length=400, blank=True, default='')
     
     # HELPER VARIABLE
     layout_position = ''

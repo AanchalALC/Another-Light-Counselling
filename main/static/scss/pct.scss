@@ -1,0 +1,93 @@
+@import 'colors';
+@import 'fonts';
+
+
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #00AAE4;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #00AAE4;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #00AAE4;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #00AAE4;
+}
+
+
+
+body, html {
+  position: relative;
+  overflow-x: hidden;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+
+  .section1 {
+    background-image: url(/static/img/pct/pct_top.png);
+    background-size: cover;
+    width: 100%;
+    min-height: 75vh;
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+
+    grid-template-areas: 
+      "logo whatsapp"
+      "headings query"
+    ;
+
+    .headings{
+
+      grid-area: headings;
+      
+      h1 {
+        color: #241E5E;
+      }
+
+      h2 {
+        color: #1D9896;
+      }
+
+    }
+
+    .query{
+
+      grid-area: query;
+
+      form{
+
+        margin-left: 2rem;
+        max-width: 60%;
+        display: flex;
+        flex-direction: column;
+        font-size: 1.5rem;
+        font-weight: bold;
+
+        h3 {
+          color: #241E5E;
+        }
+
+        input {
+          border: none;
+          padding: 1rem;
+          margin-bottom: 1rem;
+          border-radius: 3rem;
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+
+      }
+    }
+
+  }
+
+}

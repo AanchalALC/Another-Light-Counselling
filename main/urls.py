@@ -13,6 +13,8 @@ sitemaps = {
 urlpatterns = [
  
     path('', views.index, name='index'),
+
+    path('psychological-counselling-therapy', views.psychologicalCounsellingTherapy, name='pct'),
     
     path('about', views.about, name='about'),
     path('about/', views.about, name='about'),

@@ -52,6 +52,11 @@ def get_header_contacts():
 # ------------------- VIEWS --------------------------
 
 
+def psychologicalCounsellingTherapy(request):
+    context = {}
+    return render(request, 'psychological_counselling_therapy.html', context=context)
+
+
 def index(request):
 
     # GET STATS

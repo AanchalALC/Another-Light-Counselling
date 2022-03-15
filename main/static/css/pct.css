@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap");
+@font-face {
+  font-family: AttenNew;
+  src: url("/static/fonts/AttenNewRegular.otf") format("opentype");
+}
+@font-face {
+  font-family: AttenNew;
+  font-weight: bold;
+  src: url("/static/fonts/AttenNewExtraBold.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  src: url("/static/fonts/OpenDyslexic-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-weight: bold;
+  src: url("/static/fonts/OpenDyslexic-Bold.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-style: italic;
+  src: url("/static/fonts/OpenDyslexic-Italic.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-style: italic;
+  font-weight: bold;
+  src: url("/static/fonts/OpenDyslexic-BoldItalic.otf") format("opentype");
+}
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #00AAE4;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #00AAE4;
+}
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: #00AAE4;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #00AAE4;
+}
+
+body, html {
+  position: relative;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body .section1 {
+  background-image: url(/static/img/pct/pct_top.png);
+  background-size: cover;
+  width: 100%;
+  min-height: 75vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas: "logo whatsapp" "headings query";
+}
+body .section1 .headings {
+  grid-area: headings;
+}
+body .section1 .headings h1 {
+  color: #241E5E;
+}
+body .section1 .headings h2 {
+  color: #1D9896;
+}
+body .section1 .query {
+  grid-area: query;
+}
+body .section1 .query form {
+  margin-left: 2rem;
+  max-width: 60%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+body .section1 .query form h3 {
+  color: #241E5E;
+}
+body .section1 .query form input {
+  border: none;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=pct.css.map */

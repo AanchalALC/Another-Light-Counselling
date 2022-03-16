@@ -64,10 +64,12 @@ def psychologicalCounsellingTherapy(request):
 
     else:
         form = PpcContactForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'psychological_counselling_therapy.html', context=context)
+        whatsappnum = ContactDetails.objects.get(key='phone')
+        context = {
+            'form': form,
+            'whatsappnum': whatsappnum,
+        }
+        return render(request, 'psychological_counselling_therapy.html', context=context)
 
 
 def index(request):

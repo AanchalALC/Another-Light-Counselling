@@ -175,6 +175,11 @@ body .section1 .whatsapp button {
   margin-top: 2rem;
   color: white;
   font-weight: bold;
+  cursor: pointer;
+}
+body .section1 .whatsapp button .fa-whatsapp {
+  margin-left: 1rem;
+  font-weight: bold;
 }
 body .section1 .headings {
   grid-area: headings;
@@ -325,6 +330,8 @@ body .section2 .services {
   flex-direction: column;
   margin-left: 2rem;
   font-size: 2.1rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 @media screen and (max-width: 800px) {
   body .section2 .services {
@@ -332,12 +339,6 @@ body .section2 .services {
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
-  }
-}
-@media screen and (max-width: 1040px) {
-  body .section2 .services {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
   }
 }
 body .section2 .services b {

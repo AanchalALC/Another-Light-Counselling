@@ -166,6 +166,12 @@ body {
         margin-top: 2rem;
         color: white;
         font-weight: bold;
+        cursor: pointer;
+
+        .fa-whatsapp {
+          margin-left: 1rem;
+          font-weight: bold;
+        }
       }
     }
 
@@ -324,17 +330,14 @@ body {
       flex-direction: column;
       margin-left: 2rem;
       font-size: 2.1rem;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
 
       @media screen and (max-width: 800px) {
         font-size: 1.5rem;
         justify-content: center;
         align-items: flex-start;
         min-height: 100vh;
-      }
-
-      @media screen and (max-width: 1040px) {
-        padding-top: 5rem;
-        padding-bottom: 5rem;
       }
 
 

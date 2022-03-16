@@ -249,12 +249,23 @@ body .section2 {
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "preview services";
 }
+@media screen and (max-width: 1040px) {
+  body .section2 {
+    display: flex;
+    flex-direction: column;
+  }
+}
 body .section2 .preview {
   height: 100%;
   background: #f7f1ee;
   grid-area: preview;
   font-size: 2.1rem;
   display: grid;
+}
+@media screen and (max-width: 800px) {
+  body .section2 .preview {
+    min-height: 80vh;
+  }
 }
 body .section2 .preview p {
   place-self: center center;
@@ -263,6 +274,13 @@ body .section2 .preview p {
   max-width: 80%;
   color: #241e5e;
 }
+@media screen and (max-width: 800px) {
+  body .section2 .preview p {
+    place-self: center end;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
 body .section2 .services {
   grid-area: services;
   display: flex;
@@ -270,6 +288,20 @@ body .section2 .services {
   flex-direction: column;
   margin-left: 2rem;
   font-size: 2.1rem;
+}
+@media screen and (max-width: 800px) {
+  body .section2 .services {
+    font-size: 1.5rem;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+  }
+}
+@media screen and (max-width: 1040px) {
+  body .section2 .services {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
 }
 body .section2 .services b {
   color: #241e5e;
@@ -293,6 +325,12 @@ body .section2 .services .reachbutton button {
   border-radius: 5rem;
   font-size: 1.8rem;
   margin-top: 2rem;
+  cursor: pointer;
+}
+@media screen and (max-width: 800px) {
+  body .section2 .services .reachbutton button {
+    font-size: 1.2rem;
+  }
 }
 body .section3 {
   background: #f7f1ee;
@@ -309,23 +347,46 @@ body .section3 * {
 }
 body .section3 .art {
   max-height: 90vh;
+  margin-bottom: 8rem;
 }
 body .section3 h3 {
   font-size: 4rem;
-  margin-top: 7rem;
+  margin: 2rem;
+}
+@media screen and (max-width: 690px) {
+  body .section3 h3 {
+    font-size: 2.5rem;
+  }
 }
 body .section3 ul {
   font-size: 2rem;
   font-weight: bold;
   line-height: 3.5rem;
+  margin: 2rem;
+}
+@media screen and (max-width: 690px) {
+  body .section3 ul {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+body .section3 .appointment {
+  margin-top: 5rem;
 }
 body .section3 .appointment button {
   background: #FDD23D;
   border: none;
   padding: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   border-radius: 5rem;
   font-size: 1.8rem;
-  margin-top: 2rem;
+  margin: 2rem;
+}
+@media screen and (max-width: 690px) {
+  body .section3 .appointment button {
+    font-size: 1.25rem;
+  }
 }
 
 /*# sourceMappingURL=pct.css.map */

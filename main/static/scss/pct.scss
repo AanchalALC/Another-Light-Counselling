@@ -231,6 +231,11 @@ body {
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 'preview services';
 
+    @media screen and (max-width: 1040px) {
+      display: flex;
+      flex-direction: column;
+    }
+
     .preview {
       height: 100%;
       background: #f7f1ee;
@@ -239,12 +244,22 @@ body {
 
       display: grid;
 
+      @media screen and (max-width: 800px) {
+        min-height: 80vh;
+      }
+
       p {
         place-self: center center;
         text-align: end;
         padding: 2rem;
         max-width: 80%;
         color: #241e5e;
+
+        @media screen and (max-width: 800px) {
+          place-self: center end;
+          font-size: 1.5rem;
+          line-height: 2rem;
+        }
       }
     }
 
@@ -256,6 +271,19 @@ body {
       flex-direction: column;
       margin-left: 2rem;
       font-size: 2.1rem;
+
+      @media screen and (max-width: 800px) {
+        font-size: 1.5rem;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+      }
+
+      @media screen and (max-width: 1040px) {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
+
 
       b {
         color: #241e5e;
@@ -283,6 +311,11 @@ body {
           border-radius: 5rem;
           font-size: 1.8rem;
           margin-top: 2rem;
+          cursor: pointer;
+
+          @media screen and (max-width: 800px) {
+            font-size: 1.2rem;
+          }
         }
       }
 
@@ -306,27 +339,47 @@ body {
 
     .art{
       max-height: 90vh;
+      margin-bottom: 8rem;
     }
 
     h3{
       font-size: 4rem;
-      margin-top: 7rem;
+      margin: 2rem;
+      @media screen and (max-width: 690px) {
+        font-size: 2.5rem;
+      }
     }
 
     ul {
+
       font-size: 2rem;
       font-weight: bold;
       line-height: 3.5rem;
+      margin: 2rem;
+
+      @media screen and (max-width: 690px) {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
     }
 
     .appointment{
+
+      margin-top: 5rem;
+
       button{
         background: #FDD23D;
         border: none;
         padding: 1rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
         border-radius: 5rem;
         font-size: 1.8rem;
-        margin-top: 2rem;
+        margin: 2rem;
+
+        @media screen and (max-width: 690px) {
+          font-size: 1.25rem;
+        }
       }
     }
 

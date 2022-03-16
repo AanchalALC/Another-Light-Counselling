@@ -151,5 +151,38 @@ body .section2 .services .reachbutton button {
   font-size: 1.8rem;
   margin-top: 2rem;
 }
+body .section3 {
+  background: #f7f1ee;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  padding-top: 8rem;
+  padding-bottom: 10rem;
+  color: #241e5e;
+}
+body .section3 * {
+  text-align: center;
+}
+body .section3 .art {
+  max-height: 90vh;
+}
+body .section3 h3 {
+  font-size: 4rem;
+  margin-top: 7rem;
+}
+body .section3 ul {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 3.5rem;
+}
+body .section3 .appointment button {
+  background: #FDD23D;
+  border: none;
+  padding: 1rem;
+  border-radius: 5rem;
+  font-size: 1.8rem;
+  margin-top: 2rem;
+}
 
 /*# sourceMappingURL=pct.css.map */

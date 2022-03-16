@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic, Service, Policy, Committee, DynamicContent
+from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic, Service, Policy, Committee, DynamicContent, PpcContact
  
 # @admin.register(PostType)
 # class PostTypeAdmin(admin.ModelAdmin):
@@ -44,6 +44,12 @@ class ContactAdmin(admin.ModelAdmin):
     exclude = ('site',)
     ordering = ('name', 'id', )
     search_fields = ('name', 'number', 'instahandle',)
+
+@admin.register(PpcContact)
+class PpcContactAdmin(admin.ModelAdmin):
+    exclude = ('site',)
+    ordering = ('name', 'id', )
+    search_fields = ('name', 'email', 'contact',)
 
 @admin.register(ContactDetails)
 class ContactDetailsAdmin(admin.ModelAdmin):

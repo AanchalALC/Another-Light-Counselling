@@ -15,6 +15,25 @@
 
 </head>
 <body>
+
+
+  <div id="promptoverlay">
+
+    <div id="dialoguebox">
+        <p>
+            Thank you for reaching out to us!<br />
+            We will contact you shortly!
+        </p>
+        <p>
+            <a href="#">OK</a>
+        </p>
+    </div>
+
+</div>
+
+
+
+
   <div class="section1">
 
     <img class="logo" src="{% static 'img/pct/logo.png' %}" alt="">
@@ -29,11 +48,22 @@
     </div>
 
     <div class="query">
-      <form>
+      <form method="POST" action="">
+        {% csrf_token %}
         <h3>Send your Query</h3>
-        <input type="text" placeholder="Name" />
-        <input type="text" placeholder="Email" />
-        <input type="text" placeholder="Contact Number" />
+        <p>
+          {{ form.non_field_errors }}
+        </p>
+        
+        {{ form.name.errors }}
+        {{ form.name }}
+
+        {{ form.email.errors }}
+        {{ form.email }}
+
+        {{ form.contact.errors }}
+        {{ form.contact }}
+        
         <button type="submit">SUBMIT</button>
       </form>
     </div>

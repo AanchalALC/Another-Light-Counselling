@@ -8,7 +8,7 @@ from django.templatetags.static import static
 from django.urls import reverse
 
 from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service, Policy, Committee, DynamicContent
-from .forms import ContactForm
+from .forms import ContactForm, PpcContactForm
 
 
 # ------------------- HELPERS --------------------------
@@ -53,7 +53,20 @@ def get_header_contacts():
 
 
 def psychologicalCounsellingTherapy(request):
-    context = {}
+
+    if request.method == 'POST':
+        
+        cform = PpcContactForm(request.POST)        
+        if cform.is_valid():
+            cform.save()
+
+        return HttpResponseRedirect(reverse('pct') + '#promptoverlay')
+
+    else:
+        form = PpcContactForm()
+    context = {
+        'form': form
+    }
     return render(request, 'psychological_counselling_therapy.html', context=context)
 
 

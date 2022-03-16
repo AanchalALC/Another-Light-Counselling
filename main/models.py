@@ -109,6 +109,23 @@ class Contact(models.Model):
         verbose_name_plural = 'People Who Reached Out'
 
 
+class PpcContact(models.Model):
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+    name = models.CharField(max_length=500)
+    email = models.CharField(max_length=60, null=True, blank=True)
+    contact = models.CharField(max_length=60, null=True, blank=True)
+
+    def __str__(self):
+        name = str(self.name)
+        email = str(self.email)
+        
+        return name if len(name) > 0 else email
+
+    class Meta:
+        verbose_name = 'PPC Lead'
+        verbose_name_plural = 'PPC Leads'
+
+
 class ContactDetails(models.Model):
     key = models.CharField(max_length=250, verbose_name="Key (Do Not Change)")
     symbol = models.CharField(max_length=250, verbose_name="Symbol (font-awesome)")

@@ -421,6 +421,7 @@ body .section3 .appointment button {
   border-radius: 5rem;
   font-size: 1.8rem;
   margin: 2rem;
+  cursor: pointer;
 }
 @media screen and (max-width: 690px) {
   body .section3 .appointment button {

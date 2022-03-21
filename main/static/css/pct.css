@@ -402,6 +402,7 @@ body .section3 ul {
   font-weight: bold;
   line-height: 3.5rem;
   margin: 2rem;
+  list-style-position: inside;
 }
 @media screen and (max-width: 690px) {
   body .section3 ul {

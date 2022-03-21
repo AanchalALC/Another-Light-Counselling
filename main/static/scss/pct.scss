@@ -412,6 +412,7 @@ body {
       font-weight: bold;
       line-height: 3.5rem;
       margin: 2rem;
+      list-style-position: inside;
 
       @media screen and (max-width: 690px) {
         font-size: 1.5rem;

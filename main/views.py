@@ -62,7 +62,7 @@ def psychologicalCounsellingTherapy(request):
         if cform.is_valid():
             cform.save()
 
-        return HttpResponseRedirect(reverse('pct') + '#promptoverlay')
+        return redirect('psychological-counselling-therapy-thankyou')
 
     else:
         form = PpcContactForm()

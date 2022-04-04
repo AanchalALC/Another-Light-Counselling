@@ -51,6 +51,8 @@ def get_header_contacts():
 
 # ------------------- VIEWS --------------------------
 
+def pctThankYou(request):
+    return render(request, 'pct_thankyou.html')
 
 def psychologicalCounsellingTherapy(request):
 

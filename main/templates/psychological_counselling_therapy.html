@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,31 +17,41 @@
 
   <!-- FAVICON -->
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163396537-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-163396537-1');
+  </script>
 
 </head>
+
 <body>
 
 
   <div id="promptoverlay">
 
     <div id="dialoguebox">
-        <p>
-          Thank You!
-        </p>
+      <p>
+        Thank You!
+      </p>
 
-        <p>
-          We have received your details. Our team will get back to you soon.
-        </p>
-          
-        <p>
-          You may visit our website <a href="https://www.another-light.com/">https://www.another-light.com/</a> to get details of our services.
-        </p>
-        <p>
-            <a href="#" class="okbutton">OK</a>
-        </p>
+      <p>
+        We have received your details. Our team will get back to you soon.
+      </p>
+
+      <p>
+        You may visit our website <a href="https://www.another-light.com/">https://www.another-light.com/</a> to get
+        details of our services.
+      </p>
+      <p>
+        <a href="#" class="okbutton">OK</a>
+      </p>
     </div>
 
-</div>
+  </div>
 
 
 
@@ -52,20 +63,20 @@
     <a class="whatsapp" href="https://wa.me/{{whatsappnum.value}}">
       <button>WHATSAPP <i class="fab fa-whatsapp"></i></button>
     </a>
-    
+
     <div class="headings">
-      <h1>Counselling & Therapy by Expert Psychologists in India</h1>
-      <h2>Get best psychological counselling and therapy by junior and senior psychologists.</h2>
+      <h1>Counselling & <br> Therapy by Expert <br> Psychologists <br>in India</h1>
+      <h2>Get best psychological counselling and <br>therapy by juniorand senior psychologists.</h2>
     </div>
 
     <div class="query">
-      <form method="POST" action="">
+      <form method="POST" action="/psychological-counselling-therapy-thankyou" target="_blank">
         {% csrf_token %}
         <h3>Send your Query</h3>
         <p>
           {{ form.non_field_errors }}
         </p>
-        
+
         {{ form.name.errors }}
         {{ form.name }}
 
@@ -74,17 +85,24 @@
 
         {{ form.contact.errors }}
         {{ form.contact }}
-        
+
         <button type="submit">SUBMIT</button>
       </form>
     </div>
 
   </div>
   <div class="section2">
-    
+
     <div class="preview">
       <p>
-        <b>Another Light Counselling (ALC)</b> provides cost-effective mental healthcare to those in need of it. Specialized in care for trauma, addictions, non-normative genders and violence faced by marginalised individuals & communities, we believe in informed and participative healing. Since its inception in 2019, ALC has served over 800 clients.
+        <b>Another Light Counselling (ALC)</b><br> provides cost-effective mental <br> healthcare to those in need of
+        it.
+        <br>
+        Specialized in care for trauma, <br> addictions, non-normative <br> genders and violence faced by <br>
+        marginalised individuals
+        & <br> communities, we believe in <br> informed and participative <br> healing. Since its inception in 2019,
+        <br> ALC has served
+        over 800 <br> clients.
       </p>
     </div>
 
@@ -107,7 +125,7 @@
 
   </div>
   <div class="section3">
-    
+
     <img class="art" src="{% static 'img/pct/fixhead.svg' %}">
 
     <h3>Why Another Light?</h3>
@@ -128,4 +146,5 @@
 
   </div>
 </body>
+
 </html>

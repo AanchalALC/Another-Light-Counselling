@@ -1,4 +1,10 @@
+{% extends 'skeleton.html' %}
 {% load static %}
+{% block title %}Psychological Counselling Therapy | Another Light Counselling{% endblock %}
+{% block metadescription %}Best psychological counselling and therapy by experts in India. Contact for counselling and
+therapy for LGBTQ, depression, anxiety, trauma, relationship problems etc.
+{% endblock %}
+{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,27 +12,36 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Psychological Counselling Therapy</title>
+  <title>Psychological Counselling Therapy | Another Light Counselling</title>
+  <title>{% block title %}{% endblock %}</title>
+  <meta name="description" content="{% block metadescription %}{% endblock %}" />
+  <meta name="description"
+    content="Best psychological counselling and therapy by experts in India. Contact for counselling and therapy for LGBTQ, depression, anxiety, trauma, relationship problems etc.">
 
   <!-- <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet">
   <link href="{% static 'css/all.css' %}" rel="stylesheet"> -->
 
   <script src="https://kit.fontawesome.com/d8749e6d0b.js" crossorigin="anonymous"></script>
+  {% block head %}
 
   <link href="{% static 'css/pct.css' %}" rel="stylesheet">
+  {% endblock %}
 
   <!-- FAVICON -->
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163396537-1"></script>
+
+  <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', 'UA-163396537-1');
+    gtag('config', 'AW-10878605404');
   </script>
 
 </head>
+
+{% block body %}
 
 <body>
 
@@ -146,5 +161,6 @@
 
   </div>
 </body>
+{% endblock %}
 
 </html>

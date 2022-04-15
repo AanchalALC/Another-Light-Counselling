@@ -1,18 +1,28 @@
 {% extends 'skeleton.html' %}
 {% load static %}
 {% block title %}About Another Light Counselling{% endblock %}
-{% block metadescription %}Another Light founded by expert psychologist Aanchal Narang offers mental health and counselling services by junior and senior mental health counsellors.{% endblock %}
+{% block metadescription %}Another Light founded by expert psychologist Aanchal Narang offers mental health and
+counselling services by junior and senior mental health counsellors.{% endblock %}
 {% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/about.css' %}">
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+</script>
 {% endblock %}
 
 {% block body %}
 <div id="content">
-    
+
     <div id="topsection">
-        <img src="{% static 'img/about/top_people.svg' %}" id="toppeople" alt="Mental Health & Counselling Services by Expert Counsellors"/>        
+        <img src="{% static 'img/about/top_people.svg' %}" id="toppeople"
+            alt="Mental Health & Counselling Services by Expert Counsellors" />
     </div>
 
 
@@ -34,7 +44,7 @@
                 </div>
                 <a onclick="toggleInfo(this)" data-id="{{ member.id }}">READ MORE</a>
             </div>
-            <img src="{{ member.thumbnail.url }}" class="person-picture" alt="{{ member.img_alt }}"/>
+            <img src="{{ member.thumbnail.url }}" class="person-picture" alt="{{ member.img_alt }}" />
         </div>
 
         {% endfor %}

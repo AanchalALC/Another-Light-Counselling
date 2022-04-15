@@ -6,14 +6,24 @@
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/faqs.css' %}">
 <script src="{% static 'js/faqs.js' %}"></script>
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'AW-10878605404');
+</script>
 {% endblock %}
 
 {% block body %}
 <div id="content">
-    
+
     <div id="topsection">
-        <img src="{% static 'img/faqs/top_gal.svg' %}" id="topgal" alt="FAQs -  Another Light Counselling & Therapy by Expert Psychologists"/>        
-    </div>    
+        <img src="{% static 'img/faqs/top_gal.svg' %}" id="topgal"
+            alt="FAQs -  Another Light Counselling & Therapy by Expert Psychologists" />
+    </div>
 
 
     <div id="faqssection">
@@ -29,34 +39,36 @@
 
             <div id="col1" class="col">
                 {% for faq in faq1 %}
-                    <div class="faq-item">
-                        <div class="question" onclick="toggleFaq(this)" data-answer="a{{ faq.id }}" data-elementid="q{{ faq.id }}" id="q{{ faq.id }}">
-                            <h3>{{ faq.question }}</h3>
-                            <span>-</span>
-                        </div>
-                        <div class="answer" id="a{{ faq.id }}">
-                            {{ faq.tippy_answer | safe }}
-                        </div>
+                <div class="faq-item">
+                    <div class="question" onclick="toggleFaq(this)" data-answer="a{{ faq.id }}"
+                        data-elementid="q{{ faq.id }}" id="q{{ faq.id }}">
+                        <h3>{{ faq.question }}</h3>
+                        <span>-</span>
                     </div>
+                    <div class="answer" id="a{{ faq.id }}">
+                        {{ faq.tippy_answer | safe }}
+                    </div>
+                </div>
                 {% endfor %}
             </div>
             <div id="col2" class="col">
                 {% for faq in faq2 %}
-                    <div class="faq-item">
-                        <div class="question" onclick="toggleFaq(this)" data-answer="a{{ faq.id }}" data-elementid="q{{ faq.id }}" id="q{{ faq.id }}">
-                            <h3>{{ faq.question }}</h3>
-                            <span>-</span>
-                        </div>
-                        <div class="answer" id="a{{ faq.id }}">
-                            {{ faq.tippy_answer | safe }}
-                        </div>
+                <div class="faq-item">
+                    <div class="question" onclick="toggleFaq(this)" data-answer="a{{ faq.id }}"
+                        data-elementid="q{{ faq.id }}" id="q{{ faq.id }}">
+                        <h3>{{ faq.question }}</h3>
+                        <span>-</span>
                     </div>
+                    <div class="answer" id="a{{ faq.id }}">
+                        {{ faq.tippy_answer | safe }}
+                    </div>
+                </div>
                 {% endfor %}
             </div>
 
-            
 
-                        
+
+
 
         </div>
 

@@ -1,10 +1,4 @@
-{% extends 'skeleton.html' %}
 {% load static %}
-{% block title %}Psychological Counselling Therapy | Another Light Counselling{% endblock %}
-{% block metadescription %}Best psychological counselling and therapy by experts in India. Contact for counselling and
-therapy for LGBTQ, depression, anxiety, trauma, relationship problems etc.
-{% endblock %}
-{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,13 +7,10 @@ therapy for LGBTQ, depression, anxiety, trauma, relationship problems etc.
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Psychological Counselling Therapy | Another Light Counselling</title>
-  <title>{% block title %}{% endblock %}</title>
-  <meta name="description" content="{% block metadescription %}{% endblock %}" />
   <meta name="description"
-    content="Best psychological counselling and therapy by experts in India. Contact for counselling and therapy for LGBTQ, depression, anxiety, trauma, relationship problems etc.">
-
-  <!-- <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet">
-  <link href="{% static 'css/all.css' %}" rel="stylesheet"> -->
+    content="Best psychological counselling and therapy by experts in India. Contact for counselling and
+    therapy for LGBTQ, depression, anxiety, trauma, relationship problems etc.">
+    <meta name="keywords" content="Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling">
 
   <script src="https://kit.fontawesome.com/d8749e6d0b.js" crossorigin="anonymous"></script>
   {% block head %}
@@ -40,8 +31,6 @@ therapy for LGBTQ, depression, anxiety, trauma, relationship problems etc.
   </script>
 
 </head>
-
-{% block body %}
 
 <body>
 
@@ -161,6 +150,5 @@ therapy for LGBTQ, depression, anxiety, trauma, relationship problems etc.
 
   </div>
 </body>
-{% endblock %}
 
 </html>

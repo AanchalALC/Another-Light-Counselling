@@ -15,7 +15,7 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     path('psychological-counselling-therapy', views.psychologicalCounsellingTherapy, name='psychological-counselling-therapy'),
-    path('psychological-counselling-therapy-thankyou', views.psychologicalCounsellingTherapy, name='psychological-counselling-therapy-thankyou'),
+    path('psychological-counselling-therapy-thankyou', views.pctThankYou, name='psychological-counselling-therapy-thankyou'),
     path('psychological-counselling-therapy-thankyou/', views.pctThankYou, name='psychological-counselling-therapy-thankyou'),
 
     path('about', views.about, name='about'),

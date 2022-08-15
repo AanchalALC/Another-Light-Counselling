@@ -1,6 +1,6 @@
 @use "sass:math";
-@import 'colors';
-@import 'fonts';
+@import "colors";
+@import "fonts";
 
 $header_height: 160px;
 $small_header_height: 100px;
@@ -12,62 +12,55 @@ $small_padding: 1rem;
 //     transition: all 0.2s;
 // }
 
-body, html {
+body,
+html {
     position: relative;
     overflow-x: hidden;
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
     font-size: 1.3rem;
     // font-family: AttenNew, Arial, Helvetica, sans-serif;
     // font-family: 'Poppins', sans-serif;
-    font-family: 'OpenDyslexic', sans-serif;
+    font-family: "OpenDyslexic", sans-serif;
 
-    .mytooltip{
+    .mytooltip {
         text-decoration: underline;
         text-decoration-style: dotted;
         cursor: help;
     }
 
-    #wrapper{
-
-
-
-        #topheader{
-
-
-
+    #wrapper {
+        #topheader {
             display: grid;
             grid-template-columns: 1fr;
-            grid-template-rows: math.div($header_height, 2) math.div($header_height,2);
-            grid-template-areas: 
+            grid-template-rows: math.div($header_height, 2) math.div($header_height, 2);
+            grid-template-areas:
                 "t"
-                "b"
-            ;
+                "b";
 
             // GENERIC STYLES
-            a{
+            a {
                 text-decoration: none;
                 color: $primaryred;
                 font-weight: bold;
             }
 
-
             // TOP ROW
-            #sitelogo{
+            #sitelogo {
+                height: 10rem;
                 grid-area: t;
                 place-self: start start;
                 margin-left: $padding;
                 z-index: 5;
-                -webkit-box-shadow: 6px 7px 5px -5px rgba(0,0,0,0.27);
-                -moz-box-shadow: 6px 7px 5px -5px rgba(0,0,0,0.27);
-                box-shadow: 6px 7px 5px -5px rgba(0,0,0,0.27);
+                -webkit-box-shadow: 6px 7px 5px -5px rgba(0, 0, 0, 0.27);
+                -moz-box-shadow: 6px 7px 5px -5px rgba(0, 0, 0, 0.27);
+                box-shadow: 6px 7px 5px -5px rgba(0, 0, 0, 0.27);
             }
 
-            #contactrow{
-
+            #contactrow {
                 margin-right: $padding;
                 grid-area: t;
                 display: flex;
@@ -79,72 +72,66 @@ body{
 
                 * {
                     margin-left: 5px;
-                }                
+                }
 
-                a{
+                a {
                     max-height: 100%;
                     display: grid;
-                    img{
+                    img {
                         place-self: center center;
                         max-height: 100%;
                         width: $itemsizing;
                     }
 
-                    .phoneicon{
+                    .phoneicon {
                         display: none;
                     }
                 }
 
-
-
-                #searchbox{
-                    input{
+                #searchbox {
+                    input {
                         border: 2px solid $primaryred;
                         height: $itemsizing;
-                        padding-left: 10px;                        
-                    }                    
+                        padding-left: 10px;
+                    }
                 }
-
             }
 
-
-            
-
             // BOTTOM ROW
-            #menuitems{
+            #menuitems {
                 grid-area: b;
                 z-index: 3;
                 place-self: center end;
                 margin-right: $padding;
 
-                #hamburger{
+                #hamburger {
                     display: none;
                 }
 
-                #closemenu{
+                #closemenu {
                     display: none;
                 }
 
-                a{
+                a {
                     padding-left: math.div($padding, 2);
                     padding-right: math.div($padding, 2);
                     border-left: 2px solid $primaryred;
                 }
 
-                #servicedropdown{
+                #servicedropdown {
                     position: relative;
                     display: inline-block;
 
-                    #servicebutton{
+                    #servicebutton {
                         border-left: 2px solid $primaryred;
                     }
 
-                    #dropdowncontent{
+                    #dropdowncontent {
                         display: none;
                         position: absolute;
-                        background: #F6DE96;
+                        background: #f6de96;
                         min-width: 250px;
-                        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
                         z-index: 1;
                         padding: 1rem;
 
@@ -158,7 +145,7 @@ body{
                             display: inline-block;
                         }
 
-                        a:hover{
+                        a:hover {
                             background: rgba(255, 255, 255, 0.294);
                         }
 
@@ -166,22 +153,21 @@ body{
                     }
                 }
 
-                #servicedropdown:hover #dropdowncontent{
+                #servicedropdown:hover #dropdowncontent {
                     display: block;
                     transition: display 0.5s;
                 }
 
-                :first-child{
+                :first-child {
                     border-left: none;
                 }
 
-                :last-child{
+                :last-child {
                     padding-right: 0;
                 }
-
             }
 
-            #rainbowdiv{
+            #rainbowdiv {
                 grid-area: b;
                 width: 100%;
                 height: 100%;
@@ -190,10 +176,9 @@ body{
                 background-image: url(/static/img/skeleton/rainbow_rect_header.png);
                 background-repeat: no-repeat;
                 background-size: contain;
-
             }
 
-            #colordiv{
+            #colordiv {
                 grid-area: b;
                 width: 100%;
                 height: 100%;
@@ -201,63 +186,57 @@ body{
                 z-index: 1;
             }
 
-
             @media screen and (max-width: 1000px) {
-                #sitelogo{
+                #sitelogo {
                     margin-left: 0;
-                    height: $header_height; 
+                    height: $header_height;
                 }
             }
 
-
             @media screen and (max-width: 1300px) {
-                grid-template-rows: math.div($small_header_height,2) math.div($small_header_height,2);
+                grid-template-rows: math.div($small_header_height, 2) math.div($small_header_height, 2);
 
                 // #sitelogo{
                 //     margin-left: 0;
-                //     height: $small_header_height; 
+                //     height: $small_header_height;
                 // }
 
-                #contactrow{
+                #contactrow {
                     margin-right: $small_padding;
                     font-size: 1.2rem;
 
-                    .site-logo{
+                    .site-logo {
                         font-size: 2rem;
                     }
 
                     a {
-                        .textnumber{
+                        .textnumber {
                             display: none;
                         }
-                        .phoneicon{
+                        .phoneicon {
                             display: block;
                         }
                     }
                 }
 
-                #menuitems{
+                #menuitems {
                     margin-right: $small_padding;
                     font-size: 1rem;
 
                     a {
                         padding-left: math.div($small_padding, 2);
-                        padding-right: math.div($small_padding,2);
+                        padding-right: math.div($small_padding, 2);
                     }
                 }
             }
 
-
             @media screen and (max-width: 790px) {
-
-                #sitelogo{
-                    height: $header_height; 
+                #sitelogo {
+                    height: $header_height;
                 }
-                
-                #menuitems{
 
-                    #themenu{
-
+                #menuitems {
+                    #themenu {
                         display: block;
                         position: fixed;
                         background: $bg_skincolor;
@@ -270,10 +249,10 @@ body{
                         align-items: flex-end;
                         font-size: 1.3rem;
                         padding-bottom: 2rem;
-                        
-                        -webkit-box-shadow: -1px 2px 9px 3px rgba(0,0,0,0.31);
-                        -moz-box-shadow: -1px 2px 9px 3px rgba(0,0,0,0.31);
-                        box-shadow: -1px 2px 9px 3px rgba(0,0,0,0.31);
+
+                        -webkit-box-shadow: -1px 2px 9px 3px rgba(0, 0, 0, 0.31);
+                        -moz-box-shadow: -1px 2px 9px 3px rgba(0, 0, 0, 0.31);
+                        box-shadow: -1px 2px 9px 3px rgba(0, 0, 0, 0.31);
 
                         transition: right 0.2s;
 
@@ -289,28 +268,25 @@ body{
                             color: white;
                         }
 
-                        #servicedropdown{
-                            
+                        #servicedropdown {
                             position: initial;
                             display: initial;
                             text-align: right;
 
-
-                            #servicebutton{
+                            #servicebutton {
                                 border-left: none;
                                 border-bottom: 2px solid white;
                                 padding-bottom: 0.5rem;
                                 display: inline-block;
                             }
 
-                            #dropdowncontent.visible{
-
+                            #dropdowncontent.visible {
                                 display: block;
                                 position: absolute;
                                 right: 1rem;
-                                
-                                background: #F6DE96;
-                                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+
+                                background: #f6de96;
+                                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 
                                 min-width: unset;
                                 box-shadow: unset;
@@ -319,28 +295,25 @@ body{
                                 padding-left: 2rem;
                                 padding-bottom: 2rem;
 
-                                a{
-                                    color: #E65359;
-                                    border-bottom: 2px solid #E65359;
+                                a {
+                                    color: #e65359;
+                                    border-bottom: 2px solid #e65359;
                                 }
                             }
-
                         }
 
-                        #servicedropdown:hover{
+                        #servicedropdown:hover {
                             cursor: pointer;
                         }
 
-                        #servicedropdown:hover #dropdowncontent{
+                        #servicedropdown:hover #dropdowncontent {
                             display: none;
                         }
 
-                        #servicedropdown:hover #dropdowncontent.visible{
+                        #servicedropdown:hover #dropdowncontent.visible {
                             display: block;
                             position: absolute;
                         }
-
-                        
 
                         :first-child {
                             // border-bottom: none;
@@ -352,59 +325,46 @@ body{
                         }
                     }
 
-                    #hamburger{
+                    #hamburger {
                         display: initial;
                         border-left: none;
                         font-size: 1.5rem;
                     }
 
-                    #closemenu{
+                    #closemenu {
                         display: initial;
                     }
 
-                    #themenu:target{
+                    #themenu:target {
                         right: 0;
                     }
-
                 }
-
             }
 
-
             @media screen and (max-width: 500px) {
-
-                #contactrow{
-                    #searchbox{
+                #contactrow {
+                    #searchbox {
                         display: none;
                     }
                 }
-
             }
-
-
         }
 
-
-
-
-        #footer{
-
+        #footer {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            
 
             width: 100%;
             padding-left: $padding;
             padding-bottom: 2rem;
             background-color: $bg_skincolor;
 
-            .footersection{
-
+            .footersection {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
 
-                h4{
+                h4 {
                     font-weight: bold;
                     font-size: 1.8rem;
                     margin-bottom: 0;
@@ -413,24 +373,22 @@ body{
                     color: $primaryred;
                 }
 
-
-                a{
+                a {
                     text-decoration: none;
                     color: black;
                     font-size: 1.2rem;
                     margin-bottom: 0.5rem;
-                    font-family: 'OpenDyslexic', sans-serif;
+                    font-family: "OpenDyslexic", sans-serif;
                     transition: color 0.5s;
                 }
 
-                a:hover{
+                a:hover {
                     color: $primaryred;
                     transition: color 0.1s;
                 }
-
             }
 
-            #footercontacts{
+            #footercontacts {
                 a {
                     $vertical_button_padding: 1rem;
                     $horizontal_button_padding: 1rem;
@@ -448,13 +406,11 @@ body{
                     transition: background 0.5s, color 0.15s;
                 }
 
-                a:hover{
+                a:hover {
                     background: $primaryred;
                     color: white;
                 }
             }
-
-            
 
             // #rainbowbg{
             //     grid-row: 1/3;
@@ -472,7 +428,6 @@ body{
             //     object-fit: contain;
             //     height: 100%;
             // }
-
 
             // #toplinks{
             //     grid-row: 1/2;
@@ -519,18 +474,14 @@ body{
 
             // }
 
-
-
             @media screen and (max-width: 1250px) {
-                
                 display: flex;
                 flex-wrap: wrap;
                 padding-left: $small_padding;
-                
-                .footersection{
+
+                .footersection {
                     margin-right: 2rem;
                 }
-                
 
                 // a {
                 //     border: none;
@@ -571,15 +522,7 @@ body{
                 //     margin-right: $small_padding;
                 //     display: none;
                 // }
-
             }
-
-
-
-
-
         }
-
     }
-
 }

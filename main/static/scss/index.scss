@@ -7,7 +7,7 @@
         background-size: cover;
         background-position: center;
         width: 100%;
-        height: 30.5rem;
+        height: 75vh;
         display: grid;
         grid-template-columns: 3fr 2fr;
         grid-template-rows: 1fr 3fr 2fr;
@@ -117,7 +117,7 @@
 
         .container {
             width: 100vw;
-            height: 30.5rem;
+            height: 75vh;
             position: relative;
             background: #355c7d;
             /* fallback for old browsers */
@@ -131,7 +131,7 @@
         .container img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             position: absolute;
             margin: auto;
             top: 0;

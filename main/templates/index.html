@@ -52,9 +52,35 @@ and experience a cost-effective and quality solution.{% endblock %}
         </div> -->
         <div class="container">
             <div class="arrow arrow-left"><i class="fas fa-chevron-circle-left"></i></div>
-            <img id="img1" alt=""><button class="button" id="button1" onclick='redirectToContact()' ;></button>
-            <img id="img2" alt=""><button class="button" id="button2" onclick='redirectToContact()'></button>
-            <img id="img3" alt=""><button class="button" id="button3" onclick='redirectToContact()'></button>
+            <img id="img1" alt="">
+            <div class="textcontent" id="textcontent1">
+                <p class="para1" id="para1">
+                    High Quality Psychological <br> Counselling & Therapy in India
+                </p>
+                <p class="para2" id="para1">
+                    by a Team of Expert Psychologists
+                </p>
+            </div>
+            <button class=" button" id="button1" onclick='redirectToContact()' ;></button>
+            <img id="img2" alt="">
+            <div class="textcontent" id="textcontent2">
+                <p class="para1" id="para1">
+                    Psychological Counselling & Therapy for LGBTQ, Depression, Anxiety, Trauma & Addiction
+                </p>
+                <p class="para2" id="para1">
+                    Contact Another Light Solution for <br>Affordable & Quality Services
+                </p>
+            </div><button class="button" id="button2" onclick='redirectToContact()'></button>
+            <img id="img3" alt="">
+            <div class="textcontent" id="textcontent3">
+                <p class="para1" id="para1">
+                    Another Light Counselling
+                </p>
+                <p class="para2" id="para1">
+                    A Safe Place to Freely Express Your Feeling & Ask Questions
+                </p>
+            </div>
+            <button class="button" id="button3" onclick='redirectToContact()'></button>
             <div class="arrow arrow-right"><i class="fas fa-chevron-circle-right"></i>
             </div>
             <div class="dots">
@@ -74,6 +100,7 @@ and experience a cost-effective and quality solution.{% endblock %}
     <script>
         const imgs = document.querySelectorAll(".container img");
         const btns = document.querySelectorAll(".container button");
+        const textdivs = document.querySelectorAll(".container div.textcontent");
 
         let redirectToContact = () => {
             window.open("{% url 'contact' %}");
@@ -85,20 +112,23 @@ and experience a cost-effective and quality solution.{% endblock %}
 
         let currentIndex = 0;
         let time = 5000; // default time for auto slideshow
+        let device = '';
 
         const validateDeviceType = () => {
             if (navigator.userAgent && typeof navigator.userAgent == "string" && /Mobi/i.test(navigator.userAgent)) {
-                return 'mobile';
+                device = 'mobile';
             } else {
-                return 'desktop';
+                device = 'desktop';
             }
         }
+
+        validateDeviceType();
 
         const img1 = document.querySelector("#img1");
         const img2 = document.querySelector("#img2");
         const img3 = document.querySelector("#img3");
 
-        if (validateDeviceType() == "desktop") {
+        if (device == "desktop") {
             img1.src = "{% static 'img/index/1.jpg' %}";
             img2.src = "{% static 'img/index/2.jpg' %}";
             img3.src = "{% static 'img/index/3.jpg' %}";
@@ -110,12 +140,19 @@ and experience a cost-effective and quality solution.{% endblock %}
 
         const defClass = (startPos, index) => {
             for (let i = startPos; i < imgs.length; i++) {
-                imgs[i].style.display = "none"; btns[i].style.display = "none";
+                imgs[i].style.display = "none";
+                btns[i].style.display = "none";
+                textdivs[i].style.display = "none";
                 dots[i].classList.remove("fa-dot-circle"); dots[i].classList.add("fa-circle");
             }
-            imgs[index].style.display = "block"; btns[index].style.display = "block";
+            imgs[index].style.display = "block";
+            btns[index].style.display = "block";
+            textdivs[index].style.display = "block";
             dots[index].classList.add("fa-dot-circle");
-        }; defClass(1, 0); leftArrow.addEventListener("clizck", function () { currentIndex <= 0 ? currentIndex = imgs.length - 1 : currentIndex--; defClass(0, currentIndex); });
+        }; defClass(1, 0);
+        leftArrow.addEventListener("click", function () {
+            currentIndex <= 0 ? currentIndex = imgs.length - 1 : currentIndex--; defClass(0, currentIndex);
+        });
         rightArrow.addEventListener("click", function () {
             currentIndex >= imgs.length - 1 ? currentIndex = 0 :
                 currentIndex++;

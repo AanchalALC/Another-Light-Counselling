@@ -163,6 +163,41 @@
             bottom: 36%;
             left: 6%;
         }
+
+        .textcontent {
+            position: absolute;
+            width: 65vw;
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        .textcontent p {
+            color: #1b1b8c;
+            font-family: Montserrat;
+        }
+
+        .textcontent .para1 {
+            font-size: 2.65rem;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        .textcontent .para2 {
+            font-size: 1.5rem;
+        }
+
+        #textcontent1 {
+            top: 19.5%;
+            left: 4%;
+        }
+        #textcontent2 {
+            bottom: 35%;
+            right: 0%;
+            width: 50vw;
+        }
+        #textcontent3 {
+            top: 21.5%;
+            left: 4%;
+        }
         .container .arrow {
             z-index: 10;
             position: absolute;
@@ -279,6 +314,43 @@
             }
             #button3 {
                 bottom: 49%;
+                left: 8%;
+            }
+
+            .textcontent {
+                position: absolute;
+                width: 90vw;
+                background-color: transparent;
+                border-color: transparent;
+            }
+
+            .textcontent p {
+                color: #1b1b8c;
+                font-family: Montserrat;
+            }
+
+            .textcontent .para1 {
+                font-size: 1.5rem;
+                font-weight: bold;
+                line-height: 1.45;
+            }
+            .textcontent .para2 {
+                font-size: 0.7rem;
+            }
+
+            #textcontent1 {
+                top: 18.5%;
+                left: 8%;
+            }
+            #textcontent2 {
+                top: unset;
+                right: unset;
+                bottom: 16.5%;
+                left: 8%;
+                width: 90vw;
+            }
+            #textcontent3 {
+                top: 18.5%;
                 left: 8%;
             }
             .container img {

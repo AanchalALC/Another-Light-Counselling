@@ -7,6 +7,7 @@ and experience a cost-effective and quality solution.{% endblock %}
 {% block metakeywords %}LGBTQ counselling, LGBTQ counselling and Therapy, LGBTQ Therapy{% endblock %}
 
 {% block head %}
+
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
@@ -27,30 +28,98 @@ and experience a cost-effective and quality solution.{% endblock %}
 
     gtag('config', 'UA-163396537-1');
 </script>
-
+<script>
+    function removePopup() {
+        document.querySelector("#promptoverlay").parentElement.removeChild(document.querySelector("#promptoverlay"));
+    }
+</script>
 {% endblock %}
 
 {% block body %}
 <div id="content">
+    <div id="promptoverlay">
 
-    <div id="topsection">
-
-        <!-- <img src="{% static 'img/index/gals.svg' %}" id="topgals" alt="LGBTQ Counselling" />
-
-        <div id="heytherebox">
+        <div id="dialoguebox">
             <p>
-                {{ s1.title | safe }}
+                Limited slots are available for sessions @Rs.800. Contact our manager Now : Visit
+
+                <a class="textlink" href="https://www.another-light.com/contact/" target="_blank">
+                    https://www.another-light.com/contact/
+                </a>
+
+                Call +918879260310 or WhatsApp your details.
+            </p>
+            <p>
+                <a class="buttonlink" onclick="removePopup()">OK</a>
             </p>
         </div>
 
-        <div id="readingthis">
+    </div>
+
+    <div id="topsection">
+        <div class="arrow arrow-left"><i class="fas fa-chevron-circle-left"></i></div>
+        <img src="" id="topgals" alt="LGBTQ Counselling" style="position: relative;top:0%;width:100vw;left:0"
+            class="imgs" />
+        <div class="textcontent" id="readingthis">
+            <p class="para1">
+                High Quality Psychological <br> Counselling & Therapy in India
+            </p>
+            <p class="para2">
+                by a Team of Expert Psychologists
+            </p>
+            <button class="button" id="button1" onclick='redirectToContact()' ;></button>
+
+        </div>
+        <img src="" id="img2" alt="LGBTQ Counselling" style="position: relative;top:0%;width:100vw;left:0"
+            class="imgs" />
+        <div class="textcontent" id="readingthis2">
+            <p class="para1">
+                Psychological Counselling & Therapy for LGBTQ, Depression, Anxiety, Trauma & Addiction
+            </p>
+            <p class="para2">
+                Contact Another Light Solution for
+                Affordable & Quality Services
+            </p>
+            <button class="button" id="button2" onclick='redirectToContact()' ;></button>
+        </div>
+        <img src="" id="img3" alt="LGBTQ Counselling" style="position: relative;top:0%;width:100vw;left:0"
+            class="imgs" />
+        <div class="textcontent" id="readingthis">
+            <p class="para1">
+                Another Light Counselling
+            </p>
+            <p class="para2">
+                A Safe Place to Freely Express Your Feeling & Ask Questions
+            </p>
+            <button class="button" id="button3" onclick='redirectToContact()' ;></button>
+        </div>
+        <div class="arrow arrow-right"><i class="fas fa-chevron-circle-right"></i>
+        </div>
+        <div class="dots">
+            <div class="dot">
+                <i class="far fa-dot-circle"></i>
+            </div>
+            <div class="dot">
+                <i class="far fa-circle"></i>
+            </div>
+            <div class="dot">
+                <i class="far fa-circle"></i>
+            </div>
+        </div>
+        <!-- <div id="heytherebox">
+            <p>
+                {{ s1.title | safe }}
+            </p>
+        </div> -->
+
+        <!-- <div id="readingthis">
             {{ s1.content | safe }}
             <p>
                 If you’re reading this, you’ve landed on Another Light’s website. A safe space where you can freely
                 express your feeling, ask any questions you need to, and face no judgment whatsoever!
             </p>
         </div> -->
-        <div class="container">
+        <!-- <div class="container">
             <div class="arrow arrow-left"><i class="fas fa-chevron-circle-left"></i></div>
             <img id="img1" alt="">
             <div class="textcontent" id="textcontent1">
@@ -94,13 +163,16 @@ and experience a cost-effective and quality solution.{% endblock %}
                     <i class="far fa-circle"></i>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <script>
-        const imgs = document.querySelectorAll(".container img");
-        const btns = document.querySelectorAll(".container button");
-        const textdivs = document.querySelectorAll(".container div.textcontent");
+        const imgs = document.querySelectorAll("#topsection img");
+        const btns = document.querySelectorAll("#topsection button");
+        const textdivs = document.querySelectorAll("#topsection div.textcontent");
+        const p1 = document.querySelectorAll("#topsection .para1");
+        const p2 = document.querySelectorAll("#topsection .para2");
+
 
         let redirectToContact = () => {
             window.open("{% url 'contact' %}");
@@ -124,7 +196,7 @@ and experience a cost-effective and quality solution.{% endblock %}
 
         validateDeviceType();
 
-        const img1 = document.querySelector("#img1");
+        const img1 = document.querySelector("#topgals");
         const img2 = document.querySelector("#img2");
         const img3 = document.querySelector("#img3");
 
@@ -133,21 +205,38 @@ and experience a cost-effective and quality solution.{% endblock %}
             img2.src = "{% static 'img/index/2.jpg' %}";
             img3.src = "{% static 'img/index/3.jpg' %}";
         } else {
+            document.querySelector("#topsection").style.height = "85vh";
+            document.querySelector("#topgals").style.height = "85vh";
+            document.querySelector("#img2").style.height = "85vh";
+            document.querySelector("#img3").style.height = "85vh";
             img1.src = "{% static 'img/index/4.jpg' %}";
             img2.src = "{% static 'img/index/5.jpg' %}";
             img3.src = "{% static 'img/index/6.jpg' %}";
+
         }
 
         const defClass = (startPos, index) => {
             for (let i = startPos; i < imgs.length; i++) {
+
                 imgs[i].style.display = "none";
                 btns[i].style.display = "none";
                 textdivs[i].style.display = "none";
                 dots[i].classList.remove("fa-dot-circle"); dots[i].classList.add("fa-circle");
             }
+
+            if (document.querySelector("#topgals").src.includes('4')) {
+                p1[index].style.cssText = "font-size:4.5vw;font-weight:bold"
+                p2[index].style.cssText = 'font-size:3vw';
+                btns[index].style.cssText = "top: 70vw;left: 0vw;display:block;";
+                textdivs[index].style.cssText = "left:10vw;width:80vw;display:block";
+
+            }
+            else {
+                btns[index].style.cssText = "display:block;";
+                textdivs[index].style.cssText = "display:block";
+            }
+
             imgs[index].style.display = "block";
-            btns[index].style.display = "block";
-            textdivs[index].style.display = "block";
             dots[index].classList.add("fa-dot-circle");
         }; defClass(1, 0);
         leftArrow.addEventListener("click", function () {

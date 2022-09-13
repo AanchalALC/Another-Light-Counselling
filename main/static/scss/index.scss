@@ -1,22 +1,83 @@
 @import "skeleton";
 
 #content {
+    #promptoverlay {
+        display: block;
+        transition: all 0.2s;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        background: rgba(0, 0, 0, 0.747);
+        width: 100vw;
+        height: 100vh;
+        z-index: 999;
+        display: grid;
+        text-align: center;
+
+        #dialoguebox {
+            text-align: center;
+            place-self: center center;
+            max-width: 60vw;
+            padding: 2rem;
+            background: snow;
+            border-radius: 12px;
+
+            p:nth-child(2) {
+                margin-top: 3rem;
+            }
+
+            a.buttonlink {
+                background: #457545;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                border-radius: 12px;
+                border: none;
+                color: snow;
+                font-size: 1.2rem;
+                text-decoration: none;
+            }
+            a.textlink {
+                color: black;
+            }
+
+            .okbutton {
+                background: #457545;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                border-radius: 12px;
+                border: none;
+                color: snow;
+                font-size: 1.2rem;
+                text-decoration: none;
+                margin-top: 3rem;
+            }
+        }
+    }
     #topsection {
         // background-image: url(/static/img/index/purple_bg.svg);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
         width: 100%;
-        height: 75vh;
+        // height: 75vh;
         display: grid;
         grid-template-columns: 3fr 2fr;
         grid-template-rows: 1fr 3fr 2fr;
-        grid-template-areas:
-            "e e"
-            "g c"
-            "g r";
+        // grid-template-areas:
+        //     "e e"
+        //     "g c"
+        //     "g r";
+        position: relative;
 
-        #topgals {
+        #topgals,
+        #img2,
+        #img3 {
             grid-area: g;
             place-self: end center;
 
@@ -26,7 +87,6 @@
         #heytherebox {
             grid-area: c;
             place-self: center end;
-
             background-image: url(/static/img/index/hey_human_speech_box.svg);
             background-repeat: no-repeat;
             background-size: contain;
@@ -75,31 +135,76 @@
 
         #readingthis {
             grid-area: r;
-            place-self: end end;
-            background-image: url(/static/img/index/hey_human_right_rainbow.png);
+            // place-self: end end;
+            // background-image: url(/static/img/index/hey_human_right_rainbow.png);
             background-size: contain;
             background-repeat: no-repeat;
             background-position: right bottom;
             height: 100%;
-
+            position: absolute;
             // width: 80%;
             // height: 30rem;
-
             display: grid;
+            grid-area: g;
+            height: unset;
+            background-size: cover;
+            left: 7vw;
+            top: 7vw;
 
             p {
                 margin: 0;
                 padding: 0;
-
-                padding-bottom: 3rem;
-                font-weight: bold;
+                padding-bottom: 1.5vw;
                 margin-right: $padding;
                 // margin-bottom: $padding;
-                text-align: right;
-                font-size: 1.5rem;
-                place-self: end end;
+                text-align: left;
+                // place-self: end end;
+                width: 100%;
+            }
 
-                max-width: 75%;
+            .para1 {
+                font-weight: bold;
+                font-size: 2.3vw;
+            }
+            .para2 {
+                font-size: 1.5vw;
+            }
+        }
+
+        #readingthis2 {
+            grid-area: r;
+            width: 50vw;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right bottom;
+            height: 100%;
+            position: absolute;
+            // width: 80%;
+            // height: 30rem;
+            display: grid;
+            grid-area: g;
+            height: unset;
+            background-size: cover;
+            left: 51vw;
+            top: 7vw;
+
+            p {
+                margin: 0;
+                padding: 0;
+                padding-bottom: 1.5vw;
+                margin-right: $padding;
+                // margin-bottom: $padding;
+                text-align: left;
+                // place-self: end end;
+                width: 100%;
+            }
+
+            .para1 {
+                font-weight: bold;
+                font-size: 2.3vw;
+            }
+            .para2 {
+                font-size: 1.5vw;
             }
         }
         * {
@@ -128,7 +233,7 @@
             overflow: hidden;
         }
 
-        .container img {
+        img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -140,7 +245,7 @@
             right: 0;
             animation: fade 1s;
         }
-        .button {
+        button {
             position: absolute;
             padding: 20px;
             width: 220px;
@@ -152,16 +257,16 @@
         }
 
         #button1 {
-            bottom: 36%;
-            left: 6%;
+            top: 13vw;
+            left: -1vw;
         }
         #button2 {
-            bottom: 17%;
-            right: 32%;
+            top: 20vw;
+            left: 0;
         }
         #button3 {
-            bottom: 36%;
-            left: 6%;
+            top: 13vw;
+            left: -1vw;
         }
 
         .textcontent {
@@ -171,17 +276,17 @@
             border-color: transparent;
         }
 
-        .textcontent p {
+        p {
             color: #1b1b8c;
-            font-family: Montserrat;
+            // font-family: Montserrat;
         }
 
-        .textcontent .para1 {
+        .para1 {
             font-size: 2.65rem;
             font-weight: bold;
             line-height: 1.2;
         }
-        .textcontent .para2 {
+        .para2 {
             font-size: 1.5rem;
         }
 
@@ -198,7 +303,7 @@
             top: 21.5%;
             left: 4%;
         }
-        .container .arrow {
+        .arrow {
             z-index: 10;
             position: absolute;
             margin: auto;
@@ -214,20 +319,20 @@
             transition: opacity 1s;
         }
 
-        .container .arrow:hover {
+        .arrow:hover {
             cursor: pointer;
             opacity: 1;
         }
 
-        .container .arrow-left {
+        .arrow-left {
             left: 2%;
         }
 
-        .container .arrow-right {
+        .arrow-right {
             right: 2%;
         }
 
-        .container .dots {
+        .dots {
             position: absolute;
             margin: auto;
             top: auto;
@@ -239,7 +344,7 @@
             z-index: 5;
         }
 
-        .container .dots .dot {
+        .dots .dot {
             width: 2rem;
             height: 2rem;
             display: inline-flex;
@@ -290,10 +395,6 @@
                 "c"
                 "g";
 
-            .container {
-                height: 87vh;
-            }
-
             .button {
                 position: absolute;
                 padding: 20px;
@@ -305,8 +406,8 @@
             }
 
             #button1 {
-                bottom: 49%;
-                left: 6%;
+                top: 13vw;
+                left: -1vw;
             }
             #button2 {
                 bottom: 7%;
@@ -319,22 +420,22 @@
 
             .textcontent {
                 position: absolute;
-                width: 90vw;
+                width: 80vw;
                 background-color: transparent;
                 border-color: transparent;
             }
 
-            .textcontent p {
+            p {
                 color: #1b1b8c;
-                font-family: Montserrat;
+                // font-family: Montserrat;
             }
 
-            .textcontent .para1 {
+            .para1 {
                 font-size: 1.5rem;
                 font-weight: bold;
                 line-height: 1.45;
             }
-            .textcontent .para2 {
+            .para2 {
                 font-size: 0.7rem;
             }
 
@@ -353,9 +454,9 @@
                 top: 35%;
                 left: 10%;
             }
-            .container img {
-                object-fit: cover;
-            }
+            // .container img {
+            //     object-fit: cover;
+            // }
 
             #heytherebox {
                 place-self: center center;
@@ -376,13 +477,15 @@
                 grid-area: g;
                 height: unset;
                 background-size: cover;
+                left: 7vw;
+                top: 7vw;
 
                 p {
-                    margin-right: $small_padding;
-                    padding-bottom: $small_padding;
+                    // margin-right: $small_padding;
+                    // padding-bottom: $small_padding;
                     // color: white;
-                    font-size: 1rem;
-                    padding-top: $small_padding;
+                    // font-size: 1rem;
+                    // padding-top: $small_padding;
                 }
             }
         }

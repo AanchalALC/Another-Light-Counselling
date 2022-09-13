@@ -381,7 +381,7 @@ body {
                 a {
                     text-decoration: none;
                     color: black;
-                    font-size: 0.8rem;
+                    font-size: 1.1rem;
                     margin-bottom: 0.5rem;
                     font-family: "OpenDyslexic", sans-serif;
                     transition: color 0.5s;
@@ -485,13 +485,13 @@ body {
                 padding-left: $small_padding;
 
                 .footersection {
-                    margin-left: 2.2rem;
+                    margin-left: 0.5rem;
                     top: 0vh;
                     right: 2vh;
 
-                    iframe {
-                        width: 82vw;
-                    }
+                    // iframe {
+                    //     width: 82vw;
+                    // }
                 }
 
                 // a {

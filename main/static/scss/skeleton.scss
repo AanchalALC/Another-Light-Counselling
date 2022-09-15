@@ -366,7 +366,7 @@ body {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
-                top: 10vh;
+                // top: 10vh;
                 right: 10vh;
 
                 h4 {
@@ -485,9 +485,13 @@ body {
                 padding-left: $small_padding;
 
                 .footersection {
+                    #footerservices {
+                        position: relative;
+                    }
                     margin-left: 0rem;
                     top: 0vh;
-                    right: 2vh;
+                    right: 0vw;
+
                     // iframe {
                     //     width: 82vw;
                     // }

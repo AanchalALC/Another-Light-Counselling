@@ -47,7 +47,7 @@ and experience a cost-effective and quality solution.{% endblock %}
                     https://www.another-light.com/contact/
                 </a>
 
-                or Call +918879260310 or <a class="textlink" href="https://wa.me/message/FL4M2GAUKTZJD1"
+                or Call +918879260310 or <a class="textlink" href="{{h_contacts.phone.value}}"
                     target="_blank">WhatsApp</a>
                 your details.
             </p>
@@ -305,8 +305,7 @@ and experience a cost-effective and quality solution.{% endblock %}
 
     <div id="providesection">
 
-        <a href="https://wa.me/message/FL4M2GAUKTZJD1" id="chaticon"><img
-                src="{% static 'img/index/chat_icon.png' %}" /></a>
+        <a href="{{h_contacts.phone.value}}" id="chaticon"><img src="{% static 'img/index/chat_icon.png' %}" /></a>
 
         <h2>{{s3.title}}</h2>
         <div id="p">

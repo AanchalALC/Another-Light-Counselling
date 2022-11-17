@@ -291,7 +291,7 @@
             left: 4%;
         }
         .arrow {
-            z-index: 10;
+            z-index: 1;
             position: absolute;
             margin: auto;
             top: 0;
@@ -328,7 +328,7 @@
             right: 0;
             width: 8rem;
             height: auto;
-            z-index: 5;
+            z-index: 1;
         }
 
         .dots .dot {

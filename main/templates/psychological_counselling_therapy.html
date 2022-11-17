@@ -7,10 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Psychological Counselling Therapy | Another Light Counselling</title>
-  <meta name="description"
-    content="Best psychological counselling and therapy by experts in India. Contact for counselling and
+  <meta name="description" content="Best psychological counselling and therapy by experts in India. Contact for counselling and
     therapy for LGBTQ, depression, anxiety, trauma, relationship problems etc.">
-    <meta name="keywords" content="Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling">
+  <meta name="keywords" content="Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling">
 
   <script src="https://kit.fontawesome.com/d8749e6d0b.js" crossorigin="anonymous"></script>
   {% block head %}
@@ -64,7 +63,7 @@
 
     <img class="logo" src="{% static 'img/pct/logo.png' %}" alt="">
 
-    <a class="whatsapp" href="https://wa.me/{{whatsappnum.value}}">
+    <a class="whatsapp" href="{{h_contacts.phone.value}}" target="_blank">
       <button>WHATSAPP <i class="fab fa-whatsapp"></i></button>
     </a>
 

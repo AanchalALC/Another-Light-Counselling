@@ -7,6 +7,7 @@ counselling services by junior and senior mental health counsellors.{% endblock 
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/about.css' %}">
+<link rel="canonical" href="https://www.another-light.com/about" />
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script>
@@ -35,8 +36,8 @@ counselling services by junior and senior mental health counsellors.{% endblock 
 
         {% for member in members %}
 
-        <div class="person {{ member.layout_position }}" style="order: {{member.order}}">
-            <div class="info">
+        <div class="person {{ member.layout_position }}">
+            <div class=" info">
                 <h1>{{ member.name }}</h1>
                 <h2>{{ member.designation }}</h2>
                 <div class="memberinfo" id="{{ member.id }}" data-state="collapsed">

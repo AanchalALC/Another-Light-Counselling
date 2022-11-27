@@ -1,7 +1,8 @@
 {% extends 'skeleton.html' %}
 {% load static %}
 {% block title %}Another light - LGBTQ Mental issues and wellness blog{% endblock %}
-{% block metadescription %}LGBTQ Mental health tips & articles from Another light.Read our blog and do share.{% endblock %}
+{% block metadescription %}LGBTQ Mental health tips & articles from Another light.Read our blog and do
+share.{%endblock%}
 {% block metakeywords %}LGBTQ Mental health tips{% endblock %}
 
 {% block head %}
@@ -64,6 +65,7 @@
             <div id="current-page" class="pagination-item">
                 Page {{ page_obj.number }}
             </div>
+            <link rel="canonical" href="{% url 'blog' page_obj.number %}" />
             {% endif %}
 
             {% if page_obj.has_next %}

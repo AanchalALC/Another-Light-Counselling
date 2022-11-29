@@ -14,6 +14,7 @@
 {% block tcimage %}{{full_header_url}}{% endblock %}
 
 {% block head %}
+<link rel="canonical" href="https://www.another-light.com/post/{{post.slug}}" />
 <link rel="stylesheet" href="{% static 'css/post.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
@@ -50,7 +51,6 @@
 
         <div id="commentsection">
             <div id="disqus_thread"></div>
-            <link rel="canonical" href="{{ canon_url }}" />
             <script>
                 /**
                 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.

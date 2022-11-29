@@ -6,6 +6,7 @@ share.{%endblock%}
 {% block metakeywords %}LGBTQ Mental health tips{% endblock %}
 
 {% block head %}
+<link rel="canonical" href="https://www.another-light.com{% url 'blog' page_obj.number %}" />
 <link rel="stylesheet" href="{% static 'css/posts.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
@@ -65,7 +66,6 @@ share.{%endblock%}
             <div id="current-page" class="pagination-item">
                 Page {{ page_obj.number }}
             </div>
-            <link rel="canonical" href="{% url 'blog' page_obj.number %}" />
             {% endif %}
 
             {% if page_obj.has_next %}

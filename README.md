@@ -37,7 +37,7 @@ docker compose build
 ```
 
 ## First Run
-- Run the the docker image:
+- Run the docker image:
 
 ```bash
 docker compose up
@@ -48,7 +48,7 @@ docker compose up
     - Browse to `http://localhost:8000/admin`.
     - Login with the credentials you entered in the `.env` file.
     - Go to the `Dynamic Content` page and click on `Add Dynamic Content`.
-    - Set the key to `home_section_1`, and set the value to anything you like.
+    - Set the key to `home_section_1`, and set the Title and Content values to anything you like.
     - Similarly, add two more entries, with the keys `home_section_2` and `home_section_3`.
     - The homepage should now load.
 

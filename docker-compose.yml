@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: .
+      args:
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DEBUG=${DEBUG}
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+    volumes:
+      - .:/app
+  backend_migrate:
+    extends:
+      service: backend
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py createsuperuser --noinput"
+  backend_run:  
+    extends:
+      service: backend
+    tty: true
+    command: sh -c "sass --watch main/static/scss:main/static/css & python manage.py runserver 0.0.0.0:8000"    
+    ports:
+      - "8000:8000"

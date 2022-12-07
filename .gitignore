@@ -21,3 +21,6 @@ media/**
 !**/migrations/__init__.py
 
 main/static/css/*
+
+venv
+.env

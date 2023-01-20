@@ -418,6 +418,9 @@ def blog(request, pageno=1):
     page_obj = paginator.get_page(page_num)
     posts = page_obj.object_list
 
+    if page_num == 1:
+        return render(request, 'posts.html', context=context)
+
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 

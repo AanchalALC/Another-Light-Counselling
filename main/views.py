@@ -443,7 +443,7 @@ def blog(request, pageno=1):
     }
  
     # RETURN
-    return render(request, 'posts.html', context=context)
+    return render(request, 'about.html', context=context)
 
 
 def policy(request, slug):

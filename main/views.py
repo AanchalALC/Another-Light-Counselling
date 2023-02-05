@@ -409,42 +409,54 @@ def post(request, slug):
 def blog(request, pageno=1):
     # FETCH ALL POSTS
     # posts = Post.objects.filter(p_type__type_name = typename).exclude(slug='about').order_by('-created', 'title')
-    # posts = Post.objects.all().order_by('-created', 'title')
-    # postscount = len(posts)
- 
-    # # PAGINATE
-    # paginator = Paginator(posts, 10)
-    # page_num = int(pageno)
-    # page_obj = paginator.get_page(page_num)
-    # posts = page_obj.object_list
+    posts = Post.objects.all().order_by('-created', 'title');
+    print("posts" ,posts)
 
-    # # GET CONTACTS FOR FOOTER
-    # contactdetails = ContactDetails.objects.all()
+    postscount = len(posts)
+    print("postscount" ,postscount)
 
-    # # GET SERVICES FOR FOOTER
-    # services = Service.objects.all().order_by('id')
  
-    # # HUMAN FRIENDLY DATE
-    # for post in posts:
-    #     hfr_date = post.created.strftime('%e %b %Y')
-    #     post.hfr_date = hfr_date
+    # PAGINATE
+    paginator = Paginator(posts, 10)
+    page_num = int(pageno)
+    page_obj = paginator.get_page(page_num)
+    posts = page_obj.object_list
+    print("paginator" ,paginator)
+    print("page_num" ,page_num)
+    print("page_obj" ,page_obj)
+    print("posts" ,posts)
+
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
+    print("contactdetails" ,contactdetails)
+
+
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
+    print("services" ,services)
+
  
-    #     post.preview = str(post.content).split('</p>')[0].split('<p>')[1]
+    # HUMAN FRIENDLY DATE
+    for post in posts:
+        hfr_date = post.created.strftime('%e %b %Y')
+        post.hfr_date = hfr_date
  
-    # # SET CONTEXT
-    # context = {
-    #     'posts': posts,
-    #     'postscount': postscount,
-    #     'pageinator': paginator,
-    #     'page_obj': page_obj,
-    #     'contactdetails': contactdetails,
-    #     'services': services,
-    #     'h_contacts': get_header_contacts()
-    # }
+        post.preview = str(post.content).split('</p>')[0].split('<p>')[1]
+ 
+    # SET CONTEXT
+    context = {
+        'posts': posts,
+        'postscount': postscount,   
+        'pageinator': paginator,
+        'page_obj': page_obj,
+        'contactdetails': contactdetails,
+        'services': services,
+        'h_contacts': get_header_contacts()
+    }
  
     # RETURN
-    # return render(request, 'posts.html', context=context)
-    return render(request, 'about.html')
+    return render(request, 'posts.html', context=context)
 
 
 def policy(request, slug):

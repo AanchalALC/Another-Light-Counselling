@@ -409,7 +409,7 @@ def post(request, slug):
 def blog(request, pageno=1):
     # FETCH ALL POSTS
     # posts = Post.objects.filter(p_type__type_name = typename).exclude(slug='about').order_by('-created', 'title')
-    # posts = Post.objects.all().order_by('-created', 'title')
+    posts = Post.objects.all().order_by('-created', 'title')
     # postscount = len(posts)
  
     # # PAGINATE
@@ -432,19 +432,19 @@ def blog(request, pageno=1):
     #     post.preview = str(post.content).split('</p>')[0].split('<p>')[1]
  
     # # SET CONTEXT
-    # context = {
-    #     'posts': posts,
-    #     'postscount': postscount,
-    #     'pageinator': paginator,
-    #     'page_obj': page_obj,
-    #     'contactdetails': contactdetails,
-    #     'services': services,
-    #     'h_contacts': get_header_contacts()
-    # }
+    context = {
+        'posts': posts,
+        # 'postscount': postscount,
+        # 'pageinator': paginator,
+        # 'page_obj': page_obj,
+        # 'contactdetails': contactdetails,
+        'services': services,
+        'h_contacts': get_header_contacts()
+    }
  
     # RETURN
-    # return render(request, 'posts.html', context=context)
-    return render(request, 'about.html')
+    return render(request, 'posts.html', context=context)
+    # return render(request, 'posts.html')
 
 def policy(request, slug):
 

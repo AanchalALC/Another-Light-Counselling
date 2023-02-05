@@ -6,7 +6,7 @@ LGBTQ, anxiety, depression, trauma, relationship issues, addictions and many mor
 {% block metakeywords %}LGBTQ Mental health tips{% endblock %}
 
 {% block head %}
-<link rel="canonical" href="https://www.another-light.com{% url 'blog' page_obj.number %}" />
+<link rel="canonical" href="https://www.another-light.com{% url 'blog' %}" />
 <link rel="stylesheet" href="{% static 'css/posts.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
@@ -16,8 +16,7 @@ LGBTQ, anxiety, depression, trauma, relationship issues, addictions and many mor
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
     if (window.location.href.includes('/blog/page/1')) {
-
-        //window.location.href = 'https://www.another-light.com/blog/'
+        window.location.href = 'https://www.another-light.com/blog/'
     }
 </script>
 
@@ -41,9 +40,10 @@ LGBTQ, anxiety, depression, trauma, relationship issues, addictions and many mor
 
         <div id="resource-list">
 
-            {% if postscount == 0 %}
+
+            <!-- {% if postscount == 0 %}
             <h3>There are no posts yet!</h3>
-            {% endif %}
+            {% endif %}-->
 
 
             {% for post in posts %}
@@ -58,7 +58,7 @@ LGBTQ, anxiety, depression, trauma, relationship issues, addictions and many mor
             {% endfor %}
         </div>
 
-        <!-- PAGINATION -->
+        <!-- PAGINATION commented 2
         {% if postscount > 0 %}
         <div id="pagination">
             {% if page_obj.has_previous %}
@@ -79,7 +79,7 @@ LGBTQ, anxiety, depression, trauma, relationship issues, addictions and many mor
             </div>
             {% endif %}
         </div>
-        {% endif %}
+        {% endif %} -->
 
     </div>
 

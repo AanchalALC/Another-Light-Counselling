@@ -419,10 +419,10 @@ def blog(request, pageno=1):
     # posts = page_obj.object_list
 
     # # GET CONTACTS FOR FOOTER
-    # contactdetails = ContactDetails.objects.all()
+    contactdetails = ContactDetails.objects.all()
 
     # # GET SERVICES FOR FOOTER
-    # services = Service.objects.all().order_by('id')
+    services = Service.objects.all().order_by('id')
  
     # # HUMAN FRIENDLY DATE
     # for post in posts:
@@ -437,7 +437,7 @@ def blog(request, pageno=1):
         # 'postscount': postscount,
         # 'pageinator': paginator,
         # 'page_obj': page_obj,
-        # 'contactdetails': contactdetails,
+        'contactdetails': contactdetails,
         'services': services,
         'h_contacts': get_header_contacts()
     }

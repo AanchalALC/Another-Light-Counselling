@@ -104,7 +104,7 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 def about(request):
-    members = Member.objects.all().order_by('id')
+    members = Member.objects.all().order_by('order')
 
     # GET CARD CONTENT
     cardcontent = DynamicContent.objects.get(key='about_card')

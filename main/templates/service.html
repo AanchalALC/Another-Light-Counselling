@@ -26,7 +26,7 @@
 <div id="content">
 
     <div id="topsection">
-        <img src="{% static 'img/services/header.svg' %}" id="topgraphic"
+        <img src="" id="topgraphic"
             alt="Mental Healing & Psychological Counselling" />
     </div>
 
@@ -43,4 +43,13 @@
 
 
 </div>
+<script>
+    const topgraphic = document.querySelector("#topgraphic");
+    if(window.location.href.includes(`EMDR-therapy`)){
+        topgraphic.src = "{% static 'img/services/emdr-service.png' %}";
+    }
+    else{
+        topgraphic.src = "{% static 'img/services/header.svg' %}";
+    }
+</script>
 {% endblock %}

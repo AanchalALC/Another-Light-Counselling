@@ -45,9 +45,12 @@
 </div>
 <script>
     const topgraphic = document.querySelector("#topgraphic");
+    const topsection = document.querySelector("#topsection");
     if(window.location.href.includes(`EMDR-therapy`)){
-        // topgraphic.src = "{% static 'img/services/emdr-service.png' %}";
-        topgraphic.src = "{% static 'img/services/header.svg' %}";
+        // topsection.style.backgroundColor = '#A2F1FF';
+        topsection.style.backgroundColor = '#FFFFFF'; 
+        topgraphic.src = "{% static 'img/services/emdr_adobe_express.svg' %}";
+        // topgraphic.src = "{% static 'img/services/header.svg' %}";
     }
     else{
         topgraphic.src = "{% static 'img/services/header.svg' %}";

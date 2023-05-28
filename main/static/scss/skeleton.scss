@@ -301,6 +301,7 @@ body {
                                 a {
                                     color: #e65359;
                                     border-bottom: 2px solid #e65359;
+                                    font-size: 4vw;
                                 }
                             }
                         }
@@ -340,6 +341,7 @@ body {
 
                     #themenu:target {
                         right: 0;
+                        overflow-y: scroll;
                     }
                 }
             }

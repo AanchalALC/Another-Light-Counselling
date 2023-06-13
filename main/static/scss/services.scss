@@ -57,9 +57,10 @@
         display: grid;
 
         #topgraphic{
-            object-fit: cover;
+            object-fit: contain;
             place-self: start center;
             max-height: 100vh;
+            max-width: 100vw;
         }
 
     }

@@ -11,24 +11,22 @@ and experience a cost-effective and quality solution.{% endblock %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
-<script>
+<script async>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'AW-10878605404');
 </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163396537-1"></script>
-<script>
+<script async>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'UA-163396537-1');
 </script>
-<script>
+<script async>
     function removePopup() {
         document.querySelector("#promptoverlay").parentElement.removeChild(document.querySelector("#promptoverlay"));
     }
@@ -330,7 +328,7 @@ and experience a cost-effective and quality solution.{% endblock %}
         </div>
 
         <img src="{% static 'img/index/rainbow_gal_last_section.png' %}" id="rainbowgal"
-            alt="Counselling & therapy for depression, anxiety, trauma & addiction">
+            alt="Counselling & therapy for depression, anxiety, trauma & addiction" loading="lazy">
 
         <a id="readmore" href="{% url 'about' %}">READ MORE</a>
 

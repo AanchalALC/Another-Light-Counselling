@@ -8,15 +8,14 @@
 <script src="{% static 'js/faqs.js' %}"></script>
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
-<script>
+<script async>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
+    gtag('js', new Date()); 
     gtag('config', 'AW-10878605404');
-if (window.location.href.includes('faqs/another-light')) {
-	            window.location.href = 'https://www.another-light.com/faqs/'
-	        }
+    if (window.location.href.includes('faqs/another-light')) {
+	    window.location.href = 'https://www.another-light.com/faqs/'
+	}
 </script>
 {% endblock %}
 

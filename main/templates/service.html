@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="{% static 'css/services.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
-<script>
+<script async> 
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
@@ -65,7 +65,7 @@
         topgraphic.src = "{% static 'img/services/panic_attack.png' %}";
     }
     else{
-        topgraphic.src = "{% static 'img/services/header.svg' %}";
+        topgraphic.src ="{% static 'img/services/header.svg' %}";
     }
 </script>
 {% endblock %}

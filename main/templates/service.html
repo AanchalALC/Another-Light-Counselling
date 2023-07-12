@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="{% static 'css/services.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
-<script async> 
+<script async>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
@@ -26,8 +26,7 @@
 <div id="content">
 
     <div id="topsection">
-        <img src="" id="topgraphic"
-            alt="Mental Healing & Psychological Counselling" />
+        <img src="" id="topgraphic" alt="Mental Healing & Psychological Counselling" />
     </div>
 
 
@@ -46,26 +45,36 @@
 <script>
     const topgraphic = document.querySelector("#topgraphic");
     const topsection = document.querySelector("#topsection");
-    if(window.location.href.includes(`EMDR-therapy`)){
+    if (window.location.href.includes(`EMDR-therapy`)) {
         // topsection.style.backgroundColor = '#A2F1FF';
-        topsection.style.backgroundColor = '#FFFFFF'; 
+        topsection.style.backgroundColor = '#FFFFFF';
         topgraphic.src = "{% static 'img/services/emdr_adobe_express.svg' %}";
         // topgraphic.src = "{% static 'img/services/header.svg' %}";
     }
-    else if(window.location.href.includes(`Internal-Family-Systems-Therapy`)){
-        topsection.style.backgroundColor = '#FFFFFF'; 
+    else if (window.location.href.includes(`Internal-Family-Systems-Therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
         topgraphic.src = "{% static 'img/services/internal_family.png' %}";
-}
-    else if(window.location.href.includes(`Depression-Counselling`)){
-        topsection.style.backgroundColor= '#FFFFFF'; 
+    }
+    else if (window.location.href.includes(`Depression-Counselling`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
         topgraphic.src = "{% static 'img/services/depression.png' %}";
     }
-    else if(window.location.href.includes(`Panic-Attack`)){
-        topsection.style.backgroundColor = '#FFFFFF'; 
+    else if (window.location.href.includes(`Panic-Attack`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
         topgraphic.src = "{% static 'img/services/panic_attack.png' %}";
     }
-    else{
-        topgraphic.src ="{% static 'img/services/header.svg' %}";
+    else if (window.location.href.includes(`Anxiety-Therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/anxiety_disorder.png' %}";
+    } else if (window.location.href.includes(`Eating-Disorder`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/eating_disorder.png' %}";
+    } else if (window.location.href.includes(`Compassionate-Inquiry-Therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/compassionate_inquiry.png' %}";
+    }
+    else {
+        topgraphic.src = "{% static 'img/services/header.svg' %}";
     }
 </script>
 {% endblock %}

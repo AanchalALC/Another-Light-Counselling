@@ -159,6 +159,8 @@ class Statistic(models.Model):
         verbose_name_plural = 'Statistics'
 
 class Service(models.Model):
+
+    image_file = models.ImageField(upload_to='service_headers',blank=True, default=None,null=True)
     title = models.CharField(max_length=250)
     content = RichTextUploadingField(max_length=14000)
     slug = models.SlugField(max_length=100, blank=True)

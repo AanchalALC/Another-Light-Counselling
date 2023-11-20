@@ -52,6 +52,12 @@
         <div id="commentsection">
             <div id="disqus_thread"></div>
             <script async>
+                let elem = document.querySelectorAll(`span`);
+                    for (const element of elem) {
+                    // console.log(element);
+                    element.style.removeProperty('font-size');
+                    element.style.removeProperty('font-family');
+                }
                 /**
                 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
                 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */

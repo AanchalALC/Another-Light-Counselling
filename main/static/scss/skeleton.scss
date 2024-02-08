@@ -159,47 +159,6 @@ body {
                     transition: display 0.5s;
                 }
 
-                #doifeeldropdown {
-                    position: relative;
-                    display: inline-block;
-
-                    #doifeelbutton {
-                        border-left: 2px solid $primaryred;
-                    }
-
-                    #dropdowncontentdoifeel {
-                        display: none;
-                        position: absolute;
-                        background: #f6de96;
-                        min-width: 250px;
-                        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-                        z-index: 1;
-                        padding: 1rem;
-                        font-size: 1vw;
-
-                        a {
-                            border-left: none;
-                            padding-left: 0.5rem;
-                            // border-bottom: 2px solid $primaryred;
-                            padding-top: 0.25rem;
-                            padding-bottom: 0.25rem;
-                            margin-top: 0.5rem;
-                            display: inline-block;
-                        }
-
-                        a:hover {
-                            background: rgba(255, 255, 255, 0.294);
-                        }
-
-                        transition: display 0.5s;
-                    }
-                }
-
-                #doifeeldropdown:hover #dropdowncontentdoifeel {
-                    display: block;
-                    transition: display 0.5s;
-                }
-
                 :first-child {
                     border-left: none;
                 }
@@ -357,54 +316,6 @@ body {
                         }
 
                         #servicedropdown:hover #dropdowncontent.visible {
-                            display: block;
-                            position: absolute;
-                        }
-
-                        #doifeeldropdown {
-                            position: initial;
-                            display: initial;
-                            text-align: right;
-
-                            #doifeelbutton {
-                                border-left: none;
-                                border-bottom: 2px solid white;
-                                padding-bottom: 0.5rem;
-                                display: inline-block;
-                            }
-
-                            #dropdowncontentdoifeel.visible {
-                                display: block;
-                                position: absolute;
-                                right: 1rem;
-
-                                background: #f6de96;
-                                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-
-                                min-width: unset;
-                                box-shadow: unset;
-                                padding: 1;
-                                padding-right: 1rem;
-                                padding-left: 2rem;
-                                padding-bottom: 2rem;
-
-                                a {
-                                    color: #e65359;
-                                    border-bottom: 2px solid #e65359;
-                                    font-size: 4vw;
-                                }
-                            }
-                        }
-
-                        #doifeeldropdown:hover {
-                            cursor: pointer;
-                        }
-
-                        #doifeeldropdown:hover #dropdowncontentdoifeel {
-                            display: none;
-                        }
-
-                        #doifeeldropdown:hover #dropdowncontentdoifeel.visible {
                             display: block;
                             position: absolute;
                         }

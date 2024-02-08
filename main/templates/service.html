@@ -24,10 +24,9 @@
 
 {% block body %}
 <div id="content">
+
     <div id="topsection">
-        <img      
-        src="{{ service.image_file.url }}"
-        id="topgraphic" alt="Mental Healing & Psychological Counselling" />
+        <img src="" id="topgraphic" alt="Mental Healing & Psychological Counselling" />
     </div>
 
 
@@ -43,7 +42,7 @@
 
 
 </div>
-<!-- <script>
+<script>
     const topgraphic = document.querySelector("#topgraphic");
     const topsection = document.querySelector("#topsection");
     if (window.location.href.includes(`EMDR-therapy`)) {
@@ -101,5 +100,5 @@
     else {
         topgraphic.src = "{% static 'img/services/header.svg' %}";
     }
-</script> -->
+</script>
 {% endblock %}

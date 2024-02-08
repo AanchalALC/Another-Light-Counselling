@@ -94,14 +94,6 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div id="doifeeldropdown">
-                        <a id="doifeelbutton">Do I Feel?</a>
-                        <div id="dropdowncontentdoifeel">
-                            {% for doifeel in doifeels %}
-                            <a href="{% url 'doifeel' doifeel.slug %}">{{doifeel.title}}</a><br />
-                            {% endfor %}
-                        </div>
-                    </div>
                     <a href="{% url 'faqs' %}">FAQs</a>
                     <a href="{% url 'resources' %}">Resources</a>
                     <a href="{% url 'reviews' %}">Reviews</a>

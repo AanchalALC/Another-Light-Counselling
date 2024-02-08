@@ -202,13 +202,11 @@ and experience a cost-effective and quality solution.{% endblock %}
         const img1 = document.querySelector("#topgals");
         const img2 = document.querySelector("#img2");
         const img3 = document.querySelector("#img3");
-        const dropdowncontent = document.querySelector('#dropdowncontent');
 
         if (device == "desktop") {
             img1.src = "{% static 'img/index/1.jpg' %}";
             img2.src = "{% static 'img/index/2.jpg' %}";
             img3.src = "{% static 'img/index/3.jpg' %}";
-            // document.querySelector("#dropdowncontent").style.fontSize = "1vw";
         } else {
             document.querySelector("#topsection").style.height = "85vh";
             document.querySelector("#topgals").style.height = "85vh";
@@ -217,7 +215,6 @@ and experience a cost-effective and quality solution.{% endblock %}
             img1.src = "{% static 'img/index/4.jpg' %}";
             img2.src = "{% static 'img/index/5.jpg' %}";
             img3.src = "{% static 'img/index/6.jpg' %}";
-            // document.querySelector("#dropdowncontent").style.fontSize = "3.5vw";
 
         }
 

@@ -1,37 +1,34 @@
-@import 'skeleton';
+@import "skeleton";
 
-
-#content{
-
-    #promptoverlay{
+#content {
+    #promptoverlay {
         display: none;
 
         transition: all 0.2s;
     }
 
-    #promptoverlay:target{
-        
+    #promptoverlay:target {
         position: fixed;
         top: 0;
         left: 0;
         margin: 0;
         padding: 0;
         background: rgba(0, 0, 0, 0.747);
-        
+
         width: 100vw;
         height: 100vh;
         z-index: 5;
 
         display: grid;
 
-        #dialoguebox{
+        #dialoguebox {
             place-self: center center;
 
             padding: 2rem;
             background: snow;
             border-radius: 12px;
 
-            p:nth-child(2){
+            p:nth-child(2) {
                 margin-top: 3rem;
             }
 
@@ -48,25 +45,23 @@
                 text-decoration: none;
             }
         }
-        
     }
-    
-    #topsection{
-        background: #C5C0DE;
+
+    #topsection {
+        background: #c5c0de;
         width: 100%;
         display: grid;
 
-        #topgraphic{
+        #topgraphic {
             object-fit: contain;
             place-self: start center;
             max-height: 100vh;
             max-width: 100vw;
         }
-
     }
 
-    #service-section{
-
+    #service-section,
+    #doifeel-section {
         $desktopwidemargin: 18%;
         $desktopmargin: 15%;
         $desktopnarrowmargin: 8%;
@@ -90,23 +85,26 @@
             margin-right: $mobilemargin;
         }
 
-        h1, h2, h3, h4, h5{
-            color: #6F577F;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            color: #6f577f;
         }
 
-        .service{
-
+        .service,
+        .doifeel {
             margin-bottom: 7rem;
 
             p {
                 font-size: 1.1rem;
             }
 
-
             $desktopwidth: 20%;
             $mobilewidth: 35%;
-            
-            img{
+
+            img {
                 padding: 1.5rem;
                 width: $desktopwidth !important;
                 height: unset !important;
@@ -115,14 +113,7 @@
                     padding: 0.8rem;
                     width: $mobilewidth !important;
                 }
-
             }
-            
         }
-
     }
-
-        
-
 }
-

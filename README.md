@@ -1,12 +1,15 @@
 # Another-Light Website
+
 Repo for [another-light.com](https://another-light.com).
 
 ## Requirements
+
 - Git
 - Docker
 - Docker Compose
 
 ## Build the project (Linux/Mac)
+
 - Clone the repository.
 
 ```bash
@@ -18,7 +21,9 @@ git clone git@github.com:theabdullahalam/another-light.git
 ```bash
 cd another-light
 ```
+
 - Create an `.env` file (You can use the existing sample file as a skeleton).
+
 ```bash
 cp .env.sample .env
 ```
@@ -29,14 +34,17 @@ cp .env.sample .env
 
     If `DEBUG` is set to true, the project will use a local sqlite database, and, as such, the `DB_USER`, `DB_PASSWORD` and `DB_HOST` variables are unused.
 
-
 - Source the `.env` file and build the docker image.
+
 ```bash
 source .env
 docker compose build
+or
+sudo docker compose build
 ```
 
 ## First Run
+
 - Run the docker image:
 
 ```bash
@@ -53,6 +61,7 @@ docker compose up
     - The homepage should now load.
 
 ## Subsequently Running the Project
+
 - After the above setup, the project should be up and running. `Ctrl+C` will shut down the docker image.
 - The project can be started again with `docker compose up`.
 - *Note: The docker compose file contains a service that creates a superuser based on the environment variables. If a superuser with that username already exists, it will print `That username is already taken.` in the logs. This is expected; the project should run just fine.*

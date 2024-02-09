@@ -60,7 +60,8 @@
         }
     }
 
-    #service-section {
+    #service-section,
+    #doifeel-section {
         $desktopwidemargin: 18%;
         $desktopmargin: 15%;
         $desktopnarrowmargin: 8%;
@@ -92,7 +93,8 @@
             color: #6f577f;
         }
 
-        .service {
+        .service,
+        .doifeel {
             margin-bottom: 7rem;
 
             p {

@@ -44,10 +44,6 @@ urlpatterns = [
     path('services', views.services, name='services'),
     path('services/', views.services, name='services'),
     path('service/<slug:slug>', views.service, name='service'),
-
-    path('doifeels', views.doifeels, name='doifeels'),
-    path('doifeels/', views.doifeels, name='doifeels'),
-    path('doifeel/<slug:slug>', views.doifeel, name='doifeel'), 
  
     path('post/<slug:slug>', views.post, name='post'),
     path('blog', views.blog, name='blog'),

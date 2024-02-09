@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service, Policy, Committee, DynamicContent
+from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service,DoIFeel, Policy, Committee, DynamicContent
 from .forms import ContactForm, PpcContactForm
 
 
@@ -85,6 +85,10 @@ def index(request):
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
 
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')
+
+
     # GET DYANMIC CONTENT
     s1 = DynamicContent.objects.get(key='home_section_1')
     s2 = DynamicContent.objects.get(key='home_section_2')
@@ -95,6 +99,7 @@ def index(request):
         'stats': stats,
         'contactdetails': contactdetails,
         'services': services,
+        'doifeels': doifeels,
         'h_contacts': get_header_contacts(),
         's1': s1,
         's2': s2,
@@ -115,6 +120,9 @@ def about(request):
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
 
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')
+
     # PROCESSING
     for i in range(0, len(members)):
         memberobj = members[i]
@@ -133,6 +141,7 @@ def about(request):
         'members': members,
         'contactdetails': contactdetails,
         'services': services,
+        'doifeels':doifeels,
         'cardcontent': cardcontent,
         'h_contacts': get_header_contacts()
     }
@@ -147,6 +156,9 @@ def faqs(request):
 
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
+
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id') 
 
     # GENERATE ALL TOOLTIP HTMLS
     for obj in faqs:
@@ -166,6 +178,7 @@ def faqs(request):
         'faq2': faq2,
         'contactdetails': contactdetails,
         'services': services,
+        'doifeels':doifeels,
         'h_contacts': get_header_contacts()
     }
     return render(request, 'faqs.html', context=context)
@@ -179,8 +192,12 @@ def resources(request):
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
 
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id') 
+
     context = {
         'resources': resources,
+        'doifeels':doifeels,
         'contactdetails': contactdetails,
         'services': services,
         'h_contacts': get_header_contacts()
@@ -293,11 +310,15 @@ def reviews(request):
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
 
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')
+
     reviews_and_doodles = get_review_doodle_list(reviews)
     context = {
         'reviews': reviews_and_doodles,
         'contactdetails': contactdetails,
         'services': services,
+        'doifeels' :doifeels,
         'h_contacts': get_header_contacts()
     }
 
@@ -310,7 +331,11 @@ def services(request):
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id') 
+
     context = {
+        'doifeels':doifeels,
         'services': services,
         'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
@@ -327,17 +352,67 @@ def service(request, slug):
 
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
+
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id') 
  
     # CREATE CONTEXT
     context = {
         'service': service_obj,
         'contactdetails': contactdetails,
         'services': services,
+        'doifeels' :doifeels,
         'h_contacts': get_header_contacts()
     }
  
     # RETURN
     return render(request, 'service.html', context=context)
+
+def doifeels(request):
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')    
+
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
+    
+    # reviews_and_doodles = get_review_doodle_list(reviews)
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
+
+    context = {
+        'doifeels': doifeels,
+        'services': services,
+        'contactdetails': contactdetails,
+        'h_contacts': get_header_contacts()
+    }
+
+    return render(request, 'doifeels.html', context=context)
+
+def doifeel(request, slug):
+    # FETCH OBJ
+    doifeel_obj=DoIFeel.objects.get(slug = str(slug))
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
+
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
+
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')
+
+    # CREATE CONTEXT
+    context = {
+        'doifeel': doifeel_obj,
+        'contactdetails': contactdetails,
+        'services': services,
+        'doifeels':doifeels,
+        'h_contacts': get_header_contacts()
+    }
+
+    # RETURN
+    return render(request, 'doifeel.html', context=context)
 
 def contact(request):
 
@@ -356,10 +431,14 @@ def contact(request):
         # GET SERVICES FOR FOOTER
         services = Service.objects.all().order_by('id')
 
+        # GET DO I FEEL
+        doifeels = DoIFeel.objects.all().order_by('id')
+
         context = {
             'form': form,
             'contactdetails': contactdetails,
             'services': services,
+            'doifeels':doifeels,
             'h_contacts': get_header_contacts()
         }
 
@@ -423,7 +502,9 @@ def blog(request, pageno=1):
 
     # # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
- 
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')
+
     # # HUMAN FRIENDLY DATE
     # for post in posts:
     #     hfr_date = post.created.strftime('%e %b %Y')
@@ -439,9 +520,10 @@ def blog(request, pageno=1):
         # 'page_obj': page_obj,
         'contactdetails': contactdetails,
         'services': services,
+        'doifeels' :doifeels,
         'h_contacts': get_header_contacts()
     }
- 
+
     # RETURN
     return render(request, 'posts.html', context=context)
     # return render(request, 'posts.html')

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic, Service, DoIFeel, Policy, Committee, DynamicContent, PpcContact
+from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic, Service, DoIFeel,NewCategory, Policy, Committee, DynamicContent, PpcContact
  
 # @admin.register(PostType)
 # class PostTypeAdmin(admin.ModelAdmin):
@@ -71,7 +71,13 @@ class ServiceAdmin(admin.ModelAdmin):
 
 
 @admin.register(DoIFeel)
-class ServiceAdmin(admin.ModelAdmin):
+class DoIFeelAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    ordering = ('title',)
+    search_fields = ('title', )
+    
+@admin.register(NewCategory)
+class NewCategoryAdmin(admin.ModelAdmin):
     list_display = ('title',)
     ordering = ('title',)
     search_fields = ('title', )

@@ -106,6 +106,14 @@
                     <a href="{% url 'resources' %}">Resources</a>
                     <a href="{% url 'reviews' %}">Reviews</a>
                     <a href="{% url 'blog' %}">Blog</a>
+                    <div id="newcategorydropdown">
+                        <a id="newcategorybutton">newcategory?</a>
+                        <div id="dropdowncontentnewcategory">
+                            {% for newcategory in newcategorys %}
+                            <a href="{% url 'newcategory' newcategory.slug %}">{{newcategory.title}}</a><br />
+                            {% endfor %}
+                        </div>
+                    </div>
                     <a href="{% url 'contact' %}">Contact</a>
                 </div>
                 <a href="#themenu" id="hamburger"><i class="fas fa-bars"></i></a>

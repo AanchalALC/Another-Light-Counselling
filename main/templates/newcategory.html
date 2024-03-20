@@ -1,0 +1,44 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}{{ newcategory.meta_title }}{% endblock %}
+{% block metakeywords %}{{newcategory.meta_keywords}}{% endblock %}
+
+{% block ogtitle %}{{newcategory.meta_title}}{% endblock %}
+{% block tctitle %}{{newcategory.meta_title}}{% endblock %}
+
+{% block metadescription %}{{newcategory.meta_description}}{% endblock %}
+{% block ogdescription %}{{newcategory.meta_description}}{% endblock %}
+{% block tcdescription %}{{newcategory.meta_description}}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/services.css' %}">
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="content">
+    <div id="topsection">
+        <img src="{{ newcategory.image_file.url }}" id="topgraphic" alt="Mental Healing & Psychological Counselling" />
+    </div>
+
+
+    <div id="newcategory-section">
+
+        <h1>{{newcategory.title}}</h1>
+        <div class="newcategory">
+            {{ newcategory.content | safe }}
+        </div>
+
+    </div>
+
+
+
+</div>
+{% endblock %}

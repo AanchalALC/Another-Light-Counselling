@@ -302,7 +302,78 @@ class DoIFeel(models.Model):
 
         return preview
         
- 
+class NewCategory(models.Model):
+    image_file = models.ImageField(upload_to='newcategorys', blank=True)
+    title = models.CharField(max_length=250)
+    content = RichTextUploadingField(max_length=14000)
+    slug = models.SlugField(max_length=100, blank=True)
+
+    # SEO FIELDS
+    meta_title = models.CharField(max_length=250, blank=True, default='')
+    meta_description = models.TextField(blank=True, default='')
+    meta_keywords = models.CharField(max_length=500, blank=True, default='')
+
+    def __str__(self):
+        return str(self.title)
+
+    def get_first_header(self):
+        part1 = str(self.content).split('<h')[1]
+        part2 = part1.split('</h')[0]
+        part3 = part2.split('>')[1]
+        return part3
+
+    def get_first_para_preview(self):
+        first_para = str(self.content).split('</p>')[0].split('<p>')[1]
+        first_twenty = first_para.split(' ')[:6]
+        # remove comma from last
+        if first_twenty[-1][-1] == ',':
+            first_twenty[-1] = first_twenty[-1][:-1]
+
+        excerpt = '{}...'.format(' '.join(first_twenty), '...')
+
+        return excerpt
+
+    def save(self, *args, **kwargs):
+
+        # GENERATE TITLE
+        # try:
+        #     self.title = self.get_first_header()
+        # except IndexError:
+        #     self.title = self.get_first_para_preview()
+
+
+        # GENERATE SLUG
+        if not self.slug or self.slug == '':
+            self.slug = slugify(self.title)
+
+        
+        # SET META TITLE AND DESCRIPTIONS IF NOT MANUALLY SET
+        if not self.meta_title:
+            self.meta_title = self.title
+
+        if not self.meta_description:
+            self.meta_description = self.get_paragraph_preview(str(self.content))
+        
+
+        return super(NewCategory, self).save(*args, **kwargs)
+
+    def get_paragraph_preview(self, content):
+        preview = ''
+
+        try:
+            first_para = str(content).split('</p>')[0].split('<p>')[1]
+            first_twenty = first_para.split(' ')[:35]
+            # remove comma from last
+            if first_twenty[-1][-1] == ',':
+                first_twenty[-1] = first_twenty[-1][:-1]
+
+            preview = '{}...'.format(' '.join(first_twenty), '...')
+        except IndexError as ie:
+            print(str(ie))
+            preview = content
+
+        return preview
+    
 class Post(models.Model):
     image_file = models.ImageField(upload_to='post_headers')
     title = models.CharField(max_length=250)

@@ -48,6 +48,10 @@ urlpatterns = [
     path('doifeels', views.doifeels, name='doifeels'),
     path('doifeels/', views.doifeels, name='doifeels'),
     path('doifeel/<slug:slug>', views.doifeel, name='doifeel'), 
+    
+    path('newcategorys', views.newcategorys, name='newcategorys'),
+    path('newcategorys/', views.newcategorys, name='newcategorys'),
+    path('newcategory/<slug:slug>', views.newcategory, name='newcategory'), 
  
     path('post/<slug:slug>', views.post, name='post'),
     path('blog', views.blog, name='blog'),

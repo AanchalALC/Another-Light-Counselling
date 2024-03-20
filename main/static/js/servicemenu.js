@@ -1,6 +1,5 @@
 function toggleDropdown() {
     // ONLY RUN IF WIDTH IS LESS THAN MOBILE SIZE
-
     if (window.innerWidth < 790) {
         let dropdowndiv = document.getElementById('dropdowncontent')
         dropdowndiv.classList.toggle('visible')
@@ -9,9 +8,16 @@ function toggleDropdown() {
 
 function toggleDropdownDoIFeel() {
     // ONLY RUN IF WIDTH IS LESS THAN MOBILE SIZE
-
     if (window.innerWidth < 790) {
         let dropdowndiv = document.getElementById('dropdowncontentdoifeel')
+        dropdowndiv.classList.toggle('visible')
+    }
+}
+
+function toggleDropdownNewCategory() {
+    // ONLY RUN IF WIDTH IS LESS THAN MOBILE SIZE
+    if (window.innerWidth < 790) {
+        let dropdowndiv = document.getElementById('dropdowncontentnewcategory')
         dropdowndiv.classList.toggle('visible')
     }
 }
@@ -23,5 +29,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     let doifeelbutton = document.getElementById('doifeelbutton')
     doifeelbutton.addEventListener('click', toggleDropdownDoIFeel)
+
+    let newcategorybutton = document.getElementById('newcategorybutton')
+    newcategorybutton.addEventListener('click', toggleDropdownNewCategory)
 
 })

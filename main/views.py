@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service,DoIFeel, Policy, Committee, DynamicContent
+from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service,DoIFeel,NewCategory, Policy, Committee, DynamicContent
 from .forms import ContactForm, PpcContactForm
 
 
@@ -88,7 +88,9 @@ def index(request):
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
 
-
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id') 
+    
     # GET DYANMIC CONTENT
     s1 = DynamicContent.objects.get(key='home_section_1')
     s2 = DynamicContent.objects.get(key='home_section_2')
@@ -100,6 +102,7 @@ def index(request):
         'contactdetails': contactdetails,
         'services': services,
         'doifeels': doifeels,
+        'newcategorys':newcategorys,
         'h_contacts': get_header_contacts(),
         's1': s1,
         's2': s2,
@@ -122,6 +125,9 @@ def about(request):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
+    
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id') 
 
     # PROCESSING
     for i in range(0, len(members)):
@@ -142,6 +148,7 @@ def about(request):
         'contactdetails': contactdetails,
         'services': services,
         'doifeels':doifeels,
+        'newcategorys':newcategorys,
         'cardcontent': cardcontent,
         'h_contacts': get_header_contacts()
     }
@@ -159,6 +166,9 @@ def faqs(request):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id') 
+    
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id') 
 
     # GENERATE ALL TOOLTIP HTMLS
     for obj in faqs:
@@ -179,6 +189,7 @@ def faqs(request):
         'contactdetails': contactdetails,
         'services': services,
         'doifeels':doifeels,
+        'newcategorys':newcategorys,
         'h_contacts': get_header_contacts()
     }
     return render(request, 'faqs.html', context=context)
@@ -194,10 +205,14 @@ def resources(request):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id') 
+    
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id') 
 
     context = {
         'resources': resources,
         'doifeels':doifeels,
+        'newcategorys':newcategorys,
         'contactdetails': contactdetails,
         'services': services,
         'h_contacts': get_header_contacts()
@@ -312,6 +327,9 @@ def reviews(request):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
+    
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id') 
 
     reviews_and_doodles = get_review_doodle_list(reviews)
     context = {
@@ -319,6 +337,7 @@ def reviews(request):
         'contactdetails': contactdetails,
         'services': services,
         'doifeels' :doifeels,
+        'newcategorys':newcategorys,
         'h_contacts': get_header_contacts()
     }
 
@@ -333,9 +352,13 @@ def services(request):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id') 
+    
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id') 
 
     context = {
         'doifeels':doifeels,
+        'newcategorys':newcategorys,
         'services': services,
         'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
@@ -355,6 +378,9 @@ def service(request, slug):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id') 
+    
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id') 
  
     # CREATE CONTEXT
     context = {
@@ -362,6 +388,7 @@ def service(request, slug):
         'contactdetails': contactdetails,
         'services': services,
         'doifeels' :doifeels,
+        'newcategorys':newcategorys,
         'h_contacts': get_header_contacts()
     }
  
@@ -370,7 +397,10 @@ def service(request, slug):
 
 def doifeels(request):
     # GET DO I FEEL
-    doifeels = DoIFeel.objects.all().order_by('id')    
+    doifeels = DoIFeel.objects.all().order_by('id') 
+    
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id')    
 
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
@@ -382,6 +412,7 @@ def doifeels(request):
 
     context = {
         'doifeels': doifeels,
+        'newcategorys':newcategorys,
         'services': services,
         'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
@@ -401,6 +432,9 @@ def doifeel(request, slug):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
+    
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id') 
 
     # CREATE CONTEXT
     context = {
@@ -408,11 +442,67 @@ def doifeel(request, slug):
         'contactdetails': contactdetails,
         'services': services,
         'doifeels':doifeels,
+        'newcategorys':newcategorys,
         'h_contacts': get_header_contacts()
     }
 
     # RETURN
     return render(request, 'doifeel.html', context=context)
+
+def newcategorys(request):
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')
+    
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id')    
+
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
+    
+    # reviews_and_doodles = get_review_doodle_list(reviews)
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
+
+    context = {
+        'doifeels': doifeels,
+        'newcategorys': newcategorys,
+        'services': services,
+        'contactdetails': contactdetails,
+        'h_contacts': get_header_contacts()
+    }
+
+    return render(request, 'newcategorys.html', context=context)
+
+def newcategory(request, slug):
+    
+    # FETCH OBJ
+    newcategory_obj=NewCategory.objects.get(slug = str(slug))
+
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
+
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
+
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')
+    
+    # GET DO I FEEL
+    newcategorys = NewCategory.objects.all().order_by('id')
+
+    # CREATE CONTEXT
+    context = {
+        'newcategory': newcategory_obj,
+        'contactdetails': contactdetails,
+        'services': services,
+        'doifeels':doifeels,
+        'newcategorys':newcategorys,
+        'h_contacts': get_header_contacts()
+    }
+
+    # RETURN
+    return render(request, 'newcategory.html', context=context)
 
 def contact(request):
 
@@ -433,12 +523,16 @@ def contact(request):
 
         # GET DO I FEEL
         doifeels = DoIFeel.objects.all().order_by('id')
+        
+        # GET NEW CATEGORY
+        newcategorys = NewCategory.objects.all().order_by('id') 
 
         context = {
             'form': form,
             'contactdetails': contactdetails,
             'services': services,
             'doifeels':doifeels,
+            'newcategorys':newcategorys,
             'h_contacts': get_header_contacts()
         }
 
@@ -502,8 +596,12 @@ def blog(request, pageno=1):
 
     # # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
+    
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
+    
+    # GET NEW CATEGORY
+    newcategorys = NewCategory.objects.all().order_by('id') 
 
     # # HUMAN FRIENDLY DATE
     # for post in posts:
@@ -521,6 +619,7 @@ def blog(request, pageno=1):
         'contactdetails': contactdetails,
         'services': services,
         'doifeels' :doifeels,
+        'newcategorys':newcategorys,
         'h_contacts': get_header_contacts()
     }
 

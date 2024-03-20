@@ -61,7 +61,8 @@
     }
 
     #service-section,
-    #doifeel-section {
+    #doifeel-section,
+    #newcategory-section {
         $desktopwidemargin: 18%;
         $desktopmargin: 15%;
         $desktopnarrowmargin: 8%;
@@ -94,7 +95,8 @@
         }
 
         .service,
-        .doifeel {
+        .doifeel,
+        .newcategory {
             margin-bottom: 7rem;
 
             p {
@@ -116,4 +118,5 @@
             }
         }
     }
+
 }

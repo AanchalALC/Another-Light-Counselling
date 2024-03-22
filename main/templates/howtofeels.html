@@ -1,11 +1,11 @@
 {% extends 'skeleton.html' %}
 {% load static %}
-{% block title %}NewCategory - Another Light{% endblock %}
+{% block title %}How To Feel - Another Light{% endblock %}
 {% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/services.css' %}">
-<link rel="canonical" href="https://www.another-light.com/newcategorys/" />
+<link rel="canonical" href="https://www.another-light.com/howtofeels/" />
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script async>
@@ -24,13 +24,13 @@
     </div>
 
 
-    <div id="newcategory-section">
+    <div id="howtofeel-section">
 
-        <h2>New Category?</h2>
-        {% for newcategory in newcategorys %}
-        <div class="newcategory">
-            <h3>{{newcategory.title}}</h3>
-            {{ newcategory.content | safe }}
+        <h2>How To Feel?</h2>
+        {% for howtofeel in howtofeels %}
+        <div class="howtofeel">
+            <h3>{{howtofeel.title}}</h3>
+            {{ howtofeel.content | safe }}
         </div>
         {% endfor %}
 

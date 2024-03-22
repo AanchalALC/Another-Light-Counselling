@@ -200,15 +200,15 @@ body {
                     transition: display 0.5s;
                 }
 
-                #newcategorydropdown {
+                #howtofeeldropdown {
                     position: relative;
                     display: inline-block;
 
-                    #newcategorybutton {
+                    #howtofeelbutton {
                         border-left: 2px solid $primaryred;
                     }
 
-                    #dropdowncontentnewcategory {
+                    #dropdowncontenthowtofeel {
                         display: none;
                         position: absolute;
                         background: #f6de96;
@@ -236,7 +236,7 @@ body {
                     }
                 }
 
-                #newcategorydropdown:hover #dropdowncontentnewcategory {
+                #howtofeeldropdown:hover #dropdowncontenthowtofeel {
                     display: block;
                     transition: display 0.5s;
                 }
@@ -305,7 +305,7 @@ body {
 
                 #menuitems {
                     margin-right: $small_padding;
-                    font-size: 1.5vw;
+                    font-size: 1rem;
 
                     a {
                         padding-left: math.div($small_padding, 2);
@@ -450,19 +450,19 @@ body {
                             position: absolute;
                         }
 
-                        #newcategorydropdown {
+                        #howtofeeldropdown {
                             position: initial;
                             display: initial;
                             text-align: right;
 
-                            #newcategorybutton {
+                            #howtofeelbutton {
                                 border-left: none;
                                 border-bottom: 2px solid white;
                                 padding-bottom: 0.5rem;
                                 display: inline-block;
                             }
 
-                            #dropdowncontentnewcategory.visible {
+                            #dropdowncontenthowtofeel.visible {
                                 display: block;
                                 position: absolute;
                                 right: 1rem;
@@ -485,15 +485,15 @@ body {
                             }
                         }
 
-                        #newcategorydropdown:hover {
+                        #howtofeeldropdown:hover {
                             cursor: pointer;
                         }
 
-                        #newcategorydropdown:hover #dropdowncontentnewcategory {
+                        #howtofeeldropdown:hover #dropdowncontenthowtofeel {
                             display: none;
                         }
 
-                        #newcategorydropdown:hover #dropdowncontentnewcategory.visible {
+                        #howtofeeldropdown:hover #dropdowncontenthowtofeel.visible {
                             display: block;
                             position: absolute;
                         }
@@ -546,9 +546,10 @@ body {
             .footersection {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-start;
+                // align-items: flex-start;
                 // top: 10vh;
-                right: 10vh;
+                // right: 10vh;
+                
 
                 h4 {
                     font-weight: bold;
@@ -575,6 +576,8 @@ body {
             }
 
             #footercontacts {
+                padding-right: 1rem;
+
                 a {
                     $vertical_button_padding: 1rem;
                     $horizontal_button_padding: 1rem;
@@ -724,6 +727,7 @@ body {
 
         #footerservices {
             position: relative;
+            margin-right: 4rem ;
         }
     }
 }

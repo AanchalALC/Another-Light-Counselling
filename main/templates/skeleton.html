@@ -106,11 +106,11 @@
                     <a href="{% url 'resources' %}">Resources</a>
                     <a href="{% url 'reviews' %}">Reviews</a>
                     <a href="{% url 'blog' %}">Blog</a>
-                    <div id="newcategorydropdown">
-                        <a id="newcategorybutton">newcategory?</a>
-                        <div id="dropdowncontentnewcategory">
-                            {% for newcategory in newcategorys %}
-                            <a href="{% url 'newcategory' newcategory.slug %}">{{newcategory.title}}</a><br />
+                    <div id="howtofeeldropdown">
+                        <a id="howtofeelbutton">How To Feel?</a>
+                        <div id="dropdowncontenthowtofeel">
+                            {% for howtofeel in howtofeels %}
+                            <a href="{% url 'howtofeel' howtofeel.slug %}">{{howtofeel.title}}</a><br />
                             {% endfor %}
                         </div>
                     </div>

@@ -1,0 +1,44 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}{{ howtofeel.meta_title }}{% endblock %}
+{% block metakeywords %}{{howtofeel.meta_keywords}}{% endblock %}
+
+{% block ogtitle %}{{howtofeel.meta_title}}{% endblock %}
+{% block tctitle %}{{howtofeel.meta_title}}{% endblock %}
+
+{% block metadescription %}{{howtofeel.meta_description}}{% endblock %}
+{% block ogdescription %}{{howtofeel.meta_description}}{% endblock %}
+{% block tcdescription %}{{howtofeel.meta_description}}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/services.css' %}">
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="content">
+    <div id="topsection">
+        <img src="{{ howtofeel.image_file.url }}" id="topgraphic" alt="Mental Healing & Psychological Counselling" />
+    </div>
+
+
+    <div id="howtofeel-section">
+
+        <h1>{{howtofeel.title}}</h1>
+        <div class="howtofeel">
+            {{ howtofeel.content | safe }}
+        </div>
+
+    </div>
+
+
+
+</div>
+{% endblock %}

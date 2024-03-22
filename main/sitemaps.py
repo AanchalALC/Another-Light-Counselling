@@ -16,7 +16,7 @@ class StaticSiteMap(Sitemap):
             'reviews',
             'contact',
             'doifeel',
-            'newcategory',
+            'howtofeel',
             'blog'
         ]
 

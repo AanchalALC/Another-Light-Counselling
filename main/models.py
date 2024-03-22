@@ -302,8 +302,8 @@ class DoIFeel(models.Model):
 
         return preview
         
-class NewCategory(models.Model):
-    image_file = models.ImageField(upload_to='newcategorys', blank=True)
+class HowToFeel(models.Model):
+    image_file = models.ImageField(upload_to='howtofeels', blank=True)
     title = models.CharField(max_length=250)
     content = RichTextUploadingField(max_length=14000)
     slug = models.SlugField(max_length=100, blank=True)
@@ -355,7 +355,7 @@ class NewCategory(models.Model):
             self.meta_description = self.get_paragraph_preview(str(self.content))
         
 
-        return super(NewCategory, self).save(*args, **kwargs)
+        return super(HowToFeel, self).save(*args, **kwargs)
 
     def get_paragraph_preview(self, content):
         preview = ''

@@ -104,6 +104,12 @@ body {
                 place-self: center end;
                 margin-right: $padding;
 
+                #themenu{
+                    display :flex;
+                    flex-wrap: wrap;
+
+                }
+
                 #hamburger {
                     display: none;
                 }
@@ -243,6 +249,8 @@ body {
 
                 :first-child {
                     border-left: none;
+                    // display: flex;
+                    // flex-wrap: wrap;
                 }
 
                 :last-child {

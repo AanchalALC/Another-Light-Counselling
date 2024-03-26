@@ -206,46 +206,46 @@ body {
                     transition: display 0.5s;
                 }
 
-                #howtofeeldropdown {
-                    position: relative;
-                    display: inline-block;
+                // #howtofeeldropdown {
+                //     position: relative;
+                //     display: inline-block;
 
-                    #howtofeelbutton {
-                        border-left: 2px solid $primaryred;
-                    }
+                //     #howtofeelbutton {
+                //         border-left: 2px solid $primaryred;
+                //     }
 
-                    #dropdowncontenthowtofeel {
-                        display: none;
-                        position: absolute;
-                        background: #f6de96;
-                        min-width: 250px;
-                        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-                        z-index: 1;
-                        padding: 1rem;
-                        font-size: 1vw;
+                //     #dropdowncontenthowtofeel {
+                //         display: none;
+                //         position: absolute;
+                //         background: #f6de96;
+                //         min-width: 250px;
+                //         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                //         z-index: 1;
+                //         padding: 1rem;
+                //         font-size: 1vw;
 
-                        a {
-                            border-left: none;
-                            padding-left: 0.5rem;
-                            // border-bottom: 2px solid $primaryred;
-                            padding-top: 0.25rem;
-                            padding-bottom: 0.25rem;
-                            margin-top: 0.5rem;
-                            display: inline-block;
-                        }
+                //         a {
+                //             border-left: none;
+                //             padding-left: 0.5rem;
+                //             // border-bottom: 2px solid $primaryred;
+                //             padding-top: 0.25rem;
+                //             padding-bottom: 0.25rem;
+                //             margin-top: 0.5rem;
+                //             display: inline-block;
+                //         }
 
-                        a:hover {
-                            background: rgba(255, 255, 255, 0.294);
-                        }
+                //         a:hover {
+                //             background: rgba(255, 255, 255, 0.294);
+                //         }
 
-                        transition: display 0.5s;
-                    }
-                }
+                //         transition: display 0.5s;
+                //     }
+                // }
 
-                #howtofeeldropdown:hover #dropdowncontenthowtofeel {
-                    display: block;
-                    transition: display 0.5s;
-                }
+                // #howtofeeldropdown:hover #dropdowncontenthowtofeel {
+                //     display: block;
+                //     transition: display 0.5s;
+                // }
 
                 :first-child {
                     border-left: none;
@@ -458,53 +458,53 @@ body {
                             position: absolute;
                         }
 
-                        #howtofeeldropdown {
-                            position: initial;
-                            display: initial;
-                            text-align: right;
+                        // #howtofeeldropdown {
+                        //     position: initial;
+                        //     display: initial;
+                        //     text-align: right;
 
-                            #howtofeelbutton {
-                                border-left: none;
-                                border-bottom: 2px solid white;
-                                padding-bottom: 0.5rem;
-                                display: inline-block;
-                            }
+                        //     #howtofeelbutton {
+                        //         border-left: none;
+                        //         border-bottom: 2px solid white;
+                        //         padding-bottom: 0.5rem;
+                        //         display: inline-block;
+                        //     }
 
-                            #dropdowncontenthowtofeel.visible {
-                                display: block;
-                                position: absolute;
-                                right: 1rem;
+                        //     #dropdowncontenthowtofeel.visible {
+                        //         display: block;
+                        //         position: absolute;
+                        //         right: 1rem;
 
-                                background: #f6de96;
-                                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                        //         background: #f6de96;
+                        //         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 
-                                min-width: unset;
-                                box-shadow: unset;
-                                padding: 1;
-                                padding-right: 1rem;
-                                padding-left: 2rem;
-                                padding-bottom: 2rem;
+                        //         min-width: unset;
+                        //         box-shadow: unset;
+                        //         padding: 1;
+                        //         padding-right: 1rem;
+                        //         padding-left: 2rem;
+                        //         padding-bottom: 2rem;
 
-                                a {
-                                    color: #e65359;
-                                    border-bottom: 2px solid #e65359;
-                                    font-size: 4vw;
-                                }
-                            }
-                        }
+                        //         a {
+                        //             color: #e65359;
+                        //             border-bottom: 2px solid #e65359;
+                        //             font-size: 4vw;
+                        //         }
+                        //     }
+                        // }
 
-                        #howtofeeldropdown:hover {
-                            cursor: pointer;
-                        }
+                        // #howtofeeldropdown:hover {
+                        //     cursor: pointer;
+                        // }
 
-                        #howtofeeldropdown:hover #dropdowncontenthowtofeel {
-                            display: none;
-                        }
+                        // #howtofeeldropdown:hover #dropdowncontenthowtofeel {
+                        //     display: none;
+                        // }
 
-                        #howtofeeldropdown:hover #dropdowncontenthowtofeel.visible {
-                            display: block;
-                            position: absolute;
-                        }
+                        // #howtofeeldropdown:hover #dropdowncontenthowtofeel.visible {
+                        //     display: block;
+                        //     position: absolute;
+                        // }
 
                         :first-child {
                             // border-bottom: none;

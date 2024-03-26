@@ -60,9 +60,10 @@
         }
     }
 
+    // #howtofeel-section,
     #service-section,
-    #doifeel-section,
-    #howtofeel-section {
+    #doifeel-section
+    {
         $desktopwidemargin: 18%;
         $desktopmargin: 15%;
         $desktopnarrowmargin: 8%;
@@ -94,9 +95,11 @@
             color: #6f577f;
         }
 
+
+        // .howtofeel,
         .service,
-        .doifeel,
-        .howtofeel {
+        .doifeel
+        {
             margin-bottom: 7rem;
 
             p {

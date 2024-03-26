@@ -49,9 +49,9 @@ urlpatterns = [
     path('doifeels/', views.doifeels, name='doifeels'),
     path('doifeel/<slug:slug>', views.doifeel, name='doifeel'), 
     
-    path('howtofeels', views.howtofeels, name='howtofeels'),
-    path('howtofeels/', views.howtofeels, name='howtofeels'),
-    path('howtofeel/<slug:slug>', views.howtofeel, name='howtofeel'), 
+    # path('howtofeels', views.howtofeels, name='howtofeels'),
+    # path('howtofeels/', views.howtofeels, name='howtofeels'),
+    # path('howtofeel/<slug:slug>', views.howtofeel, name='howtofeel'), 
  
     path('post/<slug:slug>', views.post, name='post'),
     path('blog', views.blog, name='blog'),

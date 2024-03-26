@@ -106,14 +106,14 @@
                     <a href="{% url 'resources' %}">Resources</a>
                     <a href="{% url 'reviews' %}">Reviews</a>
                     <a href="{% url 'blog' %}">Blog</a>
-                    <div id="howtofeeldropdown">
+                    <!-- <div id="howtofeeldropdown">
                         <a id="howtofeelbutton">How To Feel?</a>
                         <div id="dropdowncontenthowtofeel">
                             {% for howtofeel in howtofeels %}
                             <a href="{% url 'howtofeel' howtofeel.slug %}">{{howtofeel.title}}</a><br />
                             {% endfor %}
                         </div>
-                    </div>
+                    </div> -->
                     <a href="{% url 'contact' %}">Contact</a>
                 </div>
                 <a href="#themenu" id="hamburger"><i class="fas fa-bars"></i></a>

@@ -554,6 +554,9 @@ def post(request, slug):
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
 
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')
+
     # INTELLIGENT META TITLE
     metatitle = post_obj.meta_title
     if str(metatitle) == '':
@@ -574,6 +577,7 @@ def post(request, slug):
         'post': post_obj,
         'contactdetails': contactdetails,
         'services': services,
+        'doifeels':doifeels,
         'h_contacts': get_header_contacts()
     }
  

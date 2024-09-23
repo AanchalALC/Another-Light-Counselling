@@ -161,6 +161,7 @@ class Statistic(models.Model):
 class Service(models.Model):
     image_file = models.ImageField(upload_to='services', blank=True)
     title = models.CharField(max_length=250)
+    img_alt_text = models.CharField(max_length=250,blank=True, default='')
     content = RichTextUploadingField(max_length=14000)
     slug = models.SlugField(max_length=100, blank=True)
     # SEO FIELDS

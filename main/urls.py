@@ -21,13 +21,13 @@ urlpatterns = [
 
     path('about', views.about, name='about'),
     path('about/', views.about, name='about'),
-    path('about/another-light', views.about, name='about'),
-    path('about/another-light/', views.about, name='about'),
+    # path('about/another-light', views.about, name='about'),
+    # path('about/another-light/', views.about, name='about'),
 
     path('faqs', views.faqs, name='faqs'),
     path('faqs/', views.faqs, name='faqs'),
-    path('faqs/another-light', views.faqs, name='faqs'),
-    path('faqs/another-light/', views.faqs, name='faqs'),
+    # path('faqs/another-light', views.faqs, name='faqs'),
+    # path('faqs/another-light/', views.faqs, name='faqs'),
 
     path('resources', views.resources, name='resources'),
     path('resources/', views.resources, name='resources'),

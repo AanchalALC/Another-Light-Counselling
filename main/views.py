@@ -113,7 +113,8 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 def about(request):
-    members = Member.objects.all().order_by('order')
+    # members = Member.objects.all().order_by('order') // order by order id
+    members = Member.objects.all().order_by('name')
 
     # GET CARD CONTENT
     cardcontent = DynamicContent.objects.get(key='about_card')

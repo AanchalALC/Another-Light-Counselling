@@ -7,8 +7,7 @@ from django.shortcuts import redirect, render
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service,DoIFeel, Policy, Committee, DynamicContent
-# ,HowToFeel
+from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service,DoIFeel, Policy, Committee, DynamicContent , Jd
 from .forms import ContactForm, PpcContactForm
 
 
@@ -103,7 +102,7 @@ def index(request):
         'contactdetails': contactdetails,
         'services': services,
         'doifeels': doifeels,
-        # 'howtofeels':howtofeels,
+        #'howtofeels':howtofeels,
         'h_contacts': get_header_contacts(),
         's1': s1,
         's2': s2,
@@ -380,7 +379,7 @@ def service(request, slug):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id') 
-    
+
     # GET HOW TO FEEL
     # howtofeels = HowToFeel.objects.all().order_by('id') 
  
@@ -451,60 +450,60 @@ def doifeel(request, slug):
     # RETURN
     return render(request, 'doifeel.html', context=context)
 
-# def howtofeels(request):
-#     # GET DO I FEEL
-#     doifeels = DoIFeel.objects.all().order_by('id')
+def careers(request):
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')
     
-#     GET HOW TO FEEL
-      # howtofeels = HowToFeel.objects.all().order_by('id')    
+    # GET careers
+    careers = Jd.objects.all().order_by('id')    
 
-#     # GET SERVICES FOR FOOTER
-#     services = Service.objects.all().order_by('id')
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
     
-#     # reviews_and_doodles = get_review_doodle_list(reviews)
+    # reviews_and_doodles = get_review_doodle_list(reviews)
 
-#     # GET CONTACTS FOR FOOTER
-#     contactdetails = ContactDetails.objects.all()
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
 
-#     context = {
-#         'doifeels': doifeels,
-#         'howtofeels': howtofeels,
-#         'services': services,
-#         'contactdetails': contactdetails,
-#         'h_contacts': get_header_contacts()
-#     }
+    context = {
+        'doifeels': doifeels,
+        'careers': careers,
+        'services': services,
+        'contactdetails': contactdetails,
+        'h_contacts': get_header_contacts()
+    }
 
-#     return render(request, 'howtofeels.html', context=context)
+    return render(request, 'careers.html', context=context)
 
-# def howtofeel(request, slug):
+def jd(request, slug):
     
-#     # FETCH OBJ
-#     howtofeel_obj=HowToFeel.objects.get(slug = str(slug))
+    # FETCH OBJ
+    jd_obj= Jd.objects.get(slug = str(slug))
 
-#     # GET CONTACTS FOR FOOTER
-#     contactdetails = ContactDetails.objects.all()
+    # GET CONTACTS FOR FOOTER
+    contactdetails = ContactDetails.objects.all()
 
-#     # GET SERVICES FOR FOOTER
-#     services = Service.objects.all().order_by('id')
+    # GET SERVICES FOR FOOTER
+    services = Service.objects.all().order_by('id')
 
-#     # GET DO I FEEL
-#     doifeels = DoIFeel.objects.all().order_by('id')
+    # GET DO I FEEL
+    doifeels = DoIFeel.objects.all().order_by('id')
     
-#     # GET DO I FEEL
-      # howtofeels = HowToFeel.objects.all().order_by('id')
+    # GET DO I FEEL
+    # howtofeels = HowToFeel.objects.all().order_by('id')
 
-#     # CREATE CONTEXT
-#     context = {
-#         'howtofeel': howtofeel_obj,
-#         'contactdetails': contactdetails,
-#         'services': services,
-#         'doifeels':doifeels,
-#         'howtofeels':howtofeels,
-#         'h_contacts': get_header_contacts()
-#     }
+    # CREATE CONTEXT
+    context = {
+        'jd': jd_obj,
+        'contactdetails': contactdetails,
+        'services': services,
+        'doifeels':doifeels,
+        # 'howtofeels':howtofeels,
+        'h_contacts': get_header_contacts()
+    }
 
-#     # RETURN
-#     return render(request, 'howtofeel.html', context=context)
+    # RETURN
+    return render(request, 'jd.html', context=context)
 
 def contact(request):
 

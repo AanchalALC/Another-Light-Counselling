@@ -1,7 +1,7 @@
 import os
 
 from django.contrib.sites.models import Site
-from django.core.paginator import Paginator
+# from django.core.paginator import Paginator
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.templatetags.static import static

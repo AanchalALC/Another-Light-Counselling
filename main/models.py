@@ -15,7 +15,7 @@ class PostType(models.Model):
 class FAQ(models.Model):
     site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
     question = models.CharField(max_length=500)
-    answer = RichTextUploadingField(max_length=14000)
+    answer = RichTextUploadingField()
     tippy_answer = ''
 
     def generate_tooltip_markup(self):
@@ -51,7 +51,7 @@ class Member(models.Model):
     thumbnail = models.ImageField(upload_to='members')
     name = models.CharField(max_length=700)
     designation = models.CharField(max_length=700)
-    info = RichTextUploadingField(max_length=14000)
+    info = RichTextUploadingField()
     order = models.IntegerField(default=1)
     img_alt = models.CharField(max_length=400, blank=True, default='')
     
@@ -162,7 +162,7 @@ class Service(models.Model):
     image_file = models.ImageField(upload_to='services', blank=True)
     title = models.CharField(max_length=250)
     img_alt_text = models.CharField(max_length=250,blank=True, default='')
-    content = RichTextUploadingField(max_length=14000)
+    content = RichTextUploadingField()
     slug = models.SlugField(max_length=100, blank=True)
     # SEO FIELDS
     meta_title = models.CharField(max_length=250, blank=True, default='')
@@ -234,7 +234,7 @@ class Service(models.Model):
 class DoIFeel(models.Model):
     image_file = models.ImageField(upload_to='doifeels', blank=True)
     title = models.CharField(max_length=250)
-    content = RichTextUploadingField(max_length=14000)
+    content = RichTextUploadingField()
     slug = models.SlugField(max_length=100, blank=True)
 
     # SEO FIELDS
@@ -306,7 +306,7 @@ class DoIFeel(models.Model):
 class Jd(models.Model):
     image_file = models.ImageField(upload_to='careers', blank=True)
     title = models.CharField(max_length=250, blank=True)
-    content = RichTextUploadingField(max_length=14000, blank=True)
+    content = RichTextUploadingField(blank=True)
     slug = models.SlugField(max_length=100, blank=True)
 
     # SEO FIELDS
@@ -383,7 +383,7 @@ class Post(models.Model):
     image_file = models.ImageField(upload_to='post_headers')
     title = models.CharField(max_length=250)
     # p_type=models.ForeignKey(PostType, on_delete=models.CASCADE)
-    content = RichTextUploadingField(max_length=14000)
+    content = RichTextUploadingField()
     created = models.DateTimeField(editable=False)
     modified = models.DateTimeField(editable=False)
     slug = models.SlugField(unique=True, max_length=100, blank=True)

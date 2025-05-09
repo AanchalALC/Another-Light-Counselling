@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psychological Counselling Therapy | Another Light Counselling</title>
+  <meta name="description" content="Best psychological counselling and therapy by experts in India. Contact for counselling and
+    therapy for LGBTQ, depression, anxiety, trauma, relationship problems etc.">
+  <meta name="keywords" content="Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling">
+
+  <script  async src="https://kit.fontawesome.com/d8749e6d0b.js" crossorigin="anonymous"></script>
+  {% block head %}
+
+  <link href="{% static 'css/pct.css' %}" rel="stylesheet">
+  {% endblock %}
+
+  <!-- FAVICON -->
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+
+  <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+  <script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+  </script>
+
+</head>
+
+<body>
+
+
+  <div id="promptoverlay">
+
+    <div id="dialoguebox">
+      <p>
+        Thank You!
+      </p>
+
+      <p>
+        We have received your details. Our team will get back to you soon.
+      </p>
+
+      <p>
+        You may visit our website <a href="https://www.another-light.com/">https://www.another-light.com/</a> to get
+        details of our services.
+      </p>
+      <p>
+        <a href="#" class="okbutton">OK</a>
+      </p>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="section1">
+
+    <img class="logo" src="{% static 'img/pct/logo.png' %}" alt="">
+
+    <a class="whatsapp" href="https://wa.me/message/FL4M2GAUKTZJD1" target="_blank">
+      <button>WHATSAPP <i class="fab fa-whatsapp"></i></button>
+    </a>
+
+    <div class="headings">
+      <h1>Counselling & <br> Therapy by Expert <br> Psychologists <br>in India</h1>
+      <h2>Get best psychological counselling and <br>therapy by juniorand senior psychologists.</h2>
+    </div>
+
+    <div class="query">
+      <form method="POST" target="_blank">
+        {% csrf_token %}
+        <h3>Send your Query</h3>
+        <p>
+          {{ form.non_field_errors }}
+        </p>
+
+        {{ form.name.errors }}
+        {{ form.name }}
+
+        {{ form.email.errors }}
+        {{ form.email }}
+
+        {{ form.contact.errors }}
+        {{ form.contact }}
+
+        <button type="submit">SUBMIT</button>
+      </form>
+    </div>
+
+  </div>
+  <div class="section2">
+
+    <div class="preview">
+      <p>
+        <b>Another Light Counselling (ALC)</b><br> provides cost-effective mental <br> healthcare to those in need of
+        it.
+        <br>
+        Specialized in care for trauma, <br> addictions, non-normative <br> genders and violence faced by <br>
+        marginalised individuals
+        & <br> communities, we believe in <br> informed and participative <br> healing. Since its inception in 2019,
+        <br> ALC has served
+        over 800 <br> clients.
+      </p>
+    </div>
+
+    <div class="services">
+
+      <b>Our Services:</b>
+      <ul>
+        <li>Anxiety Therapy</li>
+        <li>Depression Counselling</li>
+        <li>LGBTQ Therapy & Counselling</li>
+        <li>Queer Afﬁrmative Therapy</li>
+        <li>Kink Afﬁrmative Therapy</li>
+        <li>Counselling & Therapy for Addictions</li>
+        <li>Trauma Therapy & Counselling</li>
+      </ul>
+      <a class="reachbutton" href="#">
+        <button>REACH US NOW</button>
+      </a>
+    </div>
+
+  </div>
+  <div class="section3">
+
+    <img class="art" src="{% static 'img/pct/fixhead.svg' %}">
+
+    <h3>Why Another Light?</h3>
+
+    <ul>
+      <li>
+        Unique & Effective Services by expert Psychologists in India
+      </li>
+      <li>Affordable & Reliable Services</li>
+      <li>A safe place where one can freely express his/her feelings</li>
+      <li>Quick & long-term solutions</li>
+      <li>Utmost conﬁdentiality</li>
+    </ul>
+
+    <a class="appointment" href="#">
+      <button>BOOK AN APPOINTMENT</button>
+    </a>
+
+  </div>
+</body>
+
+</html>

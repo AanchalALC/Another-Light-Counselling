@@ -1,0 +1,105 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}{{ service.meta_title }}{% endblock %}
+{% block metakeywords %}{{service.meta_keywords}}{% endblock %}
+
+{% block ogtitle %}{{service.meta_title}}{% endblock %}
+{% block tctitle %}{{service.meta_title}}{% endblock %}
+
+{% block metadescription %}{{service.meta_description}}{% endblock %}
+{% block ogdescription %}{{service.meta_description}}{% endblock %}
+{% block tcdescription %}{{service.meta_description}}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/services.css' %}">
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="content">
+    <div id="topsection">
+        <img      
+        src="{{ service.image_file.url }}" alt="{{service.img_alt_text}}"
+        id="topgraphic" alt="Mental Healing & Psychological Counselling" />
+    </div>
+
+
+    <div id="service-section">
+
+        <h1>{{service.title}}</h1>
+        <div class="service">
+            {{ service.content | safe }}
+        </div>
+
+    </div>
+
+
+
+</div>
+<!-- <script>
+    const topgraphic = document.querySelector("#topgraphic");
+    const topsection = document.querySelector("#topsection");
+    if (window.location.href.includes(`EMDR-therapy`)) {
+        // topsection.style.backgroundColor = '#A2F1FF';
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/emdr_adobe_express.svg' %}";
+        // topgraphic.src = "{% static 'img/services/header.svg' %}";
+    }
+    else if (window.location.href.includes(`Internal-Family-Systems-Therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/internal_family.png' %}";
+    }
+    else if (window.location.href.includes(`Depression-Counselling`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/depression.png' %}";
+    }
+    else if (window.location.href.includes(`Panic-Attack`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/panic_attack.png' %}";
+    }
+    else if (window.location.href.includes(`Anxiety-Therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/anxiety_disorder.png' %}";
+    } else if (window.location.href.includes(`Eating-Disorder`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/eating_disorder.png' %}";
+    } else if (window.location.href.includes(`Compassionate-Inquiry-Therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/compassionate_inquiry.png' %}";
+    }
+    else if (window.location.href.includes(`queer-affirmative-therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/queer-affirmative-therapy.jpeg' %}";
+    }
+    else if (window.location.href.includes(`kink-affirmative-therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/kink-affirmative-therapy.jpeg' %}";
+    }
+    else if (window.location.href.includes(`addictions-therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/addictions-therapy.jpeg' %}";
+    }
+    else if (window.location.href.includes(`trauma-therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/trauma-therapy.jpeg' %}";
+    }
+    else if (window.location.href.includes(`couple-therapy`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/couple-therapy.jpeg' %}";
+    }
+    else if (window.location.href.includes(`poly-relationships-counselling`)) {
+        topsection.style.backgroundColor = '#FFFFFF';
+        topgraphic.src = "{% static 'img/services/poly-relationships-counselling.jpeg' %}";
+    }
+    else {
+        topgraphic.src = "{% static 'img/services/header.svg' %}";
+    }
+</script> -->
+{% endblock %}

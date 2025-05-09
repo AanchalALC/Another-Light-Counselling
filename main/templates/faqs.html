@@ -1,0 +1,81 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}FAQs | Another Light Counselling{% endblock %}
+{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/faqs.css' %}">
+<script src="{% static 'js/faqs.js' %}"></script>
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date()); 
+    gtag('config', 'AW-10878605404');
+    if (window.location.href.includes('faqs/another-light')) {
+        window.location.href = window.location.host + '/faqs/'
+	}
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="content">
+
+    <div id="topsection">
+        <img src="{% static 'img/faqs/top_gal.svg' %}" id="topgal"
+            alt="FAQs -  Another Light Counselling & Therapy by Expert Psychologists" />
+    </div>
+
+
+    <div id="faqssection">
+
+        <div id="topstuff">
+            <h2>Got a question? Ask away!</h2>
+            <img src="{% static 'img/faqs/chat_icon.png' %}">
+        </div>
+
+
+        <div id="faqlist">
+
+
+            <div id="col1" class="col">
+                {% for faq in faq1 %}
+                <div class="faq-item">
+                    <div class="question" onclick="toggleFaq(this)" data-answer="a{{ faq.id }}"
+                        data-elementid="q{{ faq.id }}" id="q{{ faq.id }}">
+                        <h3>{{ faq.question }}</h3>
+                        <span>-</span>
+                    </div>
+                    <div class="answer" id="a{{ faq.id }}">
+                        {{ faq.tippy_answer | safe }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div id="col2" class="col">
+                {% for faq in faq2 %}
+                <div class="faq-item">
+                    <div class="question" onclick="toggleFaq(this)" data-answer="a{{ faq.id }}"
+                        data-elementid="q{{ faq.id }}" id="q{{ faq.id }}">
+                        <h3>{{ faq.question }}</h3>
+                        <span>-</span>
+                    </div>
+                    <div class="answer" id="a{{ faq.id }}">
+                        {{ faq.tippy_answer | safe }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}{{metatitle}}{% endblock %}
+{% block metakeywords %}{{ post.meta_keywords }}{% endblock %}
+
+{% block ogtitle %}{{metatitle}}{% endblock %}
+{% block tctitle %}{{metatitle}}{% endblock %}
+
+{% block metadescription %}{{description}}{% endblock %}
+{% block ogdescription %}{{description}}{% endblock %}
+{% block tcdescription %}{{description}}{% endblock %}
+
+{% block ogimage %}{{full_header_url}}{% endblock %}
+{% block tcimage %}{{full_header_url}}{% endblock %}
+
+{% block head %}
+<link rel="canonical" href="https://www.another-light.com/post/{{post.slug}}" />
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="content">
+
+    <div id="topsection">
+        <img src="{{ post.image_file.url }}" id="topgraphic" />
+    </div>
+
+
+
+    <div id="blog-post">
+
+        <h2>{{ post.title }}</h2>
+        <p>
+            <small>
+                <em>
+                    {{ post.created }}
+                </em>
+            </small>
+        </p>
+        <div class="post-content">
+            {{ post.content | safe }}
+        </div>
+
+        <div id="commentsection">
+            <div id="disqus_thread"></div>
+            <script async>
+                let elem = document.querySelectorAll(`span`);
+                    for (const element of elem) {
+                    // console.log(element);
+                    element.style.removeProperty('font-size');
+                    element.style.removeProperty('font-family');
+                }
+                /**
+                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+
+                var disqus_config = function () {
+                    this.page.url = '{{canon_url}}';  // page's canonical URL variable
+                    this.page.identifier = '{{post.slug}}'; // page's unique identifier variable
+                };
+
+                (function () { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://another-light-com.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered
+                    by Disqus.</a></noscript>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

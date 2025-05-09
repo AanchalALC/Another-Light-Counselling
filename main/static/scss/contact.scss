@@ -1,0 +1,176 @@
+@import 'skeleton';
+
+
+#content{
+
+    #promptoverlay{
+        display: none;
+
+        transition: all 0.2s;
+    }
+
+    #promptoverlay:target{
+        
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        background: rgba(0, 0, 0, 0.747);
+        
+        width: 100vw;
+        height: 100vh;
+        z-index: 5;
+
+        display: grid;
+
+        #dialoguebox{
+            place-self: center center;
+
+            padding: 2rem;
+            background: snow;
+            border-radius: 12px;
+
+            p:nth-child(2){
+                margin-top: 3rem;
+            }
+
+            a {
+                background: #457545;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                border-radius: 12px;
+                border: none;
+                color: snow;
+                font-size: 1.2rem;
+                text-decoration: none;
+            }
+        }
+        
+    }
+    
+    #topsection{
+        background: #C9EFB6;
+        width: 100%;
+        // height: 50rem;
+        display: grid;
+
+        #topgraphic{
+
+            object-fit: contain;
+            place-self: start center;
+        }
+
+
+
+
+
+    }
+
+
+    #contact-section{
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas: 
+            "i f"
+            "j j"
+        ;
+
+        padding: $padding;
+        background-image: url(/static/img/contact/peeche.png);
+        background-size: 10% auto;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        $thegreen: #5F996C;
+
+        h1{
+            color: $thegreen;
+        }
+
+        a {
+            text-decoration: none;
+            color: $thegreen;
+        }
+
+        #info-area{
+            grid-area: i;
+            width: 60%;
+        }
+
+        #form-area{
+            grid-area: f;
+            place-self: start end;
+            text-align: right;
+            // margin-right: $padding;
+
+            input[type="text"] {
+                border: 2px solid $thegreen;
+                border-radius: 4px;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                width: 100%;
+                margin-top: 0.5rem;
+                box-sizing: border-box;
+            }
+
+            input[type="submit"]{
+                background: #457545;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                border-radius: 12px;
+                border: none;
+                color: snow;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+
+        }
+
+        #join-us-area{
+            grid-area: j;
+            width: 60%;
+        }
+
+
+
+
+        @media screen and (max-width: 1000px) {
+        
+            display: flex;
+            flex-direction: column;
+            background-image: unset;
+            padding: $small_padding;
+
+            #info-area{
+                width: unset;
+            }
+
+            #form-area{
+                margin-top: 2rem;
+                text-align: left;
+                margin-right: 0;
+            }
+
+            #join-us-area{
+                margin-top: 2rem;
+                width: unset;
+            }
+
+        }
+
+
+    }
+
+        
+
+}
+

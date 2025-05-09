@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-163396537-1"
+    ></script>
+    <script async>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-163396537-1");
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- GOOGLE VERIFICATION -->
+    <meta
+      name="google-site-verification"
+      content="DWUpiMGXX6mLCET2Q0RLmDtoWy0LXMkqFMr40KtVjBA"
+    />
+
+    <title>{% block title %}{% endblock %}</title>
+    <meta
+      name="description"
+      content="{% block metadescription %}{% endblock %}"
+    />
+    <meta name="keywords" content="{% block metakeywords %}{% endblock %}" />
+
+    {% comment %} OPENGRAPH META TAGS {% endcomment %}
+    <meta property="og:title" content="{% block ogtitle %}{% endblock %}" />
+    <meta
+      property="og:description"
+      content="{% block ogdescription %}{% endblock %}"
+    />
+    <meta property="og:url" content="{% block ogurl %}{% endblock %}" />
+    <meta property="og:image" content="{% block ogimage %}{% endblock %}" />
+    <meta property="og:type" content="{% block ogtype %}{% endblock %}" />
+
+    <!-- TWITTER CARD META TAGS -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="@aanchal_therapy" />
+    <meta name="twitter:title" content="{% block tctitle %}{% endblock %}" />
+    <meta
+      name="twitter:description"
+      content="{% block tcdescription %}{% endblock %}"
+    />
+    <meta name="twitter:image" content="{% block tcimage %}{% endblock %}" />
+
+    <!-- FONTAWESOME -->
+    <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/all.css' %}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tippy.js@6/animations/scale.css"
+    />
+
+    <!-- JQUERY FOR COUNTER -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="{% static 'js/jquery.countup.min.js' %}"></script>
+
+    <!-- FAVICON -->
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'img/favicon.ico' %}"
+    />
+
+    {% block head %}{% endblock %}
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <!-- HEADER -->
+      <div id="topheader">
+        <img
+          id="sitelogo"
+          src="{% static 'img/skeleton/sitelogo.png' %}"
+          alt="Another Light"
+        />
+
+        <div id="contactrow">
+          <a href="{{ h_contacts.instagram.url }}" target="_blank"
+            ><i class="{{h_contacts.instagram.symbol}} site-logo"></i
+          ></a>
+          <a href="{{h_contacts.whatsapp.url}}" target="_blank"
+            ><i class="{{h_contacts.whatsapp.symbol}} site-logo"></i
+          ></a>
+          <a href="{{h_contacts.phone.url}}" target="_blank">
+            <!-- <span
+                        class="textnumber site-logo">{{h_contacts.phone.value}}</span> -->
+            <i class="{{h_contacts.phone.symbol}} phoneicon site-logo"></i>
+          </a>
+          <!-- <div id="searchbox">
+                        <input type="text" placeholder="SEARCH" />
+                    </div>                     -->
+        </div>
+
+        <div id="menuitems">
+          <div id="themenu">
+            <a href="#" id="closemenu"><i class="fas fa-times"></i></a>
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <div id="servicedropdown">
+              <a id="servicebutton">Services</a>
+              <div id="dropdowncontent">
+                {% for service in services %}
+                <a href="{% url 'service' service.slug %}">{{service.title}}</a
+                ><br />
+                {% endfor %}
+              </div>
+            </div>
+            <div id="doifeeldropdown">
+              <a id="doifeelbutton">Do I Feel?</a>
+              <div id="dropdowncontentdoifeel">
+                {% for doifeel in doifeels %}
+                <a href="{% url 'doifeel' doifeel.slug %}">{{doifeel.title}}</a
+                ><br />
+                {% endfor %}
+              </div>
+            </div>
+            <a href="{% url 'faqs' %}">FAQs</a>
+            <a href="{% url 'resources' %}">Resources</a>
+            <a href="{% url 'reviews' %}">Reviews</a>
+            <a href="{% url 'blog' %}">Blog</a>
+            <a href="{% url 'contact' %}">Contact</a>
+          </div>
+          <a href="#themenu" id="hamburger"><i class="fas fa-bars"></i></a>
+        </div>
+        <div id="rainbowdiv">
+          <!-- THIS WILL HAVE RAINBOW BG IN CSS -->
+        </div>
+        <div id="colordiv">
+          <!-- THIS WILL GIVE THE MENU A BG IN CSS -->
+        </div>
+      </div>
+
+      {% block body %}{% endblock %}
+
+      <!-- FOOTER -->
+      <div id="footer">
+        <!-- <div id="rainbowbg"> -->
+        <!-- THIS WILL HAVE THE RAINBOW BG -->
+        <!-- </div> -->
+
+        <div id="footercontacts" class="footersection">
+          <h4>Contact Details</h4>
+          {% for contactdetail in contactdetails %}
+          <a href="{{contactdetail.url}}" target="_blank">
+            <strong><i class="{{contactdetail.symbol}}"></i></strong>
+            {{contactdetail.value}}
+          </a>
+          {% endfor %}
+        </div>
+
+        <div id="footerlinks" class="footersection">
+          <h4>Quick Links</h4>
+          <a href="{% url 'index' %}">Home</a>
+          <a href="{% url 'about' %}">About</a>
+          <a href="{% url 'faqs' %}">FAQs</a>
+          <a href="{% url 'resources' %}">Resources</a>
+          <a href="{% url 'reviews' %}">Reviews</a>
+          <a href="{% url 'blog' %}">Blog</a>
+          <a href="{% url 'contact' %}">Contact</a>
+          <a href="{% url 'policy' 'posh' %}">PoSH Policy</a>
+          <a href="{% url 'policy' 'cancel-refund' %}">Cancellation & Refund Policy</a>
+          <a href="{% url 'policy' 'privacy-confidentiality' %}">Privacy & Confidentiality Policy</a>
+          <!-- <a href="{% url 'careers' %}">Careers</a> -->
+          <!-- <a href="{% url 'committee' 'posh' %}">PoSH Committee</a> -->
+        </div>
+
+        <div id="footerservices" class="footersection">
+          <h4></h4>
+          <!-- {% for service in services %}
+                <a href="{% url 'service' service.slug %}">{{service.title}}</a>
+                {% endfor %} -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15077.75827412004!2d72.8305922!3d19.1322267!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7dc155bf53680e9b!2sAnother%20Light%20Counselling!5e0!3m2!1sen!2sin!4v1662820553961!5m2!1sen!2sin"
+            width="400"
+            height="300"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+
+        <div id="bottomlinks"></div>
+
+        <!-- <img id="footerlogo" src="{% static 'img/skeleton/footerlogo.png' %}" /> -->
+      </div>
+    </div>
+
+    <!-- TOOLTIPS -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script src="{% static 'js/tooltips.js' %}"></script>
+
+    <!-- ACCESIBILITY -->
+    <script async>
+      (function (d) {
+        var s = d.createElement("script");
+        s.setAttribute("data-account", "dcGEfQ47Vq");
+        s.setAttribute("src", "https://cdn.userway.org/widget.js");
+        (d.body || d.head).appendChild(s);
+      })(document);
+    </script>
+    <noscript>
+      Please ensure Javascript is enabled for purposes of
+      <a href="https://userway.org">website accessibility</a>
+    </noscript>
+
+    <!-- count up man -->
+    <script src="{% static 'js/countnumbers.js' %}"></script>
+
+    <!-- SERVICE DROPDOWN FUNCTIONALITY -->
+    <script src="{% static 'js/servicemenu.js' %}"></script>
+  </body>
+</html>

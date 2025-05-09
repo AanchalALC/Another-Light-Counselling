@@ -1,0 +1,27 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}{{ policy.title }}{% endblock %}
+{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/policy.css' %}">
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="content">
+
+    <div id="policycontents">
+        <h1>{{ policy.title }}</h1>
+        {{ policy.content | safe }}
+    </div>
+
+</div>
+{% endblock %}

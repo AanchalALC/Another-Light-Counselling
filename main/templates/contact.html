@@ -1,0 +1,124 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}Contact - Another Light{% endblock %}
+{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+<link rel="canonical" href="https://www.another-light.com/contact" />
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="content">
+
+    <div id="promptoverlay">
+
+        <div id="dialoguebox">
+            <p>
+                Thank you for reaching out to us!<br />
+                We will contact you shortly!
+            </p>
+            <p>
+                <a href="#">OK</a>
+            </p>
+        </div>
+
+    </div>
+
+
+    <div id="topsection">
+        <img src="{% static 'img/contact/top_gal.svg' %}" id="topgraphic" />
+    </div>
+
+
+    <div id="contact-section">
+
+        <div id="info-area">
+            <h1>Contact Us</h1>
+            <p>
+                While our FAQs section answers most common questions, if you have further queries or just need to get in
+                touch and listen to an actual human beyond this website, feel free to contact us in any of the following
+                ways:
+            </p>
+            <p class="social-media">
+
+
+                {% for contactdetail in contactdetails %}
+                <a href="{{contactdetail.url}}" target="_blank">
+                    <strong><i class="{{contactdetail.symbol}}"></i> {{contactdetail.title}}:</strong>
+                    {{contactdetail.value}}
+                </a><br /><br />
+                {% endfor %}
+
+            </p>
+        </div>
+
+        <div id="form-area">
+
+            <form method="POST" action="">
+
+                {% csrf_token %}
+
+                <h1>Reach Out To Us</h1>
+
+                <p>
+                    {{ form.non_field_errors }}
+                </p>
+                <p>
+                    {{ form.name.errors }}
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                    <!-- <label for="name_input">What would you like us to call you?</label><br> -->
+                    <!-- <input type="text" name="name_input" id="name_input"> -->
+                </p>
+
+                <p>
+                    {{ form.number.errors }}
+                    {{ form.number.label_tag }}
+                    {{ form.number }}
+                </p>
+
+                <p>
+                    {{ form.instahandle.errors }}
+                    {{ form.instahandle.label_tag }}
+                    {{ form.instahandle }}
+                </p>
+
+                <input type="submit" value="Submit">
+
+            </form>
+
+        </div>
+
+
+        <div id="join-us-area">
+            <h1 class="reach-out">Join Us!</h1>
+            <p>
+                Do you like the work that we do, and feel we’re the kind of place you would like to be a part of? Write
+                in to us with your CV and a cover letter at <a
+                    href="mailto:anotherlightcounselling@gmail.com">anotherlightcounselling@gmail.com.</a>
+            </p>
+        </div>
+
+
+        <div id="map-area">
+            <h1>Find Us</h1>
+            <p>
+
+            </p>
+        </div>
+
+    </div>
+
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,173 @@
+@import 'skeleton';
+
+$thepink: #F8B7BB;
+
+#content{
+    
+    #topsection{
+        background: $thepink;
+        width: 100%;
+        // max-height: 50rem;
+        display: grid;
+
+        #topgraphic{
+            // object-fit: contain;
+            // max-height: 100%;
+            // // min-height: 100%;
+            // max-width: 100%;
+            padding-top: 2rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            place-self: center end;
+        }
+
+    }
+
+
+
+    #resources-section{
+
+        padding: $padding;
+        background-image: url(/static/img/resources/resourcebg_patterm.png);
+        background-size: 50% auto;
+        background-position: center;
+        background-repeat: repeat-y;
+
+        #topstuff{            
+
+            display: flex;
+            align-items: flex-start;
+            // margin-top: 2rem;
+
+            * {
+                margin: 0;
+            }
+
+            h2{
+                color: $thepink;
+            }
+
+            img{
+                margin-left: auto;
+            }
+        }
+
+
+        @media screen and (max-width: 500px) {
+            padding: $small_padding;
+        }
+
+
+
+    }
+
+
+    #resource-list{
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 2rem;
+        // width: 95%;
+
+        .resource{
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            grid-template-areas: 
+                "i"
+                "h"
+            ;
+
+            width: 90%;
+            text-decoration: none;
+            color: black;
+            margin-bottom: 5rem;
+
+            .thumbnail{
+                grid-area: i;
+                width: 100%;
+                height: 30rem;
+                object-fit: cover;
+            }
+
+            .playbutton{
+                $size: 4rem;
+                grid-area: i;
+                z-index: 2;
+                height: $size;
+                width: $size;
+                place-self: center center;
+            }
+
+        }
+
+
+        @media screen and (max-width: 1600px) {
+            
+            .resource{
+                .thumbnail{
+                    height: 25rem;
+                }
+            }
+
+        }
+
+
+        @media screen and (max-width: 1300px) {
+            
+            .resource{
+                .thumbnail{
+                    height: 20rem;
+                }
+            }
+
+        }
+
+        @media screen and (max-width: 1000px) {
+            
+            .resource{
+                .thumbnail{
+                    height: 15rem;
+                }
+            }
+
+        }
+
+
+        @media screen and (max-width: 700px) {
+
+            display: flex;
+            flex-direction: column;
+            
+            .resource{
+                width: 100%;
+                margin-bottom: 2rem;
+
+                .thumbnail{
+                    height: 20rem;
+                }
+
+            }
+
+        }
+
+        @media screen and (max-width: 500px) {
+            
+            .resource{
+                
+
+                .thumbnail{
+                    height: 15rem;
+                }
+                
+            }
+
+        }
+
+
+
+    }
+
+        
+
+}

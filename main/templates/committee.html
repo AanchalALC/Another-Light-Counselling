@@ -1,0 +1,26 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}{{ committee.title }}{% endblock %}
+{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/committee.css' %}">
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="content">
+
+    <div id="committeecontents">
+        <h1>{{ committee.title }}</h1>
+        {{ committee.content | safe }}
+    </div>
+
+</div>
+{% endblock %}

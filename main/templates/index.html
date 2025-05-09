@@ -1,0 +1,335 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}Counselling & therapy for LGBTQ, depression, anxiety, trauma & addiction | Another Light{% endblock %}
+{% block metadescription %}Psychologists at Another Light Counselling are specialized in counselling and therapy
+practices for LGBTQ, depression, anxiety, trauma, addiction, eating disorder and relationship problems etc. Contact us
+and experience a cost-effective and quality solution.{% endblock %}
+{% block metakeywords %}LGBTQ counselling, LGBTQ counselling and Therapy, LGBTQ Therapy{% endblock %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-163396537-1"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-163396537-1');
+</script>
+<script async>
+    function removePopup() {
+        document.querySelector("#promptoverlay").parentElement.removeChild(document.querySelector("#promptoverlay"));
+    }
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="content">
+    <div id="promptoverlay">
+
+        <div id="dialoguebox">
+            <p>
+                Don't worry, we're happy to help about anything that you would like to speak about. Use the code: ALC99
+                to get 20% Off! Contact us now! Visit
+                <a class="textlink" href="https://www.another-light.com/contact/" target="_blank">
+                    https://www.another-light.com/contact/
+                </a>
+
+                or Call
+                <a class="textlink" href="{{h_contacts.phone.url}}" target="_blank">
+                    +918879260310
+                </a>or
+                <a class="textlink" href="{{h_contacts.whatsapp.url}}" target="_blank">WhatsApp</a>
+                your details.
+            </p>
+            <p>
+                <a class="buttonlink" onclick="removePopup()">OK</a>
+            </p>
+        </div>
+
+    </div>
+
+    <div id="topsection">
+        <div class="arrow arrow-left"><i class="fas fa-chevron-circle-left"></i></div>
+        <img src="" id="topgals" alt="LGBTQ Counselling" style="position: relative;top:0%;width:100vw;left:0"
+            class="imgs" />
+        <div class="textcontent" id="readingthis">
+            <p class="para1">
+                High Quality Psychological <br> Counselling & Therapy in India
+            </p>
+            <p class="para2">
+                by a Team of Expert Psychologists
+            </p>
+            <button class="button" id="button1" onclick='redirectToContact()' ;></button>
+
+        </div>
+        <img src="" id="img2" alt="LGBTQ Counselling" style="position: relative;top:0%;width:100vw;left:0"
+            class="imgs" />
+        <div class="textcontent" id="readingthis2">
+            <p class="para1">
+                Psychological Counselling & Therapy for LGBTQ, Depression, Anxiety, Trauma & Addiction
+            </p>
+            <p class="para2">
+                Contact Another Light Solution for
+                Affordable & Quality Services
+            </p>
+            <button class="button" id="button2" onclick='redirectToContact()' ;></button>
+        </div>
+        <img src="" id="img3" alt="LGBTQ Counselling" style="position: relative;top:0%;width:100vw;left:0"
+            class="imgs" />
+        <div class="textcontent" id="readingthis">
+            <p class="para1">
+                Another Light Counselling
+            </p>
+            <p class="para2">
+                A Safe Place to Freely Express Your Feeling & Ask Questions
+            </p>
+            <button class="button" id="button3" onclick='redirectToContact()' ;></button>
+        </div>
+        <div class="arrow arrow-right"><i class="fas fa-chevron-circle-right"></i>
+        </div>
+        <div class="dots">
+            <div class="dot">
+                <i class="far fa-dot-circle"></i>
+            </div>
+            <div class="dot">
+                <i class="far fa-circle"></i>
+            </div>
+            <div class="dot">
+                <i class="far fa-circle"></i>
+            </div>
+        </div>
+        <!-- <div id="heytherebox">
+            <p>
+                {{ s1.title | safe }}
+            </p>
+        </div> -->
+
+        <!-- <div id="readingthis">
+            {{ s1.content | safe }}
+            <p>
+                If you’re reading this, you’ve landed on Another Light’s website. A safe space where you can freely
+                express your feeling, ask any questions you need to, and face no judgment whatsoever!
+            </p>
+        </div> -->
+        <!-- <div class="container">
+            <div class="arrow arrow-left"><i class="fas fa-chevron-circle-left"></i></div>
+            <img id="img1" alt="">
+            <div class="textcontent" id="textcontent1">
+                <p class="para1">
+                    High Quality Psychological <br> Counselling & Therapy in India
+                </p>
+                <p class="para2">
+                    by a Team of Expert Psychologists
+                </p>
+            </div>
+            <button class=" button" id="button1" onclick='redirectToContact()' ;></button>
+            <img id="img2" alt="">
+            <div class="textcontent" id="textcontent2">
+                <p class="para1">
+                    Psychological Counselling & Therapy for LGBTQ, Depression, Anxiety, Trauma & Addiction
+                </p>
+                <p class="para2">
+                    Contact Another Light Solution for <br>Affordable & Quality Services
+                </p>
+            </div><button class="button" id="button2" onclick='redirectToContact()'></button>
+            <img id="img3" alt="">
+            <div class="textcontent" id="textcontent3">
+                <p class="para1">
+                    Another Light Counselling
+                </p>
+                <p class="para2">
+                    A Safe Place to Freely Express Your Feeling & Ask Questions
+                </p>
+            </div>
+            <button class="button" id="button3" onclick='redirectToContact()'></button>
+            <div class="arrow arrow-right"><i class="fas fa-chevron-circle-right"></i>
+            </div>
+            <div class="dots">
+                <div class="dot">
+                    <i class="far fa-dot-circle"></i>
+                </div>
+                <div class="dot">
+                    <i class="far fa-circle"></i>
+                </div>
+                <div class="dot">
+                    <i class="far fa-circle"></i>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <script>
+        const imgs = document.querySelectorAll("#topsection img");
+        const btns = document.querySelectorAll("#topsection button");
+        const textdivs = document.querySelectorAll("#topsection div.textcontent");
+        const p1 = document.querySelectorAll("#topsection .para1");
+        const p2 = document.querySelectorAll("#topsection .para2");
+
+
+        let redirectToContact = () => {
+            window.open("{% url 'contact' %}");
+        };
+
+        const dots = document.querySelectorAll(".dot i");
+        const leftArrow = document.querySelector(".arrow-left");
+        const rightArrow = document.querySelector(".arrow-right");
+
+        let currentIndex = 0;
+        let time = 5000; // default time for auto slideshow
+        let device = '';
+
+        const validateDeviceType = () => {
+            if (navigator.userAgent && typeof navigator.userAgent == "string" && /Mobi/i.test(navigator.userAgent)) {
+                device = 'mobile';
+            } else {
+                device = 'desktop';
+            }
+        }
+
+        validateDeviceType();
+
+        const img1 = document.querySelector("#topgals");
+        const img2 = document.querySelector("#img2");
+        const img3 = document.querySelector("#img3");
+
+        if (device == "desktop") {
+            img1.src = "{% static 'img/index/1.jpg' %}";
+            img2.src = "{% static 'img/index/2.jpg' %}";
+            img3.src = "{% static 'img/index/3.jpg' %}";
+        } else {
+            document.querySelector("#topsection").style.height = "85vh";
+            document.querySelector("#topgals").style.height = "85vh";
+            document.querySelector("#img2").style.height = "85vh";
+            document.querySelector("#img3").style.height = "85vh";
+            img1.src = "{% static 'img/index/4.jpg' %}";
+            img2.src = "{% static 'img/index/5.jpg' %}";
+            img3.src = "{% static 'img/index/6.jpg' %}";
+
+        }
+
+        const defClass = (startPos, index) => {
+            for (let i = startPos; i < imgs.length; i++) {
+
+                imgs[i].style.display = "none";
+                btns[i].style.display = "none";
+                textdivs[i].style.display = "none";
+                dots[i].classList.remove("fa-dot-circle"); dots[i].classList.add("fa-circle");
+            }
+
+            if (document.querySelector("#topgals").src.includes('4')) {
+                p1[index].style.cssText = "font-size:4.5vw;font-weight:bold"
+                p2[index].style.cssText = 'font-size:3vw';
+                btns[index].style.cssText = "top: 70vw;left: 0vw;display:block;";
+                textdivs[index].style.cssText = "left:10vw;width:80vw;display:block";
+
+            }
+            else {
+                btns[index].style.cssText = "display:block;";
+                textdivs[index].style.cssText = "display:block";
+            }
+
+            imgs[index].style.display = "block";
+            dots[index].classList.add("fa-dot-circle");
+        }; defClass(1, 0);
+        leftArrow.addEventListener("click", function () {
+            currentIndex <= 0 ? currentIndex = imgs.length - 1 : currentIndex--; defClass(0, currentIndex);
+        });
+        rightArrow.addEventListener("click", function () {
+            currentIndex >= imgs.length - 1 ? currentIndex = 0 :
+                currentIndex++;
+            defClass(0, currentIndex);
+        });
+
+        const startAutoSlide = () => {
+            setInterval(() => {
+                currentIndex >= imgs.length - 1 ? currentIndex = 0 : currentIndex++;
+                defClass(0, currentIndex);
+            }, time);
+        };
+
+        startAutoSlide(); // Start the slideshow
+    </script>
+    <div id="scarysection">
+        <div id="leftelipse"></div>
+        <div id="rightelipse"></div>
+        <div id="content">
+            <h1>{{s2.title}}</h1>
+            {{ s2.content | safe }}
+            <!-- <p>
+                Founded by Aanchal Narag, you can find at Another Light friendly faces and ears that are willing to listen. Whether you’re looking for a quick resolution, or are interested in long-term solutions, you will find someone who will work with you at your speed and convenience. The therapy sessions cater to anybody who is brave enough to walk through our doors.
+            </p>
+            <p>
+                There are no questions we won’t hear out, nothing that classifies as ‘too much information’ and there are no wrong answers when you’re at our center. Because no matter who you are, what you’ve done (yes, we help everybody) or what you’re facing, when you’re at Another Light, you are cared for.
+            </p> -->
+            <div id="stats">
+
+
+                {% for stat in stats %}
+                <div class="stat">
+                    <p class="count counter">{{ stat.value }}</p>
+                    <p class="subtitle">{{ stat.name }}</p>
+                </div>
+                {% endfor %}
+
+
+            </div>
+
+            <!-- <div id="statsbar">
+                <h1>Statistics</h1>
+                <p class="statstext">Happy with Online Therapy Services</p>
+                <div class="bar learning" data-skill="98%"></div>
+                <p class="statstext">I am making progress beacuse of therapy</p>
+                <div class="bar back basic" data-skill="99%"></div>
+                <p class="statstext">Recommendation to my friends and family</p>
+                <div class="bar back intermediate" data-skill="99%"></div>
+                <p class="statstext">Satisfied with my therapist</p>
+                <div class="bar front advanced" data-skill="100%"></div>
+                <p class="statstext">5 star rating</p>
+                <div class="bar front expert" data-skill="100%"></div>
+            </div> -->
+
+
+        </div>
+    </div>
+
+
+    <div id="providesection">
+
+        <a href="{{h_contacts.phone.value}}" id="chaticon"><img src="{% static 'img/index/chat_icon.png' %}" /></a>
+
+        <h2>{{s3.title}}</h2>
+        <div id="p">
+            <p>
+                ...provides cost-effective mental healthcare to those in need of it. Specializing in care for
+                everything
+                from <span class="mytooltip depressiontippy">depression</span> and <span
+                    class="mytooltip anxietytippy">anxiety</span> to struggles with <span
+                    class="mytooltip addictiontippy">addiction</span>, <span class="mytooltip gendertippy">gender</span>
+                and <span class="mytooltip sexualitytippy">sexuality</span> and working on <span
+                    class="mytooltip traumatippy">trauma</span> symptoms and <span
+                    class="mytooltip traumatippy">trauma</span>, we co-chart the path towards healing and walk down
+                it
+                with you.
+            </p>
+        </div>
+
+        <img src="{% static 'img/index/rainbow_gal_last_section.png' %}" id="rainbowgal"
+            alt="Counselling & therapy for depression, anxiety, trauma & addiction" loading="lazy">
+
+        <a id="readmore" href="{% url 'about' %}">READ MORE</a>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}Reviews | Another Light{% endblock %}
+{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/reviews.css' %}">
+<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script async>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-10878605404');
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="content">
+
+    <div id="topsection">
+        <!-- <img src="{% static 'img/reviews/topgraphic.svg' %}" id="topgraphic" /> -->
+    </div>
+
+
+
+    <div id="reviews-section">
+
+        <div id="topstuff">
+            <h2>Reviews</h2>
+            <p>Take a look at our clients' testimonials...</p>
+        </div>
+
+        <div id="review-list">
+            {% for review in reviews %}
+
+            {% if review.type == 'doodle' %}
+            <img src="{% static review.art %}" class="doodle {{ review.position }}" alt="">
+            {% endif %}
+
+            {% if review.type == 'review' %}
+            <div class="review {{ review.position }}">
+                <p class="mypara">{{ review.obj.review }}</p>
+            </div>
+            {% endif %}
+
+            {% endfor %}
+        </div>
+
+
+
+    </div>
+
+</div>
+<script src="{% static 'js/reviews.js' %}"></script>
+{% endblock %}

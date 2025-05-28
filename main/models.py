@@ -314,6 +314,9 @@ class Jd(models.Model):
     meta_description = models.TextField(blank=True, default='')
     meta_keywords = models.CharField(max_length=500, blank=True, default='')
 
+    # Add your new link fields here
+    apply_link = models.URLField(max_length=500, blank=True, null=True)
+
     def __str__(self):
         return str(self.title)
 

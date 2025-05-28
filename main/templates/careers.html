@@ -1,86 +1,109 @@
-{% extends 'skeleton.html' %}
-{% load static %}
-{% block title %}Careers | Another Light Counselling{% endblock %}
-{% block metadescription %}Another Light Counselling{% endblock %}
-{% block metakeywords %}LGBTQ Mental health tips{% endblock %}
-
-{% block head %}
+{% extends 'skeleton.html' %} {% load static %} {% block title %}Careers |
+Another Light Counselling{% endblock %} {% block metadescription %}Another Light
+Counselling{% endblock %} {% block head %}
 <link rel="canonical" href="https://www.another-light.com{% url 'careers' %}" />
-<link rel="stylesheet" href="{% static 'css/posts.css' %}">
+<link rel="stylesheet" href="{% static 'css/posts.css' %}" />
+<link rel="stylesheet" href="{% static 'css/careers.css' %}" />
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"
+></script>
 <script async>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'AW-10878605404');
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "AW-10878605404");
 </script>
+{% endblock %} {% block body %}
 
-{% endblock %}
+<div class="careers-container">
+  <div class="careers-header">
+    <img
+      src="{% static 'img/careers/careers-head.png' %}"
+      alt="Careers Header"
+      class="careers-header-img"
+    />
+  </div>
 
-{% block body %}
-<div id="content">
-
-    <div id="topsection">
-        <img src="{% static 'img/resources/graphic.svg' %}" id="topgraphic" />
+  <div class="careers-section">
+    <div>
+      <h1 class="careers-title">Careers</h1>
+      <p>
+        Join a dynamic and inclusive mental health organization dedicated to
+        empowering individuals and creating a positive impact through counseling
+        and therapy. This internship offers a unique opportunity to gain
+        hands-on experience, receive professional guidance, and develop your
+        skills as a counseling psychologist.
+      </p>
     </div>
 
-
-
-    <div id="resources-section">
-
-        <div id="topstuff">
-            <h2>Careers</h2>
-            <!-- <img src="{% static 'img/faqs/chat_icon.png' %}"> -->
-        </div>
-
-        <div id="resource-list">
-
-
-            <!-- {% if postscount == 0 %}
-            <h3>There are no posts yet!</h3>
-            {% endif %}-->
-
-
-            {% for jd in careers %}
-
-            <a class="resource" href="{% url 'jd' jd.slug %}">
-                <!-- <img src="{{ post.image_file.url }}" class="thumbnail" alt=""> -->
-                <!-- <img src="{% static 'img/resources/play_button.png' %}" class="playbutton" alt=""> -->
-                <h3>{{ jd.title }}</h3>
-                <p><small><em>{{jd.created}}</em></small></p>
+    {% if careers|length == 0 %}
+    <div class="careers-no-openings">
+      <h2>There are no job openings at the moment.</h2>
+      <div class="careers-no-openings-extra">
+        <p>
+          If you are interested in working with us or would like to propose a
+          position, you can still share your CV or resume. Click the button
+          below to send us your details and we will get in touch if a suitable
+          opportunity arises.
+        </p>
+        <a
+          href="https://mail.google.com/mail/?view=cm&to=anotherlightcounselling@gmail.com,coo.naveen@another-light.com&su=Career%20Proposal%20or%20CV&body=Please%20attach%20your%20CV%20and%20proposal."
+          target="_blank"
+          class="career-view-btn"
+        >
+          Share Your CV / Proposal
+        </a>
+      </div>
+    </div>
+    {% endif %}
+    <div class="careers-list-center">
+      <div class="careers-listings-flex">
+        {% for jd in careers %}
+        <div class="career-listing">
+          {% if jd.image_file %}
+          <div class="career-listing-img">
+            <img src="{{ jd.image_file.url }}" alt="{{ jd.title }}" />
+          </div>
+          {% endif %}
+          <div class="career-title">{{ jd.title }}</div>
+          <div class="career-content">
+            {{ jd.content|truncatewords_html:20|safe }}
+          </div>
+          <div class="career-action">
+            <a class="career-view-btn" href="{% url 'jd' jd.slug %}">
+              View &amp; Apply <span class="arrow-icon">&#8594;</span>
             </a>
-
-            {% endfor %}
+          </div>
         </div>
-
-        <!-- PAGINATION commented 2
-        {% if postscount > 0 %}
-        <div id="pagination">
-            {% if page_obj.has_previous %}
-            <div id="newer" class="pagination-item">
-                <a href="{% url 'blog' page_obj.previous_page_number %}"><i class="fas fa-arrow-left"></i> newer</a>
-            </div>
-            {% endif %}
-
-            {% if postscount > 10 %}
-            <div id="current-page" class="pagination-item">
-                Page {{ page_obj.number }}
-            </div>
-            {% endif %}
-
-            {% if page_obj.has_next %}
-            <div id="older" class="pagination-item">
-                <a href="{% url 'blog' page_obj.next_page_number %}">older <i class="fas fa-arrow-right"></i></a>
-            </div>
-            {% endif %}
-        </div>
-        {% endif %} -->
-
+        {% endfor %}
+      </div>
     </div>
+  </div>
+  <!-- PAGINATION commented 2
+      {% if postscount > 0 %}
+      <div id="pagination">
+          {% if page_obj.has_previous %}
+          <div id="newer" class="pagination-item">
+              <a href="{% url 'blog' page_obj.previous_page_number %}"><i class="fas fa-arrow-left"></i> newer</a>
+          </div>
+          {% endif %}
 
+          {% if postscount > 10 %}
+          <div id="current-page" class="pagination-item">
+              Page {{ page_obj.number }}
+          </div>
+          {% endif %}
 
-
-
+          {% if page_obj.has_next %}
+          <div id="older" class="pagination-item">
+              <a href="{% url 'blog' page_obj.next_page_number %}">older <i class="fas fa-arrow-right"></i></a>
+          </div>
+          {% endif %}
+      </div>
+      {% endif %} -->
 </div>
 {% endblock %}

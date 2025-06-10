@@ -9,6 +9,10 @@ $alc-purple: #b780c5;
   height: auto;
   width: 100%;
   box-sizing: border-box;
+  background-image: url("/static/img/careers/Careers_page_BG-removebg-preview.png");
+  background-size: 80% auto;
+  background-position: center;
+  background-repeat: repeat-y;
 }
 .careers-header {
   width: 100%;
@@ -197,6 +201,13 @@ $alc-purple: #b780c5;
   }
 }
 
+#content {
+  background-image: url("/static/img/careers/Careers_page_BG-removebg-preview.png");
+  background-size: 80% auto;
+  background-position: center;
+  background-repeat: repeat-y;
+  padding: $padding;
+}
 .career-detail-section {
   background: #fff;
   border-radius: 1rem;

@@ -136,7 +136,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 #     }
 # }
 
-
+# in local
 if debug:
     DATABASES = {
         'default': {

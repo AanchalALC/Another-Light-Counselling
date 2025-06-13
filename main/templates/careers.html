@@ -29,7 +29,7 @@ Counselling{% endblock %} {% block head %}
   </div>
 
   <div class="careers-section">
-    <div>
+    <div class="careers-intro-bg">
       <h1 class="careers-title">Careers</h1>
       <p>
         Join a dynamic and inclusive mental health organization dedicated to
@@ -42,8 +42,8 @@ Counselling{% endblock %} {% block head %}
 
     {% if careers|length == 0 %}
     <div class="careers-no-openings">
-      <h2>There are no job openings at the moment.</h2>
       <div class="careers-no-openings-extra">
+        <h2>There are no job openings at the moment.</h2>
         <p>
           If you are interested in working with us or would like to propose a
           position, you can still share your CV or resume. Click the button
@@ -80,7 +80,7 @@ Counselling{% endblock %} {% block head %}
           </div>
           {% endif %}
           <div class="career-title">{{ jd.title }}</div>
-          <div class="career-content">
+          <div class="career-content" style="max-height: 180px; width: 100%">
             {{ jd.content|truncatewords_html:20|safe }}
           </div>
           <div class="career-action">

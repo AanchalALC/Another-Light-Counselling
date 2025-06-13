@@ -9,7 +9,7 @@ $alc-purple: #b780c5;
   height: auto;
   width: 100%;
   box-sizing: border-box;
-  background-image: url("/static/img/careers/Careers_page_BG-removebg-preview.png");
+  background-image: url("/static/img/careers/careers-bg.png");
   background-size: 80% auto;
   background-position: center;
   background-repeat: repeat-y;
@@ -75,9 +75,17 @@ $alc-purple: #b780c5;
   margin-left: 30px;
   margin-right: 30px;
   width: 80%;
+  background-color: rgba(255, 255, 255, 0.788);
   box-shadow: 0 2px 12px rgba(113, 80, 121, 0.411);
   p {
     text-align: center;
+  }
+  @media (max-width: 600px) {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+    padding: 1rem !important;
+    word-break: break-word;
   }
 }
 .careers-title,
@@ -200,15 +208,29 @@ $alc-purple: #b780c5;
     text-decoration: none;
   }
 }
-
+.careers-intro-bg {
+  background: rgba(255, 255, 255, 0.589);
+  border-radius: 0.7rem;
+  box-shadow: 0 2px 8px rgba(183, 128, 197, 0.07);
+  padding: 1.2rem 0.5rem;
+  @media (max-width: 900px) {
+    background: rgba(255, 255, 255, 0.753);
+    border-radius: 0.7rem;
+    box-shadow: 0 2px 8px rgba(183, 128, 197, 0.07);
+    padding: 1.2rem 0.5rem;
+  }
+}
+.career-detail-header-text {
+  text-align: center;
+}
 #content {
-  background-image: url("/static/img/careers/Careers_page_BG-removebg-preview.png");
+  background-image: url("/static/img/careers/careers-bg.png");
   background-size: 80% auto;
   background-position: center;
   background-repeat: repeat-y;
 }
 .career-detail-section {
-  background: #ffffff8a;
+  background: #ffffffc5;
   border-radius: 1rem;
   box-shadow: 0 2px 12px rgba(183, 128, 197, 0.1);
   padding: 2rem 2rem 2.5rem 2rem;
@@ -219,6 +241,12 @@ $alc-purple: #b780c5;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  @media (max-width: 900px) {
+    background: rgba(255, 255, 255, 0.753);
+    border-radius: 0.7rem;
+    box-shadow: 0 2px 8px rgba(183, 128, 197, 0.07);
+    padding: 1.2rem 0.5rem;
+  }
 }
 
 .jd-section-heading {

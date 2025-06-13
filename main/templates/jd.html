@@ -31,14 +31,14 @@
         <img src="{{ jd.image_file.url }}" id="topgraphic" alt="Mental Healing & Psychological Counselling" />
     </div>
     <div class="career-detail-section">
-        <div>
-            <div>
+        <div class="career-detail-header">
+            <div class="career-detail-header-text">
                 About Us:
                 Join a dynamic and inclusive mental health organization dedicated to empowering individuals and creating a positive impact through counseling and therapy. This internship offers a unique opportunity to gain hands-on experience, receive professional guidance, and develop your skills as a counseling psychologist.
             </div>
         </div>
-        <h1>{{jd.title}}</h1>
-        <h2> Job Description: </h2>
+        <h1 class="jd-head"> {{jd.title}}</h1>
+        <h2 class="jd-head"> Job Description: </h2>
         <div >
             {{ jd.content | safe }}
         </div>

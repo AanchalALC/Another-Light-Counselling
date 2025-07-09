@@ -795,6 +795,8 @@ def onboarding_plan(request):
             "description": plan.renewal2_description,
         },
     ]
+    services  = Service.objects.all().order_by('id')
+    doifeels  = DoIFeel.objects.all().order_by('id')
 
     context = {
         "plan": plan,
@@ -802,6 +804,8 @@ def onboarding_plan(request):
         "plans": plans,
         "renewals": renewals,
         "h_contacts": get_header_contacts(),
+          "services": services, 
+        "doifeels": doifeels,
     }
     return render(request, "onboarding_plan.html", context)
 

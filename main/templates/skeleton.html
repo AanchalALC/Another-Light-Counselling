@@ -59,7 +59,8 @@
       rel="stylesheet"
       href="https://unpkg.com/tippy.js@6/animations/scale.css"
     />
-
+    <link rel="stylesheet" href="{% static 'css/onboarding_plan.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/services.css' %}" />
     <!-- JQUERY FOR COUNTER -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
@@ -117,10 +118,12 @@
               </div>
             </div>
             <!-- Signature Plans dropdown start -->
-            <div id="servicedropdown">
-              <a id="servicebutton">Signature Plans</a>
-              <div id="dropdowncontent">
-                <a href="{% url 'onboarding_plan' %}">Structured Support from Aanchal</a>
+            <div id="plandropdown">
+              <a id="planbutton">Signature Plans</a>
+              <div id="dropdowncontentplan">
+                <a href="{% url 'onboarding_plan' %}"
+                  >Structured Support from Aanchal</a
+                >
               </div>
             </div>
             <!-- Signature Plans dropdown end -->
@@ -177,8 +180,12 @@
           <a href="{% url 'blog' %}">Blog</a>
           <a href="{% url 'contact' %}">Contact</a>
           <a href="{% url 'policy' 'posh' %}">PoSH Policy</a>
-          <a href="{% url 'policy' 'cancel-refund' %}">Cancellation & Refund Policy</a>
-          <a href="{% url 'policy' 'privacy-confidentiality' %}">Privacy & Confidentiality Policy</a>
+          <a href="{% url 'policy' 'cancel-refund' %}"
+            >Cancellation & Refund Policy</a
+          >
+          <a href="{% url 'policy' 'privacy-confidentiality' %}"
+            >Privacy & Confidentiality Policy</a
+          >
           <a href="{% url 'careers' %}">Careers</a>
           <!-- <a href="{% url 'committee' 'posh' %}">PoSH Committee</a> -->
         </div>

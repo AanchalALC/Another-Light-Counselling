@@ -58,6 +58,14 @@ urlpatterns = [
     path('blog/', views.blog, name='blog'),
     path('blog/page/<int:pageno>', views.blog, name='blog'),
 
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
+    # path('team/<slug:slug>/', views.member_profile, name='member-profile'),
+    
+    path(
+      "aanchal-onboarding-plan/",
+      views.onboarding_plan,
+      name="onboarding_plan"
+    ),
  
 ]

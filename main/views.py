@@ -1,13 +1,15 @@
 import os
+import re
+from urllib.parse import urlparse, parse_qs
 
 from django.contrib.sites.models import Site
 # from django.core.paginator import Paginator
 from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service,DoIFeel, Policy, Committee, DynamicContent , Jd
+from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service,DoIFeel, Policy, Committee, DynamicContent , Jd, OnboardingPlan
 from .forms import ContactForm, PpcContactForm
 
 
@@ -47,6 +49,31 @@ def get_header_contacts():
         h_contacts[cd.key] = cd
 
     return h_contacts
+
+
+# meet our team youtube intro
+# def get_youtube_embed_url(orig_url):
+#     """Return a valid YouTube embed URL with autoplay & mute, or None."""
+#     if not orig_url:
+#         return None
+
+#     parsed = urlparse(orig_url)
+#     video_id = None
+
+#     # case 1: youtu.be/VIDEO_ID
+#     if 'youtu.be' in parsed.netloc:
+#         video_id = parsed.path.lstrip('/')
+
+#     # case 2: youtube.com/watch?v=VIDEO_ID
+#     elif 'youtube.com' in parsed.netloc:
+#         qs = parse_qs(parsed.query)
+#         video_id = qs.get('v', [None])[0]
+
+#     if not video_id:
+#         return None
+
+#     # autoplay=1&mute=1 so browsers will actually play it
+#     return f"https://www.youtube.com/embed/{video_id}?autoplay=1&mute=1"
 
 
 # ------------------- VIEWS --------------------------
@@ -653,4 +680,128 @@ def committee(request, slug):
     }
 
     return render(request, 'committee.html', context=context)
-    
+
+# meet our team
+# def member_profile(request, slug):
+#     member = get_object_or_404(Member, slug=slug)
+#     embed_url = get_youtube_embed_url(member.intro_video_url)
+#     context = {
+#         'member': member,
+#         'embed_url': embed_url,
+#         'contactdetails': ContactDetails.objects.all(),
+#         'services': Service.objects.all().order_by('id'),
+#         'doifeels': DoIFeel.objects.all().order_by('id'),
+#         'h_contacts': get_header_contacts(),
+#     }
+#     return render(request, 'member_profile.html', context)
+
+def onboarding_plan(request):
+    plan = OnboardingPlan.objects.first()
+    if not plan:
+        return render(request, "onboarding_plan.html", {"plan": None})
+
+    # Prepare steps list for template
+    steps = [
+        {
+            "order": 1,
+            "icon": plan.step1_icon.url if plan.step1_icon else "",
+            "title": plan.step1_title,
+            "detail": plan.step1_detail,
+        },
+        {
+            "order": 2,
+            "icon": plan.step2_icon.url if plan.step2_icon else "",
+            "title": plan.step2_title,
+            "detail": plan.step2_detail,
+        },
+        {
+            "order": 3,
+            "icon": plan.step3_icon.url if plan.step3_icon else "",
+            "title": plan.step3_title,
+            "detail": plan.step3_detail,
+        },
+    ]
+
+    # Prepare plans list for template
+    plans = [
+        {
+            "name": plan.plan1_name,
+            "price": plan.plan1_price,
+            "features": [f for f in plan.plan1_features.splitlines() if f.strip()],
+            "prerequisites": plan.plan1_prerequisites,
+            "is_combo": plan.plan1_is_combo,
+        },
+        {
+            "name": plan.plan2_name,
+            "price": plan.plan2_price,
+            "features": [f for f in plan.plan2_features.splitlines() if f.strip()],
+            "prerequisites": plan.plan2_prerequisites,
+            "is_combo": plan.plan2_is_combo,
+        },
+        {
+            "name": plan.plan3_name,
+            "price": plan.plan3_price,
+            "features": [f for f in plan.plan3_features.splitlines() if f.strip()],
+            "prerequisites": plan.plan3_prerequisites,
+            "is_combo": plan.plan3_is_combo,
+        },
+        {
+            "name": plan.plan4_name,
+            "price": plan.plan4_price,
+            "features": [f for f in plan.plan4_features.splitlines() if f.strip()],
+            "prerequisites": plan.plan4_prerequisites,
+            "is_combo": plan.plan4_is_combo,
+        },
+        {
+            "name": plan.plan5_name,
+            "price": plan.plan5_price,
+            "features": [f for f in plan.plan5_features.splitlines() if f.strip()],
+            "prerequisites": plan.plan5_prerequisites,
+            "is_combo": plan.plan5_is_combo,
+        },
+        {
+            "name": plan.plan6_name,
+            "price": plan.plan6_price,
+            "features": [f for f in plan.plan6_features.splitlines() if f.strip()],
+            "prerequisites": plan.plan6_prerequisites,
+            "is_combo": plan.plan6_is_combo,
+        },
+        {
+            "name": plan.plan7_name,
+            "price": plan.plan7_price,
+            "features": [f for f in plan.plan7_features.splitlines() if f.strip()],
+            "prerequisites": plan.plan7_prerequisites,
+            "is_combo": plan.plan7_is_combo,
+        },
+        {
+            "name": plan.plan8_name,
+            "price": plan.plan8_price,
+            "features": [f for f in plan.plan8_features.splitlines() if f.strip()],
+            "prerequisites": plan.plan8_prerequisites,
+            "is_combo": plan.plan8_is_combo,
+        },
+    ]
+
+    # Prepare renewals list for template
+    renewals = [
+        {
+            "name": plan.renewal1_name,
+            "price": plan.renewal1_price,
+            "description": plan.renewal1_description,
+        },
+        {
+            "name": plan.renewal2_name,
+            "price": plan.renewal2_price,
+            "description": plan.renewal2_description,
+        },
+    ]
+
+    context = {
+        "plan": plan,
+        "steps": steps,
+        "plans": plans,
+        "renewals": renewals,
+        "h_contacts": get_header_contacts(),
+    }
+    return render(request, "onboarding_plan.html", context)
+

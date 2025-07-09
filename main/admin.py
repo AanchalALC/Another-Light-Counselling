@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic, Service, DoIFeel, Policy, Committee, DynamicContent, PpcContact ,Jd
+from .models import FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic, Service, DoIFeel, Policy, Committee, DynamicContent, PpcContact ,Jd, OnboardingPlan
  
 # @admin.register(PostType)
 # class PostTypeAdmin(admin.ModelAdmin):
@@ -99,3 +99,10 @@ class DynamicContentAdmin(admin.ModelAdmin):
     list_display = ('key', 'title',)
     ordering = ('key',)
     search_fields = ('key', 'title', )
+    
+@admin.register(OnboardingPlan)
+class OnboardingPlanAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("tagline",)}
+    list_display = ("tagline", "slug")
+    ordering = ("slug",)
+    search_fields = ("tagline", "slug")

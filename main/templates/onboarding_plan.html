@@ -183,12 +183,14 @@
               {% if plan.prerequisites %}
               <div class="plan-card-prereq" style="padding-left:2rem;padding-right:2rem;">{{ plan.prerequisites }}</div>
               {% endif %}
-              <button
+              {% comment %} <button
                 class="book-plan-btn"
-                onclick="window.open('https://wa.me/{{ h_contacts.phone.value }}?text='+encodeURIComponent('Book {{ plan.name }} Plan'), '_blank', 'noopener,noreferrer');"
+                onclick="https://api.whatsapp.com/send/?text=Hi+I+Want+To+know+about+ALC&type=custom_url&app_absent=0"
               >
                 Book This Plan
-              </button>
+              </button> {% endcomment %}
+              <a href="https://api.whatsapp.com/send/?text=Hi+I+Want+To+know+about+ALC&type=custom_url&app_absent=0"target="_blank" class="book-plan-btn"
+            >Book this plan</a>
             </div>
           </div>
           {% endfor %}

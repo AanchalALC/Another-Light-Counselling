@@ -1,44 +1,76 @@
-// @use "sass:math";
-// @import "skeleton";
+@use "sass:math";
+@import "skeleton";
 
-// $coastal: #2daae2;
-// $ice: #7a2476c5;
-// $sunbrella: #c43454;
-// $peaches: #f6de96;
-// $pistachio: #33477a;
-// $gable: #022211;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap");
+$coastal: #2daae2;
+$ice: #7a2476c5;
+$sunbrella: #c43454;
+$peaches: #f6de96;
+$pistachio: #33477a;
+$gable: #022211;
 
-// // Font-face and font-family for consistency
-// @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap");
-// @font-face {
-//   font-family: AttenNew;
-//   src: url("/static/fonts/AttenNewRegular.otf") format("opentype");
-// }
-// @font-face {
-//   font-family: AttenNew;
-//   font-weight: bold;
-//   src: url("/static/fonts/AttenNewExtraBold.otf") format("opentype");
-// }
-// @font-face {
-//   font-family: OpenDyslexic;
-//   src: url("/static/fonts/OpenDyslexic-Regular.otf") format("opentype");
-// }
-// @font-face {
-//   font-family: OpenDyslexic;
-//   font-weight: bold;
-//   src: url("/static/fonts/OpenDyslexic-Bold.otf") format("opentype");
-// }
-// @font-face {
-//   font-family: OpenDyslexic;
-//   font-style: italic;
-//   src: url("/static/fonts/OpenDyslexic-Italic.otf") format("opentype");
-// }
-// @font-face {
-//   font-family: OpenDyslexic;
-//   font-style: italic;
-//   font-weight: bold;
-//   src: url("/static/fonts/OpenDyslexic-BoldItalic.otf") format("opentype");
-// }
+// Font-face and font-family for consistency
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap");
+@font-face {
+  font-family: AttenNew;
+  src: url("/static/fonts/AttenNewRegular.otf") format("opentype");
+}
+@font-face {
+  font-family: AttenNew;
+  font-weight: bold;
+  src: url("/static/fonts/AttenNewExtraBold.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  src: url("/static/fonts/OpenDyslexic-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-weight: bold;
+  src: url("/static/fonts/OpenDyslexic-Bold.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-style: italic;
+  src: url("/static/fonts/OpenDyslexic-Italic.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-style: italic;
+  font-weight: bold;
+  src: url("/static/fonts/OpenDyslexic-BoldItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: AttenNew;
+  src: url("/static/fonts/AttenNewRegular.otf") format("opentype");
+}
+@font-face {
+  font-family: AttenNew;
+  font-weight: bold;
+  src: url("/static/fonts/AttenNewExtraBold.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  src: url("/static/fonts/OpenDyslexic-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-weight: bold;
+  src: url("/static/fonts/OpenDyslexic-Bold.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-style: italic;
+  src: url("/static/fonts/OpenDyslexic-Italic.otf") format("opentype");
+}
+@font-face {
+  font-family: OpenDyslexic;
+  font-style: italic;
+  font-weight: bold;
+  src: url("/static/fonts/OpenDyslexic-BoldItalic.otf") format("opentype");
+}
 
 // .onboarding-page {
 //   font-family: "OpenDyslexic", "Poppins", AttenNew, sans-serif;
@@ -1173,40 +1205,7 @@
 //     padding: 1.2rem 0.7rem 0.8rem 0.7rem;
 //   }
 // }
-// /* --- END: Styles copied from onboarding_plan.css --- */
 
-@charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap");
-@font-face {
-  font-family: AttenNew;
-  src: url("/static/fonts/AttenNewRegular.otf") format("opentype");
-}
-@font-face {
-  font-family: AttenNew;
-  font-weight: bold;
-  src: url("/static/fonts/AttenNewExtraBold.otf") format("opentype");
-}
-@font-face {
-  font-family: OpenDyslexic;
-  src: url("/static/fonts/OpenDyslexic-Regular.otf") format("opentype");
-}
-@font-face {
-  font-family: OpenDyslexic;
-  font-weight: bold;
-  src: url("/static/fonts/OpenDyslexic-Bold.otf") format("opentype");
-}
-@font-face {
-  font-family: OpenDyslexic;
-  font-style: italic;
-  src: url("/static/fonts/OpenDyslexic-Italic.otf") format("opentype");
-}
-@font-face {
-  font-family: OpenDyslexic;
-  font-style: italic;
-  font-weight: bold;
-  src: url("/static/fonts/OpenDyslexic-BoldItalic.otf") format("opentype");
-}
 body,
 html {
   position: relative;

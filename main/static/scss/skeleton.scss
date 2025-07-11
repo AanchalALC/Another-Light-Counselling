@@ -499,6 +499,52 @@ body {
                             position: absolute;
                         }
 
+                        #plandropdown {
+                            position: initial;
+                            display: initial;
+                            text-align: right;
+
+                            #planbutton {
+                                border-left: none;
+                                border-bottom: 2px solid white;
+                                padding-bottom: 0.5rem;
+                                display: inline-block;
+                            }
+
+                            #dropdowncontentplan.visible {
+                                display: block;
+                                position: absolute;
+                                right: 1rem;
+                                background: #f6de96;
+                                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                                min-width: unset;
+                                box-shadow: unset;
+                                padding: 1;
+                                padding-right: 1rem;
+                                padding-left: 2rem;
+                                padding-bottom: 2rem;
+
+                                a {
+                                    color: #e65359;
+                                    border-bottom: 2px solid #e65359;
+                                    font-size: 4vw;
+                                }
+                            }
+                        }
+
+                        #plandropdown:hover {
+                            cursor: pointer;
+                        }
+
+                        #plandropdown:hover #dropdowncontentplan {
+                            display: none;
+                        }
+
+                        #plandropdown:hover #dropdowncontentplan.visible {
+                            display: block;
+                            position: absolute;
+                        }
+
                         // #howtofeeldropdown {
                         //     position: initial;
                         //     display: initial;

@@ -14,7 +14,7 @@ function toggleDropdownDoIFeel() {
     }
 }
 
-function toggleDropdownpaln() {
+function toggleDropdownplan() {
     // ONLY RUN IF WIDTH IS LESS THAN MOBILE SIZE
     if (window.innerWidth < 790) {
         let dropdowndiv = document.getElementById('dropdowncontentplan')
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     doifeelbutton.addEventListener('click', toggleDropdownDoIFeel)
 
     let planbutton = document.getElementById('planbutton')
-    planbutton.addEventListener('click', toggleDropdownDoIFeel)
+    planbutton.addEventListener('click', toggleDropdownplan)
     // let howtofeelbutton = document.getElementById('howtofeelbutton')
     // howtofeelbutton.addEventListener('click', toggleDropdownHowToFeel)
 

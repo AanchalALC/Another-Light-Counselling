@@ -4,6 +4,7 @@
 {% block metadescription %}Begin therapy with Aanchal, then transition to a trusted therapist under her ongoing supervision. Pick your onboarding plan at Another Light Counselling.{% endblock %}
 {% block metakeywords %}Aanchal Narang, Onboarding Plan, Therapy, Supervision, Another Light Counselling{% endblock %}
 
+
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/services.css' %}" />
 <link rel="stylesheet" href="{% static 'css/onboarding_plan.css' %}" />
@@ -39,6 +40,7 @@
   align-items: center;
   min-height: 56px;
   max-width: 600px;
+  padding-right: 40px;
 }
 .faq-collapsible:after {
   content: "";
@@ -77,8 +79,129 @@
 .faq-answer.active {
   display: block;
 }
+.combo-collapsible-btn {
+  width: 100%;
+  margin: 0.5rem 0 0.5rem 0;
+  padding: 1.5rem 2rem;
+  background: #16b1e4;
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: OpenDyslexic;
+  min-height: 56px;
+  max-width: 1500px;
+  margin-top:30px;
+}
+
+@media (max-width: 600px) {
+  .plans-cards-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.7rem !important;
+  }
+  .plan-card-new {
+    width: 92vw !important;
+    max-width: 320px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0.7rem !important;
+  }
+  .plan-card-content {
+    padding: 0.7rem 0.5rem !important;
+  }
+  .plan-card-title,
+  .plan-card-price,
+  .plan-card-features h5,
+  .plan-card-prereq {
+    padding-left: 0.7rem !important;
+    padding-right: 0.7rem !important;
+  }
+  .combo-collapsible-btn {
+    width: 100%;
+    margin: 0.5rem 0 0.5rem 0;
+    padding: 2rem 2rem;
+    background: #16b1e4;
+    color: #fff;
+    border: none;
+    border-radius: 0.7rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+     font-family: OpenDyslexic;
+  }
+  .combo-collapsible-btn.active {
+    background: #c43454;
+  }
+  .combo-collapsible-content {
+    display: none;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  .combo-collapsible-content.active {
+    display: block !important;
+  }
+  .combo-cards-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  .combo-cards-flex {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+  }
+  .combo-cards-flex .plan-card-new {
+    width: 45vw !important;
+    max-width: 350px !important;
+    min-width: 260px !important;
+    margin: 0;
+  }
+}
+@media (min-width: 1025px) {
+  .combo-cards-flex {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+  }
+  .combo-cards-flex .plan-card-new {
+    width: 340px !important;
+    max-width: 340px !important;
+    min-width: 260px !important;
+    margin: 0;
+  }
+}
+@media (max-width: 480px) {
+  .faq-collapsible {
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 600px) {
+  .faq-collapsible {
+    font-size: 1.05rem; 
+  }
+}
 </style>
 {% endblock %}
+
 
 {% block body %}
 <div id="content">
@@ -88,6 +211,18 @@
       <div class="inner">
         <h1 style="color:#fff">{{ plan.tagline }}</h1>
         <h3 style="color:#fff;padding-left:15%;padding-right:15%;">{{ plan.subheading }}</h3>
+        <style>
+        @media (max-width: 600px) {
+          .onboarding-page .hero h1 {
+            font-size: 1.5rem !important;
+          }
+          .onboarding-page .hero h3 {
+            font-size: 1rem !important;
+            padding-left: 5% !important;
+            padding-right: 5% !important;
+          }
+        }
+        </style>
         <div class="ctas">
           <a href="#plans" class="btn btn-primary">{{ plan.cta_primary }} </a>
           <a href="{{ plan.cta_secondary_url }}" target="_blank" style="color:#000" class="btn btn-secondary"
@@ -96,6 +231,7 @@
         </div>
       </div>
     </section>
+
 
     <!-- 2. Why this? -->
     <section class="why">
@@ -109,9 +245,27 @@
             <span class="why-bottom-label">Direct Care</span>
             <span class="why-bottom-label">Supervision</span>
           </div>
+          <style>
+            @media (max-width: 600px) {
+              .why-desc {
+                padding-left: 1.2rem !important;
+                padding-right: 1.2rem !important;
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+                font-size: 1.05rem !important;
+                line-height: 1.7 !important;
+                word-break: break-word;
+              }
+              .why-bottom-label {
+                font-size: 0.85rem !important;
+                padding: 0.1rem 0.3rem !important;
+              }
+            }
+          </style>
         </div>
       </div>
     </section>
+
 
     <!-- 3. How It Works -->
     <section class="timeline" style="background-color:#c9efb6"">
@@ -163,41 +317,79 @@
       </div>
     </section>
 
+
     <!-- 4. Pick Your Plan as cards -->
-    <section id="plans" class="plans plans-cards-section">
-      <div class="inner">
-        <h2 style="text-align:center;padding-bottom:30px;">Pick Your Plan</h2>
-        <div class="plans-cards-grid">
-          {% for plan in plans %}
-          <div class="plan-card-new plan-card-{{ forloop.counter }}{% if plan.is_combo %} combo{% endif %}">
-            <div class="plan-sticky-note">
-              <span class="plan-sticky-number">{{ forloop.counter|stringformat:"02d" }}</span>
-            </div>
-            <div class="plan-card-content" >
-              <div class="plan-card-title" style="margin-left:1.5rem;margin-right:1.5rem;">{{ plan.name }}</div>
-              <div class="plan-card-price">₹{{ plan.price }}</div>
-              <ul class="plan-card-features" >
-                {% for f in plan.features %}
-                <h5 style="padding-left:1.5rem;padding-right:1.5rem;">{{ f }}</h5>
-                {% endfor %}
-              </ul>
-              {% if plan.prerequisites %}
-              <div class="plan-card-prereq" style="padding-left:2rem;padding-right:2rem;">{{ plan.prerequisites }}</div>
-              {% endif %}
-              {% comment %} <button
-                class="book-plan-btn"
-                onclick="https://api.whatsapp.com/send/?text=Hi+I+Want+To+know+about+ALC&type=custom_url&app_absent=0"
-              >
-                Book This Plan
-              </button> {% endcomment %}
-              <a href="https://api.whatsapp.com/send/?text=Hi+I+Want+To+know+about+ALC&type=custom_url&app_absent=0"target="_blank" class="book-plan-btn"
-            >Book this plan</a>
-            </div>
+    <!-- 4. Pick Your Plan as cards -->
+<section id="plans" class="plans plans-cards-section">
+  <div class="inner">
+    <h2 style="text-align:center;padding-bottom:30px;">Pick Your Plan</h2>
+    <div class="plans-cards-grid">
+      {# Show first four non-combo plans #}
+      {% for plan in plans %}
+        {% if not plan.is_combo and forloop.counter <= 4 %}
+        <div class="plan-card-new plan-card-{{ forloop.counter }}">
+          <div class="plan-sticky-note">
+            <span class="plan-sticky-number">{{ forloop.counter|stringformat:"02d" }}</span>
           </div>
-          {% endfor %}
+          <div class="plan-card-content" >
+            <div class="plan-card-title" style="margin-left:1.5rem;margin-right:1.5rem;">{{ plan.name }}</div>
+            <div class="plan-card-price">₹{{ plan.price }}</div>
+            <ul class="plan-card-features" >
+              {% for f in plan.features %}
+              <h5 style="padding-left:1.5rem;padding-right:1.5rem;">{{ f }}</h5>
+              {% endfor %}
+            </ul>
+            {% if plan.prerequisites %}
+            <div class="plan-card-prereq" style="padding-left:2rem;padding-right:2rem;">{{ plan.prerequisites }}</div>
+            {% endif %}
+            <a href="https://api.whatsapp.com/send/?text=Hi+I+Want+To+know+about+ALC&type=custom_url&app_absent=0" target="_blank" class="book-plan-btn">
+              Book this plan
+            </a>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+      {# Collapsible button for combo plans #}
+      <div class="combo-container">
+      <button class="combo-collapsible-btn" type="button" id="combo-collapsible-btn-main" >
+        <span>View all the combo plans</span>
+        <span class="arrow"></span>
+      </button>
+      <div class="combo-collapsible-content" id="combo-collapsible-content-main" style="display:none;">
+          <div class="combo-cards-flex" style="margin-top:50px;">
+            {# Show all combo plans #}
+            {% for plan in plans %}
+              {% if plan.is_combo %}
+              <div class="plan-card-new plan-card-{{ forloop.counter }} combo">
+                <div class="plan-sticky-note">
+                  <span class="plan-sticky-number">{{ forloop.counter|stringformat:"02d" }}</span>
+                </div>
+                <div class="plan-card-content" >
+                  <div class="plan-card-title" style="margin-left:1.5rem;margin-right:1.5rem;">{{ plan.name }}</div>
+                  <div class="plan-card-price">₹{{ plan.price }}</div>
+                  <ul class="plan-card-features" >
+                    {% for f in plan.features %}
+                    <h5 style="padding-left:1.5rem;padding-right:1.5rem;">{{ f }}</h5>
+                    {% endfor %}
+                  </ul>
+                  {% if plan.prerequisites %}
+                  <div class="plan-card-prereq" style="padding-left:2rem;padding-right:2rem;">{{ plan.prerequisites }}</div>
+                  {% endif %}
+                  <a href="https://api.whatsapp.com/send/?text=Hi+I+Want+To+know+about+ALC&type=custom_url&app_absent=0" target="_blank" class="book-plan-btn">
+                    Book this plan
+                  </a>
+                </div>
+              </div>
+              {% endif %}
+            {% endfor %}
+          </div>
         </div>
       </div>
+       
+      </div>
     </section>
+
 
     <!-- 5. Aftercare as collapsible FAQ -->
     <section class="aftercare" style="background-color:#c9efb6;padding-top:5rem;">
@@ -211,6 +403,7 @@
         </p>
       </div>
     </section>
+
 
     <!-- 6. Optional Renewal -->
     <section class="renewals" style="background-color:#c9efb6;">
@@ -227,6 +420,32 @@
           </div>
           {% endfor %}
         </div>
+        <style>
+          @media (max-width: 900px) {
+            .renewal-list {
+              display: flex !important;
+              flex-direction: column !important;
+              align-items: center !important;
+              justify-content: center !important;
+              gap: 1rem !important;
+            }
+            .renewal-item {
+              width: 95vw !important;
+              max-width: 400px !important;
+              margin-left: 0 !important;
+              margin-right: 0 !important;
+              box-sizing: border-box;
+            }
+          }
+          @media (max-width: 500px) {
+            .renewal-item {
+              width: 99vw !important;
+              max-width: 99vw !important;
+              padding-left: 0.5rem !important;
+              padding-right: 0.5rem !important;
+            }
+          }
+        </style>
       </div>
     </section>
   </main>
@@ -250,4 +469,30 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var comboBtn = document.getElementById('combo-collapsible-btn-main');
+      var comboContent = document.getElementById('combo-collapsible-content-main');
+      if (comboBtn && comboContent) {
+        // Always hide by default
+        comboContent.style.display = "none";
+        comboBtn.addEventListener('click', function() {
+          var isActive = comboContent.classList.contains('active');
+          if (isActive) {
+            comboContent.classList.remove('active');
+            comboContent.style.display = "none";
+            comboBtn.classList.remove('active');
+          } else {
+            comboContent.classList.add('active');
+            comboContent.style.display = "block";
+            comboBtn.classList.add('active');
+            comboContent.scrollIntoView({behavior: "smooth", block: "start"});
+          }
+        });
+      }
+    });
+  </script>
 {% endblock %}
+
+
+

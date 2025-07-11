@@ -55,7 +55,7 @@ body #wrapper #topheader {
 }
 body #wrapper #topheader a {
   text-decoration: none;
-  color: #E65359;
+  color: #e65359;
   font-weight: bold;
 }
 body #wrapper #topheader #sitelogo {
@@ -91,7 +91,7 @@ body #wrapper #topheader #contactrow a .phoneicon {
   display: block;
 }
 body #wrapper #topheader #contactrow #searchbox input {
-  border: 2px solid #E65359;
+  border: 2px solid #e65359;
   height: 30px;
   padding-left: 10px;
 }
@@ -114,14 +114,14 @@ body #wrapper #topheader #menuitems #closemenu {
 body #wrapper #topheader #menuitems a {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
-  border-left: 2px solid #E65359;
+  border-left: 2px solid #e65359;
 }
 body #wrapper #topheader #menuitems #servicedropdown {
   position: relative;
   display: inline-block;
 }
 body #wrapper #topheader #menuitems #servicedropdown #servicebutton {
-  border-left: 2px solid #E65359;
+  border-left: 2px solid #e65359;
 }
 body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent {
   display: none;
@@ -133,6 +133,42 @@ body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent {
   padding: 1rem;
   font-size: 1vw;
   transition: display 0.5s;
+}
+.combo-collapsible-btn {
+  background-color: #f6de96;
+  width: 80vw;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.7rem;
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: center;
+  transition: background 0.2s;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.combo-collapsible-btn .arrow {
+  border: solid #000;
+  border-width: 0 0.2rem 0.2rem 0;
+  display: inline-block;
+  padding: 0.2rem;
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+}
+
+.combo-collapsible-btn.active .arrow {
+  transform: rotate(-135deg);
+}
+
+.combo-collapsible-btn:hover {
+  background-color: #f2d890;
 }
 body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent a {
   border-left: none;
@@ -154,7 +190,7 @@ body #wrapper #topheader #menuitems #doifeeldropdown {
   display: inline-block;
 }
 body #wrapper #topheader #menuitems #doifeeldropdown #doifeelbutton {
-  border-left: 2px solid #E65359;
+  border-left: 2px solid #e65359;
 }
 body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontentdoifeel {
   display: none;
@@ -175,10 +211,21 @@ body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontentdoifeel a {
   margin-top: 0.5rem;
   display: inline-block;
 }
-body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontentdoifeel a:hover {
+body
+  #wrapper
+  #topheader
+  #menuitems
+  #doifeeldropdown
+  #dropdowncontentdoifeel
+  a:hover {
   background: rgba(255, 255, 255, 0.294);
 }
-body #wrapper #topheader #menuitems #doifeeldropdown:hover #dropdowncontentdoifeel {
+body
+  #wrapper
+  #topheader
+  #menuitems
+  #doifeeldropdown:hover
+  #dropdowncontentdoifeel {
   display: block;
   transition: display 0.5s;
 }
@@ -201,7 +248,7 @@ body #wrapper #topheader #colordiv {
   grid-area: b;
   width: 100%;
   height: 100%;
-  background: #F9ADAD;
+  background: #f9adad;
   z-index: 1;
 }
 @media screen and (max-width: 1000px) {
@@ -246,7 +293,7 @@ body #wrapper #topheader #colordiv {
   body #wrapper #topheader #menuitems #themenu {
     display: block;
     position: fixed;
-    background: #F9ADAD;
+    background: #f9adad;
     right: -100vw;
     top: 0;
     width: 70vw;
@@ -282,7 +329,13 @@ body #wrapper #topheader #colordiv {
     padding-bottom: 0.5rem;
     display: inline-block;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontent.visible {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown
+    #dropdowncontent.visible {
     display: block;
     position: absolute;
     right: 1rem;
@@ -295,7 +348,14 @@ body #wrapper #topheader #colordiv {
     padding-left: 2rem;
     padding-bottom: 2rem;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontent.visible a {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown
+    #dropdowncontent.visible
+    a {
     color: #e65359;
     border-bottom: 2px solid #e65359;
     font-size: 4vw;
@@ -303,10 +363,22 @@ body #wrapper #topheader #colordiv {
   body #wrapper #topheader #menuitems #themenu #servicedropdown:hover {
     cursor: pointer;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontent {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown:hover
+    #dropdowncontent {
     display: none;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontent.visible {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown:hover
+    #dropdowncontent.visible {
     display: block;
     position: absolute;
   }
@@ -321,7 +393,13 @@ body #wrapper #topheader #colordiv {
     padding-bottom: 0.5rem;
     display: inline-block;
   }
-  body #wrapper #topheader #menuitems #themenu #doifeeldropdown #dropdowncontentdoifeel.visible {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown
+    #dropdowncontentdoifeel.visible {
     display: block;
     position: absolute;
     right: 1rem;
@@ -334,7 +412,14 @@ body #wrapper #topheader #colordiv {
     padding-left: 2rem;
     padding-bottom: 2rem;
   }
-  body #wrapper #topheader #menuitems #themenu #doifeeldropdown #dropdowncontentdoifeel.visible a {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown
+    #dropdowncontentdoifeel.visible
+    a {
     color: #e65359;
     border-bottom: 2px solid #e65359;
     font-size: 4vw;
@@ -342,10 +427,22 @@ body #wrapper #topheader #colordiv {
   body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover {
     cursor: pointer;
   }
-  body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover #dropdowncontentdoifeel {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown:hover
+    #dropdowncontentdoifeel {
     display: none;
   }
-  body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover #dropdowncontentdoifeel.visible {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown:hover
+    #dropdowncontentdoifeel.visible {
     display: block;
     position: absolute;
   }
@@ -376,7 +473,7 @@ body #wrapper #footer {
   width: 100%;
   padding-left: 3rem;
   padding-bottom: 2rem;
-  background-color: #F9ADAD;
+  background-color: #f9adad;
 }
 body #wrapper #footer .footersection {
   display: flex;
@@ -388,7 +485,7 @@ body #wrapper #footer .footersection h4 {
   margin-bottom: 0;
   padding-bottom: 1rem;
   font-family: AttenNew;
-  color: #E65359;
+  color: #e65359;
 }
 body #wrapper #footer .footersection a {
   text-decoration: none;
@@ -399,25 +496,25 @@ body #wrapper #footer .footersection a {
   transition: color 0.5s;
 }
 body #wrapper #footer .footersection a:hover {
-  color: #E65359;
+  color: #e65359;
   transition: color 0.1s;
 }
 body #wrapper #footer #footercontacts {
   padding-right: 1rem;
 }
 body #wrapper #footer #footercontacts a {
-  border: 2px solid #E65359;
+  border: 2px solid #e65359;
   border-radius: 0.5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  color: #E65359;
+  color: #e65359;
   font-weight: bold;
   transition: background 0.5s, color 0.15s;
 }
 body #wrapper #footer #footercontacts a:hover {
-  background: #E65359;
+  background: #e65359;
   color: white;
 }
 @media screen and (max-width: 1250px) {
@@ -555,17 +652,25 @@ body #wrapper #topheader #menuitems #themenu :first-child {
 body #wrapper #topheader #menuitems #themenu :last-child {
   padding-right: 0;
 }
-body #wrapper #topheader #menuitems #hamburger, body #wrapper #topheader #menuitems #closemenu {
+body #wrapper #topheader #menuitems #hamburger,
+body #wrapper #topheader #menuitems #closemenu {
   display: none;
 }
-body #wrapper #topheader #menuitems #servicedropdown, body #wrapper #topheader #menuitems #doifeeldropdown {
+body #wrapper #topheader #menuitems #servicedropdown,
+body #wrapper #topheader #menuitems #doifeeldropdown {
   position: relative;
   display: inline-block;
 }
-body #wrapper #topheader #menuitems #servicedropdown #servicebutton, body #wrapper #topheader #menuitems #servicedropdown #doifeelbutton, body #wrapper #topheader #menuitems #doifeeldropdown #servicebutton, body #wrapper #topheader #menuitems #doifeeldropdown #doifeelbutton {
+body #wrapper #topheader #menuitems #servicedropdown #servicebutton,
+body #wrapper #topheader #menuitems #servicedropdown #doifeelbutton,
+body #wrapper #topheader #menuitems #doifeeldropdown #servicebutton,
+body #wrapper #topheader #menuitems #doifeeldropdown #doifeelbutton {
   border-left: 2px solid #e65359;
 }
-body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent, body #wrapper #topheader #menuitems #servicedropdown #dropdowncontentdoifeel, body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontent, body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontentdoifeel {
+body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent,
+body #wrapper #topheader #menuitems #servicedropdown #dropdowncontentdoifeel,
+body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontent,
+body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontentdoifeel {
   display: none;
   position: absolute;
   background: #f6de96;
@@ -576,7 +681,10 @@ body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent, body #wra
   font-size: 1vw;
   transition: display 0.5s;
 }
-body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent a, body #wrapper #topheader #menuitems #servicedropdown #dropdowncontentdoifeel a, body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontent a, body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontentdoifeel a {
+body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent a,
+body #wrapper #topheader #menuitems #servicedropdown #dropdowncontentdoifeel a,
+body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontent a,
+body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontentdoifeel a {
   border-left: none;
   padding-left: 0.5rem;
   padding-top: 0.25rem;
@@ -584,10 +692,38 @@ body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent a, body #w
   margin-top: 0.5rem;
   display: inline-block;
 }
-body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent a:hover, body #wrapper #topheader #menuitems #servicedropdown #dropdowncontentdoifeel a:hover, body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontent a:hover, body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontentdoifeel a:hover {
+body #wrapper #topheader #menuitems #servicedropdown #dropdowncontent a:hover,
+body
+  #wrapper
+  #topheader
+  #menuitems
+  #servicedropdown
+  #dropdowncontentdoifeel
+  a:hover,
+body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontent a:hover,
+body
+  #wrapper
+  #topheader
+  #menuitems
+  #doifeeldropdown
+  #dropdowncontentdoifeel
+  a:hover {
   background: rgba(255, 255, 255, 0.294);
 }
-body #wrapper #topheader #menuitems #servicedropdown:hover #dropdowncontent, body #wrapper #topheader #menuitems #servicedropdown:hover #dropdowncontentdoifeel, body #wrapper #topheader #menuitems #doifeeldropdown:hover #dropdowncontent, body #wrapper #topheader #menuitems #doifeeldropdown:hover #dropdowncontentdoifeel {
+body #wrapper #topheader #menuitems #servicedropdown:hover #dropdowncontent,
+body
+  #wrapper
+  #topheader
+  #menuitems
+  #servicedropdown:hover
+  #dropdowncontentdoifeel,
+body #wrapper #topheader #menuitems #doifeeldropdown:hover #dropdowncontent,
+body
+  #wrapper
+  #topheader
+  #menuitems
+  #doifeeldropdown:hover
+  #dropdowncontentdoifeel {
   display: block;
   transition: display 0.5s;
 }
@@ -812,17 +948,29 @@ body #wrapper #footer #footerservices {
   z-index: 2;
   transition: background 0.3s, border 0.3s, color 0.3s;
 }
-.onboarding-page .timeline .timeline-stepper .stepper-item.active .stepper-circle {
+.onboarding-page
+  .timeline
+  .timeline-stepper
+  .stepper-item.active
+  .stepper-circle {
   background: #7a2476;
   color: #fff;
   border-color: #7a2476;
 }
-.onboarding-page .timeline .timeline-stepper .stepper-item.completed .stepper-circle {
+.onboarding-page
+  .timeline
+  .timeline-stepper
+  .stepper-item.completed
+  .stepper-circle {
   background: #fff;
   color: #7a2476;
   border-color: #7a2476;
 }
-.onboarding-page .timeline .timeline-stepper .stepper-item.completed .stepper-circle::before {
+.onboarding-page
+  .timeline
+  .timeline-stepper
+  .stepper-item.completed
+  .stepper-circle::before {
   content: "✔";
   color: #7a2476;
   font-size: 1.3rem;
@@ -832,7 +980,11 @@ body #wrapper #footer #footerservices {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-.onboarding-page .timeline .timeline-stepper .stepper-item.completed .stepper-number {
+.onboarding-page
+  .timeline
+  .timeline-stepper
+  .stepper-item.completed
+  .stepper-number {
   opacity: 0;
 }
 .onboarding-page .timeline .timeline-stepper .stepper-item .stepper-number {
@@ -864,7 +1016,16 @@ body #wrapper #footer #footerservices {
   margin-bottom: 1.5rem;
   font-size: 1.05rem;
 }
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .next-step-btn, .onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn {
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .next-step-btn,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn {
   background: #7a2476;
   color: #fff;
   border: none;
@@ -874,14 +1035,31 @@ body #wrapper #footer #footerservices {
   cursor: pointer;
   transition: background 0.2s;
 }
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .next-step-btn:hover, .onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn:hover {
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .next-step-btn:hover,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn:hover {
   background: #c43454;
 }
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn {
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn {
   background: #33477a;
   color: #203431;
 }
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn:hover {
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn:hover {
   background: #c43454;
   color: #fff;
 }
@@ -922,7 +1100,8 @@ body #wrapper #footer #footerservices {
 .onboarding-page .plans .plan-card:hover .card-inner {
   transform: rotateY(180deg);
 }
-.onboarding-page .plans .plan-card .card-front, .onboarding-page .plans .plan-card .card-back {
+.onboarding-page .plans .plan-card .card-front,
+.onboarding-page .plans .plan-card .card-back {
   backface-visibility: hidden;
   position: absolute;
   top: 0;
@@ -1031,7 +1210,11 @@ body #wrapper #footer #footerservices {
   font-family: "Poppins", "OpenDyslexic", AttenNew, sans-serif;
   animation: stickyNoteDrop 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
-.onboarding-page .plans-cards-section .plan-card-new .plan-sticky-note .plan-sticky-number {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-sticky-note
+  .plan-sticky-number {
   font-size: 1.6rem;
   font-weight: 700;
   color: #fff;
@@ -1043,7 +1226,11 @@ body #wrapper #footer #footerservices {
   text-align: center;
   user-select: none;
 }
-.onboarding-page .plans-cards-section .plan-card-new .plan-sticky-note .plan-paperclip {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-sticky-note
+  .plan-paperclip {
   position: absolute;
   top: 0px;
   left: 10px;
@@ -1052,36 +1239,65 @@ body #wrapper #footer #footerservices {
   background: none;
   z-index: 3;
 }
-.onboarding-page .plans-cards-section .plan-card-new .plan-sticky-note .plan-paperclip::before {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-sticky-note
+  .plan-paperclip::before {
   content: "";
   display: block;
   width: 28px;
   height: 28px;
-  background: url('data:image/svg+xml;utf8,<svg width="28" height="28" xmlns="http://www.w3.org/2000/svg"><path d="M7 14c0-4 6-8 10-4l4 4c4 4-2 10-6 6l-6-6" fill="none" stroke="black" stroke-width="2.2" stroke-linecap="round"/></svg>') no-repeat center center;
+  background: url('data:image/svg+xml;utf8,<svg width="28" height="28" xmlns="http://www.w3.org/2000/svg"><path d="M7 14c0-4 6-8 10-4l4 4c4 4-2 10-6 6l-6-6" fill="none" stroke="black" stroke-width="2.2" stroke-linecap="round"/></svg>')
+    no-repeat center center;
   background-size: contain;
 }
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-1 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-1
+  .plan-sticky-note {
   background: #2daae2 !important;
 }
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-2 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-2
+  .plan-sticky-note {
   background: #cdd629 !important;
 }
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-3 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-3
+  .plan-sticky-note {
   background: #c43454 !important;
 }
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-4 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-4
+  .plan-sticky-note {
   background: #33477a !important;
 }
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-5 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-5
+  .plan-sticky-note {
   background: #fee668 !important;
 }
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-6 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-6
+  .plan-sticky-note {
   background: #318257 !important;
 }
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-7 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-7
+  .plan-sticky-note {
   background: #7a2476 !important;
 }
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-8 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-8
+  .plan-sticky-note {
   background: #f37826 !important;
 }
 .onboarding-page .plans-cards-section .plan-card-new .plan-card-content {
@@ -1093,14 +1309,22 @@ body #wrapper #footer #footerservices {
   font-family: "OpenDyslexic", "Poppins", AttenNew, sans-serif;
   padding: 1.2rem 0.7rem 1.2rem 0.7rem;
 }
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .plan-card-title {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .plan-card-title {
   font-size: 1.18rem;
   font-weight: 700;
   color: #33477a;
   margin-bottom: 0.3rem;
   text-align: center;
 }
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .plan-card-price {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .plan-card-price {
   font-size: 1.08rem;
   font-weight: 600;
   color: #2daae2;
@@ -1110,7 +1334,11 @@ body #wrapper #footer #footerservices {
   margin-bottom: 0.7rem;
   text-align: center;
 }
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .plan-card-features {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .plan-card-features {
   list-style: disc inside;
   padding: 0;
   margin: 0 0 0.7rem 0;
@@ -1118,18 +1346,31 @@ body #wrapper #footer #footerservices {
   color: #444;
   font-size: 1.01rem;
 }
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .plan-card-features h5 {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .plan-card-features
+  h5 {
   line-height: 1.6;
   margin-bottom: -10px !important;
 }
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .plan-card-prereq {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .plan-card-prereq {
   font-style: italic;
   color: #024e26;
   font-size: 0.99rem;
   margin-bottom: 0.7rem;
   text-align: center;
 }
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn {
   display: inline-block;
   padding: 0.6em 1.5em;
   background: #2daae2;
@@ -1141,7 +1382,8 @@ body #wrapper #footer #footerservices {
   cursor: pointer;
   margin-top: 0.7rem;
   font-family: "OpenDyslexic", "Poppins", AttenNew, sans-serif;
-  transition: background 0.22s cubic-bezier(0.4, 0.2, 0.2, 1), box-shadow 0.2s, transform 0.2s, color 0.18s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: background 0.22s cubic-bezier(0.4, 0.2, 0.2, 1), box-shadow 0.2s,
+    transform 0.2s, color 0.18s cubic-bezier(0.4, 0.2, 0.2, 1);
   box-shadow: 0 4px 18px rgba(31, 38, 135, 0.1);
   min-width: 140px;
   min-height: 48px;
@@ -1151,7 +1393,16 @@ body #wrapper #footer #footerservices {
   position: relative;
   overflow: hidden;
 }
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn:hover, .onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn:focus {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn:hover,
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn:focus {
   background: #7a2476;
   color: #fff;
   box-shadow: 0 8px 32px rgba(122, 36, 118, 0.18);
@@ -1282,7 +1533,9 @@ body #wrapper #footer #footerservices {
   display: inline-block;
   width: 32px;
   height: 32px;
-  background: #2daae2 url('data:image/svg+xml;utf8,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="9" fill="%2316b1e4"/><path d="M9 5V13" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M5 9H13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>') no-repeat center center;
+  background: #2daae2
+    url('data:image/svg+xml;utf8,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="9" fill="%2316b1e4"/><path d="M9 5V13" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M5 9H13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>')
+    no-repeat center center;
   background-size: 22px 22px;
   position: absolute;
   right: 1.1rem;
@@ -1411,18 +1664,49 @@ body #wrapper #footer #footerservices {
     padding-bottom: 0.5rem;
     color: white;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown, body #wrapper #topheader #menuitems #themenu #doifeeldropdown {
+  body #wrapper #topheader #menuitems #themenu #servicedropdown,
+  body #wrapper #topheader #menuitems #themenu #doifeeldropdown {
     position: initial;
     display: initial;
     text-align: right;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown #servicebutton, body #wrapper #topheader #menuitems #themenu #servicedropdown #doifeelbutton, body #wrapper #topheader #menuitems #themenu #doifeeldropdown #servicebutton, body #wrapper #topheader #menuitems #themenu #doifeeldropdown #doifeelbutton {
+  body #wrapper #topheader #menuitems #themenu #servicedropdown #servicebutton,
+  body #wrapper #topheader #menuitems #themenu #servicedropdown #doifeelbutton,
+  body #wrapper #topheader #menuitems #themenu #doifeeldropdown #servicebutton,
+  body #wrapper #topheader #menuitems #themenu #doifeeldropdown #doifeelbutton {
     border-left: none;
     border-bottom: 2px solid white;
     padding-bottom: 0.5rem;
     display: inline-block;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontent.visible, body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontentdoifeel.visible, body #wrapper #topheader #menuitems #themenu #doifeeldropdown #dropdowncontent.visible, body #wrapper #topheader #menuitems #themenu #doifeeldropdown #dropdowncontentdoifeel.visible {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown
+    #dropdowncontent.visible,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown
+    #dropdowncontentdoifeel.visible,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown
+    #dropdowncontent.visible,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown
+    #dropdowncontentdoifeel.visible {
     display: block;
     position: absolute;
     right: 1rem;
@@ -1435,18 +1719,104 @@ body #wrapper #footer #footerservices {
     padding-left: 2rem;
     padding-bottom: 2rem;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontent.visible a, body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontentdoifeel.visible a, body #wrapper #topheader #menuitems #themenu #doifeeldropdown #dropdowncontent.visible a, body #wrapper #topheader #menuitems #themenu #doifeeldropdown #dropdowncontentdoifeel.visible a {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown
+    #dropdowncontent.visible
+    a,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown
+    #dropdowncontentdoifeel.visible
+    a,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown
+    #dropdowncontent.visible
+    a,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown
+    #dropdowncontentdoifeel.visible
+    a {
     color: #e65359;
     border-bottom: 2px solid #e65359;
     font-size: 4vw;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover, body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover {
+  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover,
+  body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover {
     cursor: pointer;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontent, body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontentdoifeel, body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover #dropdowncontent, body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover #dropdowncontentdoifeel {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown:hover
+    #dropdowncontent,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown:hover
+    #dropdowncontentdoifeel,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown:hover
+    #dropdowncontent,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown:hover
+    #dropdowncontentdoifeel {
     display: none;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontent.visible, body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontentdoifeel.visible, body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover #dropdowncontent.visible, body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover #dropdowncontentdoifeel.visible {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown:hover
+    #dropdowncontent.visible,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown:hover
+    #dropdowncontentdoifeel.visible,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown:hover
+    #dropdowncontent.visible,
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown:hover
+    #dropdowncontentdoifeel.visible {
     display: block;
     position: absolute;
   }
@@ -1516,7 +1886,11 @@ body #wrapper #footer #footerservices {
     min-width: 0;
     margin: 0.7rem 0;
   }
-  .onboarding-page .vertical-timeline-plans .plans-timeline .vtimeline-row .vtimeline-content {
+  .onboarding-page
+    .vertical-timeline-plans
+    .plans-timeline
+    .vtimeline-row
+    .vtimeline-content {
     align-items: center !important;
     text-align: center !important;
     margin: 0 0 1.2rem 0;
@@ -1722,11 +2096,22 @@ body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontentdoifeel a {
   display: inline-block;
 }
 
-body #wrapper #topheader #menuitems #doifeeldropdown #dropdowncontentdoifeel a:hover {
+body
+  #wrapper
+  #topheader
+  #menuitems
+  #doifeeldropdown
+  #dropdowncontentdoifeel
+  a:hover {
   background: rgba(255, 255, 255, 0.294);
 }
 
-body #wrapper #topheader #menuitems #doifeeldropdown:hover #dropdowncontentdoifeel {
+body
+  #wrapper
+  #topheader
+  #menuitems
+  #doifeeldropdown:hover
+  #dropdowncontentdoifeel {
   display: block;
   transition: display 0.5s;
 }
@@ -1835,7 +2220,13 @@ body #wrapper #topheader #colordiv {
     padding-bottom: 0.5rem;
     display: inline-block;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontent.visible {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown
+    #dropdowncontent.visible {
     display: block;
     position: absolute;
     right: 1rem;
@@ -1848,7 +2239,14 @@ body #wrapper #topheader #colordiv {
     padding-left: 2rem;
     padding-bottom: 2rem;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown #dropdowncontent.visible a {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown
+    #dropdowncontent.visible
+    a {
     color: #e65359;
     border-bottom: 2px solid #e65359;
     font-size: 4vw;
@@ -1856,10 +2254,22 @@ body #wrapper #topheader #colordiv {
   body #wrapper #topheader #menuitems #themenu #servicedropdown:hover {
     cursor: pointer;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontent {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown:hover
+    #dropdowncontent {
     display: none;
   }
-  body #wrapper #topheader #menuitems #themenu #servicedropdown:hover #dropdowncontent.visible {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #servicedropdown:hover
+    #dropdowncontent.visible {
     display: block;
     position: absolute;
   }
@@ -1874,7 +2284,13 @@ body #wrapper #topheader #colordiv {
     padding-bottom: 0.5rem;
     display: inline-block;
   }
-  body #wrapper #topheader #menuitems #themenu #doifeeldropdown #dropdowncontentdoifeel.visible {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown
+    #dropdowncontentdoifeel.visible {
     display: block;
     position: absolute;
     right: 1rem;
@@ -1887,7 +2303,14 @@ body #wrapper #topheader #colordiv {
     padding-left: 2rem;
     padding-bottom: 2rem;
   }
-  body #wrapper #topheader #menuitems #themenu #doifeeldropdown #dropdowncontentdoifeel.visible a {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown
+    #dropdowncontentdoifeel.visible
+    a {
     color: #e65359;
     border-bottom: 2px solid #e65359;
     font-size: 4vw;
@@ -1895,10 +2318,22 @@ body #wrapper #topheader #colordiv {
   body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover {
     cursor: pointer;
   }
-  body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover #dropdowncontentdoifeel {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown:hover
+    #dropdowncontentdoifeel {
     display: none;
   }
-  body #wrapper #topheader #menuitems #themenu #doifeeldropdown:hover #dropdowncontentdoifeel.visible {
+  body
+    #wrapper
+    #topheader
+    #menuitems
+    #themenu
+    #doifeeldropdown:hover
+    #dropdowncontentdoifeel.visible {
     display: block;
     position: absolute;
   }
@@ -2206,19 +2641,31 @@ body #wrapper #footerservices {
   transition: background 0.3s, border 0.3s, color 0.3s;
 }
 
-.onboarding-page .timeline .timeline-stepper .stepper-item.active .stepper-circle {
+.onboarding-page
+  .timeline
+  .timeline-stepper
+  .stepper-item.active
+  .stepper-circle {
   background: #7a2476;
   color: #fff;
   border-color: #7a2476;
 }
 
-.onboarding-page .timeline .timeline-stepper .stepper-item.completed .stepper-circle {
+.onboarding-page
+  .timeline
+  .timeline-stepper
+  .stepper-item.completed
+  .stepper-circle {
   background: #fff;
   color: #7a2476;
   border-color: #7a2476;
 }
 
-.onboarding-page .timeline .timeline-stepper .stepper-item.completed .stepper-circle::before {
+.onboarding-page
+  .timeline
+  .timeline-stepper
+  .stepper-item.completed
+  .stepper-circle::before {
   content: "✔";
   color: #7a2476;
   font-size: 1.3rem;
@@ -2229,7 +2676,11 @@ body #wrapper #footerservices {
   transform: translate(-50%, -50%);
 }
 
-.onboarding-page .timeline .timeline-stepper .stepper-item.completed .stepper-number {
+.onboarding-page
+  .timeline
+  .timeline-stepper
+  .stepper-item.completed
+  .stepper-number {
   opacity: 0;
 }
 
@@ -2268,8 +2719,16 @@ body #wrapper #footerservices {
   font-size: 1.05rem;
 }
 
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .next-step-btn,
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn {
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .next-step-btn,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn {
   background: #7a2476;
   color: #fff;
   border: none;
@@ -2280,17 +2739,33 @@ body #wrapper #footerservices {
   transition: background 0.2s;
 }
 
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .next-step-btn:hover,
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn:hover {
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .next-step-btn:hover,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn:hover {
   background: #c43454;
 }
 
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn {
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn {
   background: #33477a;
   color: #203431;
 }
 
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn:hover {
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn:hover {
   background: #c43454;
   color: #fff;
 }
@@ -2410,7 +2885,11 @@ body #wrapper #footerservices {
 }
 
 @media (max-width: 700px) {
-  .onboarding-page .vertical-timeline-plans .plans-timeline .vtimeline-row .vtimeline-content {
+  .onboarding-page
+    .vertical-timeline-plans
+    .plans-timeline
+    .vtimeline-row
+    .vtimeline-content {
     align-items: center !important;
     text-align: center !important;
     margin: 0 0 1.2rem 0;
@@ -2474,7 +2953,11 @@ body #wrapper #footerservices {
   animation: stickyNoteDrop 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-sticky-note .plan-sticky-number {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-sticky-note
+  .plan-sticky-number {
   font-size: 1.6rem;
   font-weight: 700;
   color: #fff;
@@ -2487,7 +2970,11 @@ body #wrapper #footerservices {
   user-select: none;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-sticky-note .plan-paperclip {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-sticky-note
+  .plan-paperclip {
   position: absolute;
   top: 0px;
   left: 10px;
@@ -2497,44 +2984,73 @@ body #wrapper #footerservices {
   z-index: 3;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-sticky-note .plan-paperclip::before {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-sticky-note
+  .plan-paperclip::before {
   content: "";
   display: block;
   width: 28px;
   height: 28px;
-  background: url('data:image/svg+xml;utf8,<svg width="28" height="28" xmlns="http://www.w3.org/2000/svg"><path d="M7 14c0-4 6-8 10-4l4 4c4 4-2 10-6 6l-6-6" fill="none" stroke="black" stroke-width="2.2" stroke-linecap="round"/></svg>') no-repeat center center;
+  background: url('data:image/svg+xml;utf8,<svg width="28" height="28" xmlns="http://www.w3.org/2000/svg"><path d="M7 14c0-4 6-8 10-4l4 4c4 4-2 10-6 6l-6-6" fill="none" stroke="black" stroke-width="2.2" stroke-linecap="round"/></svg>')
+    no-repeat center center;
   background-size: contain;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-1 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-1
+  .plan-sticky-note {
   background: #2daae2 !important;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-2 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-2
+  .plan-sticky-note {
   background: #cdd629 !important;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-3 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-3
+  .plan-sticky-note {
   background: #c43454 !important;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-4 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-4
+  .plan-sticky-note {
   background: #33477a !important;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-5 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-5
+  .plan-sticky-note {
   background: #fee668 !important;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-6 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-6
+  .plan-sticky-note {
   background: #318257 !important;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-7 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-7
+  .plan-sticky-note {
   background: #7a2476 !important;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new.plan-card-8 .plan-sticky-note {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new.plan-card-8
+  .plan-sticky-note {
   background: #f37826 !important;
 }
 
@@ -2548,7 +3064,11 @@ body #wrapper #footerservices {
   padding: 1.2rem 0.7rem 1.2rem 0.7rem;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .plan-card-title {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .plan-card-title {
   font-size: 1.18rem;
   font-weight: 700;
   color: #33477a;
@@ -2556,7 +3076,11 @@ body #wrapper #footerservices {
   text-align: center;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .plan-card-price {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .plan-card-price {
   font-size: 1.08rem;
   font-weight: 600;
   color: #16b1e4;
@@ -2567,7 +3091,11 @@ body #wrapper #footerservices {
   text-align: center;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .plan-card-features {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .plan-card-features {
   list-style: disc inside;
   padding: 0;
   margin: 0 0 0.7rem 0;
@@ -2576,12 +3104,21 @@ body #wrapper #footerservices {
   font-size: 1.01rem;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .plan-card-features h5 {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .plan-card-features
+  h5 {
   line-height: 1.6;
   margin-bottom: -10px !important;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .plan-card-prereq {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .plan-card-prereq {
   font-style: italic;
   color: #024e26;
   font-size: 0.99rem;
@@ -2589,7 +3126,11 @@ body #wrapper #footerservices {
   text-align: center;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn {
   display: inline-block;
   padding: 0.6em 1.5em;
   background: #16b1e4;
@@ -2601,7 +3142,8 @@ body #wrapper #footerservices {
   cursor: pointer;
   margin-top: 0.7rem;
   font-family: "OpenDyslexic", "Poppins", AttenNew, sans-serif;
-  transition: background 0.22s cubic-bezier(0.4, 0.2, 0.2, 1), box-shadow 0.2s, transform 0.2s, color 0.18s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: background 0.22s cubic-bezier(0.4, 0.2, 0.2, 1), box-shadow 0.2s,
+    transform 0.2s, color 0.18s cubic-bezier(0.4, 0.2, 0.2, 1);
   box-shadow: 0 4px 18px rgba(31, 38, 135, 0.1);
   min-width: 140px;
   min-height: 48px;
@@ -2612,8 +3154,16 @@ body #wrapper #footerservices {
   overflow: hidden;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn:hover,
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn:focus {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn:hover,
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn:focus {
   background: #7a2476;
   color: #fff;
   box-shadow: 0 8px 32px rgba(122, 36, 118, 0.18);
@@ -2656,9 +3206,21 @@ body #wrapper #footerservices {
 }
 /* Modern pill-style button inspired by the attached image */
 .onboarding-page .btn,
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn,
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .next-step-btn,
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .next-step-btn,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2675,7 +3237,10 @@ body #wrapper #footerservices {
   background: linear-gradient(90deg, #ffc600 0%, #ff9800 100%);
   color: #fff;
   cursor: pointer;
-  transition: background 0.22s cubic-bezier(0.4, 0.2, 0.2, 1), color 0.18s cubic-bezier(0.4, 0.2, 0.2, 1), box-shadow 0.22s cubic-bezier(0.4, 0.2, 0.2, 1), transform 0.22s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: background 0.22s cubic-bezier(0.4, 0.2, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0.2, 0.2, 1),
+    box-shadow 0.22s cubic-bezier(0.4, 0.2, 0.2, 1),
+    transform 0.22s cubic-bezier(0.4, 0.2, 0.2, 1);
   will-change: transform, box-shadow, background, color;
   position: relative;
   overflow: hidden;
@@ -2691,25 +3256,49 @@ body #wrapper #footerservices {
   color: #fff;
 }
 
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn {
   background: linear-gradient(90deg, #ff9800 0%, #ff3d00 100%);
   color: #fff;
 }
 
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .next-step-btn {
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .next-step-btn {
   background: #33477a;
   color: #fff;
 }
 
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn {
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn {
   background: #318257;
   color: #fff;
 }
 
 .onboarding-page .btn:hover,
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn:hover,
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .next-step-btn:hover,
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn:hover {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn:hover,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .next-step-btn:hover,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn:hover {
   box-shadow: 0 8px 32px rgba(255, 152, 0, 0.18);
   transform: translateY(-2px) scale(1.045);
   filter: brightness(1.08);
@@ -2717,17 +3306,44 @@ body #wrapper #footerservices {
 }
 
 .onboarding-page .btn:active,
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn:active,
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .next-step-btn:active,
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn:active {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn:active,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .next-step-btn:active,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn:active {
   transform: scale(0.97);
   box-shadow: 0 2px 8px rgba(255, 152, 0, 0.1);
 }
 
 .onboarding-page .btn .btn-icon,
-.onboarding-page .plans-cards-section .plan-card-new .plan-card-content .book-btn .btn-icon,
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .next-step-btn .btn-icon,
-.onboarding-page .timeline .timeline-step-content .timeline-step-panel .prev-step-btn .btn-icon {
+.onboarding-page
+  .plans-cards-section
+  .plan-card-new
+  .plan-card-content
+  .book-btn
+  .btn-icon,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .next-step-btn
+  .btn-icon,
+.onboarding-page
+  .timeline
+  .timeline-step-content
+  .timeline-step-panel
+  .prev-step-btn
+  .btn-icon {
   margin-right: 0.7em;
   font-size: 1.3em;
   vertical-align: middle;

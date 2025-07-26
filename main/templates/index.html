@@ -31,15 +31,32 @@ and experience a cost-effective and quality solution.{% endblock %}
         document.querySelector("#promptoverlay").parentElement.removeChild(document.querySelector("#promptoverlay"));
     }
 </script>
+<style>
+  @media only screen and (max-width: 600px) {
+    .brspacer {
+      display: block;
+      padding-top: 8px;
+    }
+  }
+
+  @media only screen and (min-width: 601px) {
+    .brspacer {
+      display: none;
+    }
+  }
+</style>
 {% endblock %}
 
 {% block body %}
+
 <div id="content">
     <div id="promptoverlay">
 
         <div id="dialoguebox">
-            <p>
-               We're here for you! Whatever you need, we're happy to talk. Enjoy 20% off on all sessions and therapy packages:  Limited Time Offer! Reach out anytime; we’re just a message away. 📞Call or Whatsapp us at
+            <p style="line-height: 2.5;">
+               We're here for you! <span class="brspacer"></span> Whatever you need, we're happy to talk. Enjoy 20% off on all sessions and therapy packages:  Limited Time Offer! 
+            <br/><span class="brspacer"></span>
+           Reach out anytime; we’re just a message away. <br/><span class="brspacer"></span>📞Call or Whatsapp us at
                 <a class="textlink" href="{{h_contacts.phone.url}}" target="_blank">
                     +918879260310
                 </a>

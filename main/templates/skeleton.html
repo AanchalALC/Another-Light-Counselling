@@ -1,5 +1,4 @@
 {% load static %}
-{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -113,7 +112,7 @@
               <a id="servicebutton">Services</a>
               <div id="dropdowncontent">
                 {% for service in services %}
-                 <a href="{% url 'service' service.slug %}">{{ service.title|split_title }}</a><br />
+                 <a href="{% url 'service' service.slug %}">{{ service.title }}</a><br />
                 {% endfor %}
               </div>
             </div>

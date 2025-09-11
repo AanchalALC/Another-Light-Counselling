@@ -20,6 +20,55 @@
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
 </script>
+{% if service.slug == "queer-affirmative-therapy" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Queer Affirmative Therapy",
+  "provider": {
+    "@type": "PsychologicalCounselling", 
+    "name": "Another Light Counselling",
+    "url": "https://www.another-light.com/service/queer-affirmative-therapy",
+    "telephone": "+91-8879260310",
+    "email": "admin@another-light.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Office, Regional Transport Office, A Wing flat no 2 Park Avenue, Andheri West",
+      "addressLocality": "Mumbai",
+      "addressRegion": "Maharashtra",
+      "postalCode": "400053",
+      "addressCountry": "IN"
+    },
+    "areaServed": "India",
+    "image": "https://www.another-light.com/static/img/skeleton/sitelogo.png"
+  },
+  "description": "Another Light Counselling Provides Therapeutic Practices That Affirm Gender and Sexuality of Marginalized Communities. We Conduct Therapy to Takes a Positive View of Lesbian, Gay, Transgender and Queer Persons.",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "LGBTQ+ individuals seeking queer-affirmative therapy"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Counselling Sessions",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Session with Junior Counsellor",
+        "price": "900",
+        "priceCurrency": "INR"
+      },
+      {
+        "@type": "Offer",
+        "name": "Session with Senior Counsellor",
+        "price": "1600",
+        "priceCurrency": "INR"
+      }
+    ]
+  }
+}
+</script>
+{% endif %}
 {% endblock %}
 
 {% block body %}

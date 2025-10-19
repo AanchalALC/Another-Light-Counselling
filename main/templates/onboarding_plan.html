@@ -292,6 +292,35 @@
     .faq-two-col { grid-template-columns: 1fr; }
     .faq-aside { position: relative; top: 0; order: -1; }
   }
+  /* ======== MOBILE FIX: hard-center hero on extra small screens ======== */
+  @media (max-width: 480px){
+    .hero { margin-left:-40px !important; margin-top:-50px !important; }
+    .hero .inner{
+      {% comment %} grid-template-columns: 1fr !important; {% endcomment %}
+      justify-items: center;          /* center children horizontally */
+      align-items: center;
+      width: 100%;
+      max-width: 100%;
+      margin-right: auto !important;
+      {% comment %} padding: 3.5rem 16px !important; /* symmetric gutters */ {% endcomment %}
+    }
+    .hero .hero-card{
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+      text-align: left;               /* set to center if preferred */
+    }
+    .hero .hero-img-container,
+    .hero .hero-img-wrap{
+      margin: 0 auto;
+      max-width: 420px;
+    }
+  }
+
+  /* Ultra-small devices: remove decorative bubbles so they never push layout */
+  @media (max-width: 360px){
+    .hero .bubble{ display:none; }
+  }
 </style>
 {% endblock %}
 

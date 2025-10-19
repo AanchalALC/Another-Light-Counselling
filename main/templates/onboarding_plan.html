@@ -1,498 +1,731 @@
 {% extends 'skeleton.html' %}
 {% load static %}
-{% block title %}Aanchal’s Therapeutic Onboarding & Supervision Plan – ALC{% endblock %}
-{% block metadescription %}Begin therapy with Aanchal, then transition to a trusted therapist under her ongoing supervision. Pick your onboarding plan at Another Light Counselling.{% endblock %}
+
+{% block title %}Aanchal’s Therapeutic Onboarding & Supervision Plan – Another Light Counselling{% endblock %}
+{% block metadescription %}Begin therapy with Aanchal, then continue with a mapped therapist under her ongoing supervision. Pick your onboarding plan at Another Light Counselling.{% endblock %}
 {% block metakeywords %}Aanchal Narang, Onboarding Plan, Therapy, Supervision, Another Light Counselling{% endblock %}
 
-
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/services.css' %}" />
-<link rel="stylesheet" href="{% static 'css/onboarding_plan.css' %}" />
 <link rel="canonical" href="https://www.another-light.com/aanchal-onboarding-plan/" />
-<script defer src="{% static 'js/onboarding_plan.js' %}"></script>
-<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
-<script async>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag("js", new Date());
-  gtag("config", "AW-10878605404");
-</script>
-<style>
-/* Collapsible FAQ styles - improved for visibility */
-.faq-collapsible {
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
-  position: relative;
-  padding: 1.2rem 2.2rem 1.2rem 1.5rem;
-  background: #7a2476;
-  color: #ffffff;
-  border-radius: 1.1rem;
-  font-size: 1.18rem;
-  font-weight: 600;
-  margin: 0 auto;
-  margin-bottom: 0;
-  box-shadow: 0 4px 18px rgba(31, 38, 135, 0.10);
-  border: 1.5px solid #7a2476;
-  outline: none;
-  display: flex;
-  align-items: center;
-  min-height: 56px;
-  max-width: 600px;
-  padding-right: 40px;
-}
-.faq-collapsible:after {
-  content: "";
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  background: #16b1e4 url('data:image/svg+xml;utf8,<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="9" r="9" fill="%2316b1e4"/><path d="M9 5V13" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M5 9H13" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>') no-repeat center center;
-  background-size: 22px 22px;
-  position: absolute;
-  right: 1.1rem;
-  top: 50%;
-  transform: translateY(-50%) rotate(0deg);
-  transition: transform 0.22s cubic-bezier(0.4,0.2,0.2,1);
-}
-.faq-collapsible.active:after {
-  transform: translateY(-50%) rotate(135deg);
-}
-.faq-collapsible:focus {
-  box-shadow: 0 0 0 2px #16b1e4;
-}
-.faq-answer {
-  display: none;
-  margin: 0 auto 1.2rem auto;
-  margin-top: 0;
-  padding: 1.2rem 1.5rem 1.2rem 1.5rem;
-  background: #fff;
-  color: #203431;
-  border-radius: 0 0 1.1rem 1.1rem;
-  box-shadow: 0 4px 18px rgba(31, 38, 135, 0.10);
-  font-size: 1.05rem;
-  max-width: 600px;
-  border: 1.5px solid #e2b800;
-  border-top: none;
-  transition: all 0.2s;
-}
-.faq-answer.active {
-  display: block;
-}
-.combo-collapsible-btn {
-  width: 100%;
-  margin: 0.5rem 0 0.5rem 0;
-  padding: 1.5rem 2rem;
-  background: #16b1e4;
-  color: #fff;
-  border: none;
-  border-radius: 0.7rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 0 auto;
-  cursor: pointer;
-  transition: background 0.2s;
-  font-family: OpenDyslexic;
-  min-height: 56px;
-  max-width: 1500px;
-  margin-top:30px;
-}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-@media (max-width: 600px) {
-  .plans-cards-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 0.7rem !important;
+<style>
+  /* ========= SITE-WIDE PALETTE (REPLACE WITH COLORS FROM YOUR IMAGE) =========
+     Drives ALL sections EXCEPT the hero. Hero colors are locked below.
+  */
+  :root {
+    /* --- Brand bases (replace these with your image colors) --- */
+    --brand-1: #9A5B3C;   /* replaces --tangerine (primary/price/star) */
+    --brand-2: #E8D7A9;   /* replaces --butter (primary CTAs) */
+    --brand-3: #C56C84;   /* replaces --blush (secondary CTAs/badges) */
+    --brand-4: #557CA6;   /* replaces --sea (headers/table head) */
+    --brand-5: #7BAE89;   /* replaces --matcha (compare buttons/icons) */
+
+    /* --- Surfaces & ink --- */
+    --surface: #FFFFFF;         /* paper */
+    --surface-alt: #FAF7F3;     /* bg-light */
+    --ink: #2A2A2A;             /* text-dark */
+    --ink-muted: #555555;       /* body text */
+    --ink-subtle: #666666;      /* subtitles */
+
+    --border-subtle: #ECECEC;
+    --heading: #2A2A2A;
+
+    /* --- Hovers --- */
+    --brand-2-hover: #F1E3B7;
+    --brand-3-hover: #D27A93;
+    --brand-5-hover: #8FC29B;
+
+    /* --- Soft tints --- */
+    --accent-soft: #FDF1F4;     /* soft tint of brand-3 (popular header bg) */
+    --brand-5-tint: #EEF5F0;    /* light tint for icon backgrounds */
+
+    /* --- Map legacy tokens used across the CSS (non-hero) --- */
+    --tangerine: var(--brand-1);
+    --butter: var(--brand-2);
+    --blush: var(--brand-3);
+    --sea: var(--brand-4);
+    --matcha: var(--brand-5);
+
+    --paper: var(--surface);
+    --bg-light: var(--surface-alt);
+    --text-dark: var(--ink);
+    --text-light: #FFFFFF;
+
+    /* legacy accent names mapped for non-hero usage */
+    --nectarine: var(--brand-3);
+    --peche: var(--brand-2);
+    --menthe: var(--brand-5);
+    --lagune: var(--brand-4);
+    --ink: var(--ink);
   }
-  .plan-card-new {
-    width: 92vw !important;
-    max-width: 320px !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding: 0.7rem !important;
+
+  /* ========= HERO COLOR LOCK (unchanged) ========= */
+  .hero {
+    --tangerine:#ba7225;
+    --butter:#F2D88F;
+    --blush:#E36888;
+    --sea:#6698CC;
+    --matcha:#B4B534;
+    --nectarine:#D7897F;
+    --peche:#F9B95C;
+    --menthe:#96C7B3;
+    --lagune:#6398A9;
+
+    --paper:#FFFFFF;
+    --bg-light:#FAF7F5;
+    --text-dark:#333333;
+    --text-light:#FFFFFF;
+    --ink:#2A2A2A;
+    --border-subtle:#ECECEC;
   }
-  .plan-card-content {
-    padding: 0.7rem 0.5rem !important;
+
+  /* ========= BASE & TYPOGRAPHY ========= */
+  .onboarding-page {
+    font-family: OpenDyslexic, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
   }
-  .plan-card-title,
-  .plan-card-price,
-  .plan-card-features h5,
-  .plan-card-prereq {
-    padding-left: 0.7rem !important;
-    padding-right: 0.7rem !important;
+  .inner{max-width:1200px;margin:0 auto;padding:6rem 1.5rem}
+  h1{font-weight:800;letter-spacing:.2px;font-size:clamp(2.6rem,5vw,3.4rem);line-height:1.15;margin:0 0 1rem;color:#0e2a35}
+  a:focus,button:focus{outline:3px solid var(--lagune);outline-offset:2px;border-radius:8px}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.9rem 1.2rem;border-radius:14px;text-decoration:none;font-weight:800;font-size:1rem;
+    border:1px solid transparent;box-shadow:0 6px 16px rgba(0,0,0,.08);
+    transition:transform .15s ease, box-shadow .2s ease, background .2s ease, color .2s ease
   }
-  .combo-collapsible-btn {
-    width: 100%;
-    margin: 0.5rem 0 0.5rem 0;
-    padding: 2rem 2rem;
-    background: #16b1e4;
-    color: #fff;
-    border: none;
-    border-radius: 0.7rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-     font-family: OpenDyslexic;
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.12)}
+  .btn:active{transform:translateY(0);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+  .btn-primary{background:var(--butter);color:#5A4E2B}
+  .btn-primary:hover{background:var(--brand-2-hover)}
+  .btn-tertiary{background:var(--menthe);color:#0f2a28;border-color:#7fb6a4}
+  .btn-tertiary:hover{background:#a6d3c4}
+
+  /* ========= HERO (unchanged) ========= */
+  .hero{position:relative;overflow:hidden;padding:0}
+  .hero .inner{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center}
+  .hero-surface{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(1000px 600px at -10% -10%, rgba(249,185,92,.25) 0%, rgba(249,185,92,0) 60%),
+      radial-gradient(900px 600px at 110% 10%, rgba(150,199,179,.28) 0%, rgba(150,199,179,0) 60%),
+      radial-gradient(1200px 800px at 20% 110%, rgba(211,137,127,.22) 0%, rgba(215,137,127,0) 65%),
+      radial-gradient(1200px 900px at 80% 120%, rgba(99,152,169,.25) 0%, rgba(99,152,169,0) 60%),
+      linear-gradient(180deg, #fff, #fbfbfb 55%, #f7fafb 100%);
   }
-  .combo-collapsible-btn.active {
-    background: #c43454;
+  .hero .bubble{position:absolute;border-radius:9999px;filter:blur(20px);opacity:.4;z-index:0}
+  .b1{width:420px;height:420px;background:var(--menthe);top:-120px;left:-120px}
+  .b2{width:260px;height:260px;background:var(--peche);top:60px;right:14%}
+  .b3{width:520px;height:520px;background:var(--lagune);bottom:-180px;right:-120px}
+  .b4{width:180px;height:180px;background:var(--nectarine);bottom:10%;left:8%}
+
+  .hero-card{
+    position:relative;background:rgba(255,255,255,.65);backdrop-filter:blur(6px);
+    border:1px solid rgba(0,0,0,.05);border-radius:22px;padding:2rem;z-index:1;
+    box-shadow:0 20px 45px rgba(0,0,0,.09)
   }
-  .combo-collapsible-content {
-    display: none;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    width: 100%;
+  .hero .eyebrow{
+    display:inline-block;background:var(--peche);color:#5f3b00;font-weight:900;
+    padding:.25rem .6rem;border-radius:999px;font-size:.75rem;letter-spacing:.08em;margin-bottom:1rem
   }
-  .combo-collapsible-content.active {
-    display: block !important;
+  .hero-text p{font-size:1.06rem;color:#2d3a41;margin:0 0 .75rem}
+  .hero-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}
+
+  .hero-img-container{position:relative;z-index:1}
+  .hero-img-wrap{
+    position:relative;display:inline-block;padding:14px;border-radius:24px;
+    background:linear-gradient(135deg, rgba(99,152,169,.25), rgba(215,137,127,.25));
+    box-shadow:0 25px 60px rgba(0,0,0,.18)
   }
-  .combo-cards-flex {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
+  .hero-img{width:100%;max-width:440px;aspect-ratio:1/1;border-radius:18px;object-fit:cover;display:block;border:6px solid #fff}
+
+  /* Reveal animation */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease-out, transform .6s ease-out}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  /* Responsive */
+  @media (max-width:900px){
+    .hero .inner{grid-template-columns:1fr;padding:4.5rem 1.2rem}
+    .hero-img-wrap{display:block;max-width:420px;margin:0 auto}
   }
-}
-@media (min-width: 601px) and (max-width: 1024px) {
-  .combo-cards-flex {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1.5rem;
-    width: 100%;
+
+  h1, h2, h3, h4 { font-weight: 800; letter-spacing: .2px; }
+  h1 { font-size: clamp(2.4rem, 4vw, 3.2rem); margin-bottom: 1rem; line-height: 1.25; color: var(--text-light); }
+  h2 { font-size: clamp(2rem, 4vw, 2.6rem); text-align: center; margin-bottom: 3rem; color: var(--heading); }
+  h3 { font-size: 1.2rem; color: var(--text-dark); }
+  p { line-height: 1.7; margin-bottom: 1rem; color: var(--ink-muted); }
+  .section-subtitle { text-align: center; max-width: 70ch; margin: -2.5rem auto 3.5rem; font-size: 1.05rem; color: var(--ink-subtle); }
+
+  /* ========= BUTTONS ========= */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    border-radius: 50px; padding: .85rem 1.75rem; font-weight: 700;
+    text-decoration: none; border: none; transition: all .3s ease-in-out;
+    font-size: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   }
-  .combo-cards-flex .plan-card-new {
-    width: 45vw !important;
-    max-width: 350px !important;
-    min-width: 260px !important;
-    margin: 0;
+  .btn-primary { background: var(--butter); color: #5A4E2B; }
+  .btn-primary:hover { background: var(--brand-2-hover); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.1); }
+  .btn-secondary { background: var(--blush); color: var(--text-light); }
+  .btn-secondary:hover { background: var(--brand-3-hover); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.1); }
+
+  .plan-card .btn { width: 85%; padding: .8rem 1rem; font-size: 0.9rem; border-radius: 12px; box-shadow: none; white-space: nowrap; }
+  .plan-card .btn-book { background: var(--blush); color: var(--text-light); }
+  .plan-card .btn-book:hover { background: var(--brand-3-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,.12); }
+
+  .compare .btn { padding: .6rem 1rem; font-size: 0.85rem; border-radius: 12px; box-shadow: none; background: var(--matcha); color: var(--text-light); }
+  .compare .btn:hover { background: var(--brand-5-hover); transform: translateY(-1px); box-shadow: 0 2px 5px rgba(0,0,0,.15); }
+
+  /* ========= SECTION AMBIENT SURFACES (new, hero-inspired) ========= */
+  /* Keep layout untouched; backgrounds sit behind content */
+  .how-infographic,
+  .testimonials { position: relative; overflow: hidden; }
+
+  .how-infographic .inner,
+  .testimonials .inner { position: relative; z-index: 1; }
+
+  /* Subtle ambient gradient layer using site palette (not hero palette) */
+  .how-infographic .section-surface,
+  .testimonials .section-surface {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(900px 560px at -12% -10%, color-mix(in srgb, var(--peche) 20%, transparent) 0%, transparent 60%),
+      radial-gradient(820px 520px at 112% 0%, color-mix(in srgb, var(--menthe) 24%, transparent) 0%, transparent 58%),
+      radial-gradient(980px 660px at 10% 115%, color-mix(in srgb, var(--lagune) 18%, transparent) 0%, transparent 62%),
+      linear-gradient(180deg, var(--paper), var(--paper));
   }
-}
-@media (min-width: 1025px) {
-  .combo-cards-flex {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    gap: 2rem;
-    width: 100%;
+
+  /* Soft bubbles (unique per section so they don't overlap) */
+  .section-bubble { position: absolute; border-radius: 9999px; filter: blur(18px); opacity: .9; z-index: 0; pointer-events: none; }
+
+  /* How It Works bubble positions */
+  .how-infographic .hb1 { width: 340px; height: 340px; background: color-mix(in srgb, var(--menthe) 28%, transparent); top: -110px; left: -120px; }
+  .how-infographic .hb2 { width: 220px; height: 220px; background: color-mix(in srgb, var(--peche) 30%, transparent); top: 40px; right: 12%; }
+  .how-infographic .hb3 { width: 480px; height: 480px; background: color-mix(in srgb, var(--lagune) 22%, transparent); bottom: -160px; right: -120px; }
+
+  /* Testimonials bubble positions */
+  .testimonials .tb1 { width: 300px; height: 300px; background: color-mix(in srgb, var(--peche) 22%, transparent); top: -90px; left: -90px; }
+  .testimonials .tb2 { width: 180px; height: 180px; background: color-mix(in srgb, var(--menthe) 28%, transparent); top: 30%; right: 8%; }
+  .testimonials .tb3 { width: 520px; height: 520px; background: color-mix(in srgb, var(--lagune) 18%, transparent); bottom: -180px; right: -140px; }
+  .testimonials .tb4 { width: 160px; height: 160px; background: color-mix(in srgb, var(--nectarine) 26%, transparent); bottom: 12%; left: 6%; }
+
+  /* ========= WHY THIS PLAN & HOW IT WORKS ========= */
+  .why-plan .inner { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 3rem; align-items: center; }
+  .why-plan-list { margin: 0; padding: 0; list-style: none; }
+  .why-plan-list li { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
+  .why-plan-list .icon { color: var(--matcha); background-color: var(--brand-5-tint); min-width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; }
+  .why-plan-text p:first-of-type { font-weight: bold; font-size: 1.1rem; color: var(--text-dark); }
+  .why-plan-image img { width: 100%; border-radius: 1rem; box-shadow: 0 15px 40px rgba(0,0,0, .1); }
+  .how-infographic { background: var(--paper); }
+  .steps-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; align-items: flex-start; position: relative; }
+  .steps-container::before { content: ''; position: absolute; top: 35px; left: 10%; right: 10%; height: 2px; background: repeating-linear-gradient(90deg, var(--border-subtle) 0, var(--border-subtle) 8px, transparent 8px, transparent 16px); }
+  .step-icon { width: 70px; height: 70px; border-radius: 50%; background: var(--paper); border: 3px solid var(--tangerine); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--tangerine); font-size: 2rem; box-shadow: 0 8px 25px rgba(240, 140, 33, .1); }
+  
+  /* ========= PLAN CARDS ========= */
+  .plans { --grid-cols: 1; display: grid; grid-template-columns: repeat(var(--grid-cols), 1fr); gap: 1.5rem; }
+  .plan-card { background: var(--paper); border: 1px solid var(--border-subtle); border-radius: 1rem; display: flex; flex-direction: column; box-shadow: 0 8px 25px rgba(0,0,0,.05); transition: all .2s ease; }
+  .plan-card:hover { transform: translateY(-8px); box-shadow: 0 12px 35px rgba(0,0,0,.1); }
+  .plan-card-header { padding: 1.25rem; border-bottom: 1px solid var(--border-subtle); position: relative; }
+  .plan-card-popular { border-color: var(--blush); }
+  .plan-card-popular .plan-card-header { background: var(--accent-soft); }
+  .plan-card h3 { color: var(--text-dark); margin-bottom: 0.5rem; }
+  .plan-card .badge { position: absolute; top: 0; right: 1.25rem; background: var(--blush); color: var(--text-light); padding: .8rem .6rem .4rem; font-weight: 800; font-size: .75rem; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%); }
+  .plan-card-body { padding: 1.25rem; flex-grow: 1; }
+  .plan-card .price { font-size: 2.2rem; font-weight: 900; color: var(--tangerine); margin-bottom: 1rem; }
+  .plan-card .plist { padding-left: 1.25rem; margin: 0; font-size: 0.9rem; }
+  .plan-card-footer { padding: 0 1.25rem 1.25rem; }
+  @media (min-width: 640px) { .plans { --grid-cols: 2; } }
+  @media (min-width: 1200px) { .plans { --grid-cols: 4; } }
+
+  /* ========= COMPARISON TABLE ========= */
+  .comparison-table { overflow-x: auto; background: var(--paper); border-radius: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,.1); }
+  table.compare { width: 100%; min-width: 800px; border-collapse: collapse; }
+  .compare th, .compare td { padding: 1rem; border: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; font-size: 0.9rem; }
+  .compare thead { background: var(--sea); color: var(--text-light); font-size: 1rem; }
+  .compare tbody th { text-align: left; background: var(--bg-light); font-weight: 800; }
+  .compare .check-mark { color: var(--matcha); font-size: 1.4rem; }
+  .compare .popular-col { background: var(--accent-soft); }
+
+  /* ========= TESTIMONIALS ========= */
+  .testimonials { background: var(--paper); }
+  .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .testimonial-card { background: var(--paper); border: 1px solid var(--border-subtle); border-radius: 1rem; padding: 2rem; text-align: center; position: relative; }
+  .quote-icon { font-size: 2rem; color: var(--butter); position: absolute; }
+  .quote-icon.top { top: 1rem; left: 1rem; }
+  .quote-icon.bottom { bottom: 1rem; right: 1rem; }
+  .star-rating { color: var(--tangerine); font-size: 1.1rem; margin-bottom: 1rem; }
+  .testimonial-card blockquote { margin: 1rem 0; font-size: 1rem; font-style: italic; color: var(--ink-muted); }
+  .testimonial-card cite { display: block; margin-top: 1rem; font-weight: 800; color: var(--tangerine); }
+  
+  /* ========= FAQ ========= */
+  .faq .inner { max-width: 1200px; }
+  .faq h2 { text-align: left; }
+  .faq-two-col { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2rem; align-items: start; }
+  .faq-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  .faq .qa-item { background: var(--paper); border-radius: .75rem; border: 1px solid var(--border-subtle); overflow: hidden; }
+  .faq .q { cursor: pointer; padding: 1rem 1.25rem; font-weight: 800; display: flex; justify-content: space-between; align-items: center; color: var(--text-dark); }
+  .faq .q::after { content: '+'; font-size: 1.5rem; color: var(--blush); transition: transform .3s ease; }
+  .faq .a { max-height: 0; overflow: hidden; transition: max-height .4s ease-out; }
+  .faq .a p { margin: 0; padding: 0 1.25rem 1rem; font-size: 0.95rem; color: var(--ink-subtle); }
+  .faq .qa-item.active { border-color: var(--blush); }
+  .faq .qa-item.active .q::after { transform: rotate(45deg); }
+
+  .faq-aside { position: sticky; top: 96px; border-radius: 1rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+  .faq-aside img { width: 100%; height: auto; display: block; }
+
+  /* ========= FINAL CTA ========= */
+  .final-cta { background: var(--sea); color: var(--text-light); text-align: center; }
+  .final-cta h2 { color: var(--text-light); }
+  .final-cta p { color: rgba(255, 255, 255, 0.9); }
+  .final-cta .btn-primary:hover { background: var(--brand-2-hover); }
+  .final-cta .btn-secondary { background: var(--tangerine); color: var(--text-light); }
+  .final-cta .btn-secondary:hover { background: var(--brand-3-hover); }
+
+  /* ========= RESPONSIVE ========= */
+  @media (max-width: 900px) {
+    .hero .inner, .why-plan .inner { grid-template-columns: 1fr; text-align: center; }
+    .hero-img-container { grid-row: 1; margin-bottom: 2rem; max-width: 350px; margin-left: auto; margin-right: auto; }
+    .steps-container, .testimonial-grid { grid-template-columns: 1fr; }
+    .steps-container::before { display: none; }
+    .hero .inner { padding: 4rem 1.5rem; }
+    .faq-two-col { grid-template-columns: 1fr; }
+    .faq-aside { position: relative; top: 0; order: -1; }
   }
-  .combo-cards-flex .plan-card-new {
-    width: 340px !important;
-    max-width: 340px !important;
-    min-width: 260px !important;
-    margin: 0;
-  }
-}
-@media (max-width: 480px) {
-  .faq-collapsible {
-    font-size: 0.95rem;
-  }
-}
-@media (max-width: 600px) {
-  .faq-collapsible {
-    font-size: 1.05rem; 
-  }
-}
 </style>
 {% endblock %}
-
 
 {% block body %}
 <div id="content">
   <main class="onboarding-page">
-    <!-- 1. Hero -->
-    <section class="hero" >
+
+    <!-- HERO (unchanged) -->
+    <section class="hero" role="banner" aria-label="Therapeutic Onboarding hero">
+      <div class="hero-surface"></div>
+      <span class="bubble b1" aria-hidden="true"></span>
+      <span class="bubble b2" aria-hidden="true"></span>
+      <span class="bubble b3" aria-hidden="true"></span>
+      <span class="bubble b4" aria-hidden="true"></span>
+
       <div class="inner">
-        <h1 style="color:#fff">{{ plan.tagline }}</h1>
-        <h3 style="color:#fff;padding-left:15%;padding-right:15%;">{{ plan.subheading }}</h3>
-        <style>
-        @media (max-width: 600px) {
-          .onboarding-page .hero h1 {
-            font-size: 1.5rem !important;
-          }
-          .onboarding-page .hero h3 {
-            font-size: 1rem !important;
-            padding-left: 5% !important;
-            padding-right: 5% !important;
-          }
-        }
-        </style>
-        <div class="ctas">
-          <a href="#plans" class="btn btn-primary">{{ plan.cta_primary }} </a>
-          <a href="{{ plan.cta_secondary_url }}" target="_blank" style="color:#000" class="btn btn-secondary"
-            >{{ plan.cta_secondary }}</a
-          >
-        </div>
-      </div>
-    </section>
-
-
-    <!-- 2. Why this? -->
-    <section class="why">
-      <div class="inner">
-        <div class="card" style="position:relative;width:100%;max-width:900px;margin:0 auto;">
-          <h1 style="background-color:#f6de96">Why this plan?</h1>
-          <div class="why-desc" style="paddingleft:2rem;padding-right:2rem;">
-            Not everyone can afford Aanchal’s standard rates. This onboarding plan bridges that gap—start with her direct care, then continue long-term with a mapped ALC therapist plus her behind-the-scenes supervision.
-          </div>
-          <div class="why-bottom-row">
-            <span class="why-bottom-label">Direct Care</span>
-            <span class="why-bottom-label">Supervision</span>
-          </div>
-          <style>
-            @media (max-width: 600px) {
-              .why-desc {
-                padding-left: 1.2rem !important;
-                padding-right: 1.2rem !important;
-                padding-top: 1rem !important;
-                padding-bottom: 1rem !important;
-                font-size: 1.05rem !important;
-                line-height: 1.7 !important;
-                word-break: break-word;
-              }
-              .why-bottom-label {
-                font-size: 0.85rem !important;
-                padding: 0.1rem 0.3rem !important;
-              }
-            }
-          </style>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- 3. How It Works -->
-    <section class="timeline" style="background-color:#c9efb6"">
-      <div class="inner" >
-        <h2 style="text-align:center;padding-bottom:30px;">How It Works – At a Glance</h2>
-        <div class="timeline-stepper" id="timeline-stepper">
-          {% for step in steps %}
-          <div
-            class="stepper-item{% if forloop.first %} active{% endif %}"
-            data-step="{{ forloop.counter0 }}"
-          >
-            <div class="stepper-circle">
-              <span class="stepper-number">{{ forloop.counter }}</span>
-            </div>
-            {% if not forloop.last %}
-            <div class="stepper-line"></div>
-            {% endif %}
-          </div>
-          {% endfor %}
-        </div>
-        <div class="timeline-step-content">
-          {% for step in steps %}
-          <div
-            class="timeline-step-panel{% if forloop.first %} active{% endif %}"
-            data-step="{{ forloop.counter0 }}"
-          >
-            <h2 style="color:#c43454">{{ step.title }}</h2>
-            <h3 style="color:#000;padding-bottom:10px;">{{ step.detail }}</h3>
-            <div style="display: flex; justify-content: center; gap: 1rem">
-              {% if not forloop.first %}
-              <button
-                class="btn prev-step-btn"
-                data-prev="{{ forloop.counter0|add:'-1' }}"
+        <div class="hero-text reveal">
+          <div class="hero-card">
+            <span class="eyebrow">Therapeutic Onboarding &amp; Supervision</span>
+            <h1 style="color:#000">Expert Care, Designed for Accessibility</h1>
+            <p style="color:#000">
+              Tired of feeling lost in therapy? We've built the ultimate blueprint for effective therapy.
+              Stop sacrificing expert care for affordability. The Therapeutic Onboarding &amp; Supervision Plan by
+              <a href="https://www.another-light.com/about/" target="_blank" rel="noopener">Aanchal Narang</a>
+              gives you a strong foundation with Aanchal’s direct, in-depth assessment, followed by sustainable support
+              with a mapped ALC therapist under her ongoing, behind-the-scenes supervision.
+            </p>
+            <div class="hero-actions">
+              <a
+                class="btn btn-primary"
+                href="https://api.whatsapp.com/send/?phone=918879260310&text={{ 'Hello, I want to book Aanchal’s Intro Session'|urlencode }}&type=phone_number&app_absent=0"
+                target="_blank" rel="noopener"
               >
-                Back
-              </button>
-              {% endif %} {% if not forloop.last %}
-              <button
-                class="btn next-step-btn"
-                data-next="{{ forloop.counter0|add:'1' }}"
-              >
-                Next
-              </button>
-              {% endif %}
+                <i class="fas fa-calendar-check"></i> Book Aanchal’s Intro Session
+              </a>
+
+              <a class="btn btn-tertiary" href="#plans">
+                <i class="fas fa-layer-group"></i> View Plans
+              </a>
             </div>
           </div>
-          {% endfor %}
+        </div>
+
+        <div class="hero-img-container reveal">
+          <div class="hero-img-wrap">
+            <img src="{% static 'img/contact/aanchal_bio_pic.jpg' %}" alt="Aanchal Narang in a welcoming therapy environment" class="hero-img"/>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- WHY -->
+    <section id="why" class="why-plan reveal">
+      <div class="inner">
+        <img src="{% static 'img/contact/whythisplanimg.png' %}" alt="A calm and supportive therapy setting" style="width:100%; border-radius:1rem; box-shadow: 0 15px 40px rgba(0,0,0, .1);" />
+        <div class="why-plan-text">
+          <h2>Why Choose This Path?</h2>
+          <p>Not everyone can afford Aanchal’s standard rates. This onboarding plan bridges that gap—start with her direct care, then continue long-term with a mapped Another Light Counselling therapist plus her behind-the-scenes supervision.</p>
+          <ul class="why-plan-list">
+            <li><span class="icon"><i class="fas fa-check"></i></span><span>Therapy continues with your mapped Another Light Counselling therapist at standard affordable rates.</span></li>
+            <li><span class="icon"><i class="fas fa-check"></i></span><span>Aanchal will not directly join your sessions post-handover.</span></li>
+            <li><span class="icon"><i class="fas fa-check"></i></span><span>Supervision remains internal between Aanchal and your therapist.</span></li>
+            <li><span class="icon"><i class="fas fa-check"></i></span><span>You can request updates anytime from your therapist or our manager.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <!-- 4. Pick Your Plan as cards -->
-    <!-- 4. Pick Your Plan as cards -->
-<section id="plans" class="plans plans-cards-section">
-  <div class="inner">
-    <h2 style="text-align:center;padding-bottom:30px;">Pick Your Plan</h2>
-    <div class="plans-cards-grid">
-      {# Show first four non-combo plans #}
-      {% for plan in plans %}
-        {% if not plan.is_combo and forloop.counter <= 4 %}
-        <div class="plan-card-new plan-card-{{ forloop.counter }}">
-          <div class="plan-sticky-note">
-            <span class="plan-sticky-number">{{ forloop.counter|stringformat:"02d" }}</span>
+    <!-- HOW IT WORKS with ambient background -->
+    <section id="how" class="how-infographic reveal" aria-label="How it works">
+      <div class="section-surface" aria-hidden="true"></div>
+      <span class="section-bubble hb1" aria-hidden="true"></span>
+      <span class="section-bubble hb2" aria-hidden="true"></span>
+      <span class="section-bubble hb3" aria-hidden="true"></span>
+
+      <div class="inner">
+        <h2>How It Works — A Clear Journey</h2>
+        <div class="steps-container">
+          <div class="step-item">
+            <div class="step-icon"><i class="fas fa-comments"></i></div>
+            <h3>Intro Sessions with Aanchal</h3><p>Three focused sessions to understand your history, needs, and goals.</p>
           </div>
-          <div class="plan-card-content" >
-            <div class="plan-card-title" style="margin-left:1.5rem;margin-right:1.5rem;">{{ plan.name }}</div>
-            <div class="plan-card-price">₹{{ plan.price }}</div>
-            <ul class="plan-card-features" >
-              {% for f in plan.features %}
-              <h5 style="padding-left:1.5rem;padding-right:1.5rem;">{{ f }}</h5>
-              {% endfor %}
-            </ul>
-            {% if plan.prerequisites %}
-            <div class="plan-card-prereq" style="padding-left:2rem;padding-right:2rem;">{{ plan.prerequisites }}</div>
-            {% endif %}
-            <a href="https://api.whatsapp.com/send/?text=Hi+I+Want+To+know+about+ALC&type=custom_url&app_absent=0" target="_blank" class="book-plan-btn">
-              Book this plan
-            </a>
+          <div class="step-item">
+            <div class="step-icon"><i class="fas fa-users"></i></div>
+            <h3>Therapist Matching</h3><p>We connect you with a suitable therapist aligned to your needs and preferences.</p>
+          </div>
+          <div class="step-item">
+            <div class="step-icon"><i class="fas fa-hands-helping"></i></div>
+            <h3>Ongoing Supervision</h3><p>Your therapist is supported by Aanchal’s behind-the-scenes guidance.</p>
           </div>
         </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-      {# Collapsible button for combo plans #}
-      <div class="combo-container">
-      <button class="combo-collapsible-btn" type="button" id="combo-collapsible-btn-main" >
-        <span>View all the combo plans</span>
-        <span class="arrow"></span>
-      </button>
-      <div class="combo-collapsible-content" id="combo-collapsible-content-main" style="display:none;">
-          <div class="combo-cards-flex" style="margin-top:50px;">
-            {# Show all combo plans #}
-            {% for plan in plans %}
-              {% if plan.is_combo %}
-              <div class="plan-card-new plan-card-{{ forloop.counter }} combo">
-                <div class="plan-sticky-note">
-                  <span class="plan-sticky-number">{{ forloop.counter|stringformat:"02d" }}</span>
-                </div>
-                <div class="plan-card-content" >
-                  <div class="plan-card-title" style="margin-left:1.5rem;margin-right:1.5rem;">{{ plan.name }}</div>
-                  <div class="plan-card-price">₹{{ plan.price }}</div>
-                  <ul class="plan-card-features" >
-                    {% for f in plan.features %}
-                    <h5 style="padding-left:1.5rem;padding-right:1.5rem;">{{ f }}</h5>
-                    {% endfor %}
-                  </ul>
-                  {% if plan.prerequisites %}
-                  <div class="plan-card-prereq" style="padding-left:2rem;padding-right:2rem;">{{ plan.prerequisites }}</div>
-                  {% endif %}
-                  <a href="https://api.whatsapp.com/send/?text=Hi+I+Want+To+know+about+ALC&type=custom_url&app_absent=0" target="_blank" class="book-plan-btn">
-                    Book this plan
-                  </a>
-                </div>
+      </div>
+    </section>
+
+    <!-- PLANS -->
+    <section id="plans" class="reveal">
+      <div class="inner inner-wide">
+        <h2>Pick Your Onboarding Plan</h2>
+        <p class="section-subtitle">Select the foundational plan that best fits your needs. Specialised combo plans are available below.</p>
+        <div class="plans">
+          {% for plan in plans %}{% if not plan.is_combo and forloop.counter <= 4 %}
+            <div class="plan-card {% if 'Individual' in plan.name %}plan-card-popular{% endif %}">
+              <div class="plan-card-header">
+                {% if 'Individual' in plan.name %}<span class="badge">Most Popular</span>{% endif %}
+                <h3>{{ plan.name }}</h3>
               </div>
-              {% endif %}
-            {% endfor %}
-          </div>
+              <div class="plan-card-body">
+                <div class="price">₹{{ plan.price }}</div>
+                <ul class="plist">
+                  {% for f in plan.features %}<li>{{ f }}</li>{% endfor %}
+                  {% if plan.prerequisites %}<li><em>{{ plan.prerequisites }}</em></li>{% endif %}
+                </ul>
+              </div>
+              <div class="plan-card-footer">
+                <a class="btn btn-book" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hello%2C%20I%27m%20interested%20in%20the%20{{ plan.name|urlencode }}%20plan.&type=phone_number&app_absent=0" target="_blank">Book this plan</a>
+              </div>
+            </div>
+          {% endif %}{% endfor %}
         </div>
       </div>
-       
+    </section>
+
+    <!-- COMBO PLANS -->
+    <section id="combo-plans" class="reveal">
+      <div class="inner inner-wide" style="padding-top:0;">
+        <h2 style="margin-bottom: 3.5rem;">Specialised Combo Plans</h2>
+        <div class="plans">
+          {% for plan in plans %}{% if plan.is_combo %}
+            <div class="plan-card">
+              <div class="plan-card-header"><h3>{{ plan.name }}</h3></div>
+              <div class="plan-card-body">
+                <div class="price">₹{{ plan.price }}</div>
+                <ul class="plist">
+                  {% for f in plan.features %}<li>{{ f }}</li>{% endfor %}
+                  {% if plan.prerequisites %}<li><em>{{ plan.prerequisites }}</em></li>{% endif %}
+                </ul>
+              </div>
+              <div class="plan-card-footer">
+                <a class="btn btn-book" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hello%2C%20I%27m%20interested%20in%20the%20{{ plan.name|urlencode }}%20plan.&type=phone_number&app_absent=0" target="_blank">Book this plan</a>
+              </div>
+            </div>
+          {% endif %}{% endfor %}
+        </div>
       </div>
     </section>
 
-
-    <!-- 5. Aftercare as collapsible FAQ -->
-    <section class="aftercare" style="background-color:#c9efb6;padding-top:5rem;">
+    <!-- COMPARE -->
+    <section id="compare" class="comparison reveal">
       <div class="inner">
-        <h2 class="faq-collapsible" tabindex="0">What happens after the first 3 sessions?</h2>
-        <p class="faq-answer">
-          Your therapy continues with your new ALC therapist at more affordable
-          rates. Aanchal remains involved via internal supervision—but won’t
-          join client sessions directly. Feel free to ask your therapist or our
-          manager for updates on how her guidance is integrated into your care.
-        </p>
+        <h2>Compare All Plans</h2>
+        <div class="comparison-table">
+          <table class="compare">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                {% for plan in plans %}<th>{{ plan.name }}</th>{% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Price</th>
+                {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">₹{{ plan.price }}</td>{% endfor %}
+              </tr>
+              <tr>
+                <th>Individual Sessions</th>
+                {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">{% if 'individual session' in plan.features|join:' ' %}<i class="fas fa-check check-mark"></i>{% else %}-{% endif %}</td>{% endfor %}
+              </tr>
+              <tr>
+                <th>Couple Sessions</th>
+                {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">{% if 'couple session' in plan.features|join:' ' or 'joint/couple session' in plan.features|join:' ' %}<i class="fas fa-check check-mark"></i>{% else %}-{% endif %}</td>{% endfor %}
+              </tr>
+              <tr>
+                <th>EMDR Add-on</th>
+                {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">{% if 'EMDR' in plan.name %}<i class="fas fa-check check-mark"></i>{% else %}-{% endif %}</td>{% endfor %}
+              </tr>
+              <tr>
+                <th>IFS Add-on</th>
+                {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">{% if 'IFS' in plan.name %}<i class="fas fa-check check-mark"></i>{% else %}-{% endif %}</td>{% endfor %}
+              </tr>
+              <tr>
+                <th></th>
+                {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}"><a class="btn" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hello%2C%20I%20want%20to%20book%20the%20{{ plan.name|urlencode }}%20plan.&type=phone_number&app_absent=0" target="_blank">Book Now</a></td>{% endfor %}
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
+    <!-- TESTIMONIALS with ambient background -->
+    <section class="testimonials reveal" aria-label="What our clients say">
+      <div class="section-surface" aria-hidden="true"></div>
+      <span class="section-bubble tb1" aria-hidden="true"></span>
+      <span class="section-bubble tb2" aria-hidden="true"></span>
+      <span class="section-bubble tb3" aria-hidden="true"></span>
+      <span class="section-bubble tb4" aria-hidden="true"></span>
 
-    <!-- 6. Optional Renewal -->
-    <section class="renewals" style="background-color:#c9efb6;">
       <div class="inner">
-        <h2 style="text-align:center">Optional Renewal: Continued Supervision</h2>
-        <div class="renewal-list">
-          {% for r in renewals %}
-          <div class="renewal-item">
-            <div class="renewal-header">{{ r.name }}</div>
-            <div class="renewal-price">₹{{ r.price }}</div>
-            <div class="renewal-detail">
-              <p>{{ r.description }}</p>
+        <h2>What Our Clients Say</h2>
+        <div class="testimonial-grid">
+          {% for testimonial in testimonials %}
+            <div class="testimonial-card">
+              <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+              <div class="star-rating">⭐⭐⭐⭐⭐</div>
+              <blockquote>{{ testimonial.quote|safe|linebreaksbr }}</blockquote>
+              <cite>– {{ testimonial.author }}</cite>
+              <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+            </div>
+          {% endfor %}
+         <div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    Aanchal is someone who you can trust to tell you the truth and that brings a sense of safety, security and comfort which I think has benefitted me a lot. And her insights are so very to the point that she has helped me make very illuminating connections. Overall her sessions have been and are continuing to be of great help to me.
+  </blockquote>
+  <cite>– Urmila Dasgupta</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    I’m happy with the services received from Another Light Counselling. Aanchal Narang is an excellent amd efficient healer.
+    I can already see so much improvement in my mental well being. She is very sweet, kind and understanding. I like to have the sessions with her and always look out for the next.
+    And also they have group therapies too which is very helpful.
+    I would highly recommend them to anyone.
+    👏 👍 👌 💐🌹🌷🙏
+  </blockquote>
+  <cite>– Sayeeda Hameed</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    Sejal has been tremendously helpful in navigating tough times and guiding towards the right direction. She is highly empathetic, clear and apt in her advice and suggestions. Aanchal has also been very helpful during times of crisis and supportive like no one else. I am very grateful to Another Light for helping many people like me.
+  </blockquote>
+  <cite>– Radhika Nair</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    I started my journey here about 6 months ago. So far, I’m satisfied with the experience, Aanchal was one of the first people who I opened up to a great extent which is something I struggled with for a long time. They restored my trust and hope for healing, which I’m extremely grateful for. Simply, I would recommend ALC to anyone who seeks healing and understanding their problems at a deep, unbiased, comfortable level and continuous support. Definitely one of the best decisions I’ve made.
+  </blockquote>
+  <cite>– Dubey</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    I discovered Another Light Counseling in September 2024, and my journey with them has been truly transformative. I’ve been working with Aanchal, who has consistently shown exceptional empathy, open-mindedness, and patience. She creates a safe and non-judgmental space, allowing me to explore my thoughts and emotions at my own pace.<br><br>
+    Good therapy can be hard to find in India, which makes my experience with Another Light Counseling even more valuable. I wholeheartedly recommend their services to anyone seeking compassionate and professional support.
+  </blockquote>
+  <cite>– Aseem S</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    Another Light has been very pivotal in my healing and recovery. Aanchal’s approach to complex issues using various techniques such as eye movement desensitization and reprocessing (EMDR) and internal family systems (IFS) has helped me gain a deeper perspective on things I’m working with and find better ways to cope with them. Aanchal is extremely empathetic and very practical with the solutions that they provide. They’ve created safe a space for me to process and heal, and their dedication towards their clients’ well-being is unwavering. I highly recommend Another Light to anyone who’s searching for another light that may lead them to a hopeful recovery.
+  </blockquote>
+  <cite>– Shivaksh Mishra</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    🦋 I have been getting therapy from Aanchal from six months. I was in a really shit place when I started. The sessions have helped me process a lot of trauma safely nd i feel much calmer in and tethered to situations now. It has also been very easy to communicate and work on things with them. 🪲
+  </blockquote>
+  <cite>– Somi</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    Aanchal is very experienced in various forms of therapy &amp; matter subjects. They also have many other experienced therapists for a range of issues. Highly recommended to try them out.
+  </blockquote>
+  <cite>– Shravan Bali</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    Aanchal has been of a great help to me. She is an amazing therapist and I would recommend ALC to anyone seeking an efficient mental health care provider.
+  </blockquote>
+  <cite>– Rhythm Jain</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    I have been working with Aanchal since a while now and it truly has helped me out a whole lot, they have genuinely assisted me a lot in reducing my anxiety and overthinking. Their non judgmental evaluations have helped me figure out so much.
+  </blockquote>
+  <cite>– Nipuna Mehta</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    I’ve been working with Aanchal from Another Light Counseling for a few months now, both in person and online. I have tried other therapies and therapists but haven’t found the depth I was seeking or tools specific for trauma healing. In every session with Aanchal I touch something deep within me that brings both wisdom and assimilation. I am so grateful for this therapy and the consistent support and care I get from Aanchal. I have already recommended Aanchal to many of my friends, some who are not working with them consistently! May all beings be happy and free.
+  </blockquote>
+  <cite>– Myron Shanti</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+<div class="testimonial-card">
+  <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
+  <div class="star-rating">⭐⭐⭐⭐⭐</div>
+  <blockquote>
+    I have been working with Aanchal since a while, and it has been my most successful and relaxing experience with therapy so far.
+    They focused on listening and evaluating my situation in a patient and unbiased manner since the very beginning, which has led to significant improvement in my symptoms within a relatively short duration of time.
+    I’m very keen on continuing my sessions with them and hopefully witnessing more progress in the days to come.
+  </blockquote>
+  <cite>– Shruti P</cite>
+  <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
+</div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq reveal">
+      <div class="inner">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-two-col">
+          <div>
+            <div class="faq-grid">
+              <div class="qa-item"><div class="q">What is this plan about?</div><div class="a"><p>It’s a structured way to begin therapy with Aanchal’s direct care and continue with an ALC therapist under her ongoing supervision.</p></div></div>
+              <div class="qa-item"><div class="q">How does it work?</div><div class="a"><p>You start with 3 sessions with Aanchal, get mapped to a suitable ALC therapist, and continue therapy with her behind-the-scenes guidance.</p></div></div>
+              <div class="qa-item"><div class="q">Why choose this plan?</div><div class="a"><p>It bridges expert care and affordability — you receive Aanchal’s insight without her full-session rates.</p></div></div>
+              <div class="qa-item"><div class="q">What happens after my 3 sessions?</div><div class="a"><p>You continue therapy with your mapped ALC therapist. Aanchal remains involved through internal supervision.</p></div></div>
+              <div class="qa-item"><div class="q">Will Aanchal attend my sessions after handover?</div><div class="a"><p>No, but she supervises your therapist to ensure ongoing quality and continuity of care.</p></div></div>
+              <div class="qa-item"><div class="q">Can I extend her supervision later?</div><div class="a"><p>Yes, you can continue Aanchal’s supervision for another 3 months at a nominal add-on cost.</p></div></div>
+              <div class="qa-item"><div class="q">What are the plan options?</div><div class="a"><p>Individual (₹10,000) and Couple (₹12,000) onboarding packages, plus optional EMDR, IFS, and combo plans.</p></div></div>
+              <div class="qa-item"><div class="q">What is supervision and how does it help me?</div><div class="a"><p>It’s a process where Aanchal guides your therapist — so your sessions benefit from her expertise even indirectly.</p></div></div>
+              <div class="qa-item"><div class="q">Can I return to Aanchal later?</div><div class="a"><p>Yes. You can book EMDR or IFS sessions directly with her once onboarding is complete.</p></div></div>
+              <div class="qa-item"><div class="q">How do I sign up?</div><div class="a"><p>Contact Team ALC via email or WhatsApp to discuss which plan fits your goals best.</p></div></div>
             </div>
           </div>
-          {% endfor %}
+
+          <aside class="faq-aside" aria-label="FAQ illustration">
+            <img src="{% static 'img/contact/faqs.png' %}" alt="Warm, supportive counselling illustration" />
+          </aside>
         </div>
-        <style>
-          @media (max-width: 900px) {
-            .renewal-list {
-              display: flex !important;
-              flex-direction: column !important;
-              align-items: center !important;
-              justify-content: center !important;
-              gap: 1rem !important;
-            }
-            .renewal-item {
-              width: 95vw !important;
-              max-width: 400px !important;
-              margin-left: 0 !important;
-              margin-right: 0 !important;
-              box-sizing: border-box;
-            }
-          }
-          @media (max-width: 500px) {
-            .renewal-item {
-              width: 99vw !important;
-              max-width: 99vw !important;
-              padding-left: 0.5rem !important;
-              padding-right: 0.5rem !important;
-            }
-          }
-        </style>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section id="contact" class="final-cta reveal">
+      <div class="inner">
+        <h2>Ready to Begin Your Journey?</h2>
+        <p>Take the first step towards healing and growth. We're here to guide you.</p>
+        <div>
+          <a class="btn btn-secondary" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hello%2C%20I%20want%20to%20book%20Aanchal%E2%80%99s%20intro%20session&type=phone_number&app_absent=0" target="_blank" rel="noopener">Book Intro</a>
+          <a class="btn btn-secondary" style="margin-left:15px" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hi%20Team%20Another%20Light%2C%20I%20have%20a%20question%20about%20the%20onboarding%20plan.&type=phone_number&app_absent=0" target="_blank" rel="noopener">Talk to an Expert</a>
+        </div>
       </div>
     </section>
   </main>
 </div>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var faqQ = document.querySelector('.faq-collapsible');
-  var faqA = document.querySelector('.faq-answer');
-  if (faqQ && faqA) {
-    faqQ.addEventListener('click', function() {
-      faqQ.classList.toggle('active');
-      faqA.classList.toggle('active');
-    });
-    faqQ.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        faqQ.classList.toggle('active');
-        faqA.classList.toggle('active');
-        e.preventDefault();
+  // --- INTERACTIVE FAQ ACCORDION ---
+  document.querySelectorAll('.qa-item').forEach(item => {
+    const question = item.querySelector('.q');
+    const answer = item.querySelector('.a');
+    question.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+      document.querySelectorAll('.qa-item.active').forEach(activeItem => {
+        if (activeItem !== item) {
+          activeItem.classList.remove('active');
+          activeItem.querySelector('.a').style.maxHeight = null;
+        }
+      });
+      if (!isActive) {
+        item.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      } else {
+        item.classList.remove('active');
+        answer.style.maxHeight = null;
       }
     });
-  }
-});
+  });
+
+  // --- SCROLL-IN ANIMATIONS ---
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+    observer.observe(el);
+  });
+
+  // Fade-in only for hero elements with .reveal
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.hero .reveal').forEach(el => {
+    el.classList.remove('visible');
+    heroObserver.observe(el);
+  });
 </script>
- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var comboBtn = document.getElementById('combo-collapsible-btn-main');
-      var comboContent = document.getElementById('combo-collapsible-content-main');
-      if (comboBtn && comboContent) {
-        // Always hide by default
-        comboContent.style.display = "none";
-        comboBtn.addEventListener('click', function() {
-          var isActive = comboContent.classList.contains('active');
-          if (isActive) {
-            comboContent.classList.remove('active');
-            comboContent.style.display = "none";
-            comboBtn.classList.remove('active');
-          } else {
-            comboContent.classList.add('active');
-            comboContent.style.display = "block";
-            comboBtn.classList.add('active');
-            comboContent.scrollIntoView({behavior: "smooth", block: "start"});
-          }
-        });
-      }
-    });
-  </script>
+
 {% endblock %}
-
-
-

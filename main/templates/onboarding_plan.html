@@ -178,14 +178,12 @@
   .compare .btn:hover { background: var(--brand-5-hover); transform: translateY(-1px); box-shadow: 0 2px 5px rgba(0,0,0,.15); }
 
   /* ========= SECTION AMBIENT SURFACES (new, hero-inspired) ========= */
-  /* Keep layout untouched; backgrounds sit behind content */
   .how-infographic,
   .testimonials { position: relative; overflow: hidden; }
 
   .how-infographic .inner,
   .testimonials .inner { position: relative; z-index: 1; }
 
-  /* Subtle ambient gradient layer using site palette (not hero palette) */
   .how-infographic .section-surface,
   .testimonials .section-surface {
     position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -196,15 +194,12 @@
       linear-gradient(180deg, var(--paper), var(--paper));
   }
 
-  /* Soft bubbles (unique per section so they don't overlap) */
   .section-bubble { position: absolute; border-radius: 9999px; filter: blur(18px); opacity: .9; z-index: 0; pointer-events: none; }
 
-  /* How It Works bubble positions */
   .how-infographic .hb1 { width: 340px; height: 340px; background: color-mix(in srgb, var(--menthe) 28%, transparent); top: -110px; left: -120px; }
   .how-infographic .hb2 { width: 220px; height: 220px; background: color-mix(in srgb, var(--peche) 30%, transparent); top: 40px; right: 12%; }
   .how-infographic .hb3 { width: 480px; height: 480px; background: color-mix(in srgb, var(--lagune) 22%, transparent); bottom: -160px; right: -120px; }
 
-  /* Testimonials bubble positions */
   .testimonials .tb1 { width: 300px; height: 300px; background: color-mix(in srgb, var(--peche) 22%, transparent); top: -90px; left: -90px; }
   .testimonials .tb2 { width: 180px; height: 180px; background: color-mix(in srgb, var(--menthe) 28%, transparent); top: 30%; right: 8%; }
   .testimonials .tb3 { width: 520px; height: 520px; background: color-mix(in srgb, var(--lagune) 18%, transparent); bottom: -180px; right: -140px; }
@@ -215,7 +210,16 @@
   .why-plan-list { margin: 0; padding: 0; list-style: none; }
   .why-plan-list li { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
   .why-plan-list .icon { color: var(--matcha); background-color: var(--brand-5-tint); min-width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; }
-  .why-plan-text p:first-of-type { font-weight: bold; font-size: 1.1rem; color: var(--text-dark); }
+  .why-plan-text p:first-of-type { font-weight: bold; font-size: 1.2rem; color: var(--text-dark); }
+
+  /* >>> CHANGE #1: Make why-plan-list text match the paragraph under h2 <<< */
+  .why-plan-list li > span:last-child {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    font-weight: 700;      /* matches the bold emphasis */
+    line-height: 1.7;      /* matches paragraph leading */
+  }
+
   .why-plan-image img { width: 100%; border-radius: 1rem; box-shadow: 0 15px 40px rgba(0,0,0, .1); }
   .how-infographic { background: var(--paper); }
   .steps-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; align-items: flex-start; position: relative; }
@@ -282,6 +286,14 @@
   .final-cta .btn-secondary { background: var(--tangerine); color: var(--text-light); }
   .final-cta .btn-secondary:hover { background: var(--brand-3-hover); }
 
+  /* >>> CHANGE #2: Mobile spacing between stacked CTA buttons <<< */
+  @media (max-width: 600px) {
+    .final-cta .btn + .btn {
+      margin-left: 0 !important;  /* overrides inline margin-left on the 2nd button */
+      margin-top: 12px;           /* space between the stacked buttons */
+    }
+  }
+
   /* ========= RESPONSIVE ========= */
   @media (max-width: 900px) {
     .hero .inner, .why-plan .inner { grid-template-columns: 1fr; text-align: center; }
@@ -297,18 +309,18 @@
     .hero { margin-left:-40px !important; margin-top:-50px !important; }
     .hero .inner{
       {% comment %} grid-template-columns: 1fr !important; {% endcomment %}
-      justify-items: center;          /* center children horizontally */
+      justify-items: center;
       align-items: center;
       width: 100%;
       max-width: 100%;
       margin-right: auto !important;
-      {% comment %} padding: 3.5rem 16px !important; /* symmetric gutters */ {% endcomment %}
+      {% comment %} padding: 3.5rem 16px !important; {% endcomment %}
     }
     .hero .hero-card{
       width: 100%;
       max-width: 280px;
       margin: 0 auto;
-      text-align: left;               /* set to center if preferred */
+      text-align: left;
     }
     .hero .hero-img-container,
     .hero .hero-img-wrap{
@@ -348,7 +360,7 @@
               is the zero-compromise solution for individuals and couples. 
               This isn't just therapy; it's a smartly structured therapeutic strategy where therapy is not serious, but at ease. You get the uncompromised foundation of Aanchal's direct, in-depth assessment , followed by the sustainable support of an Another Light Counselling therapist who benefits from her ongoing, behind-the-scenes supervision. 
 
-              Get expert insight at accessible rates. Your mental health is the best investment you'll ever make; now make it a brilliant one.
+              Get expert insight at accessible rates. Your mental health is the best investment you'll ever make; now make it a brilliant one.
             </p>
             <div class="hero-actions">
               <a

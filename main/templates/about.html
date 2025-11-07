@@ -37,7 +37,7 @@ counselling services by junior and senior mental health counsellors.{% endblock 
     "addressCountry": "IN"
   },
   "image": "https://www.another-light.com/media/members/Aanchal.jpeg",
-    "founder": {
+  "founder": {
     "@type": "Person",
     "name": "Aanchal Narang",
     "jobTitle": "Founder",
@@ -50,38 +50,405 @@ counselling services by junior and senior mental health counsellors.{% endblock 
 
 {% block body %}
 <div id="content">
+  <style>
+    /* ===== Palette ===== */
+    :root{
+      --tangerine:#F08C21;
+      --butter:#F2D88F;
+      --blush:#E36888;
+      --sea:#6698CC;
+      --matcha:#B4B534;
 
-    <div id="topsection">
-        <img src="{% static 'img/about/top_people.svg' %}" id="toppeople"
-            alt="Mental Health & Counselling Services by Expert Counsellors"  />
-    </div>
+      --paper:#FFFCF7;
+      --ink:#2d2a2a;
+      --muted:#6a6767;
+      --card:#ffffff;
+      --ring: rgba(0,0,0,.08);
+      --shadow: 0 10px 28px rgba(0,0,0,.12);
+      --radius: 18px;
 
+      /* availability colors */
+      --avail-open:#46b17b;
+      --avail-wait:#efc24d;
+      --avail-closed:#e65359;
 
-    <div id="aboutcard">
+      /* page width for centered sections */
+      --page: min(1180px, 100% - 64px);
+
+      /* Wider tiles */
+      --card-min: 300px;
+      --card-max: 340px;
+    }
+    #content{ color:var(--ink); }
+
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* ===== Header (off-white canvas with soft shapes) ===== */
+    .team-hero{position:relative;background:var(--paper);display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:32px 40px;align-items:stretch;margin-bottom:32px;overflow:hidden}
+    @media (max-width:1024px){.team-hero{grid-template-columns:1fr;gap:18px;padding:18px}.hero-left,.hero-right{min-height:380px}}
+
+    .hero-shape{position:absolute;filter:blur(26px);opacity:.55;mix-blend-mode:multiply;pointer-events:none}
+    .shape-ball{width:300px;height:300px;left:-80px;top:-60px;background:radial-gradient(circle at 30% 30%,#fff 0%,var(--sea) 35%,var(--sea) 70%,transparent 72%)}
+    .shape-ring{width:360px;height:360px;right:6%;top:8%;background:radial-gradient(circle,transparent 45%,color-mix(in srgb,var(--blush),white 10%) 47%,color-mix(in srgb,var(--blush),white 10%) 58%,transparent 60%)}
+    .shape-tri{width:260px;height:260px;left:40%;bottom:-44px;background:conic-gradient(from 0deg,color-mix(in srgb,var(--matcha),white 8%) 0 120deg,color-mix(in srgb,var(--butter),white 12%) 0 240deg,transparent 0 360deg);clip-path:polygon(50% 0%,0% 100%,100% 100%);filter:blur(18px);opacity:.6}
+    @media (max-width:900px){.shape-ring{display:none}.shape-tri{left:55%;width:220px;height:220px}}
+
+    .hero-left{position:relative;display:flex;align-items:flex-start;justify-content:flex-start;min-height:420px}
+    #aboutcard.hero-card{position:relative;z-index:1;width:100%;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border:1px solid var(--ring);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 24px}
+    #aboutcard.hero-card :where(h1,h2,h3){margin-top:0}
+    #aboutcard.hero-card p{color:var(--muted);line-height:1.6}
+    .hero-right{position:relative;min-height:420px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--ring);box-shadow:var(--shadow);background:#fff;display:flex;align-items:center;justify-content:center}
+    .hero-right img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1);transition:transform .35s ease}
+    .team-hero:hover .hero-right img{transform:scale(1.02)}
+
+    /* ===== Filters + Grid centered to page width ===== */
+    section.filters, section.team-grid { width: var(--page); margin-inline: auto; }
+
+    /* Filters: highlighted card-style */
+    .filters{
+      display:flex; gap:14px; flex-wrap:wrap; align-items:center;
+      margin:32px 0 18px 0; padding:16px;
+      background: color-mix(in srgb, var(--butter) 26%, #fff);
+      border:1px solid color-mix(in srgb, var(--butter), #000 6%);
+      border-radius:14px; box-shadow:0 12px 26px rgba(240, 205, 120, .35);
+    }
+
+    /* Search with built-in icon and focus ring */
+    .filters .search{ flex:1 1 380px; min-width:260px; position:relative; }
+    .filters .search::before{
+      content:""; position:absolute; left:14px; top:50%; transform:translateY(-50%);
+      width:16px;height:16px;border:2px solid var(--muted);border-radius:50%;
+    }
+    .filters .search::after{
+      content:""; position:absolute; left:26px; top:62%;
+      width:10px;height:2px;background:var(--muted); transform:rotate(45deg);
+    }
+    .filters input{
+      width:100%; padding:12px 14px 12px 40px;
+      border-radius:12px; border:1px solid var(--ring); background:#fff;
+      outline:none; transition:border-color .15s ease, box-shadow .15s ease;
+    }
+    .filters input:focus{ border-color:var(--sea); box-shadow:0 0 0 3px color-mix(in srgb, var(--sea) 30%, #fff); }
+
+    /* Availability select */
+    .filters .select{ position:relative; display:flex; align-items:center; }
+    .filters select{
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      padding:12px 40px 12px 14px; border-radius:12px; border:1px solid var(--ring); background:#fff;
+      transition:border-color .15s ease, box-shadow .15s ease;
+    }
+    .filters .select::after{
+      content:""; position:absolute; right:14px; top:50%; transform:translateY(-50%) rotate(45deg);
+      width:8px; height:8px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted); pointer-events:none;
+    }
+    .filters select:focus{ border-color:var(--sea); box-shadow:0 0 0 3px color-mix(in srgb, var(--sea) 30%, #fff); outline:none; }
+
+    /* SPECIAL KEYWORDS as DROPDOWN (multi-checkbox menu) */
+    .filters .multi{ position:relative; }
+    .filters .multi > button{
+      padding:12px 40px 12px 14px; border-radius:12px; border:1px solid var(--ring); background:#fff; cursor:pointer;
+      transition:border-color .15s ease, box-shadow .15s ease;
+    }
+    .filters .multi > button:focus{
+      border-color:var(--sea); box-shadow:0 0 0 3px color-mix(in srgb, var(--sea) 30%, #fff); outline:none;
+    }
+    .filters .multi::after{
+      content:""; position:absolute; right:14px; top:50%; transform:translateY(-50%) rotate(45deg);
+      width:8px; height:8px; border-right:2px solid var(--muted); border-bottom:2px solid var(--muted); pointer-events:none;
+    }
+    .filters .menu{
+      position:absolute; z-index:40; top:calc(100% + 8px); left:0;
+      min-width:260px; max-height:260px; overflow:auto;
+      background:#fff; border:1px solid var(--ring); border-radius:12px; box-shadow:0 12px 24px rgba(0,0,0,.12);
+      padding:10px; display:none;
+    }
+    .filters .menu.open{ display:block; }
+    .filters .menu label{ display:flex; align-items:center; gap:8px; padding:6px 4px; font-size:14px; cursor:pointer; }
+    .filters .menu input[type="checkbox"]{ width:16px; height:16px; }
+
+    .clear-filters{ margin-left:auto; font-size:13px; background:transparent; border:0; text-decoration:underline; color:var(--muted); cursor:pointer; }
+
+    /* ===== Wider, centered grid + extra spacing ===== */
+    .team-grid{
+      display:grid;
+      gap:24px;
+      grid-template-columns: repeat(auto-fit, minmax(var(--card-min), var(--card-max)));
+      justify-content: center;
+      align-items: stretch;
+      margin-block: 28px 56px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--ring);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 6px 18px rgba(0,0,0,.10);
+      transform: translateZ(0);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      position: relative;
+    }
+    .card::after{
+      content:"";
+      position:absolute; left:0; top:0; right:0; height:3px;
+      background: linear-gradient(90deg, var(--sea), var(--tangerine), var(--blush));
+      opacity:0; transition: opacity .18s ease;
+    }
+    .card:hover::after{ opacity:.9; }
+    .card:hover{ transform: translateY(-4px); box-shadow: 0 14px 28px rgba(0,0,0,.16); border-color: color-mix(in srgb, var(--sea), #000 6%); }
+
+    /* Square thumbnail */
+    .card .thumb{position:relative;width:100%;aspect-ratio:1/1;background:#f7f7fb;overflow:hidden}
+    .card .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease}
+    .card:hover .thumb img{transform:scale(1.03)}
+
+    /* Availability badge (status colors) */
+    .badge-availability{
+      position:absolute;left:10px;top:10px;padding:6px 10px;border-radius:999px;font-size:12px;
+      color:#fff;border:1px solid transparent;box-shadow:0 6px 14px rgba(0,0,0,.12)
+    }
+    .badge-availability.is-open{ background:var(--avail-open); border-color:var(--avail-open); }
+    .badge-availability.is-waitlist{ background:var(--avail-wait); border-color:var(--avail-wait); color:#3a2a10; }
+    .badge-availability.is-closed{ background:var(--avail-closed); border-color:var(--avail-closed); }
+
+    .card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px}
+    .name-line{display:flex;gap:8px;align-items:baseline;justify-content:space-between}
+    .name-line h3{margin:0;font-size:16.5px;line-height:1.25}
+    .pronouns{font-size:12px;color:var(--muted)}
+    .designation{font-size:13px;color:var(--muted)}
+
+    /* Tags inside each CARD — randomized palette variants */
+    .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+    .tag{font-size:11px;padding:6px 8px;border-radius:999px;transition:transform .12s ease,filter .12s ease}
+    .tag:hover{transform:translateY(-1px);filter:brightness(1.04)}
+    .tag.v-tangerine{background:color-mix(in srgb,var(--tangerine) 22%,#fff);border:1px solid color-mix(in srgb,var(--tangerine),black 10%);color:#3a2a10}
+    .tag.v-sea{background:color-mix(in srgb,var(--sea) 20%,#fff);border:1px solid color-mix(in srgb,var(--sea),black 10%);color:#1f2e45}
+    .tag.v-matcha{background:color-mix(in srgb,var(--matcha) 22%,#fff);border:1px solid color-mix(in srgb,var(--matcha),black 10%);color:#2b2a22}
+    .tag.v-butter{background:color-mix(in srgb,var(--butter) 26%,#fff);border:1px solid color-mix(in srgb,var(--butter),black 10%);color:#4a3f1a}
+    .tag.v-blush{background:color-mix(in srgb,var(--blush) 22%,#fff);border:1px solid color-mix(in srgb,var(--blush),black 10%);color:#3d2030}
+
+    /* ===== Button: Matcha only for "Book a Session" ===== */
+    .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+    .btn{
+      appearance:none; border:1px solid transparent; color:#fff;
+      padding:10px 13px; border-radius:12px; font-size:13px;
+      text-decoration:none; display:inline-flex;align-items:center;gap:6px;
+      transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn.book{background:var(--matcha);border-color:var(--matcha);box-shadow:0 6px 16px rgba(180,181,52,.28)}
+    .btn.book:hover{filter:brightness(1.06);box-shadow:0 10px 22px rgba(180,181,52,.38);transform:translateY(-1px)}
+    .btn.book:focus{outline:2px solid color-mix(in srgb,var(--matcha),white 30%);outline-offset:2px}
+
+    @media (prefers-reduced-motion: reduce){
+      .card, .btn, .tag{ transition: none !important }
+      .card:hover{ transform:none }
+      .btn:hover, .btn:active, .tag:hover{ transform:none }
+    }
+
+    .empty-state{text-align:center;padding:40px 20px;color:var(--muted);border:1px dashed var(--ring);border-radius:16px;background:#fff}
+    .overlay-link{position:absolute;inset:0;display:block;text-indent:-9999px}
+  </style>
+
+  <!-- ===== HEADER ===== -->
+  <h1 class="sr-only">Meet the Therapists of Another Light Counselling</h1>
+  <section class="team-hero" role="region" aria-label="About Another Light Counselling header">
+    <span class="hero-shape shape-ball" aria-hidden="true"></span>
+    <span class="hero-shape shape-ring" aria-hidden="true"></span>
+    <span class="hero-shape shape-tri"  aria-hidden="true"></span>
+
+    <div class="hero-left">
+      {% if cardcontent and cardcontent.content %}
+      <section id="aboutcard" class="hero-card">
         {{ cardcontent.content | safe }}
+      </section>
+      {% endif %}
     </div>
 
+    <figure class="hero-right" aria-hidden="true">
+      <img src="{% static 'img/about/top_people.svg' %}" alt="">
+    </figure>
+  </section>
 
-    <div id="peoplesection">
+  <!-- ===== FILTERS ===== -->
+  <section class="filters" aria-label="Filters">
+    <div class="search">
+      <input id="searchInput" type="search" placeholder="Search by name or designation…" aria-label="Search team" />
+    </div>
 
-        {% for member in members %}
+    <div class="select">
+      <label for="availabilitySelect" class="sr-only">Availability</label>
+      <select id="availabilitySelect" aria-label="Availability">
+        <option value="">All availability</option>
+        <option value="open">Currently accepting new clients</option>
+        <option value="waitlist">Waitlist only</option>
+        <option value="unavailable">Not taking clients</option>
+      </select>
+    </div>
 
-        <div class="person {{ member.layout_position }}">
-            <div class=" info">
-                <h1>{{ member.name }}</h1>
-                <h2>{{ member.designation }}</h2>
-                <div class="memberinfo" id="{{ member.id }}" data-state="collapsed">
-                    {{ member.tippy_info | safe }}
-                </div>
-                <a onclick="toggleInfo(this)" data-id="{{ member.id }}">READ MORE</a>
-            </div>
-            <img src="{{ member.thumbnail.url }}" class="person-picture" alt="{{ member.img_alt }}" />
+    <!-- Special keywords dropdown (multi) -->
+    <div class="multi" id="tagSelectWrap">
+      <button id="tagsBtn" type="button" aria-haspopup="true" aria-expanded="false">Specializations: Any</button>
+      <div class="menu" id="tagsMenu" role="menu" aria-label="Specializations"></div>
+    </div>
+
+    <button class="clear-filters" id="clearFilters" type="button">Clear filters</button>
+  </section>
+
+  <!-- ===== GRID ===== -->
+  <section class="team-grid" id="teamGrid" aria-live="polite">
+    {% for member in members %}
+      <article class="card"
+        data-name="{{ member.name|lower }}"
+        data-role="{{ member.designation|default_if_none:''|lower }}"
+        data-availability="{{ member.availability|default_if_none:'' }}"
+        data-tags="{% for t in member.keywords.all %}{{ t.name }}{% if not forloop.last %},{% endif %}{% endfor %}">
+        <div class="thumb">
+          <img src="{{ member.thumbnail.url }}" alt="{{ member.img_alt|default:member.name }}" loading="lazy" />
+          {% if member.availability == 'open' %}
+            <span class="badge-availability is-open">Accepting new clients</span>
+          {% elif member.availability == 'waitlist' %}
+            <span class="badge-availability is-waitlist">Waitlist only</span>
+          {% elif member.availability == 'unavailable' %}
+            <span class="badge-availability is-closed">Not taking clients</span>
+          {% endif %}
+          <a class="overlay-link" href="{{ member.get_absolute_url }}">View {{ member.name }}’s profile</a>
         </div>
+        <div class="body">
+          <div class="name-line">
+            <h3><a href="{{ member.get_absolute_url }}" style="color:inherit; text-decoration:none;">{{ member.name }}</a></h3>
+            {% if member.pronouns %}<span class="pronouns">({{ member.pronouns }})</span>{% endif %}
+          </div>
+          {% if member.designation %}<div class="designation">{{ member.designation }}</div>{% endif %}
 
-        {% endfor %}
+          {% if member.keywords.all %}
+            <div class="tag-row">
+              {% for t in member.keywords.all|slice:":5" %}<span class="tag" title="{{ t.name }}">{{ t.name }}</span>{% endfor %}
+            </div>
+          {% endif %}
 
-    </div>
+          <div class="cta-row">
+            {% if member.booking_url %}
+              <a class="btn book" href="{{ member.booking_url }}" target="_blank" rel="noopener">
+                Book a Session with {{ member.name }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+    {% empty %}
+      <div class="empty-state">We’ll add our team here soon. Please check back.</div>
+    {% endfor %}
+  </section>
 
-    <script src="{% static 'js/about.js' %}"></script>
+  <!-- ===== JS ===== -->
+  <script>
+    (function(){
+      const grid = document.getElementById('teamGrid');
+      const search = document.getElementById('searchInput');
+      const avail  = document.getElementById('availabilitySelect');
+      const clearBtn = document.getElementById('clearFilters');
+
+      // New dropdown elements
+      const tagWrap = document.getElementById('tagSelectWrap');
+      const tagsBtn = document.getElementById('tagsBtn');
+      const tagsMenu = document.getElementById('tagsMenu');
+
+      const uniq = arr => [...new Set(arr.filter(Boolean).map(s => s.trim()))];
+
+      const cards = [...grid.querySelectorAll('.card')];
+      const allTags = uniq(cards.flatMap(c => (c.dataset.tags || '').split(','))).sort((a,b)=>a.localeCompare(b));
+
+      // Build the dropdown menu with checkboxes
+      const active = new Set();
+      allTags.forEach(tag => {
+        const id = 'tag-' + tag.replace(/\s+/g,'-').toLowerCase();
+        const label = document.createElement('label');
+        label.htmlFor = id;
+        label.innerHTML = `<input id="${id}" type="checkbox" value="${tag}"> ${tag}`;
+        label.querySelector('input').addEventListener('change', (e)=>{
+          if(e.target.checked) active.add(tag); else active.delete(tag);
+          updateTagsButton();
+          apply();
+        });
+        tagsMenu.appendChild(label);
+      });
+
+      // Open/close dropdown
+      function openMenu(){ tagsMenu.classList.add('open'); tagsBtn.setAttribute('aria-expanded','true'); }
+      function closeMenu(){ tagsMenu.classList.remove('open'); tagsBtn.setAttribute('aria-expanded','false'); }
+      tagsBtn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        if(tagsMenu.classList.contains('open')) closeMenu(); else openMenu();
+      });
+      document.addEventListener('click', (e)=>{
+        if(!tagWrap.contains(e.target)) closeMenu();
+      });
+      document.addEventListener('keydown', (e)=>{
+        if(e.key==='Escape') closeMenu();
+      });
+
+      function updateTagsButton(){
+        if(active.size===0){ tagsBtn.textContent = 'Specializations: Any'; return; }
+        if(active.size<=2){ tagsBtn.textContent = 'Specializations: ' + [...active].join(', '); return; }
+        tagsBtn.textContent = `Specializations: ${active.size} selected`;
+      }
+      updateTagsButton();
+
+      // Randomize tag colors inside each card (visual only)
+      const palette = ['tangerine','sea','matcha','butter','blush'];
+      document.querySelectorAll('.tag-row').forEach(row=>{
+        row.querySelectorAll('.tag').forEach(tag=>{
+          const cls = 'v-' + palette[Math.floor(Math.random()*palette.length)];
+          tag.classList.add(cls);
+        });
+      });
+
+      function apply(){
+        const q  = (search.value || '').trim().toLowerCase();
+        const av = (avail.value || '').trim();
+        let any = false;
+
+        cards.forEach(card=>{
+          const nm=(card.dataset.name||'');
+          const rl=(card.dataset.role||'');
+          const avl=(card.dataset.availability||'');
+          const tgs=(card.dataset.tags||'').toLowerCase();
+
+          let ok = true;
+          if(q) ok = nm.includes(q) || rl.includes(q);
+          if(ok && av) ok = (avl===av);
+          if(ok && active.size) ok = [...active].every(t => tgs.includes(t.toLowerCase()));
+
+          card.style.display = ok ? '' : 'none';
+          if(ok) any = true;
+        });
+
+        let empty = document.getElementById('emptyState');
+        if(!any){
+          if(!empty){
+            empty = document.createElement('div');
+            empty.id='emptyState'; empty.className='empty-state';
+            empty.textContent='No matches found. Try clearing filters or searching a different term.';
+            grid.appendChild(empty);
+          }
+        }else if(empty){ empty.remove(); }
+      }
+
+      // Clear filters
+      clearBtn.addEventListener('click', ()=>{
+        search.value=''; avail.value='';
+        active.clear();
+        tagsMenu.querySelectorAll('input[type="checkbox"]').forEach(cb=>{ cb.checked=false; });
+        updateTagsButton();
+        apply();
+      });
+
+      search.addEventListener('input', apply);
+      avail.addEventListener('change', apply);
+
+      apply();
+    })();
+  </script>
 </div>
 {% endblock %}

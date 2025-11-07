@@ -9,7 +9,12 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.templatetags.static import static
 from django.urls import reverse
 
-from .models import Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails, Service,DoIFeel, Policy, Committee, DynamicContent , Jd, OnboardingPlan
+from .models import (
+    Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails,
+    Service, DoIFeel, Policy, Committee, DynamicContent, Jd, OnboardingPlan,
+    # NEW models for Team module (add these in models.py)
+    TeamPage, SpecializationTag,
+)
 from .forms import ContactForm, PpcContactForm
 
 
@@ -17,63 +22,64 @@ from .forms import ContactForm, PpcContactForm
 
 def get_paragraph_preview(content):
     preview = ''
-
     try:
         first_para = str(content).split('</p>')[0].split('<p>')[1]
         first_twenty = first_para.split(' ')[:35]
         # remove comma from last
-        if first_twenty[-1][-1] == ',':
+        if first_twenty and first_twenty[-1] and first_twenty[-1][-1] == ',':
             first_twenty[-1] = first_twenty[-1][:-1]
-
         preview = '{}...'.format(' '.join(first_twenty), '...')
     except IndexError as ie:
         print(str(ie))
         preview = content
-
     return preview
 
+
 def get_protocol():
-    if os.environ.get('DEBUG').lower() == 'true':
+    # be robust if DEBUG not set
+    if str(os.environ.get('DEBUG', '')).lower() == 'true':
         return 'http'
     else:
         return 'https'
 
+
 def get_full_url(ending):
     return '%s://%s%s' % (get_protocol(), Site.objects.get_current().domain, ending)
+
 
 def get_header_contacts():
     contactdetails = ContactDetails.objects.all()
     h_contacts = {}
-
     for cd in contactdetails:
         h_contacts[cd.key] = cd
-
     return h_contacts
 
 
-# meet our team youtube intro
-# def get_youtube_embed_url(orig_url):
-#     """Return a valid YouTube embed URL with autoplay & mute, or None."""
-#     if not orig_url:
-#         return None
-
-#     parsed = urlparse(orig_url)
-#     video_id = None
-
-#     # case 1: youtu.be/VIDEO_ID
-#     if 'youtu.be' in parsed.netloc:
-#         video_id = parsed.path.lstrip('/')
-
-#     # case 2: youtube.com/watch?v=VIDEO_ID
-#     elif 'youtube.com' in parsed.netloc:
-#         qs = parse_qs(parsed.query)
-#         video_id = qs.get('v', [None])[0]
-
-#     if not video_id:
-#         return None
-
-#     # autoplay=1&mute=1 so browsers will actually play it
-#     return f"https://www.youtube.com/embed/{video_id}?autoplay=1&mute=1"
+# ---- Meet Our Team: YouTube helper ----
+def get_youtube_embed_url(orig_url: str):
+    """
+    Return a valid YouTube embed URL with autoplay & mute, or '' if not parseable.
+    Supports youtu.be/<id> and youtube.com/watch?v=<id>.
+    """
+    if not orig_url:
+        return ''
+    try:
+        parsed = urlparse(orig_url)
+        video_id = None
+        # case 1: youtu.be/VIDEO_ID
+        if 'youtu.be' in parsed.netloc:
+            video_id = parsed.path.lstrip('/')
+        # case 2: youtube.com/watch?v=VIDEO_ID
+        elif 'youtube.com' in parsed.netloc:
+            qs = parse_qs(parsed.query)
+            video_id = qs.get('v', [None])[0]
+        if not video_id:
+            return ''
+        # autoplay=1&mute=1 so browsers will actually play it
+        return f"https://www.youtube.com/embed/{video_id}?autoplay=1&mute=1"
+    except Exception as e:
+        print(f"YouTube URL parse error: {e}")
+        return ''
 
 
 # ------------------- VIEWS --------------------------
@@ -81,16 +87,13 @@ def get_header_contacts():
 def pctThankYou(request):
     return render(request, 'pct_thankyou.html')
 
-def psychologicalCounsellingTherapy(request):
 
+def psychologicalCounsellingTherapy(request):
     if request.method == 'POST':
-        
-        cform = PpcContactForm(request.POST)        
+        cform = PpcContactForm(request.POST)
         if cform.is_valid():
             cform.save()
-
         return redirect('psychological-counselling-therapy-thankyou')
-
     else:
         form = PpcContactForm()
         whatsappnum = ContactDetails.objects.get(key='phone')
@@ -102,7 +105,6 @@ def psychologicalCounsellingTherapy(request):
 
 
 def index(request):
-
     # GET STATS
     stats = Statistic.objects.all()
 
@@ -115,9 +117,6 @@ def index(request):
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
 
-    # GET HOW TO FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id') 
-    
     # GET DYANMIC CONTENT
     s1 = DynamicContent.objects.get(key='home_section_1')
     s2 = DynamicContent.objects.get(key='home_section_2')
@@ -129,14 +128,13 @@ def index(request):
         'contactdetails': contactdetails,
         'services': services,
         'doifeels': doifeels,
-        #'howtofeels':howtofeels,
         'h_contacts': get_header_contacts(),
         's1': s1,
         's2': s2,
         's3': s3
     }
-
     return render(request, 'index.html', context=context)
+
 
 def about(request):
     # members = Member.objects.all().order_by('order') // order by order id
@@ -153,16 +151,13 @@ def about(request):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
-    
-    # GET HOW TO FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id') 
 
     # PROCESSING
     for i in range(0, len(members)):
         memberobj = members[i]
-        
+
         # SET LAYOUT POSITION
-        if i == 0 or i%2 == 0:
+        if i == 0 or i % 2 == 0:
             memberobj.layout_position = 'right'
         else:
             memberobj.layout_position = 'left'
@@ -175,13 +170,54 @@ def about(request):
         'members': members,
         'contactdetails': contactdetails,
         'services': services,
-        'doifeels':doifeels,
-        # 'howtofeels':howtofeels,
+        'doifeels': doifeels,
         'cardcontent': cardcontent,
         'h_contacts': get_header_contacts()
     }
-
     return render(request, 'about.html', context=context)
+
+
+# ---------- NEW: Team directory & profile ----------
+
+def team_list(request):
+    """
+    Meet Our Team directory page.
+    Expects TeamPage (singleton) and Member entries.
+    """
+    team_page = TeamPage.objects.first()
+    members = Member.objects.all().order_by('order', 'name')
+
+    # Optional filtering by specialization tag (?tag=Trauma). Requires keywords M2M on Member.
+    tag_name = request.GET.get('tag')
+    if tag_name:
+        members = members.filter(keywords__name__iexact=tag_name).distinct()
+
+    context = {
+        'team_page': team_page,
+        'members': members,
+        'h_contacts': get_header_contacts(),
+        'services': Service.objects.all().order_by('id'),
+        'doifeels': DoIFeel.objects.all().order_by('id'),
+    }
+    return render(request, 'team_list.html', context)
+
+
+def member_profile(request, slug):
+    """
+    Individual therapist profile page.
+    """
+    member = get_object_or_404(Member, slug=slug)
+    embed_url = get_youtube_embed_url(getattr(member, 'intro_video_url', ''))
+
+    context = {
+        'member': member,
+        'embed_url': embed_url,
+        'h_contacts': get_header_contacts(),
+        'services': Service.objects.all().order_by('id'),
+        'doifeels': DoIFeel.objects.all().order_by('id'),
+    }
+    return render(request, 'member_profile.html', context)
+
 
 def faqs(request):
     faqs = FAQ.objects.all().order_by('id')
@@ -193,10 +229,7 @@ def faqs(request):
     services = Service.objects.all().order_by('id')
 
     # GET DO I FEEL
-    doifeels = DoIFeel.objects.all().order_by('id') 
-    
-    # GET HOW TO FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id') 
+    doifeels = DoIFeel.objects.all().order_by('id')
 
     # GENERATE ALL TOOLTIP HTMLS
     for obj in faqs:
@@ -204,11 +237,8 @@ def faqs(request):
         print(obj.tippy_answer)
 
     # SPLIT INTO COLUMNS
-    faq1 = faqs[:int(len(faqs)/2)]
-    faq2 = faqs[int(len(faqs)/2) :]
-
-    # print(faq1)
-    # print(faq2)
+    faq1 = faqs[:int(len(faqs) / 2)]
+    faq2 = faqs[int(len(faqs) / 2):]
 
     context = {
         'faqs': faqs,
@@ -216,11 +246,11 @@ def faqs(request):
         'faq2': faq2,
         'contactdetails': contactdetails,
         'services': services,
-        'doifeels':doifeels,
-        # 'howtofeels':howtofeels,
+        'doifeels': doifeels,
         'h_contacts': get_header_contacts()
     }
     return render(request, 'faqs.html', context=context)
+
 
 def resources(request):
     resources = Resource.objects.all().order_by('-id')
@@ -232,21 +262,17 @@ def resources(request):
     services = Service.objects.all().order_by('id')
 
     # GET DO I FEEL
-    doifeels = DoIFeel.objects.all().order_by('id') 
-    
-    # GET HOW TO FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id') 
+    doifeels = DoIFeel.objects.all().order_by('id')
 
     context = {
         'resources': resources,
-        'doifeels':doifeels,
-        # 'howtofeels':howtofeels,
+        'doifeels': doifeels,
         'contactdetails': contactdetails,
         'services': services,
         'h_contacts': get_header_contacts()
     }
-
     return render(request, 'resources.html', context=context)
+
 
 def get_review_doodle_list(reviews):
     # CREATE NEEDED OBJECTS
@@ -274,35 +300,27 @@ def get_review_doodle_list(reviews):
         'obj': None
     }
 
-
-
-
-
-
     # INITIALISE LIST AND OTHER VARS
-    review_list = []    
-
-    # VARIABLES NEEDED
+    review_list = []
     review_indices = []
     num_of_cells = len(reviews) * 2
-    
+
     # DECIDE REVIEW INDICES
     for i in range(0, num_of_cells):
         curr = i
-        nex = i+1
-        prev = i-1
+        nex = i + 1
+        prev = i - 1
 
         if curr == 0:
             continue
 
-        if ( nex % 2 == 0 ) and ( nex % 4 != 0 ):
+        if (nex % 2 == 0) and (nex % 4 != 0):
             review_indices.append(curr)
             continue
 
-        if ( curr % 2 == 0 ) and ( curr % 4 != 0 ):
+        if (curr % 2 == 0) and (curr % 4 != 0):
             review_indices.append(curr)
             continue
-
 
     # NOW FILL IN THE POSITIONS
     review_head = 0
@@ -311,9 +329,9 @@ def get_review_doodle_list(reviews):
 
         # FIRST CELL OR IF THE CELL IS A MULTIPLE OF 4, IT'S A LEFT DOODLE
         # AND IS NOT SECOND LAST
-        if ( i == 0 ) or ( i % 4 == 0 ):
+        if (i == 0) or (i % 4 == 0):
             # SECOND LAST MUST BE EMPTY
-            if ( i + 1 < num_of_cells-1 ):
+            if (i + 1 < num_of_cells - 1):
                 review_list.append({
                     'type': 'doodle',
                     'position': 'left',
@@ -327,10 +345,10 @@ def get_review_doodle_list(reviews):
                 })
 
         # IF THE PLACE IS FOR A REVIEW, ADD A REVIEW
-        if i in review_indices:            
+        if i in review_indices:
             review_list.append({
                 'type': 'review',
-                'position': 'left' if i%2==0 else 'right',
+                'position': 'left' if i % 2 == 0 else 'right',
                 'obj': reviews[review_head]
             })
             review_head += 1
@@ -338,15 +356,16 @@ def get_review_doodle_list(reviews):
 
         # IF THE CELL IS ODD AND THE NEXT CELL IS A MULTIPLE OF 4, IT'S A RIGHT DOODLE
         # ONLY IF THIS ISN'T THE LAST ELEMENT
-        if ( i % 2 != 0 ) and ( (i+1) % 4 == 0 ) and ( i < num_of_cells - 1 ):
+        if (i % 2 != 0) and ((i + 1) % 4 == 0) and (i < num_of_cells - 1):
             review_list.append(right_item_1)
             continue
 
     return review_list
-    
+
+
 def reviews(request):
     reviews = Review.objects.all().order_by('-id')
-    
+
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
@@ -355,48 +374,39 @@ def reviews(request):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
-    
-    # GET HOW TO FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id') 
 
     reviews_and_doodles = get_review_doodle_list(reviews)
     context = {
         'reviews': reviews_and_doodles,
         'contactdetails': contactdetails,
         'services': services,
-        'doifeels' :doifeels,
-        # 'howtofeels':howtofeels,
+        'doifeels': doifeels,
         'h_contacts': get_header_contacts()
     }
-
     return render(request, 'reviews.html', context=context)
+
 
 def services(request):
     services = Service.objects.all().order_by('id')
-    # reviews_and_doodles = get_review_doodle_list(reviews)
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
     # GET DO I FEEL
-    doifeels = DoIFeel.objects.all().order_by('id') 
-    
-    # GET HOW TO FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id') 
+    doifeels = DoIFeel.objects.all().order_by('id')
 
     context = {
-        'doifeels':doifeels,
-        # 'howtofeels':howtofeels,
+        'doifeels': doifeels,
         'services': services,
         'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
-
     return render(request, 'services.html', context=context)
+
 
 def service(request, slug):
     # FETCH OBJ
-    service_obj=Service.objects.get(slug = str(slug))
+    service_obj = Service.objects.get(slug=str(slug))
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
@@ -405,52 +415,41 @@ def service(request, slug):
     services = Service.objects.all().order_by('id')
 
     # GET DO I FEEL
-    doifeels = DoIFeel.objects.all().order_by('id') 
+    doifeels = DoIFeel.objects.all().order_by('id')
 
-    # GET HOW TO FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id') 
- 
     # CREATE CONTEXT
     context = {
         'service': service_obj,
         'contactdetails': contactdetails,
         'services': services,
-        'doifeels' :doifeels,
-        # 'howtofeels':howtofeels,
+        'doifeels': doifeels,
         'h_contacts': get_header_contacts()
     }
- 
-    # RETURN
     return render(request, 'service.html', context=context)
+
 
 def doifeels(request):
     # GET DO I FEEL
-    doifeels = DoIFeel.objects.all().order_by('id') 
-    
-    # GET HOW TO FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id')    
+    doifeels = DoIFeel.objects.all().order_by('id')
 
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
-    
-    # reviews_and_doodles = get_review_doodle_list(reviews)
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
     context = {
         'doifeels': doifeels,
-        # 'howtofeels':howtofeels,
         'services': services,
         'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
-
     return render(request, 'doifeels.html', context=context)
+
 
 def doifeel(request, slug):
     # FETCH OBJ
-    doifeel_obj=DoIFeel.objects.get(slug = str(slug))
+    doifeel_obj = DoIFeel.objects.get(slug=str(slug))
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
@@ -460,34 +459,27 @@ def doifeel(request, slug):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
-    
-    # GET HOW TO FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id') 
 
     # CREATE CONTEXT
     context = {
         'doifeel': doifeel_obj,
         'contactdetails': contactdetails,
         'services': services,
-        'doifeels':doifeels,
-        # 'howtofeels':howtofeels,
+        'doifeels': doifeels,
         'h_contacts': get_header_contacts()
     }
-
-    # RETURN
     return render(request, 'doifeel.html', context=context)
+
 
 def careers(request):
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
-    
+
     # GET careers
-    careers = Jd.objects.all().order_by('id')    
+    careers = Jd.objects.all().order_by('id')
 
     # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
-    
-    # reviews_and_doodles = get_review_doodle_list(reviews)
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
@@ -499,13 +491,12 @@ def careers(request):
         'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
     }
-
     return render(request, 'careers.html', context=context)
 
+
 def jd(request, slug):
-    
     # FETCH OBJ
-    jd_obj= Jd.objects.get(slug = str(slug))
+    jd_obj = Jd.objects.get(slug=str(slug))
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
@@ -515,33 +506,24 @@ def jd(request, slug):
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
-    
-    # GET DO I FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id')
 
     # CREATE CONTEXT
     context = {
         'jd': jd_obj,
         'contactdetails': contactdetails,
         'services': services,
-        'doifeels':doifeels,
-        # 'howtofeels':howtofeels,
+        'doifeels': doifeels,
         'h_contacts': get_header_contacts()
     }
-
-    # RETURN
     return render(request, 'jd.html', context=context)
 
-def contact(request):
 
+def contact(request):
     if request.method == 'POST':
-        
-        cform = ContactForm(request.POST)        
+        cform = ContactForm(request.POST)
         if cform.is_valid():
             cform.save()
-
         return HttpResponseRedirect(reverse('contact') + '#promptoverlay')
-
     else:
         contactdetails = ContactDetails.objects.all()
         form = ContactForm()
@@ -551,26 +533,21 @@ def contact(request):
 
         # GET DO I FEEL
         doifeels = DoIFeel.objects.all().order_by('id')
-        
-        # GET HOW TO FEEL
-        # howtofeels = HowToFeel.objects.all().order_by('id') 
 
         context = {
             'form': form,
             'contactdetails': contactdetails,
             'services': services,
-            'doifeels':doifeels,
-            # 'howtofeels':howtofeels,
+            'doifeels': doifeels,
             'h_contacts': get_header_contacts()
         }
-
-
         return render(request, 'contact.html', context=context)
+
 
 def post(request, slug):
     # FETCH OBJ
-    post_obj=Post.objects.get(slug = str(slug))
- 
+    post_obj = Post.objects.get(slug=str(slug))
+
     # HUMAN FRIENDLY DATE
     hfr_date = post_obj.created.strftime('%e %b %Y')
     post_obj.hfr_date = hfr_date
@@ -593,7 +570,7 @@ def post(request, slug):
     metadescription = post_obj.meta_description
     if str(metadescription) == '':
         metadescription = get_paragraph_preview(str(post_obj.content))
- 
+
     # CREATE CONTEXT
     context = {
         'title': post_obj.title,
@@ -604,96 +581,48 @@ def post(request, slug):
         'post': post_obj,
         'contactdetails': contactdetails,
         'services': services,
-        'doifeels':doifeels,
+        'doifeels': doifeels,
         'h_contacts': get_header_contacts()
     }
- 
-    # RETURN
     return render(request, 'post.html', context=context)
- 
+
+
 def blog(request, pageno=1):
     # FETCH ALL POSTS
-    # posts = Post.objects.filter(p_type__type_name = typename).exclude(slug='about').order_by('-created', 'title')
     posts = Post.objects.all().order_by('-created', 'title')
-    # postscount = len(posts)
- 
-    # # PAGINATE
-    # paginator = Paginator(posts, 10)
-    # page_num = int(pageno)
-    # page_obj = paginator.get_page(page_num)
-    # posts = page_obj.object_list
 
-    # # GET CONTACTS FOR FOOTER
+    # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
-    # # GET SERVICES FOR FOOTER
+    # GET SERVICES FOR FOOTER
     services = Service.objects.all().order_by('id')
-    
+
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
-    
-    # GET HOW TO FEEL
-    # howtofeels = HowToFeel.objects.all().order_by('id') 
 
-    # # HUMAN FRIENDLY DATE
-    # for post in posts:
-    #     hfr_date = post.created.strftime('%e %b %Y')
-    #     post.hfr_date = hfr_date
- 
-    #     post.preview = str(post.content).split('</p>')[0].split('<p>')[1]
- 
-    # # SET CONTEXT
     context = {
         'posts': posts,
-        # 'postscount': postscount,
-        # 'pageinator': paginator,
-        # 'page_obj': page_obj,
         'contactdetails': contactdetails,
         'services': services,
-        'doifeels' :doifeels,
-        # 'howtofeels':howtofeels,
+        'doifeels': doifeels,
         'h_contacts': get_header_contacts()
     }
-
-    # RETURN
     return render(request, 'posts.html', context=context)
-    # return render(request, 'posts.html')
+
 
 def policy(request, slug):
-
     # FETCH OBJ
-    policy_obj=Policy.objects.get(slug = str(slug))
-
-    context = {
-        'policy': policy_obj
-    }
-
+    policy_obj = Policy.objects.get(slug=str(slug))
+    context = {'policy': policy_obj}
     return render(request, 'policy.html', context=context)
 
+
 def committee(request, slug):
-
     # FETCH OBJ
-    committee_obj=Committee.objects.get(slug = str(slug))
-
-    context = {
-        'committee': committee_obj
-    }
-
+    committee_obj = Committee.objects.get(slug=str(slug))
+    context = {'committee': committee_obj}
     return render(request, 'committee.html', context=context)
 
-# meet our team
-# def member_profile(request, slug):
-#     member = get_object_or_404(Member, slug=slug)
-#     embed_url = get_youtube_embed_url(member.intro_video_url)
-#     context = {
-#         'member': member,
-#         'embed_url': embed_url,
-#         'contactdetails': ContactDetails.objects.all(),
-#         'services': Service.objects.all().order_by('id'),
-#         'doifeels': DoIFeel.objects.all().order_by('id'),
-#         'h_contacts': get_header_contacts(),
-#     }
-#     return render(request, 'member_profile.html', context)
 
 def onboarding_plan(request):
     plan = OnboardingPlan.objects.first()
@@ -795,8 +724,8 @@ def onboarding_plan(request):
             "description": plan.renewal2_description,
         },
     ]
-    services  = Service.objects.all().order_by('id')
-    doifeels  = DoIFeel.objects.all().order_by('id')
+    services = Service.objects.all().order_by('id')
+    doifeels = DoIFeel.objects.all().order_by('id')
 
     context = {
         "plan": plan,
@@ -804,8 +733,7 @@ def onboarding_plan(request):
         "plans": plans,
         "renewals": renewals,
         "h_contacts": get_header_contacts(),
-          "services": services, 
+        "services": services,
         "doifeels": doifeels,
     }
     return render(request, "onboarding_plan.html", context)
-

@@ -67,5 +67,10 @@ urlpatterns = [
       views.onboarding_plan,
       name="onboarding_plan"
     ),
+    path(
+      "aanchal-onboarding-plan",
+      views.onboarding_plan,
+      name="onboarding_plan"
+    ),
  
 ]

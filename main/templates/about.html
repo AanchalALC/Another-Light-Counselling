@@ -305,12 +305,12 @@ counselling services by junior and senior mental health counsellors.{% endblock 
         data-tags="{% for t in member.keywords.all %}{{ t.name }}{% if not forloop.last %},{% endif %}{% endfor %}">
         <div class="thumb">
           <img src="{{ member.thumbnail.url }}" alt="{{ member.img_alt|default:member.name }}" loading="lazy" />
-          {% if member.availability == 'open' %}
-            <span class="badge-availability is-open">Accepting new clients</span>
+         {% if member.availability == 'open' %}
+            <div class="availability open">Currently accepting new clients</div>
           {% elif member.availability == 'waitlist' %}
-            <span class="badge-availability is-waitlist">Waitlist only</span>
+            <div class="availability waitlist">Waitlist only</div>
           {% elif member.availability == 'unavailable' %}
-            <span class="badge-availability is-closed">Not taking clients</span>
+            <div class="availability closed">Not taking clients</div>
           {% endif %}
           <a class="overlay-link" href="{{ member.get_absolute_url }}">View {{ member.name }}’s profile</a>
         </div>

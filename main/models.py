@@ -79,12 +79,24 @@ class Member(models.Model):
     bio_long        = RichTextUploadingField(blank=True, default='')         # full intro (can copy from info)
     intro_video_url = models.URLField(blank=True, default='')                # raw YouTube URL
 
-    AVAIL_CHOICES = (
-        ('open',        'Accepting new clients'),
-        ('waitlist',    'Waitlist only'),
+    AVAILABILITY_CHOICES = [
+        ('open', 'Accepting new clients'),
+        ('waitlist', 'Waitlist only'),
         ('unavailable', 'Not taking clients'),
+    ]
+    availability = models.CharField(
+        max_length=20,
+        choices=AVAILABILITY_CHOICES,
+        blank=True,
+        null=True,
+        default=''
     )
-    availability = models.CharField(max_length=12, choices=AVAIL_CHOICES, default='open')
+    # AVAIL_CHOICES = (
+    #     ('open',        'Accepting new clients'),
+    #     ('waitlist',    'Waitlist only'),
+    #     ('unavailable', 'Not taking clients'),
+    # )
+    # availability = models.CharField(max_length=12, choices=AVAIL_CHOICES, default='open')
 
     # --- Taxonomy & qualifications ---
     keywords       = models.ManyToManyField('SpecializationTag', blank=True, related_name='members')

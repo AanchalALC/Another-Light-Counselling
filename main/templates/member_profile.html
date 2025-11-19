@@ -46,7 +46,7 @@
     a.back{ display:inline-flex; align-items:center; gap:8px; margin:6px 0 16px 0; text-decoration:none; color:var(--sea); font-size:14px; }
     a.back:hover{ text-decoration:underline; }
 
-    /* ===== HERO (info left; right = VIDEO + Education + CTAs) ===== */
+    /* ===== HERO (info left; right = Education + CTAs) ===== */
     .profile-hero{
       display:grid; grid-template-columns: 1.25fr .75fr; gap:28px; align-items:start;
       background: linear-gradient(180deg, color-mix(in srgb, var(--butter) 13%, #fff), #fff 48%, #fff);
@@ -79,22 +79,18 @@
     .mini-pill.desig{ background:color-mix(in srgb, var(--sea) 9%, #fff); border-color:color-mix(in srgb, var(--sea), black 10%);}
     .mini-pill.desig .dot{ background:var(--sea); }
 
-    /* === Mobile layout changes ===
-       1) Stack name/keywords under the photo
-       2) Make the photo a bit bigger on very small devices
-       3) Align inner widths so nothing overflows
-    */
+    /* === Mobile layout changes === */
     @media (max-width: 700px){
       .head-row{ grid-template-columns: 1fr; gap:14px; align-items:start; }
       .name-wrap h1,
-      .name-sub{ margin-left:0; }                /* match outer container width */
+      .name-sub{ margin-left:0; }
     }
     @media (max-width: 640px){
-      :root{ --photo: 160px; }                   /* bigger than before for tiny screens */
+      :root{ --photo: 160px; }
       .profile-photo{ border-radius:12px; }
     }
     @media (max-width: 380px){
-      :root{ --photo: 170px; }                   /* a touch larger on very small phones */
+      :root{ --photo: 170px; }
     }
 
     /* Meta row under the photo+name (languages) */
@@ -128,8 +124,9 @@
       max-width:100%; overflow-wrap:anywhere;
     }
 
-    /* Right column: video + education + CTAs */
+    /* Right column: education + CTAs */
     .media-col{ order:2; display:flex; flex-direction:column; gap:14px; max-width:100%; }
+
     .video{
       width:100%;
       position:relative;
@@ -138,6 +135,7 @@
       border-radius:12px;
       overflow:hidden;
       border:1px solid var(--ring);
+      margin-top:10px;
     }
     .video iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
 
@@ -152,6 +150,7 @@
 
     /* CTAs stack under education (palette solids with hover) */
     .cta-stack{ display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+
     .btn{
       appearance:none; border:1px solid transparent; border-radius:12px;
       padding:12px 16px; font-size:14px; text-decoration:none; cursor:pointer;
@@ -175,6 +174,18 @@
       box-shadow:0 12px 24px rgba(0,0,0,.16);
     }
 
+    /* New: CTA row under long bio */
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+    }
+    .cta-row .btn{
+      width:auto;
+      align-self:flex-start;
+    }
+
     /* Sections below hero */
     .rule{ height:1px; background:var(--ring); width:100%; margin:24px 0; border:0; }
     .section h2{ margin:0 0 10px 0; font-size:20px; }
@@ -188,14 +199,23 @@
       .about-brief{ font-size:14.5px; line-height:1.7; }
       .edu-box, .edu-box .rich{ font-size:14.5px; }
       .edu-box h2{ font-size:18px; }
-      .longform .rich{ font-size:15px; }  /* downsize long bio text slightly */
-      .cta-stack{ align-items:center; }   /* center the buttons container */
-      .cta-stack .btn{ width:86%; align-self:center; } /* slightly narrower buttons on mobile */
+      .longform .rich{ font-size:15px; }
+      .cta-stack{ align-items:center; }
+      .cta-stack .btn{ width:86%; align-self:center; }
+
+      /* For mobile: row CTAs become full-width stacked for tap targets */
+      .cta-row{
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .cta-row .btn{
+        width:100%;
+      }
     }
     @media (max-width: 380px){
       .about-brief{ font-size:14px; }
       .longform .rich{ font-size:14.5px; }
-      .cta-stack .btn{ width:82%; }       /* a bit narrower on very small phones */
+      .cta-stack .btn{ width:82%; }
     }
   </style>
 
@@ -204,7 +224,7 @@
 
     <!-- HERO -->
     <section class="profile-hero">
-      <!-- LEFT: photo + name (with pronouns & designation under it), then language + availability + tags, then summary -->
+      <!-- LEFT: photo + name, then keywords, then VIDEO, then summary -->
       <div class="info">
         <div class="head-row">
           <figure class="profile-photo">
@@ -244,6 +264,20 @@
         </div>
         {% endif %}
 
+        {% if member.intro_video_url %}
+        <div class="video">
+          <iframe
+            id="videoIframeHero"
+            src=""
+            title="Intro video"
+            loading="eager"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        {% endif %}
+
         {% with summary=member.info|default_if_none:member.bio_long %}
         <div class="about-brief">
           {{ summary|striptags|truncatewords:50 }}
@@ -251,29 +285,8 @@
         {% endwith %}
       </div>
 
-      <!-- RIGHT: video, then Educational background, then CTAs -->
+      <!-- RIGHT: CTAs then Educational background -->
       <div class="media-col">
-        {% if member.intro_video_url %}
-          <div class="video">
-            <iframe
-              id="videoIframeHero"
-              src=""
-              title="Intro video"
-              loading="eager"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen>
-            </iframe>
-          </div>
-        {% endif %}
-
-        {% if member.certifications %}
-          <div class="edu-box">
-            <h2>Educational background</h2>
-            <div class="rich">{{ member.certifications|safe }}</div>
-          </div>
-        {% endif %}
-
         <div class="cta-stack">
           {% if member.booking_url %}
           <a class="btn primary" href="{{ member.booking_url }}" target="_blank" rel="noopener">
@@ -293,6 +306,12 @@
             <a class="btn sea" href="https://www.another-light.com/" target="_blank" rel="noopener">Signature plans</a>
           {% endif %}
         </div>
+
+        {% if member.certifications %}
+          <div class="edu-box">
+            <div class="rich">{{ member.certifications|safe }}</div>
+          </div>
+        {% endif %}
       </div>
     </section>
 
@@ -301,6 +320,26 @@
       <h2>Full Biography</h2>
       <div class="rich">
         {% if member.bio_long %}{{ member.bio_long|safe }}{% else %}{{ member.info|safe }}{% endif %}
+      </div>
+
+      <!-- Same CTAs again, now as a row under the long bio -->
+      <div class="cta-row">
+        {% if member.booking_url %}
+        <a class="btn primary" href="{{ member.booking_url }}" target="_blank" rel="noopener">
+          Book a Session with {{ member.name }}
+        </a>
+        {% endif %}
+        {% if member.blog_url %}
+        <a class="btn sea" href="{{ member.blog_url }}" target="_blank" rel="noopener">Checkout my Therapy Bundles</a>
+        {% endif %}
+        {% if member.media_url %}
+        <a class="btn blush" href="{{ member.media_url }}" target="_blank" rel="noopener">Know My Journey</a>
+        {% endif %}
+
+        {% if member.name == "Aanchal Narang" %}
+          <a class="btn tangerine" href="https://www.another-light.com/" target="_blank" rel="noopener">Structured Support from Aanchal</a>
+          <a class="btn sea" href="https://www.another-light.com/" target="_blank" rel="noopener">Signature plans</a>
+        {% endif %}
       </div>
     </section>
   </div>
@@ -328,7 +367,7 @@
 
       function ytEmbed(u){
         if (u.hostname.includes('youtu.be')) {
-          const id = u.pathname.replace(/^\/+/, '').split('/')[0];   // FIX: proper split
+          const id = u.pathname.replace(/^\/+/, '').split('/')[0];
           return id ? `https://www.youtube.com/embed/${id}` : '';
         }
         if (u.hostname.includes('youtube.com')) {
@@ -354,10 +393,10 @@
         try{
           const u = new URL(urlStr);
           u.searchParams.set('autoplay','1');
-          u.searchParams.set('mute','1');             // required for autoplay on most browsers
+          u.searchParams.set('mute','1');
           u.searchParams.set('rel','0');
           u.searchParams.set('modestbranding','1');
-          u.searchParams.set('playsinline','1');      // iOS inline playback
+          u.searchParams.set('playsinline','1');
           return u.toString();
         }catch(e){ return urlStr; }
       }

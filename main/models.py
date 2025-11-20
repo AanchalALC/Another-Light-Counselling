@@ -78,6 +78,11 @@ class Member(models.Model):
     short_bio       = models.TextField(blank=True, default='')               # for cards/previews
     bio_long        = RichTextUploadingField(blank=True, default='')         # full intro (can copy from info)
     intro_video_url = models.URLField(blank=True, default='')                # raw YouTube URL
+    
+    is_therapist = models.BooleanField(
+        default=True,
+        help_text="Tick for anyone who actually does therapy sessions."
+    )
 
     AVAILABILITY_CHOICES = [
         ('open', 'Accepting new clients'),

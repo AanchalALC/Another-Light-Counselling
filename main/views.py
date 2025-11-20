@@ -138,8 +138,12 @@ def index(request):
 
 def about(request):
     # members = Member.objects.all().order_by('order') // order by order id
-    members = Member.objects.all().order_by('name')
-
+    # members = Member.objects.all().order_by('name')
+    members = (
+        Member.objects.all()
+        .order_by("-is_therapist", "name")
+    )
+    
     # GET CARD CONTENT
     cardcontent = DynamicContent.objects.get(key='about_card')
 

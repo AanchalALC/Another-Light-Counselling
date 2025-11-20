@@ -240,13 +240,15 @@
               {% if member.designation %}
                 <span class="mini-pill desig"><span class="dot"></span>{{ member.designation }}</span>
               {% endif %}
-             {% if member.availability == 'open' %}
+            {% if member.is_therapist %}
+              {% if member.availability == 'open' %}
                 <div class="availability open">Currently accepting new clients</div>
               {% elif member.availability == 'waitlist' %}
                 <div class="availability waitlist">Waitlist only</div>
               {% elif member.availability == 'unavailable' %}
                 <div class="availability closed">Not taking clients</div>
               {% endif %}
+            {% endif %}
               <div class="meta">
                 {% if member.languages %}
                   <span class="pill lang"><span class="dot"></span>Languages: {{ member.languages }}</span>

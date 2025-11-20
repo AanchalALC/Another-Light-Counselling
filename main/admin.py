@@ -40,13 +40,13 @@ class ReviewAdmin(admin.ModelAdmin):
 # --- NEW/UPDATED: Member admin ---
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('name','pronouns','designation','availability','is_featured','order')
-    list_filter  = ('availability','is_featured','keywords')
+    list_display = ('name','pronouns','designation','availability','is_featured','order', "is_therapist")
+    list_filter  = ('availability','is_featured','keywords',"is_therapist" )
     search_fields = ('name','designation','languages')
     filter_horizontal = ('keywords',)  # <-- nicer UI for ManyToMany
     prepopulated_fields = {"slug": ("name",)}
     ordering = ('order','name')
-
+    
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     exclude = ('site',)

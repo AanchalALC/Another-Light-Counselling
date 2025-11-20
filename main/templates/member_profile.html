@@ -280,11 +280,12 @@
         </div>
         {% endif %}
 
-        {% with summary=member.info|default_if_none:member.bio_long %}
-        <div class="about-brief">
-          {{ summary|striptags|truncatewords:50 }}
-        </div>
-        {% endwith %}
+    {% with summary=member.info|default_if_none:member.bio_long %}
+      <div class="about-brief">
+        {{ summary|safe }}
+      </div>
+    {% endwith %}
+
       </div>
 
       <!-- RIGHT: CTAs then Educational background -->

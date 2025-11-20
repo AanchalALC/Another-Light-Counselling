@@ -3,6 +3,7 @@ from django.contrib.sitemaps.views import sitemap
 
 from .sitemaps import PostSiteMap, PostTypeSiteMap, StaticSiteMap
 from . import views
+from django.urls import re_path
 
 sitemaps = {
     'static': StaticSiteMap,
@@ -60,5 +61,5 @@ urlpatterns = [
     path('team/', views.team_list, name='team'),
     path('team/<slug:slug>', views.member_profile, name='member-profile'),
 
-    path("aanchal-onboarding-plan/", views.onboarding_plan, name="onboarding_plan"),
+    re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
 ]

@@ -56,10 +56,13 @@ urlpatterns = [
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
-    # --- NEW: Meet Our Team ---
+    # You can keep these if you still want /team as a list page
     path('team', views.team_list, name='team'),
     path('team/', views.team_list, name='team'),
-    path('team/<slug:slug>', views.member_profile, name='member-profile'),
+
+    # Profile detail should now live under /about/<slug>
+    path('about/<slug:slug>', views.member_profile, name='member-profile'),
+    path('about/<slug:slug>/', views.member_profile, name='member-profile'),
 
     re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
 ]

@@ -96,12 +96,6 @@ class Member(models.Model):
         null=True,
         default=''
     )
-    # AVAIL_CHOICES = (
-    #     ('open',        'Accepting new clients'),
-    #     ('waitlist',    'Waitlist only'),
-    #     ('unavailable', 'Not taking clients'),
-    # )
-    # availability = models.CharField(max_length=12, choices=AVAIL_CHOICES, default='open')
 
     # --- Taxonomy & qualifications ---
     keywords       = models.ManyToManyField('SpecializationTag', blank=True, related_name='members')
@@ -127,7 +121,7 @@ class Member(models.Model):
 
     # -------- Routing & helpers --------
     def _unique_slug(self, base):
-        base = (slugify(base) or 'member')[:110]
+        base = (slugify(base).replace('-', '') or 'member')[:110]
         slug_candidate = base
         n = 2
         Model = self.__class__

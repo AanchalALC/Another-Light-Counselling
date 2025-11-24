@@ -217,6 +217,49 @@
       .longform .rich{ font-size:14.5px; }
       .cta-stack .btn{ width:82%; }
     }
+    /* Custom tooltip for Structured Support button */
+    .btn.tooltip{
+      position:relative;
+    }
+    .btn.tooltip::after{
+      content: attr(data-tooltip);
+      position:absolute;
+      left:50%;
+      top:100%;
+      transform:translate(-50%, 8px);
+      background:rgba(32,32,32,.96);
+      color:#fff;
+      font-size:12px;
+      line-height:1.4;
+      padding:6px 8px;
+      border-radius:6px;
+      white-space:normal;
+      min-width:220px;
+      max-width:260px;
+      box-shadow:0 6px 18px rgba(0,0,0,.25);
+      opacity:0;
+      pointer-events:none;
+      z-index:40;
+      transition:opacity .15s ease, transform .15s ease;
+    }
+    .btn.tooltip::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:100%;
+      transform:translate(-50%, 0);
+      border-width:6px;
+      border-style:solid;
+      border-color:transparent transparent rgba(32,32,32,.96) transparent;
+      opacity:0;
+      z-index:41;
+      transition:opacity .15s ease;
+    }
+    .btn.tooltip:hover::after,
+    .btn.tooltip:hover::before{
+      opacity:1;
+    }
+
   </style>
 
   <div class="page">
@@ -304,9 +347,16 @@
 
           {# Extra CTAs only for Aanchal Narang #}
           {% if member.name == "Aanchal Narang" %}
-            <a class="btn tangerine" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hello%2C%20I%20want%20to%20book%20Aanchal%E2%80%99s%20Intro%20Session&type=phone_number&app_absent=0" target="_blank" rel="noopener">Structured Support from Aanchal</a>
-            <a class="btn sea" href="https://www.another-light.com/aanchal-onboarding-plan" target="_blank" rel="noopener">Signature plans</a>
-          {% endif %}
+          <a
+            class="btn tangerine tooltip"
+            href="https://www.another-light.com/"
+            target="_blank"
+            rel="noopener"
+            data-tooltip="Looking for Aanchal's structured signature plans? Click here to view and book."
+          >
+            Structured Support from Aanchal
+          </a>
+        {% endif %}
         </div>
 
         {% if member.certifications %}
@@ -338,9 +388,16 @@
         <a class="btn blush" href="{{ member.media_url }}" target="_blank" rel="noopener">Know My Journey</a>
         {% endif %}
 
-        {% if member.name == "Aanchal Narang" %}
-          <a class="btn tangerine" href="https://www.another-light.com/" target="_blank" rel="noopener">Structured Support from Aanchal</a>
-          <a class="btn sea" href="https://www.another-light.com/" target="_blank" rel="noopener">Signature plans</a>
+         {% if member.name == "Aanchal Narang" %}
+          <a
+            class="btn tangerine tooltip"
+            href="https://www.another-light.com/"
+            target="_blank"
+            rel="noopener"
+            data-tooltip="Looking for Aanchal's structured signature plans? Click here to view and book."
+          >
+            Structured Support from Aanchal
+          </a>
         {% endif %}
       </div>
     </section>

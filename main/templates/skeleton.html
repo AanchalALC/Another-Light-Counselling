@@ -61,6 +61,7 @@
     />
     <link rel="stylesheet" href="{% static 'css/onboarding_plan.css' %}" />
     <link rel="stylesheet" href="{% static 'css/services.css' %}" />
+
     <!-- JQUERY FOR COUNTER -->
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
@@ -72,6 +73,54 @@
       type="image/x-icon"
       href="{% static 'img/favicon.ico' %}"
     />
+
+    <!-- INLINE NAV & HEADER TWEAKS -->
+    <style>
+      /* Between 780px and 1700px: adjust nav spacing & bar height */
+      @media (min-width: 780px) and (max-width: 1700px) {
+        /* Push menu block to the right */
+        #topheader {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+        }
+
+        #sitelogo {
+          flex-shrink: 0;
+        }
+
+        #contactrow {
+          margin-left: 20px;
+        }
+
+        #menuitems {
+          margin-left: 20%; /* pushes menu to the right side */
+        }
+
+        /* Make menu items sit in a row aligned to the right */
+        #themenu {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 16px;
+          height: auto;
+        }
+
+        /* Generic spacing for all anchors */
+        #themenu > a,
+        #themenu > div {
+          padding: 0 4px;
+        }
+
+        /* Extra space before the "Home" menu item
+           Home is the second <a> inside #themenu (first is the close icon) */
+        {% comment %} #themenu a:nth-of-type(2) {
+          margin-left: 20%;
+        } {% endcomment %}
+
+      
+      }
+    </style>
 
     {% block head %}{% endblock %}
   </head>
@@ -94,13 +143,8 @@
             ><i class="{{h_contacts.whatsapp.symbol}} site-logo"></i
           ></a>
           <a href="{{h_contacts.phone.url}}" target="_blank">
-            <!-- <span
-                        class="textnumber site-logo">{{h_contacts.phone.value}}</span> -->
             <i class="{{h_contacts.phone.symbol}} phoneicon site-logo"></i>
           </a>
-          <!-- <div id="searchbox">
-                        <input type="text" placeholder="SEARCH" />
-                    </div>                     -->
         </div>
 
         <div id="menuitems">
@@ -112,7 +156,8 @@
               <a id="servicebutton">Services</a>
               <div id="dropdowncontent">
                 {% for service in services %}
-                 <a href="{% url 'service' service.slug %}">{{ service.title }}</a><br />
+                <a href="{% url 'service' service.slug %}">{{ service.title }}</a
+                ><br />
                 {% endfor %}
               </div>
             </div>
@@ -155,10 +200,6 @@
 
       <!-- FOOTER -->
       <div id="footer">
-        <!-- <div id="rainbowbg"> -->
-        <!-- THIS WILL HAVE THE RAINBOW BG -->
-        <!-- </div> -->
-
         <div id="footercontacts" class="footersection">
           <h4>Contact Details</h4>
           {% for contactdetail in contactdetails %}
@@ -186,14 +227,10 @@
             >Privacy & Confidentiality Policy</a
           >
           <a href="{% url 'careers' %}">Careers</a>
-          <!-- <a href="{% url 'committee' 'posh' %}">PoSH Committee</a> -->
         </div>
 
         <div id="footerservices" class="footersection">
           <h4></h4>
-          <!-- {% for service in services %}
-                <a href="{% url 'service' service.slug %}">{{service.title}}</a>
-                {% endfor %} -->
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15077.75827412004!2d72.8305922!3d19.1322267!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7dc155bf53680e9b!2sAnother%20Light%20Counselling!5e0!3m2!1sen!2sin!4v1662820553961!5m2!1sen!2sin"
             width="400"
@@ -206,8 +243,6 @@
         </div>
 
         <div id="bottomlinks"></div>
-
-        <!-- <img id="footerlogo" src="{% static 'img/skeleton/footerlogo.png' %}" /> -->
       </div>
     </div>
 

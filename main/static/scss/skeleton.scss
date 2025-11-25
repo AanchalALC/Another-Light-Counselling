@@ -313,7 +313,7 @@ body {
             #colordiv {
                 grid-area: b;
                 width: 100%;
-                height: 100%;
+                height: 112%;
                 background: $bg_skincolor;
                 z-index: 1;
             }
@@ -363,9 +363,9 @@ body {
                 }
             }
 
-            @media screen and (max-width: 790px) {
+            @media screen and (max-width: 1300px) {
                 #sitelogo {
-                    height: 11vh;
+                    height: 7vh;
                     margin-left: 0;
                     position: absolute;
                 }

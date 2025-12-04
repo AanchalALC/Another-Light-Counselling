@@ -217,6 +217,7 @@
       .longform .rich{ font-size:14.5px; }
       .cta-stack .btn{ width:82%; }
     }
+
     /* Custom tooltip for Structured Support button */
     .btn.tooltip{
       position:relative;
@@ -283,15 +284,15 @@
               {% if member.designation %}
                 <span class="mini-pill desig"><span class="dot"></span>{{ member.designation }}</span>
               {% endif %}
-            {% if member.is_therapist %}
-              {% if member.availability == 'open' %}
-                <div class="availability open">Currently accepting new clients</div>
-              {% elif member.availability == 'waitlist' %}
-                <div class="availability waitlist">Waitlist only</div>
-              {% elif member.availability == 'unavailable' %}
-                <div class="availability closed">Not taking clients</div>
+              {% if member.is_therapist %}
+                {% if member.availability == 'open' %}
+                  <div class="availability open">Currently accepting new clients</div>
+                {% elif member.availability == 'waitlist' %}
+                  <div class="availability waitlist">Waitlist only</div>
+                {% elif member.availability == 'unavailable' %}
+                  <div class="availability closed">Not taking clients</div>
+                {% endif %}
               {% endif %}
-            {% endif %}
               <div class="meta">
                 {% if member.languages %}
                   <span class="pill lang"><span class="dot"></span>Languages: {{ member.languages }}</span>
@@ -337,7 +338,18 @@
           <a class="btn primary" href="{{ member.booking_url }}" target="_blank" rel="noopener">
             Book a Session with {{ member.name }}
           </a>
+          {% if member.name == "Aanchal Narang" %}
+          <a
+            class="btn tangerine"
+            href="https://www.another-light.com/aanchal-onboarding-plan"
+            target="_blank"
+            rel="noopener"
+          >
+            Aanchal's Onboarding Plans
+          </a>
           {% endif %}
+          {% endif %}
+
           {% if member.blog_url %}
           <a class="btn sea" href="{{ member.blog_url }}" target="_blank" rel="noopener">Checkout my Therapy Bundles</a>
           {% endif %}
@@ -356,7 +368,7 @@
           >
             Structured Support from Aanchal
           </a>
-        {% endif %}
+          {% endif %}
         </div>
 
         {% if member.certifications %}
@@ -380,7 +392,18 @@
         <a class="btn primary" href="{{ member.booking_url }}" target="_blank" rel="noopener">
           Book a Session with {{ member.name }}
         </a>
+        {% if member.name == "Aanchal Narang" %}
+        <a
+          class="btn tangerine"
+          href="https://www.another-light.com/aanchal-onboarding-plan"
+          target="_blank"
+          rel="noopener"
+        >
+          Aanchal's Onboarding Plans
+        </a>
         {% endif %}
+        {% endif %}
+
         {% if member.blog_url %}
         <a class="btn sea" href="{{ member.blog_url }}" target="_blank" rel="noopener">Checkout my Therapy Bundles</a>
         {% endif %}
@@ -388,16 +411,16 @@
         <a class="btn blush" href="{{ member.media_url }}" target="_blank" rel="noopener">Know My Journey</a>
         {% endif %}
 
-         {% if member.name == "Aanchal Narang" %}
-          <a
-            class="btn tangerine tooltip"
-            href="https://www.another-light.com/"
-            target="_blank"
-            rel="noopener"
-            data-tooltip="Looking for Aanchal's structured signature plans? Click here to view and book."
-          >
-            Structured Support from Aanchal
-          </a>
+        {% if member.name == "Aanchal Narang" %}
+        <a
+          class="btn tangerine tooltip"
+          href="https://www.another-light.com/"
+          target="_blank"
+          rel="noopener"
+          data-tooltip="Looking for Aanchal's structured signature plans? Click here to view and book."
+        >
+          Structured Support from Aanchal
+        </a>
         {% endif %}
       </div>
     </section>

@@ -167,6 +167,77 @@ class Member(models.Model):
     class Meta:
         ordering = ('order', 'name')
 
+class MemberBlogPost(models.Model):
+    member = models.ForeignKey(
+        Member,
+        on_delete=models.CASCADE,
+        related_name="blog_posts"
+    )
+
+    title = models.CharField(max_length=250)
+    slug = models.SlugField(max_length=160, blank=True)
+
+    cover_image = models.ImageField(
+        upload_to="member_blogs/covers",
+        blank=True,
+        null=True
+    )
+
+    excerpt = models.TextField(blank=True, default="")
+    body = RichTextUploadingField()
+
+    is_published = models.BooleanField(default=False)
+    published_at = models.DateTimeField(blank=True, null=True)
+
+    created = models.DateTimeField(editable=False, auto_now_add=True)
+    modified = models.DateTimeField(editable=False, auto_now=True)
+
+    # Optional SEO (keeps parity with Post/Service patterns)
+    meta_title = models.CharField(max_length=250, blank=True, default="")
+    meta_description = models.TextField(blank=True, default="")
+    meta_keywords = models.CharField(max_length=500, blank=True, default="")
+
+    def __str__(self):
+        return f"{self.member.name} — {self.title}"
+
+    def get_absolute_url(self):
+        return reverse("member-blog-detail", args=[self.member.slug, self.slug])
+
+    def save(self, *args, **kwargs):
+        # slug
+        if not self.slug:
+            self.slug = slugify(self.title)[:155]
+
+        # published_at
+        if self.is_published and not self.published_at:
+            self.published_at = timezone.now()
+
+        # SEO defaults
+        if not self.meta_title:
+            self.meta_title = self.title
+
+        if not self.meta_description:
+            # lightweight preview from excerpt if present, else from body
+            base = self.excerpt.strip() if self.excerpt else str(self.body)
+            # reuse your existing preview helper style (simple + safe)
+            try:
+                first_para = str(base).split('</p>')[0].split('<p>')[1]
+                words = first_para.split(' ')[:35]
+                if words and words[-1].endswith(','):
+                    words[-1] = words[-1][:-1]
+                self.meta_description = ' '.join(words) + '...'
+            except Exception:
+                self.meta_description = (base[:160] + '...') if len(base) > 160 else base
+
+        return super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ("-published_at", "-id")
+        constraints = [
+            models.UniqueConstraint(fields=["member", "slug"], name="uniq_member_blog_slug")
+        ]
+        verbose_name = "Therapist Blog Post"
+        verbose_name_plural = "Therapist Blog Posts"
 
 class Review(models.Model):
     site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)

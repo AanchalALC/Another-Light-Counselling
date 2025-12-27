@@ -2,8 +2,9 @@ from django.contrib import admin
 from .models import (
     FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic,
     Service, DoIFeel, Policy, Committee, DynamicContent, PpcContact, Jd,
-    OnboardingPlan, SpecializationTag, TeamPage
+    OnboardingPlan, SpecializationTag, TeamPage,  MemberBlogPost,
 )
+
 
 # @admin.register(PostType)
 # class PostTypeAdmin(admin.ModelAdmin):
@@ -129,3 +130,12 @@ class OnboardingPlanAdmin(admin.ModelAdmin):
     list_display = ("tagline", "slug")
     ordering = ("slug",)
     search_fields = ("tagline", "slug")
+
+@admin.register(MemberBlogPost)
+class MemberBlogPostAdmin(admin.ModelAdmin):
+    list_display = ("title", "member", "is_published", "published_at")
+    list_filter = ("is_published", "member")
+    search_fields = ("title", "member__name", "excerpt")
+    prepopulated_fields = {"slug": ("title",)}
+    ordering = ("-published_at", "-id")
+    

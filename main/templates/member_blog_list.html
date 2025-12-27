@@ -1,0 +1,352 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+
+{% block title %}{{ member.name }}{% if member.pronouns %} ({{ member.pronouns }}){% endif %} · Blogs | Another Light Counselling{% endblock %}
+{% block metadescription %}Blogs by {{ member.name }} at Another Light Counselling. {% if member.designation %}{{ member.designation }}.{% endif %}{% endblock %}
+{% block metakeywords %}Another Light Counselling, Blogs, {{ member.name }}, Therapist{% endblock %}
+
+{% block head %}
+<link rel="canonical" href="https://www.another-light.com/about/{{ member.slug }}/blogs" />
+{% endblock %}
+
+{% block body %}
+<div id="content">
+  <style>
+    *, *::before, *::after{ box-sizing:border-box; }
+
+    :root{
+      --tangerine:#F08C21;
+      --butter:#F2D88F;
+      --blush:#E36888;
+      --sea:#6698CC;
+      --matcha:#B4B534;
+
+      --paper:#FFFCF7;
+      --ink:#2d2a2a;
+      --muted:#6a6767;
+      --ring:rgba(0,0,0,.08);
+      --card:#fff;
+
+      --radius:18px;
+      --page: min(1120px, 100% - 48px);
+      --matcha-700: color-mix(in srgb, var(--matcha), black 18%);
+
+      --photo: 190px; /* blogs header photo */
+    }
+
+    body{ background:var(--paper); }
+    #content{ color:var(--ink); }
+
+    .page{ width:var(--page); margin-inline:auto; padding:22px 0 48px; }
+
+    /* Breadcrumbs */
+    .crumbs{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:6px 0 16px; }
+    .crumbs a{ color:var(--sea); text-decoration:none; font-size:14px; }
+    .crumbs a:hover{ text-decoration:underline; }
+    .crumbs .sep{ color:var(--muted); }
+
+    /* Profile-consistent mini hero */
+    .profile-mini{
+      background: linear-gradient(180deg, color-mix(in srgb, var(--butter) 13%, #fff), #fff 48%, #fff);
+      border-radius:16px;
+      padding:18px;
+      border:1px solid var(--ring);
+    }
+    .head-row{
+      display:grid;
+      grid-template-columns: var(--photo) 1fr;
+      gap:18px;
+      align-items:center;
+      max-width:100%;
+    }
+    .profile-photo{
+      width:var(--photo);
+      aspect-ratio:1/1;
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid var(--ring);
+      background:#eaeaea;
+      flex:none;
+    }
+    .profile-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .name-wrap{ min-width:0; }
+    .kicker{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+    .name-wrap h1{ margin:0; font-size: clamp(26px, 3.2vw, 38px); line-height:1.12; letter-spacing:-.02em; }
+    .name-sub{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; align-items:center; }
+
+    .mini-pill{
+      background:#fff; border:1px solid var(--ring);
+      padding:6px 10px; border-radius:999px; font-size:12.5px;
+      display:inline-flex; align-items:center; gap:6px;
+    }
+    .mini-pill .dot{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+    .mini-pill.pronouns{ background:color-mix(in srgb, var(--blush) 9%, #fff); border-color:color-mix(in srgb, var(--blush), black 10%); }
+    .mini-pill.pronouns .dot{ background:var(--blush); }
+    .mini-pill.desig{ background:color-mix(in srgb, var(--sea) 9%, #fff); border-color:color-mix(in srgb, var(--sea), black 10%); }
+    .mini-pill.desig .dot{ background:var(--sea); }
+
+    .availability{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; font-size:12px; border:1px solid transparent; color:#fff; width:max-content; }
+    .availability::before{ content:""; width:8px; height:8px; border-radius:50%; background:currentColor; display:inline-block; opacity:.9; }
+    .availability.open{ background:#46b17b; }
+    .availability.waitlist{ background:#efc24d; color:#3a2a10; }
+    .availability.closed{ background:#e65359; }
+
+    .meta{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .pill{ background:#fff; border:1px solid var(--ring); padding:7px 12px; border-radius:999px; font-size:13px; display:inline-flex; align-items:center; gap:8px; }
+    .pill .dot{ width:10px; height:10px; border-radius:50%; display:inline-block; }
+    .pill.lang{ background:color-mix(in srgb, var(--tangerine) 9%, #fff); border-color:color-mix(in srgb, var(--tangerine), black 10%); }
+    .pill.lang .dot{ background:var(--tangerine); }
+
+    /* Tags (same vibe as profile) */
+    .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; max-width:100%; }
+    .tag{ font-size:12px; padding:7px 10px; border-radius:999px; background: color-mix(in srgb, var(--blush) 22%, #fff); border:1px solid color-mix(in srgb, var(--blush), black 10%); color:#3d2030; transition: transform .12s ease, filter .12s ease; }
+    .tag:hover{ transform:translateY(-1px); filter:brightness(1.04); }
+    .tag.v-tangerine{ background:color-mix(in srgb,var(--tangerine) 20%,#fff); border-color:color-mix(in srgb,var(--tangerine),black 10%); color:#3a2a10; }
+    .tag.v-sea{ background:color-mix(in srgb,var(--sea) 18%,#fff); border-color:color-mix(in srgb,var(--sea),black 10%); color:#1f2e45; }
+    .tag.v-matcha{ background:color-mix(in srgb,var(--matcha) 24%,#fff); border-color:color-mix(in srgb,var(--matcha),black 10%); color:#2b2a22; }
+    .tag.v-butter{ background:color-mix(in srgb,var(--butter) 26%,#fff); border-color:color-mix(in srgb,var(--butter),black 10%); color:#4a3f1a; }
+    .tag.v-blush{ background:color-mix(in srgb,var(--blush) 22%,#fff); border-color:color-mix(in srgb,var(--blush),black 10%); color:#3d2030; }
+
+    /* Short bio (consistent card style) */
+    .about-brief{
+      margin-top:12px;
+      color:#2c2b2b;
+      line-height:1.65;
+      background:#fff;
+      border-radius:12px;
+      padding:12px 14px;
+      border:1px solid var(--ring);
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+
+    /* Blog cards */
+    .section-head{ display:flex; justify-content:space-between; align-items:baseline; margin:22px 0 12px; }
+    .section-head h2{ margin:0; font-size:20px; }
+    .section-head .count{ color:var(--muted); font-size:13px; }
+
+    .grid{ display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:16px; }
+    @media (max-width: 980px){ .grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 700px){
+      .head-row{ grid-template-columns: 1fr; gap:14px; align-items:start; }
+    }
+    @media (max-width: 640px){
+      :root{ --photo: 150px; }
+      .grid{ grid-template-columns: 1fr; }
+      .profile-photo{ border-radius:12px; }
+    }
+
+    /* Make whole card clickable: anchor styled as a card */
+    .card{
+      background:var(--card);
+      border:1px solid var(--ring);
+      border-radius:16px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      box-shadow:0 8px 18px rgba(0,0,0,.06);
+      transition: transform .14s ease, box-shadow .2s ease, filter .2s ease;
+      min-height: 100%;
+      text-decoration:none;
+      color:inherit;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow:0 14px 28px rgba(0,0,0,.12);
+      filter: brightness(1.01);
+    }
+    .card:focus-visible{
+      outline:3px solid color-mix(in srgb, var(--sea) 35%, #fff);
+      outline-offset:3px;
+    }
+
+    .cover{
+      aspect-ratio: 16/9;
+      width:100%;
+      background:linear-gradient(135deg, color-mix(in srgb, var(--sea) 25%, #fff), #fff);
+      border-bottom:1px solid var(--ring);
+      overflow:hidden;
+    }
+    .cover img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+    .card-body{ padding:14px 14px 12px; display:flex; flex-direction:column; gap:8px; }
+    .card-title{ margin:0; font-size:16px; line-height:1.35; }
+    .meta2{ color:var(--muted); font-size:12.5px; }
+    .excerpt{
+      margin:0; color:#2c2b2b; line-height:1.7; font-size:14px;
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+    }
+    .readmore{
+      margin-top:auto;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--sea);
+      font-size:14px;
+      font-weight:650;
+      padding:8px 0 0;
+    }
+
+    .empty{
+      background:#fff; border:1px dashed color-mix(in srgb, var(--sea), black 12%);
+      border-radius:16px; padding:18px; color:var(--muted);
+    }
+
+    .pager{ margin-top:18px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+    .pager a, .pager span{
+      font-size:13px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--ring);
+      background:#fff;
+      text-decoration:none;
+      color:var(--ink);
+    }
+    .pager a:hover{ filter:brightness(1.03); }
+    .pager .current{ background:color-mix(in srgb, var(--butter) 24%, #fff); border-color:color-mix(in srgb, var(--butter), black 10%); }
+    .pager .disabled{ opacity:.55; }
+  </style>
+
+  <div class="page">
+    <div class="crumbs">
+      <a href="{% url 'about' %}">← Back to All Therapists</a>
+      <span class="sep">/</span>
+      <a href="{% url 'member-profile' member.slug %}">{{ member.name }}</a>
+      <span class="sep">/</span>
+      <span>Blogs</span>
+    </div>
+
+    <section class="profile-mini">
+      <div class="head-row">
+        <figure class="profile-photo">
+          <img
+            src="{% if member.profile_image %}{{ member.profile_image.url }}{% else %}{{ member.thumbnail.url }}{% endif %}"
+            alt="{{ member.img_alt|default:member.name }}"
+          >
+        </figure>
+
+        <div class="name-wrap">
+          <div class="kicker">Blogs by</div>
+          <h1>{{ member.name }}</h1>
+
+          <div class="name-sub">
+            {% if member.pronouns %}
+              <span class="mini-pill pronouns"><span class="dot"></span>{{ member.pronouns }}</span>
+            {% endif %}
+            {% if member.designation %}
+              <span class="mini-pill desig"><span class="dot"></span>{{ member.designation }}</span>
+            {% endif %}
+
+            {% if member.is_therapist %}
+              {% if member.availability == 'open' %}
+                <div class="availability open">Currently accepting new clients</div>
+              {% elif member.availability == 'waitlist' %}
+                <div class="availability waitlist">Waitlist only</div>
+              {% elif member.availability == 'unavailable' %}
+                <div class="availability closed">Not taking clients</div>
+              {% endif %}
+            {% endif %}
+          </div>
+
+          <div class="meta">
+            {% if member.languages %}
+              <span class="pill lang"><span class="dot"></span>Languages: {{ member.languages }}</span>
+            {% endif %}
+          </div>
+
+          {% if member.keywords.all %}
+          <div class="tags" id="profileTags">
+            {% for t in member.keywords.all %}
+              <span class="tag">{{ t.name }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <div class="about-brief">
+            {% if member.short_bio %}
+              {{ member.short_bio }}
+            {% else %}
+              {{ member.bio_long|default:member.info|striptags|truncatewords:38 }}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-head">
+      <h2>All posts</h2>
+      <div class="count">
+        {% if posts.paginator %}{{ posts.paginator.count }}{% else %}{{ posts|length }}{% endif %}
+        post{{ posts.paginator.count|pluralize }}
+      </div>
+    </div>
+
+    {% if posts %}
+      <div class="grid">
+        {% for p in posts %}
+          <a class="card" href="{% url 'member-blog-detail' member.slug p.slug %}" aria-label="Read: {{ p.title }}">
+            <div class="cover">
+              {% if p.cover_image %}
+                <img src="{{ p.cover_image.url }}" alt="{{ p.title }}">
+              {% else %}
+                <img src="{% if member.profile_image %}{{ member.profile_image.url }}{% else %}{{ member.thumbnail.url }}{% endif %}" alt="{{ member.name }}">
+              {% endif %}
+            </div>
+
+            <div class="card-body">
+              <h3 class="card-title">{{ p.title }}</h3>
+
+              <div class="meta2">
+                {% if p.published_at %}{{ p.published_at|date:"d M Y" }}{% endif %}
+              </div>
+
+              <p class="excerpt">
+                {{ p.excerpt|default:p.body|striptags|truncatewords:28 }}
+              </p>
+
+              <span class="readmore">Read →</span>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+
+      {% if posts.paginator.num_pages > 1 %}
+      <nav class="pager" aria-label="Pagination">
+        {% if posts.has_previous %}
+          <a href="?page={{ posts.previous_page_number }}">← Prev</a>
+        {% else %}
+          <span class="disabled">← Prev</span>
+        {% endif %}
+
+        <span class="current">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+
+        {% if posts.has_next %}
+          <a href="?page={{ posts.next_page_number }}">Next →</a>
+        {% else %}
+          <span class="disabled">Next →</span>
+        {% endif %}
+      </nav>
+      {% endif %}
+    {% else %}
+      <div class="empty">
+        No blog posts yet. (Not a bug—just means we haven’t published anything for this therapist.)
+      </div>
+    {% endif %}
+  </div>
+
+  <script>
+    // Randomize keyword chip colors (same behavior as member profile)
+    (function(){
+      const palette = ['tangerine','sea','matcha','butter','blush'];
+      const rows = document.getElementById('profileTags');
+      if(rows){
+        rows.querySelectorAll('.tag').forEach(tag=>{
+          const cls = 'v-' + palette[Math.floor(Math.random()*palette.length)];
+          tag.classList.add(cls);
+        });
+      }
+    })();
+  </script>
+</div>
+{% endblock %}

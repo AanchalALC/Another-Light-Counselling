@@ -65,4 +65,10 @@ urlpatterns = [
     path('about/<slug:slug>/', views.member_profile, name='member-profile'),
 
     re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
+    
+    path('about/<slug:slug>/blogs', views.member_blog_list, name='member-blog-list'),
+    path('about/<slug:slug>/blogs/', views.member_blog_list, name='member-blog-list'),
+
+    path('about/<slug:slug>/blogs/<slug:post_slug>', views.member_blog_detail, name='member-blog-detail'),
+    path('about/<slug:slug>/blogs/<slug:post_slug>/', views.member_blog_detail, name='member-blog-detail'),
 ]

@@ -1,7 +1,7 @@
 import os
 import re
 from urllib.parse import urlparse, parse_qs
-
+from django.core.paginator import Paginator
 from django.contrib.sites.models import Site
 # from django.core.paginator import Paginator
 from django.http import Http404, HttpResponseRedirect
@@ -13,7 +13,8 @@ from .models import (
     Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails,
     Service, DoIFeel, Policy, Committee, DynamicContent, Jd, OnboardingPlan,
     # NEW models for Team module (add these in models.py)
-    TeamPage, SpecializationTag,
+    TeamPage, SpecializationTag,  Member, 
+    MemberBlogPost, 
 )
 from .forms import ContactForm, PpcContactForm
 
@@ -222,6 +223,46 @@ def member_profile(request, slug):
     }
     return render(request, 'member_profile.html', context)
 
+def member_blog_list(request, slug):
+    member = get_object_or_404(Member, slug=slug)
+
+    qs = (
+        MemberBlogPost.objects
+        .filter(member=member, is_published=True)
+        .order_by("-published_at", "-id")
+    )
+
+    paginator = Paginator(qs, 9)  # 9 cards per page (nice grid)
+    page_number = request.GET.get("page", 1)
+    posts_page = paginator.get_page(page_number)
+
+    context = {
+        "member": member,
+        "posts": posts_page,  # paginator page
+        "h_contacts": get_header_contacts(),
+        "services": Service.objects.all().order_by('id'),
+        "doifeels": DoIFeel.objects.all().order_by('id'),
+    }
+    return render(request, "member_blog_list.html", context)
+
+
+def member_blog_detail(request, slug, post_slug):
+    member = get_object_or_404(Member, slug=slug)
+    post = get_object_or_404(
+        MemberBlogPost,
+        member=member,
+        slug=post_slug,
+        is_published=True
+    )
+
+    context = {
+        "member": member,
+        "post": post,
+        "h_contacts": get_header_contacts(),
+        "services": Service.objects.all().order_by('id'),
+        "doifeels": DoIFeel.objects.all().order_by('id'),
+    }
+    return render(request, "member_blog_detail.html", context)
 
 def faqs(request):
     faqs = FAQ.objects.all().order_by('id')

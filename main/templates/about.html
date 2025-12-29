@@ -217,6 +217,23 @@ counselling services by junior and senior mental health counsellors.{% endblock 
     .pronouns{font-size:12px;color:var(--muted)}
     .designation{font-size:13px;color:var(--muted)}
 
+    /* ✅ NEW: Non-therapist preview text */
+   .bio-preview{
+      margin: 2px 0 0;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #000;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      border-radius: 0;
+
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
     /* Tags inside each CARD — randomized palette variants */
     .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
     .tag{font-size:11px;padding:6px 8px;border-radius:999px;transition:transform .12s ease,filter .12s ease}
@@ -318,21 +335,38 @@ counselling services by junior and senior mental health counsellors.{% endblock 
 
           <a class="overlay-link" href="{{ member.get_absolute_url }}">View {{ member.name }}’s profile</a>
         </div>
+
         <div class="body">
           <div class="name-line">
             <h3><a href="{{ member.get_absolute_url }}" style="color:inherit; text-decoration:none;">{{ member.name }}</a></h3>
             {% if member.pronouns %}<span class="pronouns">({{ member.pronouns }})</span>{% endif %}
           </div>
+
           {% if member.designation %}<div class="designation">{{ member.designation }}</div>{% endif %}
+
+          {# ✅ NEW: if NOT a therapist, show a short preview #}
+          {% if not member.is_therapist %}
+            {% with preview=member.short_bio|default:member.info|default:member.bio_long %}
+              {% if preview %}
+                <p class="bio-preview">
+                  {{ preview|striptags|truncatewords:28 }}
+                </p>
+              {% endif %}
+            {% endwith %}
+          {% endif %}
+
 
           {% if member.keywords.all %}
             <div class="tag-row">
-              {% for t in member.keywords.all|slice:":5" %}<span class="tag" title="{{ t.name }}">{{ t.name }}</span>{% endfor %}
+              {% for t in member.keywords.all|slice:":5" %}
+                <span class="tag" title="{{ t.name }}">{{ t.name }}</span>
+              {% endfor %}
             </div>
           {% endif %}
 
           <div class="cta-row">
-            {% if member.booking_url %}
+            {# ✅ Only therapists should show booking #}
+            {% if member.is_therapist and member.booking_url %}
               <a class="btn book" href="{{ member.booking_url }}" target="_blank" rel="noopener">
                 Book a Session with {{ member.name }}
               </a>

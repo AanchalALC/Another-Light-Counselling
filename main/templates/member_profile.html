@@ -260,6 +260,7 @@
     .btn.tooltip:hover::before{
       opacity:1;
     }
+
     /* ===== Breadcrumbs (consistent across profile + blogs) ===== */
     .crumbs{
       display:flex;
@@ -369,16 +370,17 @@
           {% endif %}
           {% endif %}
 
-          {% url 'member-blog-list' member.slug as internal_blog_url %}
+          {# ✅ Only show blogs CTA for therapists #}
+          {% if member.is_therapist %}
+            {% url 'member-blog-list' member.slug as internal_blog_url %}
 
-          {% if member.blog_url %}
-            {# If you insist on admin-provided URL, use it (external or internal) #}
-            <a class="btn sea" href="{{ member.blog_url }}" {% if member.blog_url|slice:":1" != "/" %}target="_blank" rel="noopener"{% endif %}>
-              Read My Blogs
-            </a>
-          {% else %}
-            {# Default to the internal therapist blog listing #}
-            <a class="btn sea" href="{{ internal_blog_url }}">Read My Blogs</a>
+            {% if member.blog_url %}
+              <a class="btn sea" href="{{ member.blog_url }}" {% if member.blog_url|slice:":1" != "/" %}target="_blank" rel="noopener"{% endif %}>
+                Read My Blogs
+              </a>
+            {% else %}
+              <a class="btn sea" href="{{ internal_blog_url }}">Read My Blogs</a>
+            {% endif %}
           {% endif %}
 
           {% if member.media_url %}
@@ -432,17 +434,19 @@
         {% endif %}
         {% endif %}
 
-        {% url 'member-blog-list' member.slug as internal_blog_url %}
+        {# ✅ Only show blogs CTA for therapists #}
+        {% if member.is_therapist %}
+          {% url 'member-blog-list' member.slug as internal_blog_url %}
 
-        {% if member.blog_url %}
-          {# If you insist on admin-provided URL, use it (external or internal) #}
-          <a class="btn sea" href="{{ member.blog_url }}" {% if member.blog_url|slice:":1" != "/" %}target="_blank" rel="noopener"{% endif %}>
-            Read My Blogs
-          </a>
-        {% else %}
-          {# Default to the internal therapist blog listing #}
-          <a class="btn sea" href="{{ internal_blog_url }}">Read My Blogs</a>
+          {% if member.blog_url %}
+            <a class="btn sea" href="{{ member.blog_url }}" {% if member.blog_url|slice:":1" != "/" %}target="_blank" rel="noopener"{% endif %}>
+              Read My Blogs
+            </a>
+          {% else %}
+            <a class="btn sea" href="{{ internal_blog_url }}">Read My Blogs</a>
+          {% endif %}
         {% endif %}
+
         {% if member.media_url %}
         <a class="btn blush" href="{{ member.media_url }}" target="_blank" rel="noopener">Know My Journey</a>
         {% endif %}

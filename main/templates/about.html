@@ -1,5 +1,5 @@
 {% extends 'skeleton.html' %}
-{% load static %}
+{% load static text_extras %}
 {% block title %}About Another Light Counselling{% endblock %}
 {% block metadescription %}Another Light founded by expert psychologist Aanchal Narang offers mental health and
 counselling services by junior and senior mental health counsellors.{% endblock %}
@@ -217,8 +217,8 @@ counselling services by junior and senior mental health counsellors.{% endblock 
     .pronouns{font-size:12px;color:var(--muted)}
     .designation{font-size:13px;color:var(--muted)}
 
-    /* ✅ NEW: Non-therapist preview text */
-   .bio-preview{
+    /* ✅ Non-therapist preview text */
+    .bio-preview{
       margin: 2px 0 0;
       font-size: 13.5px;
       line-height: 1.6;
@@ -344,17 +344,16 @@ counselling services by junior and senior mental health counsellors.{% endblock 
 
           {% if member.designation %}<div class="designation">{{ member.designation }}</div>{% endif %}
 
-          {# ✅ NEW: if NOT a therapist, show a short preview #}
+          {# ✅ if NOT a therapist, show a short preview (and decode entities safely) #}
           {% if not member.is_therapist %}
             {% with preview=member.short_bio|default:member.info|default:member.bio_long %}
               {% if preview %}
                 <p class="bio-preview">
-                  {{ preview|striptags|truncatewords:28 }}
+                  {{ preview|striptags|html_unescape|truncatewords:28 }}
                 </p>
               {% endif %}
             {% endwith %}
           {% endif %}
-
 
           {% if member.keywords.all %}
             <div class="tag-row">

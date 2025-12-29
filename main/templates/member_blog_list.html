@@ -1,5 +1,5 @@
 {% extends 'skeleton.html' %}
-{% load static %}
+{% load static text_extras %}
 
 {% block title %}{{ member.name }}{% if member.pronouns %} ({{ member.pronouns }}){% endif %} · Blogs | Another Light Counselling{% endblock %}
 {% block metadescription %}Blogs by {{ member.name }} at Another Light Counselling. {% if member.designation %}{{ member.designation }}.{% endif %}{% endblock %}
@@ -194,7 +194,7 @@
       outline-offset:3px;
     }
 
-    /* Cover: tall, real covers stay full-bleed */
+    /* Cover */
     .cover{
       aspect-ratio: 4/3;
       width:100%;
@@ -214,7 +214,6 @@
     }
     .card:hover .cover img{ transform: scale(1.05); }
 
-    /* Fallback = profile picture: show full image */
     .cover.is-fallback{
       aspect-ratio: 1/1;
       padding:12px;
@@ -233,7 +232,7 @@
       gap:10px;
     }
 
-    /* ✅ Title chip like your tag pills */
+    /* Title chip */
     .title-chip{
       --chip-color: var(--butter); /* JS will override per card */
       display:inline-flex;
@@ -389,9 +388,9 @@
 
           <div class="about-brief">
             {% if member.short_bio %}
-              {{ member.short_bio }}
+              {{ member.short_bio|striptags|html_unescape }}
             {% else %}
-              {{ member.bio_long|default:member.info|striptags|truncatewords:38 }}
+              {{ member.bio_long|default:member.info|striptags|html_unescape|truncatewords:38 }}
             {% endif %}
           </div>
         </div>
@@ -411,10 +410,10 @@
         {% for p in posts %}
           <a class="card"
              href="{% url 'member-blog-detail' member.slug p.slug %}"
-             aria-label="Read: {{ p.title }}">
+             aria-label="Read: {{ p.title|striptags|html_unescape }}">
             <div class="cover{% if not p.cover_image %} is-fallback{% endif %}">
               {% if p.cover_image %}
-                <img src="{{ p.cover_image.url }}" alt="{{ p.title }}">
+                <img src="{{ p.cover_image.url }}" alt="{{ p.title|striptags|html_unescape }}">
               {% else %}
                 <img src="{% if member.profile_image %}{{ member.profile_image.url }}{% else %}{{ member.thumbnail.url }}{% endif %}" alt="{{ member.name }}">
               {% endif %}
@@ -422,14 +421,14 @@
 
             <div class="card-body">
               <!-- ✅ Title now a chip like your tags -->
-              <div class="title-chip">{{ p.title }}</div>
+              <div class="title-chip">{{ p.title|striptags|html_unescape }}</div>
 
               <div class="meta2">
                 {% if p.published_at %}{{ p.published_at|date:"d M Y" }}{% endif %}
               </div>
 
               <p class="excerpt">
-                {{ p.excerpt|default:p.body|striptags|truncatewords:28 }}
+                {{ p.excerpt|default:p.body|striptags|html_unescape|truncatewords:28 }}
               </p>
 
               <span class="readmore">Read →</span>
@@ -478,11 +477,11 @@
     // ✅ Title-chip colors: fixed loop order (no random)
     (function(){
       const ORDER = [
-        'var(--tangerine)', // 1
-        'var(--butter)',    // 2
-        'var(--blush)',     // 3
-        'var(--sea)',       // 4
-        'var(--matcha)'     // 5
+        'var(--tangerine)',
+        'var(--butter)',
+        'var(--blush)',
+        'var(--sea)',
+        'var(--matcha)'
       ];
 
       document.querySelectorAll('.grid .card').forEach((card, idx) => {

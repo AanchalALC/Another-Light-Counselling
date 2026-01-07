@@ -373,13 +373,26 @@
           {# ✅ Only show blogs CTA for therapists #}
           {% if member.is_therapist %}
             {% url 'member-blog-list' member.slug as internal_blog_url %}
-
-            {% if member.blog_url %}
-              <a class="btn sea" href="{{ member.blog_url }}" {% if member.blog_url|slice:":1" != "/" %}target="_blank" rel="noopener"{% endif %}>
-                Read My Blogs
-              </a>
+            {% if member.name == "Aanchal Narang" %}
+              {% with blogs_label="Featured Insights" %}
+                {% if member.blog_url %}
+                  <a class="btn sea" href="{{ member.blog_url }}" {% if member.blog_url|slice:":1" != "/" %}target="_blank" rel="noopener"{% endif %}>
+                    {{ blogs_label }}
+                  </a>
+                {% else %}
+                  <a class="btn sea" href="{{ internal_blog_url }}">{{ blogs_label }}</a>
+                {% endif %}
+              {% endwith %}
             {% else %}
-              <a class="btn sea" href="{{ internal_blog_url }}">Read My Blogs</a>
+              {% with blogs_label="Read My Blogs" %}
+                {% if member.blog_url %}
+                  <a class="btn sea" href="{{ member.blog_url }}" {% if member.blog_url|slice:":1" != "/" %}target="_blank" rel="noopener"{% endif %}>
+                    {{ blogs_label }}
+                  </a>
+                {% else %}
+                  <a class="btn sea" href="{{ internal_blog_url }}">{{ blogs_label }}</a>
+                {% endif %}
+              {% endwith %}
             {% endif %}
           {% endif %}
 
@@ -437,13 +450,26 @@
         {# ✅ Only show blogs CTA for therapists #}
         {% if member.is_therapist %}
           {% url 'member-blog-list' member.slug as internal_blog_url %}
-
-          {% if member.blog_url %}
-            <a class="btn sea" href="{{ member.blog_url }}" {% if member.blog_url|slice:":1" != "/" %}target="_blank" rel="noopener"{% endif %}>
-              Read My Blogs
-            </a>
+          {% if member.name == "Aanchal Narang" %}
+            {% with blogs_label="Featured Insights" %}
+              {% if member.blog_url %}
+                <a class="btn sea" href="{{ member.blog_url }}" {% if member.blog_url|slice:":1" != "/" %}target="_blank" rel="noopener"{% endif %}>
+                  {{ blogs_label }}
+                </a>
+              {% else %}
+                <a class="btn sea" href="{{ internal_blog_url }}">{{ blogs_label }}</a>
+              {% endif %}
+            {% endwith %}
           {% else %}
-            <a class="btn sea" href="{{ internal_blog_url }}">Read My Blogs</a>
+            {% with blogs_label="Read My Blogs" %}
+              {% if member.blog_url %}
+                <a class="btn sea" href="{{ member.blog_url }}" {% if member.blog_url|slice:":1" != "/" %}target="_blank" rel="noopener"{% endif %}>
+                  {{ blogs_label }}
+                </a>
+              {% else %}
+                <a class="btn sea" href="{{ internal_blog_url }}">{{ blogs_label }}</a>
+              {% endif %}
+            {% endwith %}
           {% endif %}
         {% endif %}
 

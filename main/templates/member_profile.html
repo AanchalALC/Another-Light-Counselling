@@ -7,6 +7,54 @@
 
 {% block head %}
 <link rel="canonical" href="https://www.another-light.com/about/{{ member.slug }}" />
+{% if member.slug == "aanchal-narang" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph":[
+    {
+      "@type": "Organization",
+      "@id": "https://www.another-light.com/#organization",
+      "name": "Another Light Counselling",
+      "url": "https://www.another-light.com/",
+      "logo": "https://www.another-light.com/static/img/skeleton/sitelogo.png",
+      "description": "Another Light Counselling offers trauma-informed therapy and emotional wellbeing support.",
+      "founder": {
+        "@id": "https://www.another-light.com/about/aanchal-narang/#person"
+      },
+      "sameAs": [
+        "https://www.instagram.com/another_light_counselling/",
+        "https://in.linkedin.com/in/aanchal-narang"
+      ]
+    },
+
+    {
+      "@type": "Person",
+      "@id": "https://www.another-light.com/about/aanchal-narang/#person",
+      "name": "Aanchal Narang",
+      "url": "https://www.another-light.com/about/aanchal-narang/",
+      "image": "https://www.another-light.com/media/members/WhatsApp_Image_2025-12-03_at_16.51.06_c88f11b6.jpg",
+      "jobTitle": "Trauma-Informed Therapist",
+      "description": "Aanchal Narang is a trauma-informed therapist and founder of Another Light Counselling, focusing on emotional healing, relationships, and mental health support.",
+      "worksFor": {
+        "@id": "https://www.another-light.com/#organization"
+      },
+      "knowsAbout": [
+        "Trauma-Informed Therapy",
+        "Relationship Counselling",
+        "Emotional Healing",
+        "Mental Health Therapy",
+        "Attachment Trauma"
+      ],
+      "sameAs": [
+        "https://www.instagram.com/aanchal_therapist_puppy/?hl=en",
+        "https://in.linkedin.com/in/aanchal-narang"
+      ]
+    }
+  ]
+}
+</script>
+{% endif %}
 {% endblock %}
 
 {% block body %}

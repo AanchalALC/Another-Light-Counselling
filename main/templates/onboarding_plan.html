@@ -1,7 +1,7 @@
 {% extends 'skeleton.html' %}
 {% load static %}
 
-{% block title %}Aanchal’s Therapeutic Onboarding & Supervision Plan – Another Light Counselling{% endblock %}
+{% block title %}Aanchal's Therapeutic Onboarding & Supervision Plan – Another Light Counselling{% endblock %}
 {% block metadescription %}Begin therapy with Aanchal, then continue with a mapped therapist under her ongoing supervision. Pick your onboarding plan at Another Light Counselling.{% endblock %}
 {% block metakeywords %}Aanchal Narang, Onboarding Plan, Therapy, Supervision, Another Light Counselling{% endblock %}
 
@@ -333,6 +333,148 @@
   @media (max-width: 360px){
     .hero .bubble{ display:none; }
   }
+
+  /* ========= AFTER SESSIONS ========= */
+  .after-sessions { background: var(--surface-alt); }
+  .after-sessions-card {
+    background: var(--paper);
+    border: 1px solid var(--border-subtle);
+    border-radius: 1.5rem;
+    box-shadow: 0 12px 40px rgba(0,0,0,.07);
+    overflow: hidden;
+  }
+  .after-sessions-main {
+    display: flex; align-items: flex-start; gap: 1.5rem;
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .after-icon-wrap {
+    min-width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sea), var(--matcha));
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.6rem;
+    box-shadow: 0 6px 18px rgba(85, 124, 166, .25);
+  }
+  .after-content h3 { color: var(--heading); margin-bottom: .6rem; font-size: 1.25rem; }
+  .after-note {
+    display: flex; align-items: flex-start; gap: .6rem;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--sea) 10%, transparent), color-mix(in srgb, var(--matcha) 10%, transparent));
+    border-left: 3px solid var(--sea);
+    border-radius: .5rem; padding: .75rem 1rem; margin-top: .75rem;
+  }
+  .after-note i { color: var(--sea); margin-top: .15rem; flex-shrink: 0; }
+  .after-note span { font-size: .92rem; color: var(--ink-muted); font-style: italic; }
+
+  .after-reveal-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .after-reveal-item {
+    border-right: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .after-reveal-item:nth-child(2n) { border-right: none; }
+  .after-reveal-item:nth-child(3), .after-reveal-item:nth-child(4) { border-bottom: none; }
+
+  .after-reveal-trigger {
+    width: 100%; display: flex; align-items: center; gap: .85rem;
+    padding: 1.1rem 1.5rem; background: none; border: none; cursor: pointer;
+    text-align: left;
+  }
+  .after-reveal-trigger:hover { background: var(--surface-alt); }
+  .after-reveal-trigger:focus { outline: 3px solid var(--lagune); outline-offset: -3px; }
+  .ar-icon {
+    min-width: 36px; height: 36px; border-radius: 50%;
+    background: var(--brand-5-tint); color: var(--matcha);
+    display: flex; align-items: center; justify-content: center; font-size: .95rem;
+  }
+  .ar-label { flex: 1; font-weight: 800; font-size: .95rem; color: var(--text-dark); }
+  .ar-toggle { color: var(--blush); transition: transform .3s ease; font-size: .85rem; }
+  .after-reveal-trigger[aria-expanded="true"] .ar-toggle { transform: rotate(180deg); }
+  .after-reveal-body {
+    padding: 0 1.5rem 0 4.1rem;   /* ← removed bottom padding from default */
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .35s ease-out, padding-bottom .35s ease-out;
+}
+.after-reveal-body.open { 
+    max-height: 200px; 
+    padding-bottom: 1.1rem;        /* ← bottom padding only when open */
+}
+  .after-reveal-body p { font-size: .9rem; margin: 0; color: var(--ink-subtle); }
+
+  @media (max-width: 680px) {
+    .after-sessions-main { flex-direction: column; }
+    .after-reveal-grid { grid-template-columns: 1fr; }
+    .after-reveal-item { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+    .after-reveal-item:last-child { border-bottom: none; }
+    .after-reveal-item:nth-child(3) { border-bottom: 1px solid var(--border-subtle); }
+    .after-reveal-item:nth-child(4) { border-bottom: none; }
+  }
+
+  /* ========= OPTIONAL RENEWAL ========= */
+  .renewal { background: var(--paper); }
+  .renewal-header { text-align: center; margin-bottom: 0; }
+  .renewal-eyebrow {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: linear-gradient(135deg, var(--sea), var(--matcha));
+    color: #fff; font-weight: 800; font-size: .78rem; letter-spacing: .08em;
+    padding: .35rem .9rem; border-radius: 999px; margin-bottom: 1rem;
+  }
+  .renewal-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem;
+    max-width: 860px; margin: 0 auto;
+  }
+  .renewal-card {
+    position: relative; background: var(--paper);
+    border: 1.5px solid var(--border-subtle); border-radius: 1.25rem;
+    padding: 2rem; display: flex; flex-direction: column; gap: .75rem;
+    box-shadow: 0 8px 28px rgba(0,0,0,.06);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .renewal-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.1); }
+  .renewal-card-couple { border-color: var(--blush); }
+  .renewal-badge-tag {
+    position: absolute; top: -1px; right: 1.5rem;
+    background: var(--blush); color: #fff; font-size: .72rem; font-weight: 900;
+    padding: .7rem .55rem .35rem;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+  }
+  .renewal-card-icon {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--sea) 18%, transparent), color-mix(in srgb, var(--matcha) 18%, transparent));
+    border: 2px solid var(--sea); color: var(--sea);
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+  }
+  .renewal-card-couple .renewal-card-icon {
+    border-color: var(--blush); color: var(--blush);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--blush) 12%, transparent), color-mix(in srgb, var(--nectarine) 12%, transparent));
+  }
+  .renewal-card h3 { font-size: 1.05rem; color: var(--heading); margin: 0; }
+  .renewal-price { font-size: 2rem; font-weight: 900; color: var(--tangerine); line-height: 1; }
+  .renewal-duration { font-size: 1rem; font-weight: 600; color: var(--ink-muted); }
+  .renewal-per { font-size: .88rem; color: var(--ink-muted); margin: 0; }
+  .renewal-per strong { color: var(--sea); }
+  .renewal-features { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .5rem; }
+  .renewal-features li { display: flex; align-items: flex-start; gap: .6rem; font-size: .88rem; color: var(--ink-muted); }
+  .renewal-features li i { color: var(--matcha); margin-top: .18rem; flex-shrink: 0; }
+  .renewal-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    background: var(--blush); color: #fff; padding: .8rem 1.2rem;
+    border-radius: 12px; font-weight: 800; font-size: .9rem; text-decoration: none;
+    border: none; box-shadow: 0 4px 14px rgba(0,0,0,.1);
+    transition: all .2s ease; margin-top: auto;
+  }
+  .renewal-btn:hover { background: var(--brand-3-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.14); }
+  .renewal-note {
+    text-align: center; margin-top: 1.5rem;
+    font-size: .88rem; color: var(--ink-subtle);
+    display: flex; align-items: center; justify-content: center; gap: .5rem;
+  }
+  .renewal-note i { color: var(--sea); }
+  @media (max-width: 640px) {
+    .renewal-grid { grid-template-columns: 1fr; }
+  }
 </style>
 {% endblock %}
 
@@ -392,7 +534,7 @@
         <img src="{% static 'img/contact/whythisplanimg.png' %}" alt="A calm and supportive therapy setting" style="width:100%; border-radius:1rem; box-shadow: 0 15px 40px rgba(0,0,0, .1);" />
         <div class="why-plan-text">
           <h2>Why Choose This Path?</h2>
-          <p>Not everyone can afford Aanchal’s standard rates. This onboarding plan bridges that gap—start with her direct care, then continue long-term with a mapped Another Light Counselling therapist plus her behind-the-scenes supervision.</p>
+          <p>Not everyone can afford Aanchal's standard rates. This onboarding plan bridges that gap—start with her direct care, then continue long-term with a mapped Another Light Counselling therapist plus her behind-the-scenes supervision.</p>
           <ul class="why-plan-list">
             <li><span class="icon"><i class="fas fa-check"></i></span><span>Therapy continues with your mapped Another Light Counselling therapist at standard affordable rates.</span></li>
             <li><span class="icon"><i class="fas fa-check"></i></span><span>Aanchal will not directly join your sessions post-handover.</span></li>
@@ -423,7 +565,7 @@
           </div>
           <div class="step-item">
             <div class="step-icon"><i class="fas fa-hands-helping"></i></div>
-            <h3>Ongoing Supervision</h3><p>Your therapist is supported by Aanchal’s behind-the-scenes guidance.</p>
+            <h3>Ongoing Supervision</h3><p>Your therapist is supported by Aanchal's behind-the-scenes guidance.</p>
           </div>
         </div>
       </div>
@@ -524,6 +666,120 @@
       </div>
     </section>
 
+    <!-- ============================================================
+         NEW SECTION 5: WHAT HAPPENS AFTER THE 3 SESSIONS?
+    ============================================================ -->
+    <section id="after-sessions" class="after-sessions reveal">
+      <div class="inner">
+        <h2>What Happens After the 3 Sessions?</h2>
+        <p class="section-subtitle">Your journey doesn't end here — it evolves into sustainable, expert-backed support.</p>
+        <div class="after-sessions-card">
+          <div class="after-sessions-main">
+            <div class="after-icon-wrap" aria-hidden="true">
+              <i class="fas fa-route"></i>
+            </div>
+            <div class="after-content">
+              <h3>Seamless Continuation Under Expert Supervision</h3>
+              <p>You continue therapy with your mapped Another Light Counselling therapist at more affordable rates. Aanchal won't directly join sessions — but remains an integral part of your healing journey via internal supervision.</p>
+              <div class="after-note">
+                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                <span>You're welcome to ask your therapist or our manager for updates on how this support is being integrated into your care.</span>
+              </div>
+            </div>
+          </div>
+          <div class="after-reveal-grid">
+            <div class="after-reveal-item">
+              <button class="after-reveal-trigger" aria-expanded="false" aria-controls="ar1">
+                <span class="ar-icon"><i class="fas fa-user-friends"></i></span>
+                <span class="ar-label">Therapist Continuity</span>
+                <span class="ar-toggle"><i class="fas fa-chevron-down"></i></span>
+              </button>
+              <div class="after-reveal-body" id="ar1">
+                <p>Your mapped therapist has a full case file prepared by Aanchal — your history, goals, and therapeutic needs are already documented, so you continue without starting over.</p>
+              </div>
+            </div>
+            <div class="after-reveal-item">
+              <button class="after-reveal-trigger" aria-expanded="false" aria-controls="ar2">
+                <span class="ar-icon"><i class="fas fa-eye-slash"></i></span>
+                <span class="ar-label">Behind-the-Scenes Guidance</span>
+                <span class="ar-toggle"><i class="fas fa-chevron-down"></i></span>
+              </button>
+              <div class="after-reveal-body" id="ar2">
+                <p>Aanchal supervises your therapist internally — your care benefits from her clinical expertise and insights without her being present in your sessions.</p>
+              </div>
+            </div>
+            <div class="after-reveal-item">
+              <button class="after-reveal-trigger" aria-expanded="false" aria-controls="ar3">
+                <span class="ar-icon"><i class="fas fa-coins"></i></span>
+                <span class="ar-label">Affordable Ongoing Rates</span>
+                <span class="ar-toggle"><i class="fas fa-chevron-down"></i></span>
+              </button>
+              <div class="after-reveal-body" id="ar3">
+                <p>After onboarding, you continue at Another Light Counselling's standard per-session or package rates — significantly more accessible than Aanchal's direct session fees.</p>
+              </div>
+            </div>
+            <div class="after-reveal-item">
+              <button class="after-reveal-trigger" aria-expanded="false" aria-controls="ar4">
+                <span class="ar-icon"><i class="fas fa-comments"></i></span>
+                <span class="ar-label">Stay in the Loop</span>
+                <span class="ar-toggle"><i class="fas fa-chevron-down"></i></span>
+              </button>
+              <div class="after-reveal-body" id="ar4">
+                <p>You can ask your therapist or our team manager at any time how Aanchal's supervisory input is being woven into your sessions and care plan.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NEW SECTION 6: OPTIONAL RENEWAL — CONTINUED SUPERVISION
+    ============================================================ -->
+    <section id="renewal" class="renewal reveal">
+      <div class="inner">
+        <div class="renewal-header">
+          <span class="renewal-eyebrow"><i class="fas fa-sync-alt"></i> Optional Add-On</span>
+          <h2>Want Continued Supervision by Aanchal?</h2>
+          <p class="section-subtitle">After your first 3 months, keep benefiting from Aanchal's clinical expertise — without direct sessions. Renewable every 3 months.</p>
+        </div>
+        <div class="renewal-grid">
+          <div class="renewal-card">
+            <div class="renewal-card-icon"><i class="fas fa-user"></i></div>
+            <h3>Individual Therapy Supervision</h3>
+            <div class="renewal-price">₹3,000 <span class="renewal-duration">/ 3 months</span></div>
+            <p class="renewal-per">That's just <strong>₹250 per session</strong> of Aanchal's supervision input</p>
+            <ul class="renewal-features">
+              <li><i class="fas fa-check"></i> Covers 12 weeks of weekly sessions</li>
+              <li><i class="fas fa-check"></i> Aanchal reviews your therapist's case work</li>
+              <li><i class="fas fa-check"></i> Ongoing clinical insights &amp; guidance</li>
+              <li><i class="fas fa-check"></i> Renewable every 3 months</li>
+            </ul>
+            <a class="btn renewal-btn" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hello%2C%20I%27m%20interested%20in%20the%20Individual%20Therapy%20Supervision%20Renewal%20plan.&type=phone_number&app_absent=0" target="_blank" rel="noopener">
+              <i class="fas fa-calendar-plus"></i> Renew Supervision
+            </a>
+          </div>
+          <div class="renewal-card renewal-card-couple">
+            <div class="renewal-badge-tag">Couples</div>
+            <div class="renewal-card-icon"><i class="fas fa-heart"></i></div>
+            <h3>Couple / Relationship Therapy Supervision</h3>
+            <div class="renewal-price">₹5,000 <span class="renewal-duration">/ 3 months</span></div>
+            <p class="renewal-per">That's just <strong>₹417 per session</strong> of Aanchal's supervision input</p>
+            <ul class="renewal-features">
+              <li><i class="fas fa-check"></i> Covers 12 weeks of weekly sessions</li>
+              <li><i class="fas fa-check"></i> Relational dynamics supervision included</li>
+              <li><i class="fas fa-check"></i> Couple-specific guidance for your therapist</li>
+              <li><i class="fas fa-check"></i> Renewable every 3 months</li>
+            </ul>
+            <a class="btn renewal-btn" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hello%2C%20I%27m%20interested%20in%20the%20Couple%20Therapy%20Supervision%20Renewal%20plan.&type=phone_number&app_absent=0" target="_blank" rel="noopener">
+              <i class="fas fa-calendar-plus"></i> Renew Supervision
+            </a>
+          </div>
+        </div>
+        <p class="renewal-note"><i class="fas fa-info-circle"></i> Supervision is renewable after each 3-month cycle or as per your preference. Talk to us to customise your plan.</p>
+      </div>
+    </section>
+
     <!-- TESTIMONIALS with ambient background -->
     <section class="testimonials reveal" aria-label="What our clients say">
       <div class="section-surface" aria-hidden="true"></div>
@@ -558,7 +814,7 @@
   <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
   <div class="star-rating">⭐⭐⭐⭐⭐</div>
   <blockquote>
-    I’m happy with the services received from Another Light Counselling. Aanchal Narang is an excellent amd efficient healer.
+    I'm happy with the services received from Another Light Counselling. Aanchal Narang is an excellent amd efficient healer.
     I can already see so much improvement in my mental well being. She is very sweet, kind and understanding. I like to have the sessions with her and always look out for the next.
     And also they have group therapies too which is very helpful.
     I would highly recommend them to anyone.
@@ -582,7 +838,7 @@
   <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
   <div class="star-rating">⭐⭐⭐⭐⭐</div>
   <blockquote>
-    I started my journey here about 6 months ago. So far, I’m satisfied with the experience, Aanchal was one of the first people who I opened up to a great extent which is something I struggled with for a long time. They restored my trust and hope for healing, which I’m extremely grateful for. Simply, I would recommend ALC to anyone who seeks healing and understanding their problems at a deep, unbiased, comfortable level and continuous support. Definitely one of the best decisions I’ve made.
+    I started my journey here about 6 months ago. So far, I'm satisfied with the experience, Aanchal was one of the first people who I opened up to a great extent which is something I struggled with for a long time. They restored my trust and hope for healing, which I'm extremely grateful for. Simply, I would recommend ALC to anyone who seeks healing and understanding their problems at a deep, unbiased, comfortable level and continuous support. Definitely one of the best decisions I've made.
   </blockquote>
   <cite>– Dubey</cite>
   <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
@@ -592,7 +848,7 @@
   <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
   <div class="star-rating">⭐⭐⭐⭐⭐</div>
   <blockquote>
-    I discovered Another Light Counseling in September 2024, and my journey with them has been truly transformative. I’ve been working with Aanchal, who has consistently shown exceptional empathy, open-mindedness, and patience. She creates a safe and non-judgmental space, allowing me to explore my thoughts and emotions at my own pace.<br><br>
+    I discovered Another Light Counseling in September 2024, and my journey with them has been truly transformative. I've been working with Aanchal, who has consistently shown exceptional empathy, open-mindedness, and patience. She creates a safe and non-judgmental space, allowing me to explore my thoughts and emotions at my own pace.<br><br>
     Good therapy can be hard to find in India, which makes my experience with Another Light Counseling even more valuable. I wholeheartedly recommend their services to anyone seeking compassionate and professional support.
   </blockquote>
   <cite>– Aseem S</cite>
@@ -604,7 +860,7 @@
   <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
   <div class="star-rating">⭐⭐⭐⭐⭐</div>
   <blockquote>
-    Another Light has been very pivotal in my healing and recovery. Aanchal’s approach to complex issues using various techniques such as eye movement desensitization and reprocessing (EMDR) and internal family systems (IFS) has helped me gain a deeper perspective on things I’m working with and find better ways to cope with them. Aanchal is extremely empathetic and very practical with the solutions that they provide. They’ve created safe a space for me to process and heal, and their dedication towards their clients’ well-being is unwavering. I highly recommend Another Light to anyone who’s searching for another light that may lead them to a hopeful recovery.
+    Another Light has been very pivotal in my healing and recovery. Aanchal's approach to complex issues using various techniques such as eye movement desensitization and reprocessing (EMDR) and internal family systems (IFS) has helped me gain a deeper perspective on things I'm working with and find better ways to cope with them. Aanchal is extremely empathetic and very practical with the solutions that they provide. They've created safe a space for me to process and heal, and their dedication towards their clients' well-being is unwavering. I highly recommend Another Light to anyone who's searching for another light that may lead them to a hopeful recovery.
   </blockquote>
   <cite>– Shivaksh Mishra</cite>
   <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
@@ -654,7 +910,7 @@
   <div class="quote-icon top"><i class="fas fa-quote-left"></i></div>
   <div class="star-rating">⭐⭐⭐⭐⭐</div>
   <blockquote>
-    I’ve been working with Aanchal from Another Light Counseling for a few months now, both in person and online. I have tried other therapies and therapists but haven’t found the depth I was seeking or tools specific for trauma healing. In every session with Aanchal I touch something deep within me that brings both wisdom and assimilation. I am so grateful for this therapy and the consistent support and care I get from Aanchal. I have already recommended Aanchal to many of my friends, some who are not working with them consistently! May all beings be happy and free.
+    I've been working with Aanchal from Another Light Counseling for a few months now, both in person and online. I have tried other therapies and therapists but haven't found the depth I was seeking or tools specific for trauma healing. In every session with Aanchal I touch something deep within me that brings both wisdom and assimilation. I am so grateful for this therapy and the consistent support and care I get from Aanchal. I have already recommended Aanchal to many of my friends, some who are not working with them consistently! May all beings be happy and free.
   </blockquote>
   <cite>– Myron Shanti</cite>
   <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
@@ -666,7 +922,7 @@
   <blockquote>
     I have been working with Aanchal since a while, and it has been my most successful and relaxing experience with therapy so far.
     They focused on listening and evaluating my situation in a patient and unbiased manner since the very beginning, which has led to significant improvement in my symptoms within a relatively short duration of time.
-    I’m very keen on continuing my sessions with them and hopefully witnessing more progress in the days to come.
+    I'm very keen on continuing my sessions with them and hopefully witnessing more progress in the days to come.
   </blockquote>
   <cite>– Shruti P</cite>
   <div class="quote-icon bottom"><i class="fas fa-quote-right"></i></div>
@@ -683,14 +939,14 @@
         <div class="faq-two-col">
           <div>
             <div class="faq-grid">
-              <div class="qa-item"><div class="q">What is this plan about?</div><div class="a"><p>It’s a structured way to begin therapy with Aanchal’s direct care and continue with an ALC therapist under her ongoing supervision.</p></div></div>
+              <div class="qa-item"><div class="q">What is this plan about?</div><div class="a"><p>It's a structured way to begin therapy with Aanchal's direct care and continue with an ALC therapist under her ongoing supervision.</p></div></div>
               <div class="qa-item"><div class="q">How does it work?</div><div class="a"><p>You start with 3 sessions with Aanchal, get mapped to a suitable Another Light Counselling therapist, and continue therapy with her behind-the-scenes guidance.</p></div></div>
-              <div class="qa-item"><div class="q">Why choose this plan?</div><div class="a"><p>It bridges expert care and affordability — you receive Aanchal’s insight without her full-session rates.</p></div></div>
+              <div class="qa-item"><div class="q">Why choose this plan?</div><div class="a"><p>It bridges expert care and affordability — you receive Aanchal's insight without her full-session rates.</p></div></div>
               <div class="qa-item"><div class="q">What happens after my 3 sessions?</div><div class="a"><p>You continue therapy with your mapped Another Light Counselling therapist. Aanchal remains involved through internal supervision.</p></div></div>
               <div class="qa-item"><div class="q">Will Aanchal attend my sessions after handover?</div><div class="a"><p>No, but she supervises your therapist to ensure ongoing quality and continuity of care.</p></div></div>
-              <div class="qa-item"><div class="q">Can I extend her supervision later?</div><div class="a"><p>Yes, you can continue Aanchal’s supervision for another 3 months at a nominal add-on cost.</p></div></div>
+              <div class="qa-item"><div class="q">Can I extend her supervision later?</div><div class="a"><p>Yes, you can continue Aanchal's supervision for another 3 months at a nominal add-on cost.</p></div></div>
               <div class="qa-item"><div class="q">What are the plan options?</div><div class="a"><p>Individual (₹10,000) and Couple (₹12,000) onboarding packages, plus optional EMDR, IFS, and combo plans.</p></div></div>
-              <div class="qa-item"><div class="q">What is supervision and how does it help me?</div><div class="a"><p>It’s a process where Aanchal guides your therapist — so your sessions benefit from her expertise even indirectly.</p></div></div>
+              <div class="qa-item"><div class="q">What is supervision and how does it help me?</div><div class="a"><p>It's a process where Aanchal guides your therapist — so your sessions benefit from her expertise even indirectly.</p></div></div>
               <div class="qa-item"><div class="q">Can I return to Aanchal later?</div><div class="a"><p>Yes. You can book EMDR or IFS sessions directly with her once onboarding is complete.</p></div></div>
               <div class="qa-item"><div class="q">How do I sign up?</div><div class="a"><p>Contact Team Another Light Counselling via email or WhatsApp to discuss which plan fits your goals best.</p></div></div>
             </div>
@@ -736,6 +992,34 @@
       } else {
         item.classList.remove('active');
         answer.style.maxHeight = null;
+      }
+    });
+  });
+
+  // --- AFTER SESSIONS REVEAL ACCORDION ---
+  document.querySelectorAll('.after-reveal-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const targetId = btn.getAttribute('aria-controls');
+      const body = document.getElementById(targetId);
+
+      // Close all others
+      document.querySelectorAll('.after-reveal-trigger').forEach(otherBtn => {
+        if (otherBtn !== btn) {
+          otherBtn.setAttribute('aria-expanded', 'false');
+          const otherId = otherBtn.getAttribute('aria-controls');
+          const otherBody = document.getElementById(otherId);
+          if (otherBody) otherBody.classList.remove('open');
+        }
+      });
+
+      // Toggle current
+      if (!expanded) {
+        btn.setAttribute('aria-expanded', 'true');
+        body.classList.add('open');
+      } else {
+        btn.setAttribute('aria-expanded', 'false');
+        body.classList.remove('open');
       }
     });
   });

@@ -4,121 +4,1026 @@
 {% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/contact.css' %}">
 <link rel="canonical" href="https://www.another-light.com/contact" />
+
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
-<script async>
+<script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
 </script>
+
+<style>
+    /* ==========================================
+       CONTACT PAGE REVAMP
+       Brand colors/fonts retained
+       Navbar/footer untouched
+       ========================================== */
+
+    #content,
+    #content * {
+        box-sizing: border-box;
+    }
+
+    #content {
+        width: 100%;
+        overflow-x: hidden;
+        background: #f3f3f3;
+    }
+
+    #content a,
+    #content a:hover,
+    #content a:focus {
+        text-decoration: none;
+    }
+
+    /* HERO - shorter, but show full top_gal image */
+#topsection {
+    {% comment %} --hero-bg: #c9e7b8 !important;   /* screenshot-matching light green */ {% endcomment %}
+    --gal-shift: 4%;      /* move girl slightly to the right */
+    width: 100%;
+    background-color: #c9e7b8 !important;
+    line-height: 0;
+    background: var(--hero-bg);
+    overflow: hidden;
+    height: clamp(220px, 28vw, 320px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#topgraphic {
+    width: min(100%, 1120px);
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center bottom;
+    transform: translateX(var(--gal-shift));
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    #topsection {
+        --gal-shift: 2%;
+        height: clamp(170px, 38vw, 240px);
+    }
+
+    #topgraphic {
+        width: min(100%, 980px);
+    }
+}
+
+/* keep gradient + left peeche image */
+#contact-surface {
+    position: relative;
+    width: 100%;
+    padding: 20px 0 72px;
+    overflow: hidden;
+    background-color: #f3f3f3;
+    background-image:
+        linear-gradient(rgba(243, 243, 243, 0.94), rgba(243, 243, 243, 0.98)),
+        url("{% static 'img/contact/peeche.png' %}");
+    background-repeat: no-repeat, no-repeat;
+    background-position: center center, left top;
+    background-size: auto, 320px auto;
+}
+
+@media (max-width: 768px) {
+    #topsection {
+        height: clamp(170px, 38vw, 240px);
+    }
+
+    #topgraphic {
+        object-fit: contain;
+        object-position: center bottom;
+    }
+
+    #contact-surface {
+        padding: 16px 0 50px;
+        background-image:
+            linear-gradient(rgba(243, 243, 243, 0.94), rgba(243, 243, 243, 0.98)),
+            url("{% static 'img/contact/peeche.png' %}");
+        background-repeat: no-repeat, no-repeat;
+        background-position: center center, left top;
+        background-size: auto, 220px auto;
+    }
+}
+
+    .contact-wrapper {
+        position: relative;
+        z-index: 2;
+        width: min(1240px, calc(100% - 48px));
+        margin: 0 auto;
+    }
+
+    .contact-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .contact-main-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.06fr) minmax(360px, 0.94fr);
+        gap: 28px;
+        align-items: stretch;
+    }
+
+    .contact-panel {
+        position: relative;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.97);
+        border: 1px solid #d9ddd7;
+        border-radius: 28px;
+        box-shadow: 0 14px 32px rgba(78, 108, 84, 0.08);
+    }
+
+    .contact-panel h1,
+    .contact-panel h2,
+    .contact-panel h3 {
+        margin-top: 0;
+        color: #5d8f63;
+        line-height: 1.15;
+        letter-spacing: 0.3px;
+    }
+
+    .contact-panel h1 {
+        font-size: clamp(2rem, 2.8vw, 3rem);
+        margin-bottom: 14px;
+    }
+
+    .contact-panel h2 {
+        font-size: clamp(1.55rem, 2.2vw, 2.2rem);
+        margin-bottom: 10px;
+    }
+
+    .contact-panel p {
+        margin: 0;
+        color: #333333;
+        line-height: 1.75;
+    }
+
+    .panel-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(93, 143, 99, 0.10);
+        color: #5d8f63;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        margin-bottom: 16px;
+    }
+
+    .section-subtext {
+        color: #5f5f5f !important;
+        font-size: 0.98rem;
+        line-height: 1.72 !important;
+    }
+
+    /* LEFT PANEL */
+    .intro-panel {
+        padding: 30px;
+        overflow: hidden;
+    }
+
+    .contact-lead {
+        font-size: 1rem;
+        margin-bottom: 22px !important;
+        max-width: 670px;
+    }
+
+    .intro-media {
+        position: relative;
+        margin-top: 24px;
+        min-height: 330px;
+        border-radius: 24px;
+        overflow: hidden;
+        background:
+            linear-gradient(135deg, rgba(201, 231, 184, 0.42), rgba(255, 255, 255, 0.82));
+        border: 1px solid #dde4d9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .intro-media::after {
+        content: "";
+        position: absolute;
+        inset: auto -40px -60px auto;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(93, 143, 99, 0.18) 0%, rgba(93, 143, 99, 0) 70%);
+        pointer-events: none;
+    }
+
+    .intro-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        padding: 18px;
+    }
+
+    .quick-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+    }
+
+    .quick-pill {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px 15px;
+        background: #ffffff;
+        border: 1px solid #dde5de;
+        border-radius: 18px;
+        color: #2f2f2f;
+        min-height: 96px;
+        transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+
+    .quick-pill:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(78, 108, 84, 0.09);
+        border-color: #adc3b0;
+        color: #2f2f2f;
+    }
+
+    .quick-pill-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 0.95rem;
+        flex-shrink: 0;
+    }
+
+    .icon-phone { background: #4d7f53; }
+    .icon-mail  { background: #e68c7f; }
+    .icon-wa    { background: #25d366; }
+
+    .quick-pill-content small {
+        display: block;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        font-size: 0.70rem;
+        margin-bottom: 4px;
+    }
+
+    .quick-pill-content span {
+        display: block;
+        color: #303030;
+        font-size: 0.96rem;
+        line-height: 1.45;
+        word-break: break-word;
+    }
+
+    /* RIGHT PANEL */
+    .reach-panel {
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .reach-panel::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(90deg, #4d7f53 0%, #5d8f63 50%, #e68c7f 100%);
+    }
+
+    .reach-inner {
+        padding: 28px 28px 30px;
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-header .panel-tag {
+        margin-bottom: 14px;
+    }
+
+    .form-header p {
+        max-width: 430px;
+        margin: 0 auto !important;
+        color: #5c5c5c !important;
+        font-size: 0.95rem;
+    }
+
+    .reach-form {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .reach-form .errorlist,
+    .reach-form .errorlist li {
+        list-style: none;
+        margin: 0 0 6px;
+        padding: 0;
+        color: #cf5f56;
+        font-size: 0.88rem;
+        line-height: 1.5;
+    }
+
+    .field-shell {
+        margin: 0;
+    }
+
+    .field-label {
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #6e6e6e;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .reach-form input[type="text"],
+    .reach-form input[type="email"],
+    .reach-form input[type="tel"],
+    .reach-form input[type="number"],
+    .reach-form textarea,
+    .reach-form select {
+        width: 100%;
+        min-height: 54px;
+        border: 1.6px solid #dbe4db;
+        border-radius: 14px;
+        background: #f7f9f6;
+        padding: 14px 16px;
+        color: #2f2f2f;
+        font-size: 0.98rem;
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .reach-form input[type="text"]:focus,
+    .reach-form input[type="email"]:focus,
+    .reach-form input[type="tel"]:focus,
+    .reach-form input[type="number"]:focus,
+    .reach-form textarea:focus,
+    .reach-form select:focus {
+        border-color: #5d8f63;
+        box-shadow: 0 0 0 4px rgba(93, 143, 99, 0.13);
+        background: #fff;
+    }
+
+    .reach-form input[type="submit"] {
+        width: 100%;
+        min-height: 56px;
+        border: none;
+        border-radius: 999px;
+        background: #4d7f53;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 6px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .reach-form input[type="submit"]:hover {
+        background: #416b46;
+        transform: translateY(-1px);
+        box-shadow: 0 10px 20px rgba(77, 127, 83, 0.20);
+    }
+
+    /* DIRECT CONTACT STRIP */
+    .contact-direct-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .direct-card {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid #d9ddd7;
+        border-radius: 22px;
+        padding: 18px 20px;
+        box-shadow: 0 10px 24px rgba(78, 108, 84, 0.06);
+    }
+
+    .direct-icon {
+        width: 54px;
+        height: 54px;
+        min-width: 54px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+
+    .direct-content small {
+        display: block;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        font-size: 0.72rem;
+        margin-bottom: 4px;
+    }
+
+    .direct-content span,
+    .direct-content a {
+        display: block;
+        color: #2f2f2f;
+        font-size: 1rem;
+        line-height: 1.45;
+        word-break: break-word;
+    }
+
+    /* LOWER GRID */
+    .secondary-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+        gap: 28px;
+        align-items: stretch;
+    }
+
+    /* FIND US ONLINE */
+    .online-panel {
+        padding: 30px;
+        overflow: hidden;
+    }
+
+    .online-panel::after {
+        content: "";
+        position: absolute;
+        right: -50px;
+        bottom: -80px;
+        width: 210px;
+        height: 210px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(230, 140, 127, 0.18) 0%, rgba(230, 140, 127, 0) 72%);
+        pointer-events: none;
+    }
+
+    .online-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .online-link {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: #ffffff;
+        border: 1px solid #dde5de;
+        border-radius: 20px;
+        padding: 18px;
+        color: #2f2f2f;
+        min-height: 96px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .online-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(78, 108, 84, 0.09);
+        border-color: #adc3b0;
+        color: #2f2f2f;
+    }
+
+    .online-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+
+    .ig-bg {
+        background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    .li-bg {
+        background: #0077b5;
+    }
+
+    .web-bg {
+        background: #5d8f63;
+    }
+
+    .wa-bg {
+        background: #25d366;
+    }
+
+    .online-content small {
+        display: block;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        font-size: 0.70rem;
+        margin-bottom: 4px;
+    }
+
+    .online-content span {
+        display: block;
+        color: #313131;
+        font-size: 0.98rem;
+        line-height: 1.4;
+        word-break: break-word;
+    }
+
+    /* JOIN US */
+    .join-panel {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(241,247,241,0.96));
+    }
+
+    .join-highlight {
+        width: 70px;
+        height: 70px;
+        border-radius: 20px;
+        background: rgba(93, 143, 99, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4d7f53;
+        font-size: 1.65rem;
+        margin-bottom: 18px;
+    }
+
+    .join-copy {
+        margin-bottom: 18px;
+    }
+
+    .join-points {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px 0 22px;
+    }
+
+    .join-point {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: #ffffff;
+        border: 1px solid #dde5de;
+        color: #4a4a4a;
+        font-size: 0.88rem;
+        line-height: 1.3;
+    }
+
+    .join-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        padding: 0 20px;
+        border-radius: 14px;
+        background: #4d7f53;
+        color: #fff !important;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .join-cta:hover {
+        background: #416b46;
+        transform: translateY(-1px);
+        box-shadow: 0 10px 20px rgba(77, 127, 83, 0.20);
+    }
+
+    .join-note {
+        margin-top: 14px !important;
+        color: #5f5f5f !important;
+        font-size: 0.94rem;
+    }
+
+    /* POPUP */
+    #promptoverlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.42);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #dialoguebox {
+        width: 100%;
+        max-width: 420px;
+        background: #fff;
+        border-radius: 20px;
+        padding: 30px 24px;
+        text-align: center;
+        box-shadow: 0 18px 40px rgba(0,0,0,0.16);
+    }
+
+    #dialoguebox p {
+        margin: 0 0 16px;
+        color: #333;
+        line-height: 1.7;
+    }
+
+    #dialoguebox a {
+        display: inline-block;
+        min-width: 110px;
+        padding: 10px 18px;
+        background: #4d7f53;
+        color: #fff;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    #dialoguebox a:hover {
+        background: #416b46;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+        .quick-strip,
+        .contact-direct-row {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 980px) {
+        .contact-main-grid,
+        .secondary-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #contact-surface {
+            padding: 38px 0 54px;
+            background-size: auto, 220px auto;
+        }
+
+        .contact-wrapper {
+            width: min(100%, calc(100% - 24px));
+        }
+
+        .intro-panel,
+        .reach-inner,
+        .online-panel,
+        .join-panel {
+            padding: 22px 18px;
+        }
+
+        .contact-panel {
+            border-radius: 22px;
+        }
+
+        .intro-media {
+            min-height: 240px;
+            border-radius: 20px;
+        }
+
+        .quick-strip,
+        .contact-direct-row,
+        .online-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .contact-panel h1 {
+            font-size: 1.95rem;
+        }
+
+        .contact-panel h2 {
+            font-size: 1.52rem;
+        }
+
+        .quick-pill,
+        .online-link,
+        .direct-card {
+            padding: 14px;
+        }
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 <div id="content">
 
     <div id="promptoverlay">
-
         <div id="dialoguebox">
             <p>
-                Thank you for reaching out to us!!<br />
+                Thank you for reaching out to us!!<br>
                 We will contact you shortly!
             </p>
-            <p>
-                <a href="#">OK</a>
-            </p>
+            <p><a href="#">OK</a></p>
         </div>
-
     </div>
-
 
     <div id="topsection">
-        <img src="{% static 'img/contact/top_gal.svg' %}" id="topgraphic" />
+        <img src="{% static 'img/contact/top_gal.svg' %}" id="topgraphic" alt="Contact illustration">
     </div>
 
+    <section id="contact-surface">
+        <div class="contact-wrapper">
+            <div class="contact-layout">
 
-    <div id="contact-section">
+                <!-- MAIN GRID -->
+                <div class="contact-main-grid">
 
-        <div id="info-area">
-            <h1>Contact Us</h1>
-            <p>
-                While our FAQs section answers most common questions, if you have further queries or just need to get in
-                touch and listen to an actual human beyond this website, feel free to contact us in any of the following
-                ways:
-            </p>
-            <p class="social-media">
+                    <!-- LEFT PANEL -->
+                    <div class="contact-panel intro-panel">
+                        <span class="panel-tag">
+                            <i class="fas fa-comment-dots"></i>
+                            Our Contact Space
+                        </span>
 
+                        <h1>Get In Touch With Another Light</h1>
 
-                {% for contactdetail in contactdetails %}
-                <a href="{{contactdetail.url}}" target="_blank">
-                    <strong><i class="{{contactdetail.symbol}}"></i> {{contactdetail.title}}:</strong>
-                    {{contactdetail.value}}
-                </a><br /><br />
-                {% endfor %}
+                        <p class="contact-lead">
+                            Whether you have a question, want to understand our process better, or are ready to begin,
+                            we would be glad to hear from you. Reach out in the way that feels most comfortable for you,
+                            and our team will help you with the next steps.
+                        </p>
 
-            </p>
+                        <div class="intro-media">
+                            <img src="{% static 'img/contact/top_gal.svg' %}" alt="Another Light visual">
+                        </div>
+
+                        <div class="quick-strip">
+                            <a href="tel:+918879260310" class="quick-pill">
+                                <div class="quick-pill-icon icon-phone">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="quick-pill-content">
+                                    <small>Call Us</small>
+                                    <span>8879260310</span>
+                                </div>
+                            </a>
+
+                            <a href="mailto:admin@another-light.com" class="quick-pill">
+                                <div class="quick-pill-icon icon-mail">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="quick-pill-content">
+                                    <small>Email Us</small>
+                                    <span>admin@another-light.com</span>
+                                </div>
+                            </a>
+
+                            <a href="https://wa.me/message/FL4M2GAUKTZJD1" target="_blank" rel="noopener" class="quick-pill">
+                                <div class="quick-pill-icon icon-wa">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <div class="quick-pill-content">
+                                    <small>WhatsApp</small>
+                                    <span>Message us directly</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT PANEL -->
+                    <div class="contact-panel reach-panel">
+                        <div class="reach-inner">
+                            <div class="form-header">
+                                <span class="panel-tag">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Reach To Us
+                                </span>
+                                <h2>Share your details</h2>
+                                <p>
+                                    Fill in the form below and our team will connect with you shortly.
+                                </p>
+                            </div>
+
+                            <form method="POST" action="" class="reach-form">
+                                {% csrf_token %}
+
+                                <div>
+                                    {{ form.non_field_errors }}
+                                </div>
+
+                                <div class="field-shell">
+                                    <span class="field-label">Your Name</span>
+                                    {{ form.name.errors }}
+                                    {{ form.name }}
+                                </div>
+
+                                <div class="field-shell">
+                                    <span class="field-label">Phone Number</span>
+                                    {{ form.number.errors }}
+                                    {{ form.number }}
+                                </div>
+
+                                <div class="field-shell">
+                                    <span class="field-label">Instagram Handle / Preferred DM</span>
+                                    {{ form.instahandle.errors }}
+                                    {{ form.instahandle }}
+                                </div>
+
+                                <input type="submit" value="Reach Out Now">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIRECT CONTACT STRIP -->
+                <div class="contact-direct-row">
+                    <div class="direct-card">
+                        <div class="direct-icon icon-phone">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="direct-content">
+                            <small>Call Number</small>
+                            <span>+91 88792 60310</span>
+                        </div>
+                    </div>
+
+                    <div class="direct-card">
+                        <div class="direct-icon icon-mail">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="direct-content">
+                            <small>Email Us</small>
+                            <a href="mailto:admin@another-light.com">admin@another-light.com</a>
+                        </div>
+                    </div>
+
+                    <div class="direct-card">
+                        <div class="direct-icon icon-wa">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="direct-content">
+                            <small>WhatsApp</small>
+                            <a href="https://wa.me/message/FL4M2GAUKTZJD1" target="_blank" rel="noopener">Start a chat with us</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LOWER GRID -->
+                <div class="secondary-grid">
+
+                    <!-- FIND US ONLINE -->
+                    <div class="contact-panel online-panel">
+                        <span class="panel-tag">
+                            <i class="fas fa-globe"></i>
+                            Find Us Online
+                        </span>
+
+                        <h2>Stay connected with us</h2>
+                        <p class="section-subtext">
+                            You can also connect with us through our social platforms and website.
+                        </p>
+
+                        <div class="online-grid">
+                            <a href="https://www.instagram.com/another_light_counselling/" target="_blank" rel="noopener" class="online-link">
+                                <div class="online-icon ig-bg">
+                                    <i class="fab fa-instagram"></i>
+                                </div>
+                                <div class="online-content">
+                                    <small>Instagram</small>
+                                    <span>Another Light Counselling</span>
+                                </div>
+                            </a>
+
+                            <a href="https://www.instagram.com/aanchalnarang/" target="_blank" rel="noopener" class="online-link">
+                                <div class="online-icon ig-bg">
+                                    <i class="fab fa-instagram"></i>
+                                </div>
+                                <div class="online-content">
+                                    <small>Instagram</small>
+                                    <span>Aanchal Narang</span>
+                                </div>
+                            </a>
+
+                            <a href="https://www.linkedin.com/company/another-light-counselling/" target="_blank" rel="noopener" class="online-link">
+                                <div class="online-icon li-bg">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </div>
+                                <div class="online-content">
+                                    <small>LinkedIn</small>
+                                    <span>Another Light Counselling</span>
+                                </div>
+                            </a>
+
+                            <a href="https://www.linkedin.com/in/aanchal-narang/" target="_blank" rel="noopener" class="online-link">
+                                <div class="online-icon li-bg">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </div>
+                                <div class="online-content">
+                                    <small>LinkedIn</small>
+                                    <span>Aanchal Narang</span>
+                                </div>
+                            </a>
+
+                            <a href="https://www.another-light.com/" target="_blank" rel="noopener" class="online-link">
+                                <div class="online-icon web-bg">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="online-content">
+                                    <small>Website</small>
+                                    <span>Another Light Counselling</span>
+                                </div>
+                            </a>
+
+                            <a href="https://wa.me/message/FL4M2GAUKTZJD1" target="_blank" rel="noopener" class="online-link">
+                                <div class="online-icon wa-bg">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <div class="online-content">
+                                    <small>WhatsApp</small>
+                                    <span>Chat with our team</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- JOIN US -->
+                    <div class="contact-panel join-panel">
+                        <div>
+                            <span class="panel-tag">
+                                <i class="fas fa-hands-helping"></i>
+                                Join Us
+                            </span>
+
+                            <div class="join-highlight">
+                                <i class="fas fa-hands-helping"></i>
+                            </div>
+
+                            <div class="join-copy">
+                                <h2>Work with us</h2>
+                                <p class="section-subtext">
+                                    Do you like the work that we do, and feel we’re the kind of place you would like to be a part of?
+                                    Write in to us with your CV and a cover letter.
+                                </p>
+                            </div>
+
+                            <div class="join-points">
+                                <span class="join-point"><i class="fas fa-check-circle"></i> CV</span>
+                                <span class="join-point"><i class="fas fa-check-circle"></i> Cover Letter</span>
+                                <span class="join-point"><i class="fas fa-check-circle"></i> Role of Interest</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <a href="mailto:anotherlightcounselling@gmail.com" class="join-cta">
+                                Email Your Application
+                            </a>
+                            <p class="join-note">
+                                Send your application to:
+                                <strong>anotherlightcounselling@gmail.com</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-
-        <div id="form-area">
-
-            <form method="POST" action="">
-
-                {% csrf_token %}
-
-                <h1>Reach Out To Us</h1>
-
-                <p>
-                    {{ form.non_field_errors }}
-                </p>
-                <p>
-                    {{ form.name.errors }}
-                    {{ form.name.label_tag }}
-                    {{ form.name }}
-                    <!-- <label for="name_input">What would you like us to call you?</label><br> -->
-                    <!-- <input type="text" name="name_input" id="name_input"> -->
-                </p>
-
-                <p>
-                    {{ form.number.errors }}
-                    {{ form.number.label_tag }}
-                    {{ form.number }}
-                </p>
-
-                <p>
-                    {{ form.instahandle.errors }}
-                    {{ form.instahandle.label_tag }}
-                    {{ form.instahandle }}
-                </p>
-
-                <input type="submit" value="Submit">
-
-            </form>
-
-        </div>
-
-
-        <div id="join-us-area">
-            <h1 class="reach-out">Join Us!</h1>
-            <p>
-                Do you like the work that we do, and feel we’re the kind of place you would like to be a part of? Write
-                in to us with your CV and a cover letter at <a
-                    href="mailto:anotherlightcounselling@gmail.com">anotherlightcounselling@gmail.com.</a>
-            </p>
-        </div>
-
-
-        <div id="map-area">
-            <h1>Find Us</h1>
-            <p>
-
-            </p>
-        </div>
-
-    </div>
-
-
-
+    </section>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const placeholderMap = {
+            name: 'Your Name',
+            number: 'Phone Number',
+            instahandle: 'Instagram Handle (optional)'
+        };
+
+        Object.keys(placeholderMap).forEach(function (key) {
+            const field = document.querySelector('form [name="' + key + '"]');
+            if (field) {
+                field.setAttribute('placeholder', placeholderMap[key]);
+            }
+        });
+    });
+</script>
 {% endblock %}

@@ -39,77 +39,65 @@
         text-decoration: none;
     }
 
-    /* HERO - shorter, but show full top_gal image */
-#topsection {
-    {% comment %} --hero-bg: #c9e7b8 !important;   /* screenshot-matching light green */ {% endcomment %}
-    --gal-shift: 4%;      /* move girl slightly to the right */
-    width: 100%;
-    background-color: #c9e7b8 !important;
-    line-height: 0;
-    background: var(--hero-bg);
-    overflow: hidden;
-    height: clamp(220px, 28vw, 320px);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-}
-
-#topgraphic {
-    width: min(100%, 1120px);
-    height: 100%;
-    display: block;
-    object-fit: contain;
-    object-position: center bottom;
-    transform: translateX(var(--gal-shift));
-}
-
-/* mobile */
-@media (max-width: 768px) {
+    /* HERO */
     #topsection {
-        --gal-shift: 2%;
-        height: clamp(170px, 38vw, 240px);
+        --gal-shift: 4%;
+        width: 100%;
+        background-color: #c9e7b8 !important;
+        line-height: 0;
+        overflow: hidden;
+        height: clamp(220px, 28vw, 320px);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
     }
 
     #topgraphic {
-        width: min(100%, 980px);
-    }
-}
-
-/* keep gradient + left peeche image */
-#contact-surface {
-    position: relative;
-    width: 100%;
-    padding: 20px 0 72px;
-    overflow: hidden;
-    background-color: #f3f3f3;
-    background-image:
-        linear-gradient(rgba(243, 243, 243, 0.94), rgba(243, 243, 243, 0.98)),
-        url("{% static 'img/contact/peeche.png' %}");
-    background-repeat: no-repeat, no-repeat;
-    background-position: center center, left top;
-    background-size: auto, 320px auto;
-}
-
-@media (max-width: 768px) {
-    #topsection {
-        height: clamp(170px, 38vw, 240px);
-    }
-
-    #topgraphic {
+        width: min(100%, 1120px);
+        height: 100%;
+        display: block;
         object-fit: contain;
         object-position: center bottom;
+        transform: translateX(var(--gal-shift));
     }
 
+    @media (max-width: 768px) {
+        #topsection {
+            --gal-shift: 2%;
+            height: clamp(170px, 38vw, 240px);
+        }
+
+        #topgraphic {
+            width: min(100%, 980px);
+        }
+    }
+
+    /* CONTACT SURFACE */
     #contact-surface {
-        padding: 16px 0 50px;
+        position: relative;
+        width: 100%;
+        padding: 20px 0 72px;
+        overflow: hidden;
+        background-color: #f3f3f3;
         background-image:
-            linear-gradient(rgba(243, 243, 243, 0.94), rgba(243, 243, 243, 0.98)),
+            linear-gradient(rgba(243, 243, 243, 0), rgba(243, 243, 243, 0.12)),
             url("{% static 'img/contact/peeche.png' %}");
         background-repeat: no-repeat, no-repeat;
         background-position: center center, left top;
-        background-size: auto, 220px auto;
+        background-size: auto, 320px auto;
     }
-}
+
+    @media (max-width: 768px) {
+        #contact-surface {
+            padding: 16px 0 50px;
+            background-image:
+                linear-gradient(rgba(243, 243, 243, 0.94), rgba(243, 243, 243, 0.98)),
+                url("{% static 'img/contact/peeche.png' %}");
+            background-repeat: no-repeat, no-repeat;
+            background-position: center center, left top;
+            background-size: auto, 220px auto;
+        }
+    }
 
     .contact-wrapper {
         position: relative;
@@ -228,67 +216,6 @@
         object-fit: contain;
         display: block;
         padding: 18px;
-    }
-
-    .quick-strip {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-        margin-top: 18px;
-    }
-
-    .quick-pill {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 16px 15px;
-        background: #ffffff;
-        border: 1px solid #dde5de;
-        border-radius: 18px;
-        color: #2f2f2f;
-        min-height: 96px;
-        transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-    }
-
-    .quick-pill:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(78, 108, 84, 0.09);
-        border-color: #adc3b0;
-        color: #2f2f2f;
-    }
-
-    .quick-pill-icon {
-        width: 44px;
-        height: 44px;
-        min-width: 44px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-size: 0.95rem;
-        flex-shrink: 0;
-    }
-
-    .icon-phone { background: #4d7f53; }
-    .icon-mail  { background: #e68c7f; }
-    .icon-wa    { background: #25d366; }
-
-    .quick-pill-content small {
-        display: block;
-        color: #888;
-        text-transform: uppercase;
-        letter-spacing: 0.7px;
-        font-size: 0.70rem;
-        margin-bottom: 4px;
-    }
-
-    .quick-pill-content span {
-        display: block;
-        color: #303030;
-        font-size: 0.96rem;
-        line-height: 1.45;
-        word-break: break-word;
     }
 
     /* RIGHT PANEL */
@@ -435,6 +362,10 @@
         flex-shrink: 0;
     }
 
+    .icon-phone { background: #4d7f53; }
+    .icon-mail  { background: #e68c7f; }
+    .icon-wa    { background: #25d366; }
+
     .direct-content small {
         display: block;
         color: #888;
@@ -521,20 +452,20 @@
         flex-shrink: 0;
     }
 
-    .ig-bg {
-        background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    .yt-bg {
+        background: #ff0000;
     }
 
     .li-bg {
         background: #0077b5;
     }
 
-    .web-bg {
-        background: #5d8f63;
+    .ig-bg {
+        background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
     }
 
-    .wa-bg {
-        background: #25d366;
+    .fb-bg {
+        background: #1877f2;
     }
 
     .online-content small {
@@ -625,52 +556,8 @@
         font-size: 0.94rem;
     }
 
-    /* POPUP */
-    #promptoverlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.42);
-        z-index: 9999;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-
-    #dialoguebox {
-        width: 100%;
-        max-width: 420px;
-        background: #fff;
-        border-radius: 20px;
-        padding: 30px 24px;
-        text-align: center;
-        box-shadow: 0 18px 40px rgba(0,0,0,0.16);
-    }
-
-    #dialoguebox p {
-        margin: 0 0 16px;
-        color: #333;
-        line-height: 1.7;
-    }
-
-    #dialoguebox a {
-        display: inline-block;
-        min-width: 110px;
-        padding: 10px 18px;
-        background: #4d7f53;
-        color: #fff;
-        border-radius: 10px;
-        text-decoration: none;
-        font-weight: 700;
-    }
-
-    #dialoguebox a:hover {
-        background: #416b46;
-    }
-
     /* RESPONSIVE */
     @media (max-width: 1100px) {
-        .quick-strip,
         .contact-direct-row {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -709,7 +596,6 @@
             border-radius: 20px;
         }
 
-        .quick-strip,
         .contact-direct-row,
         .online-grid {
             grid-template-columns: 1fr;
@@ -725,7 +611,6 @@
             font-size: 1.52rem;
         }
 
-        .quick-pill,
         .online-link,
         .direct-card {
             padding: 14px;
@@ -737,18 +622,8 @@
 {% block body %}
 <div id="content">
 
-    <div id="promptoverlay">
-        <div id="dialoguebox">
-            <p>
-                Thank you for reaching out to us!!<br>
-                We will contact you shortly!
-            </p>
-            <p><a href="#">OK</a></p>
-        </div>
-    </div>
-
     <div id="topsection">
-        <img src="{% static 'img/contact/top_gal.svg' %}" id="topgraphic" alt="Contact illustration">
+        <img src="{% static 'img/contact/peeche2.webp' %}" id="topgraphic" alt="Contact illustration">
     </div>
 
     <section id="contact-surface">
@@ -775,38 +650,6 @@
 
                         <div class="intro-media">
                             <img src="{% static 'img/contact/top_gal.svg' %}" alt="Another Light visual">
-                        </div>
-
-                        <div class="quick-strip">
-                            <a href="tel:+918879260310" class="quick-pill">
-                                <div class="quick-pill-icon icon-phone">
-                                    <i class="fas fa-phone-alt"></i>
-                                </div>
-                                <div class="quick-pill-content">
-                                    <small>Call Us</small>
-                                    <span>8879260310</span>
-                                </div>
-                            </a>
-
-                            <a href="mailto:admin@another-light.com" class="quick-pill">
-                                <div class="quick-pill-icon icon-mail">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="quick-pill-content">
-                                    <small>Email Us</small>
-                                    <span>admin@another-light.com</span>
-                                </div>
-                            </a>
-
-                            <a href="https://wa.me/message/FL4M2GAUKTZJD1" target="_blank" rel="noopener" class="quick-pill">
-                                <div class="quick-pill-icon icon-wa">
-                                    <i class="fab fa-whatsapp"></i>
-                                </div>
-                                <div class="quick-pill-content">
-                                    <small>WhatsApp</small>
-                                    <span>Message us directly</span>
-                                </div>
-                            </a>
                         </div>
                     </div>
 
@@ -900,27 +743,17 @@
 
                         <h2>Stay connected with us</h2>
                         <p class="section-subtext">
-                            You can also connect with us through our social platforms and website.
+                            Connect with Another Light through our social platforms.
                         </p>
 
                         <div class="online-grid">
-                            <a href="https://www.instagram.com/another_light_counselling/" target="_blank" rel="noopener" class="online-link">
-                                <div class="online-icon ig-bg">
-                                    <i class="fab fa-instagram"></i>
+                            <a href="https://www.youtube.com/" target="_blank" rel="noopener" class="online-link">
+                                <div class="online-icon yt-bg">
+                                    <i class="fab fa-youtube"></i>
                                 </div>
                                 <div class="online-content">
-                                    <small>Instagram</small>
-                                    <span>Another Light Counselling</span>
-                                </div>
-                            </a>
-
-                            <a href="https://www.instagram.com/aanchalnarang/" target="_blank" rel="noopener" class="online-link">
-                                <div class="online-icon ig-bg">
-                                    <i class="fab fa-instagram"></i>
-                                </div>
-                                <div class="online-content">
-                                    <small>Instagram</small>
-                                    <span>Aanchal Narang</span>
+                                    <small>YouTube</small>
+                                    <span>Placeholder link for now</span>
                                 </div>
                             </a>
 
@@ -934,33 +767,23 @@
                                 </div>
                             </a>
 
-                            <a href="https://www.linkedin.com/in/aanchal-narang/" target="_blank" rel="noopener" class="online-link">
-                                <div class="online-icon li-bg">
-                                    <i class="fab fa-linkedin-in"></i>
+                            <a href="https://www.instagram.com/another_light_counselling/" target="_blank" rel="noopener" class="online-link">
+                                <div class="online-icon ig-bg">
+                                    <i class="fab fa-instagram"></i>
                                 </div>
                                 <div class="online-content">
-                                    <small>LinkedIn</small>
-                                    <span>Aanchal Narang</span>
-                                </div>
-                            </a>
-
-                            <a href="https://www.another-light.com/" target="_blank" rel="noopener" class="online-link">
-                                <div class="online-icon web-bg">
-                                    <i class="fas fa-globe"></i>
-                                </div>
-                                <div class="online-content">
-                                    <small>Website</small>
+                                    <small>Instagram</small>
                                     <span>Another Light Counselling</span>
                                 </div>
                             </a>
 
-                            <a href="https://wa.me/message/FL4M2GAUKTZJD1" target="_blank" rel="noopener" class="online-link">
-                                <div class="online-icon wa-bg">
-                                    <i class="fab fa-whatsapp"></i>
+                            <a href="https://www.facebook.com/" target="_blank" rel="noopener" class="online-link">
+                                <div class="online-icon fb-bg">
+                                    <i class="fab fa-facebook-f"></i>
                                 </div>
                                 <div class="online-content">
-                                    <small>WhatsApp</small>
-                                    <span>Chat with our team</span>
+                                    <small>Facebook</small>
+                                    <span>Placeholder link for now</span>
                                 </div>
                             </a>
                         </div>
@@ -994,12 +817,12 @@
                         </div>
 
                         <div>
-                            <a href="mailto:anotherlightcounselling@gmail.com" class="join-cta">
+                            <a href="mailto:coo.naveen@another-light.com" class="join-cta">
                                 Email Your Application
                             </a>
                             <p class="join-note">
                                 Send your application to:
-                                <strong>anotherlightcounselling@gmail.com</strong>
+                                <strong>coo.naveen@another-light.com</strong>
                             </p>
                         </div>
                     </div>
@@ -1012,10 +835,22 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const thankYouUrl = '/psychological-counselling-therapy-thankyou/';
+
+        /*
+         * Safety redirect for the current legacy success flow:
+         * if backend still redirects to /contact/#promptoverlay after submit,
+         * send the user straight to the thank-you page so analytics can track it.
+         */
+        if (window.location.hash === '#promptoverlay') {
+            window.location.replace(thankYouUrl);
+            return;
+        }
+
         const placeholderMap = {
             name: 'Your Name',
             number: 'Phone Number',
-            instahandle: 'Instagram Handle (optional)'
+            instahandle: 'Instagram Handle / Preferred DM (optional)'
         };
 
         Object.keys(placeholderMap).forEach(function (key) {

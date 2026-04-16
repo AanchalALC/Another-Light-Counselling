@@ -741,6 +741,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const thankYouUrl = '/psychological-counselling-therapy-thankyou/';
+        
         /*
          * Safety redirect for the current legacy success flow:
          * if backend still redirects to /contact/#promptoverlay after submit,
@@ -750,17 +751,37 @@
             window.location.replace(thankYouUrl);
             return;
         }
+
         const placeholderMap = {
             name: 'Your Name',
             number: 'Phone Number',
             instahandle: 'Instagram Handle / Preferred DM (optional)'
         };
+
         Object.keys(placeholderMap).forEach(function (key) {
             const field = document.querySelector('form [name="' + key + '"]');
             if (field) {
                 field.setAttribute('placeholder', placeholderMap[key]);
             }
         });
+
+        // --- NEW: Phone Number Validation ---
+        const phoneField = document.querySelector('form [name="number"]');
+        if (phoneField) {
+            // 1. Set input type to 'tel' to trigger numeric keypads on mobile devices
+            phoneField.setAttribute('type', 'tel');
+            
+            // 2. Set HTML5 pattern to enforce validation on form submit
+            // Allows: digits, spaces, +, -, (, )
+            phoneField.setAttribute('pattern', '^[\\d\\s\\+\\-\\(\\)]+$');
+            phoneField.setAttribute('title', 'Please enter a valid phone number. Only digits, spaces, and standard symbols (+, -, ()) are allowed.');
+
+            // 3. Real-time input filtering (prevents typing alphabetical characters)
+            phoneField.addEventListener('input', function(e) {
+                // Strip out anything that IS NOT a digit, space, +, -, (, or )
+                this.value = this.value.replace(/[^\d\s\+\-\(\)]/g, '');
+            });
+        }
     });
 </script>
 {% endblock %}

@@ -8,6 +8,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.templatetags.static import static
 from django.urls import reverse
+from django.db.models import Case, When, Value, IntegerField
 
 from .models import (
     Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails,
@@ -140,9 +141,26 @@ def index(request):
 def about(request):
     # members = Member.objects.all().order_by('order') // order by order id
     # members = Member.objects.all().order_by('name')
-    members = (
-        Member.objects.all()
-        .order_by("-is_therapist", "name")
+    members = Member.objects.annotate(
+        designation_rank=Case(
+            # --- THERAPIST HIERARCHY (Matches exactly what is in your DB) ---
+            When(designation__icontains='Level 5: Head-Therapist', then=Value(1)),
+            When(designation__icontains='Level 4: Senior Therapist', then=Value(2)),
+            When(designation__icontains='Level 3: Junior Therapist', then=Value(3)),
+            When(designation__icontains='Level 2: Therapist', then=Value(4)),
+            When(designation__icontains='Level 1: Therapist', then=Value(5)),
+            
+            # --- NON-THERAPIST HIERARCHY ---
+            When(designation__icontains='Chief Operating Officer', then=Value(1)),
+            When(designation__icontains='COO', then=Value(1)),
+            
+            default=Value(99),
+            output_field=IntegerField(),
+        )
+    ).order_by(
+        "-is_therapist",    # 1. Therapists first, Non-therapists second
+        "designation_rank", # 2. Sort by the Rank (Level 5 -> Level 1)
+        "name"              # 3. Alphabetical fallback for anyone sharing the same rank
     )
     
     # GET CARD CONTENT

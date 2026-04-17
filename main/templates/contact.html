@@ -1,11 +1,9 @@
-
 {% extends 'skeleton.html' %}
 {% load static %}
 {% block title %}Contact - Another Light{% endblock %}
 {% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
 {% block head %}
 <link rel="canonical" href="https://www.another-light.com/contact" />
-<!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
@@ -390,7 +388,7 @@
     /* DIRECT CONTACT STRIP */
     .contact-direct-row {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 18px;
     }
     .direct-card {
@@ -418,6 +416,8 @@
     .icon-phone { background: #4d7f53; }
     .icon-mail  { background: #e68c7f; }
     .icon-wa    { background: #25d366; }
+    .icon-location { background: #5d8f63; }
+    
     .direct-content small {
         display: block;
         color: #888;
@@ -600,9 +600,7 @@
     <section id="contact-surface">
         <div class="contact-wrapper">
             <div class="contact-layout">
-                <!-- MAIN GRID -->
                 <div class="contact-main-grid">
-                    <!-- LEFT PANEL -->
                     <div class="contact-panel intro-panel">
                         <span class="panel-tag">
                             <i class="fas fa-comment-dots"></i>
@@ -619,7 +617,6 @@
                         </div>
                         
                     </div>
-                    <!-- RIGHT PANEL -->
                     <div class="contact-panel reach-panel">
                         <div class="reach-inner">
                             <div class="form-header">
@@ -655,7 +652,6 @@
                                 <input type="submit" value="Reach Out Now">
                             </form>
                         </div>
-                        <!-- SOCIAL ICONS -->
                         <div class="intro-socials">
                             <span class="intro-socials-label">Find Us Online</span>
                             <div class="online-grid">
@@ -675,14 +671,13 @@
                         </div>
                     </div>
                 </div>
-                <!-- DIRECT CONTACT STRIP -->
                 <div class="contact-direct-row">
                     <div class="direct-card">
                         <div class="direct-icon icon-phone">
                             <i class="fas fa-phone-alt"></i>
                         </div>
                         <div class="direct-content">
-                            <small>Call Number</small>
+                            <small>Call Us</small>
                             <span>+91 88792 60310</span>
                         </div>
                     </div>
@@ -704,8 +699,16 @@
                             <a href="https://wa.me/message/FL4M2GAUKTZJD1" target="_blank" rel="noopener">Start a chat with us</a>
                         </div>
                     </div>
+                    <div class="direct-card">
+                        <div class="direct-icon icon-location">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="direct-content">
+                            <small>Office</small>
+                            <span>office, Regional Transport Office, A wing flat no 2 park avenue, Andheri West, Mumbai, Maharashtra 400053</span>
+                        </div>
+                    </div>
                 </div>
-                <!-- JOIN US — FULL WIDTH -->
                 <div class="contact-panel join-panel">
                     <div class="join-left">
                         {% comment %} <div class="join-highlight">

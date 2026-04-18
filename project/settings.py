@@ -62,7 +62,7 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'full',
     },
 }
-
+APPEND_SLASH = True
 SITE_ID = 1
 
 # Application definition

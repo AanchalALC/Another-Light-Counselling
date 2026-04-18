@@ -61,7 +61,6 @@ urlpatterns = [
     path('team/', views.team_list, name='team'),
 
     # Profile detail should now live under /about/<slug>
-    path('about/<slug:slug>', views.member_profile, name='member-profile'),
     path('about/<slug:slug>/', views.member_profile, name='member-profile'),
 
     re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),

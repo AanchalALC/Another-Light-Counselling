@@ -1,9 +1,9 @@
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib.sitemaps.views import sitemap
+from django.views.generic import RedirectView  # <-- Import this
 
 from .sitemaps import PostSiteMap, PostTypeSiteMap, StaticSiteMap
 from . import views
-from django.urls import re_path
 
 sitemaps = {
     'static': StaticSiteMap,
@@ -13,6 +13,24 @@ sitemaps = {
 
 urlpatterns = [
     path('', views.index, name='index'),
+    
+    path('about/swathi-priya-dev/', RedirectView.as_view(url='/about/swathi-priya/', permanent=True)),
+    path('team/dhruvi-patel', RedirectView.as_view(url='/about/dhruvi-patel/', permanent=True)),
+    path('team/naveen-coo', RedirectView.as_view(url='/about/naveen-coo/', permanent=True)),
+    path('team/kasim', RedirectView.as_view(url='/about/kasim/', permanent=True)),
+    path('team/sujoy-sdm', RedirectView.as_view(url='/about/sujoy-sdm/', permanent=True)),
+    path('team/swathi-priya-dev', RedirectView.as_view(url='/about/swathi-priya/', permanent=True)),
+    path('team/aanchal-narang', RedirectView.as_view(url='/about/aanchal-narang/', permanent=True)),
+    path('team/yashwi-chopra', RedirectView.as_view(url='/about/yashwi-chopra/', permanent=True)),
+    path('team/hrishti-bhawnani', RedirectView.as_view(url='/about/hrishti-bhawnani/', permanent=True)),
+    path('team/aanchal-narang-theythem', RedirectView.as_view(url='/about/aanchal-narang/', permanent=True)),
+    path('team/sejal-bajargan', RedirectView.as_view(url='/about/sejal-bajargan/', permanent=True)),
+    path('team/amit-hehim', RedirectView.as_view(url='/about', permanent=True)),
+    path('team/naveen-hehim', RedirectView.as_view(url='/about/naveen-coo/', permanent=True)),
+    path('team/swathi-priya-sheher', RedirectView.as_view(url='/about/swathi-priya/', permanent=True)),
+    path('blog/page/', RedirectView.as_view(url='/blog/', permanent=True)),
+    path("about/'deki", RedirectView.as_view(url='/about', permanent=True)),
+
 
     path('psychological-counselling-therapy', views.psychologicalCounsellingTherapy, name='psychological-counselling-therapy'),
     path('psychological-counselling-therapy/', views.psychologicalCounsellingTherapy, name='psychological-counselling-therapy'),
@@ -32,7 +50,6 @@ urlpatterns = [
     path('reviews/', views.reviews, name='reviews'),
 
     path('contact', views.contact, name='contact'),
-    path('contact/', views.contact, name='contact'),
 
     path('policy/<slug:slug>', views.policy, name='policy'),
     path('committee/<slug:slug>', views.committee, name='committee'),

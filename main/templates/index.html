@@ -213,17 +213,17 @@ and experience a cost-effective and quality solution.{% endblock %}
         const img3 = document.querySelector("#img3");
 
         if (device == "desktop") {
-            img1.src = "{% static 'img/index/1.jpg' %}";
-            img2.src = "{% static 'img/index/2.jpg' %}";
-            img3.src = "{% static 'img/index/3.jpg' %}";
+            img1.src = "{% static 'img/index/1.png' %}";
+            img2.src = "{% static 'img/index/2.png' %}";
+            img3.src = "{% static 'img/index/3.png' %}";
         } else {
             document.querySelector("#topsection").style.height = "85vh";
             document.querySelector("#topgals").style.height = "85vh";
             document.querySelector("#img2").style.height = "85vh";
             document.querySelector("#img3").style.height = "85vh";
-            img1.src = "{% static 'img/index/4.jpg' %}";
-            img2.src = "{% static 'img/index/5.jpg' %}";
-            img3.src = "{% static 'img/index/6.jpg' %}";
+            img1.src = "{% static 'img/index/4.png' %}";
+            img2.src = "{% static 'img/index/5.png' %}";
+            img3.src = "{% static 'img/index/6.png' %}";
 
         }
 

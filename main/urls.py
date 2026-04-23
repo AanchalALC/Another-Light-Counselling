@@ -50,6 +50,7 @@ urlpatterns = [
     path('reviews/', views.reviews, name='reviews'),
 
     path('contact', views.contact, name='contact'),
+    path('contact/', RedirectView.as_view(url='/contact', permanent=True)),
 
     path('policy/<slug:slug>', views.policy, name='policy'),
     path('committee/<slug:slug>', views.committee, name='committee'),

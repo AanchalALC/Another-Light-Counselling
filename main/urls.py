@@ -41,10 +41,8 @@ urlpatterns = [
 
     path('faqs/', views.faqs, name='faqs'),
 
-    path('resources', views.resources, name='resources'),
     path('resources/', views.resources, name='resources'),
 
-    path('reviews', views.reviews, name='reviews'),
     path('reviews/', views.reviews, name='reviews'),
 
     path('contact', views.contact, name='contact'),
@@ -61,12 +59,10 @@ urlpatterns = [
     path('doifeels/', views.doifeels, name='doifeels'),
     path('doifeel/<slug:slug>', views.doifeel, name='doifeel'),
 
-    path('careers', views.careers, name='careers'),
     path('careers/', views.careers, name='careers'),
     path('jd/<slug:slug>', views.jd, name='jd'),
 
     path('post/<slug:slug>', views.post, name='post'),
-    path('blog', views.blog, name='blog'),
     path('blog/', views.blog, name='blog'),
     path('blog/page/<int:pageno>', views.blog, name='blog'),
 

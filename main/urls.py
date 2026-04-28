@@ -51,13 +51,20 @@ urlpatterns = [
     path('policy/<slug:slug>', views.policy, name='policy'),
     path('committee/<slug:slug>', views.committee, name='committee'),
 
-    path('services', views.services, name='services'),
-    path('services/', views.services, name='services'),
+    # path('services', views.services, name='services'),
+    # path('services/', views.services, name='services'),
     path('service/<slug:slug>', views.service, name='service'),
 
-    path('doifeels', views.doifeels, name='doifeels'),
-    path('doifeels/', views.doifeels, name='doifeels'),
+    # path('doifeels', views.doifeels, name='doifeels'),
+    # path('doifeels/', views.doifeels, name='doifeels'),
     path('doifeel/<slug:slug>', views.doifeel, name='doifeel'),
+    
+    # 5 & 6. The "Blunder" Fix: 301 Redirect /services and /doifeels to Homepage (/)
+    path('services', RedirectView.as_view(url='/', permanent=True)),
+    path('services/', RedirectView.as_view(url='/', permanent=True)),
+    
+    path('doifeels', RedirectView.as_view(url='/', permanent=True)),
+    path('doifeels/', RedirectView.as_view(url='/', permanent=True)),
 
     path('careers/', views.careers, name='careers'),
     path('jd/<slug:slug>', views.jd, name='jd'),

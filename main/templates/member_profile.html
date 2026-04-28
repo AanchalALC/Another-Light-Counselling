@@ -199,16 +199,31 @@
     /* CTAs stack under education (palette solids with hover) */
     .cta-stack{ display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
 
-    .btn{
-      appearance:none; border:1px solid transparent; border-radius:12px;
-      padding:12px 16px; font-size:14px; text-decoration:none; cursor:pointer;
-      display:inline-flex; align-items:center; justify-content:center; gap:8px; color:#fff;
-      background-size:120% 120%;
-      transition: transform .14s ease, filter .2s ease, box-shadow .2s ease, background-position .32s ease;
-      width:90%;
-      box-shadow:0 6px 14px rgba(0,0,0,.10);
-      align-self:flex-start;
-    }
+  .btn {
+    appearance: none; 
+    border: 1px solid transparent; 
+    border-radius: 12px;
+    padding: 12px 16px; 
+    font-size: 14px; 
+    text-decoration: none; 
+    cursor: pointer;
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 8px; 
+    color: #fff;
+    background-size: 120% 120%;
+    transition: transform .14s ease, filter .2s ease, box-shadow .2s ease, background-position .32s ease;
+    width: 90%;
+    box-shadow: 0 6px 14px rgba(0,0,0,.10);
+    align-self: flex-start;
+    
+    /* --- Add these lines to fix the mobile text overflow --- */
+    text-align: center;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+  }
     .btn:active{ transform: translateY(1px); }
 
     .btn.primary{ background-image: linear-gradient(135deg,var(--matcha),var(--matcha-700)); border-color:color-mix(in srgb,var(--matcha),black 14%); }
@@ -234,6 +249,51 @@
       align-self:flex-start;
     }
 
+    /* === Member Social Links styling === */
+    .social-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 14px;
+      align-items: center;
+      justify-content: center; /* Centers the icons */
+      flex-wrap: wrap;
+      width: 100%; /* Ensures centering works relative to the column */
+      padding: 10px 0;
+    }
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px; /* Increased size */
+      height: 52px; /* Increased size */
+      border-radius: 50%;
+      color: #fff; /* White icon fill */
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, filter 0.3s ease;
+    }
+    .social-icon svg {
+      width: 24px; /* Increased inner SVG size */
+      height: 24px;
+      fill: currentColor;
+      transition: transform 0.3s ease;
+    }
+    
+    /* Background colors carefully picked to match your site's aesthetic */
+    .social-icon.website { background: var(--matcha); }
+    .social-icon.linkedin { background: var(--sea); }
+    .social-icon.instagram { background: var(--blush); }
+    .social-icon.youtube { background: #e65359; /* Matching the soft red from your closed availability pill */ }
+
+    .social-icon:hover { 
+      transform: translateY(-5px) scale(1.05); /* Bouncy float effect */
+      box-shadow: 0 10px 22px rgba(0,0,0,.15); 
+      filter: brightness(1.08);
+    }
+    .social-icon:hover svg {
+      transform: scale(1.1); /* Slight pop of the inner icon */
+    }
+
     /* Sections below hero */
     .rule{ height:1px; background:var(--ring); width:100%; margin:24px 0; border:0; }
     .section h2{ margin:0 0 10px 0; font-size:20px; }
@@ -250,6 +310,7 @@
       .longform .rich{ font-size:15px; }
       .cta-stack{ align-items:center; }
       .cta-stack .btn{ width:86%; align-self:center; }
+      .social-links { gap: 12px; }
 
       /* For mobile: row CTAs become full-width stacked for tap targets */
       .cta-row{
@@ -334,9 +395,7 @@
       <span>{{ member.name }}</span>
     </div>
 
-    <!-- HERO -->
     <section class="profile-hero">
-      <!-- LEFT: photo + name, then keywords, then VIDEO, then summary -->
       <div class="info">
         <div class="head-row">
           <figure class="profile-photo">
@@ -399,7 +458,6 @@
         {% endwith %}
       </div>
 
-      <!-- RIGHT: CTAs then Educational background -->
       <div class="media-col">
         <div class="cta-stack">
           {% if member.booking_url %}
@@ -448,9 +506,9 @@
           <a class="btn blush" href="{{ member.media_url }}" target="_blank" rel="noopener">Know My Journey</a>
           {% endif %}
 
-          {# Extra CTAs only for Aanchal Narang #}
+          {# Extra CTAs & Social Links only for Aanchal Narang #}
           {% if member.name == "Aanchal Narang" %}
-          <a
+          {% comment %} <a
             class="btn tangerine tooltip"
             href="https://www.another-light.com/"
             target="_blank"
@@ -458,7 +516,22 @@
             data-tooltip="Looking for Aanchal's structured signature plans? Click here to view and book."
           >
             Structured Support from Aanchal
-          </a>
+          </a> {% endcomment %}
+
+          <div class="social-links">
+            <a href="https://aanchalnarang.in/" target="_blank" rel="noopener" class="social-icon website" aria-label="Personal Website" title="Personal Website">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </a>
+            <a href="https://in.linkedin.com/in/aanchal-narang" target="_blank" rel="noopener" class="social-icon linkedin" aria-label="LinkedIn" title="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.16-3.8c-1.08 0-1.8.57-2.14 1.15v-1h-2.5v9.55h2.5v-5c0-1.34.73-2.5 2.1-2.5 1.34 0 2.1 1.05 2.1 2.5v5h2.6zM6.6 8.16a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-1.25 10.34h2.5V8.95h-2.5v9.55z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/aanchal_therapist_puppy/" target="_blank" rel="noopener" class="social-icon instagram" aria-label="Instagram" title="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+            </a>
+            <a href="https://youtube.com/@aanchalnarangpsychologist?si=SsC-HqcZV_oI61MQ" target="_blank" rel="noopener" class="social-icon youtube" aria-label="YouTube" title="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/></svg>
+            </a>
+          </div>
           {% endif %}
         </div>
 
@@ -477,7 +550,6 @@
         {% if member.bio_long %}{{ member.bio_long|safe }}{% else %}{{ member.info|safe }}{% endif %}
       </div>
 
-      <!-- Same CTAs again, now as a row under the long bio -->
       <div class="cta-row">
         {% if member.booking_url %}
         <a class="btn primary" href="{{ member.booking_url }}" target="_blank" rel="noopener">
@@ -526,7 +598,7 @@
         {% endif %}
 
         {% if member.name == "Aanchal Narang" %}
-        <a
+        {% comment %} <a
           class="btn tangerine tooltip"
           href="https://www.another-light.com/"
           target="_blank"
@@ -534,7 +606,22 @@
           data-tooltip="Looking for Aanchal's structured signature plans? Click here to view and book."
         >
           Structured Support from Aanchal
-        </a>
+        </a> {% endcomment %}
+
+        <div class="social-links">
+            <a href="https://aanchalnarang.in/" target="_blank" rel="noopener" class="social-icon website" aria-label="Personal Website" title="Personal Website">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </a>
+            <a href="https://in.linkedin.com/in/aanchal-narang" target="_blank" rel="noopener" class="social-icon linkedin" aria-label="LinkedIn" title="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.16-3.8c-1.08 0-1.8.57-2.14 1.15v-1h-2.5v9.55h2.5v-5c0-1.34.73-2.5 2.1-2.5 1.34 0 2.1 1.05 2.1 2.5v5h2.6zM6.6 8.16a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm-1.25 10.34h2.5V8.95h-2.5v9.55z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/aanchal_therapist_puppy/" target="_blank" rel="noopener" class="social-icon instagram" aria-label="Instagram" title="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+            </a>
+            <a href="https://youtube.com/@aanchalnarangpsychologist?si=SsC-HqcZV_oI61MQ" target="_blank" rel="noopener" class="social-icon youtube" aria-label="YouTube" title="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/></svg>
+            </a>
+        </div>
         {% endif %}
       </div>
     </section>

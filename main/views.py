@@ -254,7 +254,7 @@ def member_blog_list(request, slug):
     posts = MemberBlogPost.objects.filter(
         member=member,
         is_published=True
-    ).order_by("-published_at", "-created_at")
+    ).order_by("-published_at", "-created")
 
     paginator = Paginator(posts, 9)
     page_number = request.GET.get("page", 1)

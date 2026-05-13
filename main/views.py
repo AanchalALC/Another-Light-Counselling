@@ -56,7 +56,15 @@ def get_header_contacts():
         h_contacts[cd.key] = cd
     return h_contacts
 
+def get_common_template_context():
+    contactdetails = ContactDetails.objects.all()
 
+    return {
+        'contactdetails': contactdetails,
+        'h_contacts': {cd.key: cd for cd in contactdetails},
+        'services': Service.objects.all().order_by('id'),
+        'doifeels': DoIFeel.objects.all().order_by('id'),
+    }
 # ---- Meet Our Team: YouTube helper ----
 def get_youtube_embed_url(orig_url: str):
     """
@@ -232,40 +240,38 @@ def member_profile(request, slug):
     member = get_object_or_404(Member, slug=slug)
     embed_url = get_youtube_embed_url(getattr(member, 'intro_video_url', ''))
 
-    context = {
+    context = get_common_template_context()
+    context.update({
         'member': member,
         'embed_url': embed_url,
-        'h_contacts': get_header_contacts(),
-        'services': Service.objects.all().order_by('id'),
-        'doifeels': DoIFeel.objects.all().order_by('id'),
-    }
+    })
+
     return render(request, 'member_profile.html', context)
 
 def member_blog_list(request, slug):
     member = get_object_or_404(Member, slug=slug)
 
-    qs = (
-        MemberBlogPost.objects
-        .filter(member=member, is_published=True)
-        .order_by("-published_at", "-id")
-    )
+    posts = MemberBlogPost.objects.filter(
+        member=member,
+        is_published=True
+    ).order_by("-published_at", "-created_at")
 
-    paginator = Paginator(qs, 9)  # 9 cards per page (nice grid)
+    paginator = Paginator(posts, 9)
     page_number = request.GET.get("page", 1)
     posts_page = paginator.get_page(page_number)
 
-    context = {
+    context = get_common_template_context()
+    context.update({
         "member": member,
-        "posts": posts_page,  # paginator page
-        "h_contacts": get_header_contacts(),
-        "services": Service.objects.all().order_by('id'),
-        "doifeels": DoIFeel.objects.all().order_by('id'),
-    }
+        "posts": posts_page,
+    })
+
     return render(request, "member_blog_list.html", context)
 
 
 def member_blog_detail(request, slug, post_slug):
     member = get_object_or_404(Member, slug=slug)
+
     post = get_object_or_404(
         MemberBlogPost,
         member=member,
@@ -273,13 +279,12 @@ def member_blog_detail(request, slug, post_slug):
         is_published=True
     )
 
-    context = {
+    context = get_common_template_context()
+    context.update({
         "member": member,
         "post": post,
-        "h_contacts": get_header_contacts(),
-        "services": Service.objects.all().order_by('id'),
-        "doifeels": DoIFeel.objects.all().order_by('id'),
-    }
+    })
+
     return render(request, "member_blog_detail.html", context)
 
 def faqs(request):
@@ -676,7 +681,12 @@ def blog(request, pageno=1):
 def policy(request, slug):
     # FETCH OBJ
     policy_obj = Policy.objects.get(slug=str(slug))
-    context = {'policy': policy_obj}
+
+    context = get_common_template_context()
+    context.update({
+        'policy': policy_obj,
+    })
+
     return render(request, 'policy.html', context=context)
 
 
@@ -690,7 +700,11 @@ def committee(request, slug):
 def onboarding_plan(request):
     plan = OnboardingPlan.objects.first()
     if not plan:
-        return render(request, "onboarding_plan.html", {"plan": None})
+        context = get_common_template_context()
+        context.update({
+            "plan": None,
+        })
+        return render(request, "onboarding_plan.html", context)
 
     # Prepare steps list for template
     steps = [
@@ -787,16 +801,12 @@ def onboarding_plan(request):
             "description": plan.renewal2_description,
         },
     ]
-    services = Service.objects.all().order_by('id')
-    doifeels = DoIFeel.objects.all().order_by('id')
-
-    context = {
+    context = get_common_template_context()
+    context.update({
         "plan": plan,
         "steps": steps,
         "plans": plans,
         "renewals": renewals,
-        "h_contacts": get_header_contacts(),
-        "services": services,
-        "doifeels": doifeels,
-    }
+    })
+
     return render(request, "onboarding_plan.html", context)

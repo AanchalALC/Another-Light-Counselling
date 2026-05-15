@@ -4,79 +4,719 @@
 {% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/faqs.css' %}">
 <link rel="canonical" href="https://www.another-light.com/faqs/" />
-<script src="{% static 'js/faqs.js' %}"></script>
+
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script async>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date()); 
+    gtag('js', new Date());
     gtag('config', 'AW-10878605404');
+
     if (window.location.href.includes('faqs/another-light')) {
-        window.location.href = window.location.host + '/faqs/'
-	}
+        window.location.href = window.location.origin + '/faqs/';
+    }
 </script>
+
+<style>
+    :root {
+        --alcfaq-yellow: #ffe35f;
+        --alcfaq-yellow-soft: #fff4b8;
+        --alcfaq-red: #ef4f5f;
+        --alcfaq-text: #101010;
+        --alcfaq-muted: #464646;
+        --alcfaq-white: #ffffff;
+        --alcfaq-border: rgba(0, 0, 0, 0.09);
+        --alcfaq-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+        --alcfaq-card-shadow: 0 7px 16px rgba(0, 0, 0, 0.14);
+    }
+
+    #alcfaq-page {
+        width: 100%;
+        overflow: hidden;
+        color: var(--alcfaq-text);
+        background: #fffdf4;
+    }
+
+    .alcfaq-hero {
+        position: relative;
+        min-height: 390px;
+        padding: 54px 6vw 86px;
+        background:
+            radial-gradient(circle at 10% 85%, rgba(255, 227, 95, 0.55) 0 70px, transparent 72px),
+            linear-gradient(135deg, var(--alcfaq-yellow-soft) 0%, #fff9db 52%, #fff6bf 100%);
+        overflow: hidden;
+    }
+
+    .alcfaq-hero::before {
+        content: "?";
+        position: absolute;
+        left: 34px;
+        bottom: -40px;
+        color: rgba(255, 227, 95, 0.75);
+        font-size: 180px;
+        line-height: 1;
+        animation: alcfaqPulse 4s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    .alcfaq-hero::after {
+        content: "";
+        position: absolute;
+        right: 4vw;
+        top: 38px;
+        width: 118px;
+        height: 118px;
+        background: url("{% static 'img/faqs/chat_icon.png' %}") no-repeat center / contain;
+        opacity: 0.16;
+        transform: rotate(-8deg);
+        pointer-events: none;
+    }
+
+    .alcfaq-hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: 1180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 540px) minmax(320px, 1fr);
+        align-items: center;
+        gap: 54px;
+    }
+
+    .alcfaq-hero-copy {
+        animation: alcfaqFadeUp 0.75s ease both;
+    }
+
+    .alcfaq-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        margin-bottom: 18px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.8);
+        color: var(--alcfaq-red);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.7px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .alcfaq-title {
+        margin: 0;
+        max-width: 520px;
+        color: #ffd43f;
+        font-size: clamp(44px, 5.4vw, 72px);
+        font-weight: 400;
+        line-height: 1.03;
+        letter-spacing: 1.3px;
+    }
+
+    .alcfaq-title span {
+        display: block;
+        color: var(--alcfaq-red);
+    }
+
+    .alcfaq-subtitle {
+        margin: 22px 0 0;
+        max-width: 560px;
+        color: var(--alcfaq-text);
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+    .alcfaq-hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+    }
+
+    .alcfaq-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 10px 15px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        color: var(--alcfaq-text);
+        font-size: 14px;
+        font-weight: 700;
+        box-shadow: 0 7px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .alcfaq-jump {
+        border: 0;
+        cursor: pointer;
+        background: var(--alcfaq-red);
+        color: #ffffff;
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .alcfaq-jump:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 22px rgba(239, 79, 95, 0.24);
+    }
+
+    .alcfaq-hero-visual {
+        position: relative;
+        min-height: 285px;
+        animation: alcfaqFadeIn 0.9s ease 0.15s both;
+    }
+
+    .alcfaq-visual-card {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: min(540px, 100%);
+        height: 350px;
+        border-radius: 34px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.5);
+        box-shadow: var(--alcfaq-shadow);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .alcfaq-visual-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: right bottom;
+        transform: scale(1.08);
+        animation: alcfaqFloatImage 6s ease-in-out infinite;
+    }
+
+    .alcfaq-floating-bubble {
+        position: absolute;
+        right: 30px;
+        top: 4px;
+        width: 78px;
+        height: 78px;
+        background: url("{% static 'img/faqs/chat_icon.png' %}") no-repeat center / contain;
+        animation: alcfaqBubble 3.8s ease-in-out infinite;
+    }
+
+    .alcfaq-main {
+        position: relative;
+        padding: 0 6vw 82px;
+        background:
+            radial-gradient(circle at 93% 5%, rgba(239, 79, 95, 0.06) 0 190px, transparent 192px),
+            linear-gradient(180deg, #fffdf4 0%, #ffffff 100%);
+    }
+
+    .alcfaq-panel {
+        position: relative;
+        z-index: 3;
+        max-width: 1180px;
+        margin: -48px auto 0;
+        padding: 34px;
+        border-radius: 32px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.11);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .alcfaq-panel-head {
+        max-width: 720px;
+        margin-bottom: 28px;
+    }
+
+    .alcfaq-panel-title h2 {
+        margin: 0;
+        color: var(--alcfaq-red);
+        font-size: clamp(31px, 3.2vw, 48px);
+        line-height: 1.1;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .alcfaq-panel-title p {
+        margin: 12px 0 0;
+        max-width: 540px;
+        color: var(--alcfaq-muted);
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .alcfaq-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 24px;
+        align-items: start;
+    }
+
+    .alcfaq-column {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        min-width: 0;
+    }
+
+    .alcfaq-card {
+        border-radius: 18px;
+        background: var(--alcfaq-yellow);
+        box-shadow: var(--alcfaq-card-shadow);
+        border: 1px solid var(--alcfaq-border);
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.22s ease;
+    }
+
+    .alcfaq-card.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .alcfaq-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 13px 24px rgba(0, 0, 0, 0.17);
+    }
+
+    .alcfaq-question {
+        width: 100%;
+        border: 0;
+        background: linear-gradient(135deg, #ffe764 0%, #ffdd42 100%);
+        color: var(--alcfaq-text);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 18px 20px;
+        cursor: pointer;
+        text-align: left;
+        font-family: inherit;
+    }
+
+    .alcfaq-question h3 {
+        margin: 0;
+        font-size: clamp(16.5px, 1.15vw, 19px);
+        font-weight: 700;
+        line-height: 1.38;
+        letter-spacing: 0.35px;
+    }
+
+    .alcfaq-icon {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.58);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1;
+        transition: transform 0.24s ease, background 0.24s ease;
+    }
+
+    .alcfaq-card.is-open .alcfaq-icon {
+        transform: rotate(45deg);
+        background: rgba(255, 255, 255, 0.86);
+    }
+
+    .alcfaq-answer {
+        max-height: 0;
+        overflow: hidden;
+        background: #fff8cd;
+        transition: max-height 0.32s ease;
+    }
+
+    .alcfaq-answer-inner {
+        padding: 0 20px 20px;
+        color: #242424;
+        font-size: 16px;
+        line-height: 1.72;
+    }
+
+    .alcfaq-answer-inner p {
+        margin: 12px 0 0;
+    }
+
+    .alcfaq-answer-inner a {
+        color: var(--alcfaq-red);
+        text-decoration: underline;
+    }
+
+    .alcfaq-question:focus-visible {
+        outline: 3px solid var(--alcfaq-red);
+        outline-offset: -3px;
+    }
+
+    @keyframes alcfaqFadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(22px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes alcfaqFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.98);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes alcfaqFloatImage {
+        0%, 100% {
+            transform: scale(1.08) translateY(0);
+        }
+        50% {
+            transform: scale(1.08) translateY(-10px);
+        }
+    }
+
+    @keyframes alcfaqBubble {
+        0%, 100% {
+            transform: translateY(0) rotate(-4deg);
+        }
+        50% {
+            transform: translateY(-12px) rotate(6deg);
+        }
+    }
+
+    @keyframes alcfaqPulse {
+        0%, 100% {
+            opacity: 0.45;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.8;
+            transform: scale(1.06);
+        }
+    }
+
+    @media (max-width: 991px) {
+        .alcfaq-hero {
+            min-height: auto;
+            padding: 46px 5vw 82px;
+        }
+
+        .alcfaq-hero-inner {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .alcfaq-hero-visual {
+            min-height: 350px;
+        }
+
+        .alcfaq-visual-card {
+            height: 350px;
+            width: 100%;
+        }
+
+        .alcfaq-panel {
+            padding: 28px;
+        }
+
+        .alcfaq-panel-head {
+            max-width: 100%;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .alcfaq-hero {
+            padding: 34px 16px 74px;
+        }
+
+        .alcfaq-hero::before {
+            font-size: 120px;
+            left: -14px;
+            bottom: -28px;
+        }
+
+        .alcfaq-hero::after {
+            width: 84px;
+            height: 84px;
+            right: -18px;
+            top: 26px;
+        }
+
+        .alcfaq-title {
+            font-size: 42px;
+        }
+
+        .alcfaq-subtitle {
+            font-size: 15.5px;
+            line-height: 1.62;
+        }
+
+        .alcfaq-chip {
+            font-size: 13.5px;
+            padding: 8px 12px;
+        }
+
+        .alcfaq-hero-visual {
+            min-height: 280px;
+        }
+
+        .alcfaq-visual-card {
+            height: 280px;
+            border-radius: 24px;
+        }
+
+        .alcfaq-floating-bubble {
+            width: 58px;
+            height: 58px;
+            right: 14px;
+        }
+
+        .alcfaq-main {
+            padding: 0 14px 58px;
+        }
+
+        .alcfaq-panel {
+            margin-top: -44px;
+            padding: 22px 14px 18px;
+            border-radius: 24px;
+        }
+
+        .alcfaq-panel-title h2 {
+            font-size: 30px;
+        }
+
+        .alcfaq-panel-title p {
+            font-size: 15px;
+        }
+
+        .alcfaq-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .alcfaq-column {
+            gap: 16px;
+        }
+
+        .alcfaq-card {
+            border-radius: 15px;
+        }
+
+        .alcfaq-question {
+            padding: 15px 15px;
+            gap: 12px;
+        }
+
+        .alcfaq-question h3 {
+            font-size: 15.8px;
+        }
+
+        .alcfaq-icon {
+            width: 26px;
+            height: 26px;
+            min-width: 26px;
+            font-size: 21px;
+        }
+
+        .alcfaq-answer-inner {
+            padding: 0 15px 18px;
+            font-size: 15px;
+            line-height: 1.65;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .alcfaq-title {
+            font-size: 38px;
+        }
+
+        .alcfaq-hero-visual {
+            min-height: 220px;
+        }
+
+        .alcfaq-visual-card {
+            height: 220px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation: none !important;
+            transition: none !important;
+            scroll-behavior: auto !important;
+        }
+
+        .alcfaq-card {
+            opacity: 1;
+            transform: none;
+        }
+    }
+</style>
 {% endblock %}
 
 {% block body %}
-<div id="content">
+<div id="alcfaq-page">
 
-    <div id="topsection">
-        <img src="{% static 'img/faqs/top_gal.svg' %}" id="topgal"
-            alt="FAQs -  Another Light Counselling & Therapy by Expert Psychologists" />
-    </div>
+    <section class="alcfaq-hero" aria-label="Frequently asked questions">
+        <div class="alcfaq-hero-inner">
 
+            <div class="alcfaq-hero-copy">
+                <div class="alcfaq-kicker">FAQs</div>
 
-    <div id="faqssection">
+                <h1 class="alcfaq-title">
+                    Got a question?
+                    <span>Ask away!</span>
+                </h1>
 
-        <div id="topstuff">
-            <h2>Got a question? Ask away!</h2>
-            <img src="{% static 'img/faqs/chat_icon.png' %}">
-        </div>
+                <p class="alcfaq-subtitle">
+                    Starting therapy can bring up a lot of questions. Here are simple answers about
+                    sessions, privacy, booking, distance, and what support can look like at
+                    Another Light Counselling.
+                </p>
 
-
-        <div id="faqlist">
-
-
-            <div id="col1" class="col">
-                {% for faq in faq1 %}
-                <div class="faq-item">
-                    <div class="question" onclick="toggleFaq(this)" data-answer="a{{ faq.id }}"
-                        data-elementid="q{{ faq.id }}" id="q{{ faq.id }}">
-                        <h3>{{ faq.question }}</h3>
-                        <span>-</span>
-                    </div>
-                    <div class="answer" id="a{{ faq.id }}">
-                        {{ faq.tippy_answer | safe }}
-                    </div>
+                <div class="alcfaq-hero-actions" aria-label="FAQ topics">
+                    <span class="alcfaq-chip">Sessions</span>
+                    <span class="alcfaq-chip">Privacy</span>
+                    <span class="alcfaq-chip">Therapy process</span>
+                    <button class="alcfaq-chip alcfaq-jump" type="button" id="alcfaqJump">
+                        View questions
+                    </button>
                 </div>
-                {% endfor %}
-            </div>
-            <div id="col2" class="col">
-                {% for faq in faq2 %}
-                <div class="faq-item">
-                    <div class="question" onclick="toggleFaq(this)" data-answer="a{{ faq.id }}"
-                        data-elementid="q{{ faq.id }}" id="q{{ faq.id }}">
-                        <h3>{{ faq.question }}</h3>
-                        <span>-</span>
-                    </div>
-                    <div class="answer" id="a{{ faq.id }}">
-                        {{ faq.tippy_answer | safe }}
-                    </div>
-                </div>
-                {% endfor %}
             </div>
 
+            <div class="alcfaq-hero-visual" aria-hidden="true">
+                <div class="alcfaq-visual-card">
+                    <img src="{% static 'img/faqs/top_gal.svg' %}" alt="">
+                </div>
 
-
-
+                <div class="alcfaq-floating-bubble"></div>
+            </div>
 
         </div>
+    </section>
 
-    </div>
+    <section class="alcfaq-main" id="alcfaqQuestions">
+        <div class="alcfaq-panel">
 
+            <div class="alcfaq-panel-head">
+                <div class="alcfaq-panel-title">
+                    <h2>Common questions</h2>
+                    <p>
+                        These answers are here to make the first step feel clearer and less overwhelming.
+                    </p>
+                </div>
+            </div>
+
+            <div class="alcfaq-grid" id="alcfaqList">
+
+                <div class="alcfaq-column">
+                    {% for faq in faq1 %}
+                    <article class="alcfaq-card">
+                        <button class="alcfaq-question"
+                                type="button"
+                                aria-expanded="false"
+                                aria-controls="alcfaq-answer-{{ faq.id }}">
+                            <h3>{{ faq.question }}</h3>
+                            <span class="alcfaq-icon" aria-hidden="true">+</span>
+                        </button>
+
+                        <div class="alcfaq-answer" id="alcfaq-answer-{{ faq.id }}">
+                            <div class="alcfaq-answer-inner">
+                                {{ faq.tippy_answer|safe }}
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+
+                <div class="alcfaq-column">
+                    {% for faq in faq2 %}
+                    <article class="alcfaq-card">
+                        <button class="alcfaq-question"
+                                type="button"
+                                aria-expanded="false"
+                                aria-controls="alcfaq-answer-{{ faq.id }}">
+                            <h3>{{ faq.question }}</h3>
+                            <span class="alcfaq-icon" aria-hidden="true">+</span>
+                        </button>
+
+                        <div class="alcfaq-answer" id="alcfaq-answer-{{ faq.id }}">
+                            <div class="alcfaq-answer-inner">
+                                {{ faq.tippy_answer|safe }}
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+    </section>
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const faqCards = document.querySelectorAll('.alcfaq-card');
+        const jumpButton = document.getElementById('alcfaqJump');
+        const questionsSection = document.getElementById('alcfaqQuestions');
+
+        faqCards.forEach(function (card, index) {
+            const button = card.querySelector('.alcfaq-question');
+            const answer = card.querySelector('.alcfaq-answer');
+
+            button.addEventListener('click', function () {
+                const isOpen = card.classList.contains('is-open');
+
+                card.classList.toggle('is-open', !isOpen);
+                button.setAttribute('aria-expanded', String(!isOpen));
+
+                if (!isOpen) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    answer.style.maxHeight = null;
+                }
+            });
+
+            setTimeout(function () {
+                card.classList.add('is-visible');
+            }, 90 * index);
+        });
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            faqCards.forEach(function (card) {
+                observer.observe(card);
+            });
+        }
+
+        if (jumpButton && questionsSection) {
+            jumpButton.addEventListener('click', function () {
+                questionsSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        }
+
+        window.addEventListener('resize', function () {
+            document.querySelectorAll('.alcfaq-card.is-open .alcfaq-answer').forEach(function (answer) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            });
+        });
+    });
+</script>
 {% endblock %}

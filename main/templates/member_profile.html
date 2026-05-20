@@ -6,12 +6,9 @@
 {% block metadescription %}
 {% if member.slug == "aanchal-narang" %}
 Aanchal Narang, Founder and Head Therapist of Another Light Counselling, offers thoughtful therapy and emotional wellness guidance.
-{% else %}
-Therapist profile of {{ member.name }} at Another Light Counselling. {{ member.designation }}. {% if member.languages %}Languages: {{ member.languages }}. {% endif %}
 {% endif %}
 {% endblock %}
 
-{% block metakeywords %}Another Light Counselling, Therapist, {{ member.name }}, {{ member.designation }}, Counselling, Trauma-informed, Queer-affirmative{% endblock %}
 
 {% block head %}
 <link rel="canonical" href="https://www.another-light.com/about/{{ member.slug }}/" />

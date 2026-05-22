@@ -1,9 +1,10 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-     <script type="application/ld+json">
+    <script type="application/ld+json">
       {
         "@context": "https://schema.org/",
         "@type": "Product",
@@ -35,23 +36,19 @@
       gtag("js", new Date());
       gtag("config", "UA-163396537-1");
     </script>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <!-- GOOGLE VERIFICATION -->
     <meta
       name="google-site-verification"
       content="DWUpiMGXX6mLCET2Q0RLmDtoWy0LXMkqFMr40KtVjBA"
     />
-
     <title>{% block title %}{% endblock %}</title>
     <meta
       name="description"
       content="{% block metadescription %}{% endblock %}"
     />
     <meta name="keywords" content="{% block metakeywords %}{% endblock %}" />
-
     {% comment %} OPENGRAPH META TAGS {% endcomment %}
     <meta property="og:title" content="{% block ogtitle %}{% endblock %}" />
     <meta
@@ -61,7 +58,6 @@
     <meta property="og:url" content="{% block ogurl %}{% endblock %}" />
     <meta property="og:image" content="{% block ogimage %}{% endblock %}" />
     <meta property="og:type" content="{% block ogtype %}{% endblock %}" />
-
     <!-- TWITTER CARD META TAGS -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:creator" content="@aanchal_therapy" />
@@ -71,83 +67,130 @@
       content="{% block tcdescription %}{% endblock %}"
     />
     <meta name="twitter:image" content="{% block tcimage %}{% endblock %}" />
-
     <!-- FONTAWESOME -->
     <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet" />
     <link href="{% static 'css/all.css' %}" rel="stylesheet" />
-
     <!-- BOOTSTRAP 4 CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
       crossorigin="anonymous"
     />
-
     <link
       rel="stylesheet"
       href="https://unpkg.com/tippy.js@6/animations/scale.css"
     />
+    <!-- SITE CSS -->
+    <link rel="stylesheet" href="{% static 'css/skeleton.css' %}" />
     <link rel="stylesheet" href="{% static 'css/onboarding_plan.css' %}" />
     <link rel="stylesheet" href="{% static 'css/services.css' %}" />
-
     <!-- JQUERY -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
       crossorigin="anonymous"
     ></script>
-
     <!-- WAYPOINTS + COUNTUP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="{% static 'js/jquery.countup.min.js' %}"></script>
-
     <!-- FAVICON -->
     <link
       rel="shortcut icon"
       type="image/x-icon"
       href="{% static 'img/favicon.ico' %}"
     />
-
     {% block head %}{% endblock %}
   </head>
-
   <body>
     <div id="wrapper">
       <!-- HEADER -->
-      <div id="topheader">
-        <!-- Logo: always top-left, no padding/margin -->
-        <a href="{% url 'index' %}" id="logolink">
+      <header id="topheader">
+        <!-- Logo -->
+        <a href="{% url 'index' %}" id="logolink" aria-label="Another Light Counselling home">
           <img
             id="sitelogo"
             src="{% static 'img/skeleton/sitelogo.png' %}"
-            alt="Another Light"
+            alt="Another Light Counselling"
           />
         </a>
-
-        <!-- TOP NAVBAR: CONTACT ICONS (white background) -->
-        <nav id="topcontactnav" class="navbar navbar-light p-0">
-          <div id="contactrow">
-            <a href="{{ h_contacts.instagram.url }}" target="_blank">
-              <i class="{{h_contacts.instagram.symbol}} site-logo"></i>
-            </a>
-            <a href="{{h_contacts.whatsapp.url}}" target="_blank">
-              <i class="{{h_contacts.whatsapp.symbol}} site-logo"></i>
-            </a>
-            <a href="{{h_contacts.phone.url}}" target="_blank">
-              <i class="{{h_contacts.phone.symbol}} phoneicon site-logo"></i>
-            </a>
+        <!-- TOP BAR: social links + primary CTA -->
+        <nav id="topcontactnav" class="navbar navbar-light p-0" aria-label="Social links and booking">
+          <div class="alc-topbar">
+            <div class="alc-topbar-right">
+              <a
+                class="alc-social-icon"
+                href="https://wa.me/message/FL4M2GAUKTZJD1"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp Another Light Counselling"
+              >
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+              </a>
+              <a
+                class="alc-social-icon"
+                href="https://www.instagram.com/another_light_counselling/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram Another Light Counselling"
+              >
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a
+                class="alc-social-icon alc-social-optional"
+                href="https://www.youtube.com/@AnotherLightCounselling"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube Another Light Counselling"
+              >
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+              <a
+                class="alc-social-icon alc-social-optional"
+                href="https://in.linkedin.com/company/another-light-counselling"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn Another Light Counselling"
+              >
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+              </a>
+              <a
+                class="alc-social-icon alc-social-optional"
+                href="https://www.facebook.com/ALCTherapy"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook Another Light Counselling"
+              >
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+              </a>
+              {% if h_contacts.phone %}
+              <a
+                class="alc-contact-pill alc-phone-pill"
+                href="{{ h_contacts.phone.url }}"
+                aria-label="Call Another Light Counselling"
+              >
+                <i class="{{ h_contacts.phone.symbol }}" aria-hidden="true"></i>
+                <span class="alc-phone-text">{{ h_contacts.phone.value }}</span>
+              </a>
+              {% endif %}
+              <a
+                class="alc-topbar-book"
+                href="https://wa.me/message/FL4M2GAUKTZJD1"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book Now
+              </a>
+            </div>
           </div>
         </nav>
-
-        <!-- MAIN NAVBAR: has coloured background + rainbow -->
+        <!-- MAIN NAVBAR -->
         <div id="mainnav-container">
           <div id="colordiv"></div>
           <div id="rainbowdiv"></div>
-
           <nav
             id="main-navbar"
             class="navbar navbar-expand-lg navbar-light bg-transparent p-0"
+            aria-label="Main navigation"
           >
-            <!-- Hamburger / Close button (Bootstrap collapse) -->
             <button
               class="navbar-toggler ml-auto"
               type="button"
@@ -157,103 +200,228 @@
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <i class="fas fa-bars"></i>
+              <i class="fas fa-bars" aria-hidden="true"></i>
             </button>
-
-            <!-- Collapsible content (desktop + mobile drawer) -->
             <div
               class="collapse navbar-collapse justify-content-end"
               id="mainNavbarContent"
             >
               <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item alc-nav-item">
                   <a class="nav-link" href="{% url 'index' %}">Home</a>
                 </li>
-
-                <li class="nav-item">
+                <!-- Services -->
+                <li class="nav-item alc-nav-item alc-nav-dropdown">
+                  <button
+                    class="alc-dropdown-toggle nav-link"
+                    type="button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    Services <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+                  <div class="alc-dropdown-menu alc-services-menu">
+                    <div class="alc-dropdown-grid">
+                      {% for service in services %}
+                      <a href="{% url 'service' service.slug %}">
+                        <strong>{{ service.title }}</strong>
+                      </a>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </li>
+                <!-- Signature Plans -->
+                <li class="nav-item alc-nav-item alc-nav-dropdown">
+                  <button
+                    class="alc-dropdown-toggle nav-link"
+                    type="button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    Signature Plans <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+                  <div class="alc-dropdown-menu alc-small-menu">
+                    <a href="{% url 'onboarding_plan' %}">
+                      <strong>Therapy with Aanchal</strong>
+                      <span>Structured support and long-term therapy plan.</span>
+                    </a>
+                    
+                  </div>
+                </li>
+                <li class="nav-item alc-nav-item">
                   <a class="nav-link" href="{% url 'about' %}">Meet Our Team</a>
                 </li>
-
-                <!-- Services dropdown -->
-                <li class="nav-item" id="servicedropdown">
-                  <a
-                    class="nav-link"
-                    id="servicebutton"
-                    href="javascript:void(0);"
+                <!-- ALC Academy -->
+                {% comment %} <li class="nav-item alc-nav-item alc-nav-dropdown">
+                  <button
+                    class="alc-dropdown-toggle nav-link"
+                    type="button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
                   >
-                    Services
-                  </a>
-                  <div id="dropdowncontent">
-                    {% for service in services %}
-                    <a href="{% url 'service' service.slug %}">
-                      {{ service.title }}
+                    ALC Academy <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+                  <div class="alc-dropdown-menu alc-small-menu">
+                    <a href="/academy/internships/">
+                      <strong>Internships</strong>
+                      <span>Learning and internship opportunities.</span>
                     </a>
-                    {% endfor %}
+                    <a href="/academy/trainings-certifications/">
+                      <strong>Trainings & Certifications</strong>
+                      <span>Professional learning and certification programs.</span>
+                    </a>
+                    <a href="/academy/workshops-webinars/">
+                      <strong>Workshops & Webinars</strong>
+                      <span>Live learning sessions and professional workshops.</span>
+                    </a>
+                    <a href="/academy/recorded-courses/">
+                      <strong>Recorded Courses</strong>
+                      <span>Self-paced learning resources.</span>
+                    </a>
+                    <a href="/academy/live-programs/">
+                      <strong>Live Programs</strong>
+                      <span>Upcoming live training programs.</span>
+                    </a>
+                    <a href="/academy/supervision-plans/">
+                      <strong>Supervision Plans</strong>
+                      <span>Supervision support for therapists.</span>
+                    </a>
+                  </div>
+                </li> {% endcomment %}
+                <!-- Events -->
+                {% comment %} <li class="nav-item alc-nav-item alc-nav-dropdown">
+                  <button
+                    class="alc-dropdown-toggle nav-link"
+                    type="button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    Events <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+                  <div class="alc-dropdown-menu alc-small-menu">
+                    <a href="/events/upcoming/">
+                      <strong>Upcoming Events</strong>
+                      <span>Upcoming public and community events.</span>
+                    </a>
+                    <a href="/events/support-groups/">
+                      <strong>Support Groups</strong>
+                      <span>Facilitated spaces for shared support.</span>
+                    </a>
+                    <a href="/events/community-circles/">
+                      <strong>Community Circles</strong>
+                      <span>Community-led conversations and circles.</span>
+                    </a>
+                    <a href="/events/open-workshops/">
+                      <strong>Open Workshops</strong>
+                      <span>Accessible workshops for the public.</span>
+                    </a>
+                    <a href="/events/past-events/">
+                      <strong>Past Events</strong>
+                      <span>Archive of previous events and support groups.</span>
+                    </a>
+                  </div>
+                </li> {% endcomment %}
+                {% comment %} <li class="nav-item alc-nav-item">
+                  <a class="nav-link" href="/180-method/">180 Method</a>
+                </li> {% endcomment %}
+                <!-- Collaborate -->
+                {% comment %} <li class="nav-item alc-nav-item alc-nav-dropdown">
+                  <button
+                    class="alc-dropdown-toggle nav-link"
+                    type="button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    Collaborate <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+                  <div class="alc-dropdown-menu alc-small-menu alc-right-menu">
+                    <a href="/collaborate/schools-colleges/">
+                      <strong>Schools & Colleges</strong>
+                      <span>Mental health programs for educational institutions.</span>
+                    </a>
+                    <a href="/collaborate/corporates-organisations/">
+                      <strong>Corporates & Organisations</strong>
+                      <span>Workplace mental health and wellness collaborations.</span>
+                    </a>
+                    <a href="/collaborate/partners/">
+                      <strong>Partners & Collaborations</strong>
+                      <span>Institutional partnerships and previous collaborations.</span>
+                    </a>
+                    <a href="/collaborate/host-an-event/">
+                      <strong>Host an Event with Us</strong>
+                      <span>Invite ALC for talks, events and workshops.</span>
+                    </a>
+                  </div>
+                </li> {% endcomment %}
+                <!-- Resources -->
+                <li class="nav-item alc-nav-item alc-nav-dropdown">
+                  <button
+                    class="alc-dropdown-toggle nav-link"
+                    type="button"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                  >
+                    Resources <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                  </button>
+                  <div class="alc-dropdown-menu alc-small-menu alc-right-menu">
+                    <a href="{% url 'blog' %}">
+                      <strong>Blogs</strong>
+                      <span>Articles and mental health writing.</span>
+                    </a>
+                    <a href="{% url 'faqs' %}">
+                      <strong>FAQs</strong>
+                      <span>Common questions about therapy and ALC.</span>
+                    </a>
+                    <a href="{% url 'resources' %}">
+                      <strong>Mental Health Resources</strong>
+                      <span>Guides, tools and helpful resources.</span>
+                    </a>
+
+                    <!-- Do I Feel? nested links come from the backend doifeels context -->
+                    <div class="alc-nested-dropdown">
+                      <button
+                        class="alc-nested-toggle"
+                        type="button"
+                        aria-expanded="false"
+                      >
+                        <span>
+                          <strong>Do I Feel?</strong>
+                          <small>Explore emotion-led resources.</small>
+                        </span>
+                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                      </button>
+                      <div class="alc-nested-menu">
+                        {% for doifeel in doifeels %}
+                        <a href="{% url 'doifeel' doifeel.slug %}">
+                          <strong>{{ doifeel.title }}</strong>
+                        </a>
+                        {% endfor %}
+                      </div>
+                    </div>
+
+                    {% comment %} <a href="/newsletter/">
+                      <strong>Newsletter</strong>
+                      <span>Updates, reflections and announcements.</span>
+                    </a>
+                    <a href="/media/">
+                      <strong>Media Coverage</strong>
+                      <span>Press mentions and featured work.</span>
+                    </a> {% endcomment %}
                   </div>
                 </li>
-
-                <!-- Signature Plans dropdown -->
-                <li class="nav-item" id="plandropdown">
-                  <a
-                    class="nav-link"
-                    id="planbutton"
-                    href="javascript:void(0);"
-                  >
-                    Signature Plans
-                  </a>
-                  <div id="dropdowncontentplan">
-                    <a href="{% url 'onboarding_plan' %}">
-                      Structured Support from Aanchal
-                    </a>
-                  </div>
-                </li>
-
-                <!-- Do I Feel dropdown -->
-                <li class="nav-item" id="doifeeldropdown">
-                  <a
-                    class="nav-link"
-                    id="doifeelbutton"
-                    href="javascript:void(0);"
-                  >
-                    Do I Feel?
-                  </a>
-                  <div id="dropdowncontentdoifeel">
-                    {% for doifeel in doifeels %}
-                    <a href="{% url 'doifeel' doifeel.slug %}">
-                      {{ doifeel.title }}
-                    </a>
-                    {% endfor %}
-                  </div>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'faqs' %}">FAQs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'resources' %}">
-                    Resources
-                  </a>
-                </li>
-                <li class="nav-item">
+                <li class="nav-item alc-nav-item">
                   <a class="nav-link" href="{% url 'reviews' %}">Reviews</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'blog' %}">Blog</a>
-                </li>
-                <li class="nav-item">
+                <li class="nav-item alc-nav-item">
                   <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                 </li>
               </ul>
             </div>
           </nav>
         </div>
-      </div>
-
-      <!-- Optional overlay (still available if you want to re-use) -->
+      </header>
       <div id="navOverlay" class="nav-overlay"></div>
-
       {% block body %}{% endblock %}
-
       <!-- FOOTER -->
       <div id="footer">
         <div id="footercontacts" class="footersection">
@@ -265,7 +433,6 @@
           </a>
           {% endfor %}
         </div>
-
         <div id="footerlinks" class="footersection">
           <h4>Quick Links</h4>
           <a href="{% url 'index' %}">Home</a>
@@ -284,7 +451,6 @@
           </a>
           <a href="{% url 'careers' %}">Careers</a>
         </div>
-
         <div id="footerservices" class="footersection">
           <h4></h4>
           <iframe
@@ -297,16 +463,13 @@
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
-
         <div id="bottomlinks"></div>
       </div>
     </div>
-
     <!-- TOOLTIPS -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="{% static 'js/tooltips.js' %}"></script>
-
     <!-- ACCESSIBILITY -->
     <script async>
       (function (d) {
@@ -320,7 +483,6 @@
       Please ensure Javascript is enabled for purposes of
       <a href="https://userway.org">website accessibility</a>
     </noscript>
-
     <!-- BOOTSTRAP 4 JS -->
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
@@ -330,66 +492,179 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
       crossorigin="anonymous"
     ></script>
-
     <!-- count up -->
     <script src="{% static 'js/countnumbers.js' %}"></script>
-
-    <!-- SERVICE DROPDOWN FUNCTIONALITY (existing) -->
-    <script src="{% static 'js/servicemenu.js' %}"></script>
-
-    <!-- NAV: X toggle + hard navigation on mobile + mobile dropdown toggles -->
+    <!-- ALC NAVBAR FUNCTIONALITY -->
     <script>
       $(function () {
+        var $body = $("body");
         var $nav = $("#mainNavbarContent");
         var $toggler = $(".navbar-toggler");
+        var $overlay = $("#navOverlay");
+        var desktopBreakpoint = 1400;
 
-        // Swap hamburger ↔ X based on collapse state
-        $nav.on("show.bs.collapse", function () {
-          $toggler.addClass("is-open");
-          $toggler.find("i").removeClass("fa-bars").addClass("fa-times");
-        });
+        function isMobileNav() {
+          return window.innerWidth < desktopBreakpoint;
+        }
 
-        $nav.on("hide.bs.collapse", function () {
-          $toggler.removeClass("is-open");
-          $toggler.find("i").removeClass("fa-times").addClass("fa-bars");
-        });
+        function closeNestedDropdowns($scope) {
+          var $target = $scope && $scope.length ? $scope : $(document);
+          $target.find(".alc-nested-dropdown").removeClass("is-nested-open");
+          $target.find(".alc-nested-toggle").attr("aria-expanded", "false");
+        }
 
-        // Force navigation on mobile even if some script calls preventDefault
-        document.addEventListener(
-          "click",
-          function (e) {
-            var link = e.target.closest("#mainNavbarContent .nav-link");
-            if (!link) return;
+        function closeAllDropdowns() {
+          $(".alc-nav-dropdown").removeClass("is-open");
+          $(".alc-dropdown-toggle").attr("aria-expanded", "false");
+          closeNestedDropdowns($(document));
+        }
 
-            var href = link.getAttribute("href");
-            // ignore dropdown toggles and fake links
-            if (!href || href === "#" || href.indexOf("javascript:") === 0) {
+        function keepElementVisible($element) {
+          if (!isMobileNav() || !$element || !$element.length) {
+            return;
+          }
+
+          window.setTimeout(function () {
+            var drawer = $nav.get(0);
+            var element = $element.get(0);
+
+            if (!drawer || !element) {
               return;
             }
 
-            if (window.innerWidth <= 1400) {
-              e.preventDefault();
-              window.location.href = href;
-            }
-          },
-          true
-        );
+            var drawerRect = drawer.getBoundingClientRect();
+            var elementRect = element.getBoundingClientRect();
+            var topPadding = 14;
+            var bottomPadding = 110;
 
-        // Mobile dropdown toggles for Services / Plans / Do I Feel?
-        function toggleMobileDropdown(buttonSelector, contentSelector) {
-          $(buttonSelector).on("click", function (e) {
-            if (window.innerWidth > 1400) {
-              return; // desktop handled by hover CSS
+            if (elementRect.top < drawerRect.top + topPadding) {
+              drawer.scrollTop += elementRect.top - drawerRect.top - topPadding;
+            } else if (elementRect.bottom > drawerRect.bottom - bottomPadding) {
+              drawer.scrollTop += elementRect.bottom - drawerRect.bottom + bottomPadding;
             }
-            e.preventDefault();
-            var $content = $(contentSelector);
-            $content.slideToggle(180);
-          });
+          }, 90);
         }
 
-        toggleMobileDropdown("#servicebutton", "#dropdowncontent");
-        toggleMobileDropdown("#planbutton", "#dropdowncontentplan");
-        toggleMobileDropdown("#doifeelbutton", "#dropdowncontentdoifeel");
+        function openMobileNav() {
+          $toggler.addClass("is-open");
+          $toggler.attr("aria-expanded", "true");
+          $toggler.find("i").removeClass("fa-bars").addClass("fa-times");
+          $overlay.addClass("visible");
+          $body.addClass("nav-drawer-open");
+
+          if (isMobileNav()) {
+            $nav.scrollTop(0);
+          }
+        }
+
+        function closeMobileNavState() {
+          $toggler.removeClass("is-open");
+          $toggler.attr("aria-expanded", "false");
+          $toggler.find("i").removeClass("fa-times").addClass("fa-bars");
+          $overlay.removeClass("visible");
+          $body.removeClass("nav-drawer-open");
+          closeAllDropdowns();
+          $nav.scrollTop(0);
+        }
+
+        function closeMobileNav() {
+          if ($nav.hasClass("show")) {
+            $nav.collapse("hide");
+          } else {
+            closeMobileNavState();
+          }
+        }
+
+        $nav.on("show.bs.collapse", function () {
+          openMobileNav();
+        });
+
+        $nav.on("hidden.bs.collapse hide.bs.collapse", function () {
+          closeMobileNavState();
+        });
+
+        $overlay.on("click", function () {
+          closeMobileNav();
+        });
+
+        $(document).on("keydown", function (e) {
+          if (e.key === "Escape" && isMobileNav()) {
+            closeMobileNav();
+          }
+        });
+
+        $(".alc-dropdown-toggle").on("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          var $button = $(this);
+          var $parent = $button.closest(".alc-nav-dropdown");
+          var shouldOpen = !$parent.hasClass("is-open");
+
+          if (isMobileNav()) {
+            $parent
+              .siblings(".alc-nav-dropdown")
+              .removeClass("is-open")
+              .find(".alc-dropdown-toggle")
+              .attr("aria-expanded", "false");
+
+            closeNestedDropdowns($parent.siblings(".alc-nav-dropdown"));
+          }
+
+          $parent.toggleClass("is-open", shouldOpen);
+          $button.attr("aria-expanded", shouldOpen ? "true" : "false");
+
+          if (!shouldOpen) {
+            closeNestedDropdowns($parent);
+          } else {
+            keepElementVisible($button);
+          }
+        });
+
+        $(".alc-nested-toggle").on("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          var $button = $(this);
+          var $nested = $button.closest(".alc-nested-dropdown");
+          var shouldOpen = !$nested.hasClass("is-nested-open");
+
+          $nested
+            .siblings(".alc-nested-dropdown")
+            .removeClass("is-nested-open")
+            .find(".alc-nested-toggle")
+            .attr("aria-expanded", "false");
+
+          $nested.toggleClass("is-nested-open", shouldOpen);
+          $button.attr("aria-expanded", shouldOpen ? "true" : "false");
+
+          if (shouldOpen) {
+            keepElementVisible($button);
+          }
+        });
+
+        $(document).on("click", function (e) {
+          if (!isMobileNav() && !$(e.target).closest(".alc-nav-dropdown").length) {
+            closeAllDropdowns();
+          }
+        });
+
+        // Keep normal link navigation intact; close the drawer only after the tap is received.
+        $("#mainNavbarContent").on("click", "a[href]", function () {
+          if (isMobileNav()) {
+            window.setTimeout(function () {
+              closeMobileNav();
+            }, 80);
+          }
+        });
+
+        $(window).on("resize", function () {
+          if (!isMobileNav()) {
+            $nav.removeClass("show");
+            closeMobileNavState();
+          }
+          closeAllDropdowns();
+        });
       });
     </script>
   </body>

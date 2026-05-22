@@ -26,43 +26,46 @@ and experience a cost-effective and quality solution.{% endblock %}
     gtag('js', new Date());
     gtag('config', 'UA-163396537-1');
 </script>
-<script async>
+<script>
     function removePopup() {
-        document.querySelector("#promptoverlay").parentElement.removeChild(document.querySelector("#promptoverlay"));
+        const popup = document.querySelector("#promptoverlay");
+        if (popup) {
+            popup.remove();
+        }
     }
 </script>
 <style>
-  @media only screen and (max-width: 600px) {
-    .brspacer {
-      display: block;
-      padding-top: 8px;
-    }
-  }
-
-  @media only screen and (min-width: 601px) {
-    .brspacer {
-      display: none;
-    }
-  }
+  /* Popup spacing is handled in index.scss. Keep this empty style block only if needed later. */
 </style>
 {% endblock %}
 
 {% block body %}
 
 <div id="content">
-    <div id="promptoverlay">
+    <div id="promptoverlay" role="dialog" aria-modal="true" aria-labelledby="dialogue-title">
 
         <div id="dialoguebox">
-            <p style="line-height: 2.5;">
-               We're here for you! <span class="brspacer"></span> Whatever you need, we're happy to talk. Enjoy 20% off on all sessions and therapy packages:  Limited Time Offer! 
-            <br/><span class="brspacer"></span>
-           Reach out anytime; we’re just a message away. <br/><span class="brspacer"></span>Whatsapp us at
-                <a class="textlink" href="https://wa.me/918879260310?text=Hello%2C%20I'm%20interested%20in%20therapy%20at%20Another%20Light%20Counselling" target="_blank">
+            <p class="dialogue-tag">Limited Time Offer</p>
+
+            <h2 id="dialogue-title">We're here for you!</h2>
+
+            <p class="dialogue-copy">
+                Whatever you need, we're happy to talk. Enjoy <strong>20% off</strong> on all sessions and therapy packages.
+            </p>
+
+            <p class="dialogue-copy">
+                Reach out anytime; we’re just a message away.
+            </p>
+
+            <p class="dialogue-whatsapp">
+                Whatsapp us at
+                <a class="textlink" href="https://wa.me/918879260310?text=Hello%2C%20I'm%20interested%20in%20therapy%20at%20Another%20Light%20Counselling" target="_blank" rel="noopener noreferrer">
                     +918879260310
                 </a>
             </p>
-            <p>
-                <a class="buttonlink" style="cursor: pointer;" onclick="removePopup()">OK</a>
+
+            <p class="dialogue-actions">
+                <a class="buttonlink" role="button" style="cursor: pointer;" onclick="removePopup()">OK</a>
             </p>
         </div>
 

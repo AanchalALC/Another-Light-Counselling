@@ -830,3 +830,212 @@
 //         max-width: 45em;
 //     }
 // }
+/* Drop-in replacement for the old popup/dialogue styles in index.scss.
+   Keep this inside the existing #content block, or paste it near the end of index.scss. */
+
+#content {
+  #promptoverlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+    padding: clamp(0.9rem, 3vw, 2rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.72);
+    text-align: center;
+    box-sizing: border-box;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 9999;
+
+    #dialoguebox {
+      width: min(760px, 92vw);
+      max-width: 92vw;
+      max-height: calc(100vh - 2rem);
+      max-height: calc(100dvh - 2rem);
+      margin: auto;
+      padding: clamp(1.25rem, 3vw, 2.25rem);
+      background: #fffafa;
+      border-radius: 18px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+      box-sizing: border-box;
+      overflow-y: auto;
+      overflow-x: hidden;
+      color: #111;
+      line-height: 1.55;
+      font-size: clamp(0.9rem, 1.35vw, 1rem);
+
+      .dialogue-tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 0.75rem;
+        padding: 0.35rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(230, 83, 89, 0.1);
+        color: #E65359;
+        font-size: 0.78rem;
+        font-weight: bold;
+        letter-spacing: 0.02em;
+      }
+
+      h2 {
+        margin: 0 0 0.85rem;
+        padding: 0;
+        color: #111;
+        font-size: clamp(1.1rem, 2.25vw, 1.45rem);
+        line-height: 1.3;
+        font-weight: bold;
+      }
+
+      p {
+        margin: 0 0 0.85rem;
+        padding: 0;
+        color: #111;
+        line-height: 1.55;
+      }
+
+      .dialogue-copy {
+        max-width: 56rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .dialogue-whatsapp {
+        margin-top: 0.35rem;
+        margin-bottom: 0;
+        font-weight: bold;
+      }
+
+      a.textlink {
+        color: #111;
+        text-decoration: none;
+        font-weight: bold;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      a.textlink:hover {
+        color: #E65359;
+        text-decoration: underline;
+      }
+
+      .dialogue-actions {
+        margin-top: 1.6rem;
+        margin-bottom: 0;
+      }
+
+      a.buttonlink {
+        min-width: 76px;
+        min-height: 52px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.85rem 1.35rem;
+        border-radius: 12px;
+        border: none;
+        background: #457545;
+        color: #fffafa;
+        font-size: 1.05rem;
+        font-weight: bold;
+        text-decoration: none;
+        line-height: 1;
+        transition: transform 0.18s ease, background 0.18s ease;
+      }
+
+      a.buttonlink:hover,
+      a.buttonlink:focus {
+        background: #386638;
+        color: #fffafa;
+        text-decoration: none;
+        transform: translateY(-1px);
+        outline: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #content {
+    #promptoverlay {
+      padding: 0.85rem;
+      align-items: center;
+
+      #dialoguebox {
+        width: min(92vw, 360px);
+        max-width: 92vw;
+        max-height: calc(100vh - 1.7rem);
+        max-height: calc(100dvh - 1.7rem);
+        padding: 1.1rem 1rem;
+        border-radius: 16px;
+        font-size: 0.9rem;
+
+        .dialogue-tag {
+          margin-bottom: 0.65rem;
+          padding: 0.28rem 0.65rem;
+          font-size: 0.68rem;
+        }
+
+        h2 {
+          margin-bottom: 0.7rem;
+          font-size: 1.08rem;
+          line-height: 1.35;
+        }
+
+        p {
+          margin-bottom: 0.65rem;
+          font-size: 0.9rem;
+          line-height: 1.5;
+        }
+
+        .dialogue-whatsapp {
+          margin-top: 0.25rem;
+        }
+
+        .dialogue-actions {
+          margin-top: 1rem;
+        }
+
+        a.buttonlink {
+          min-width: 72px;
+          min-height: 46px;
+          padding: 0.75rem 1.15rem;
+          font-size: 0.98rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #content {
+    #promptoverlay {
+      padding: 0.65rem;
+
+      #dialoguebox {
+        width: 91vw;
+        padding: 1rem 0.85rem;
+        border-radius: 14px;
+
+        h2 {
+          font-size: 1rem;
+        }
+
+        p {
+          font-size: 0.84rem;
+          line-height: 1.45;
+        }
+
+        a.buttonlink {
+          min-width: 68px;
+          min-height: 44px;
+          font-size: 0.92rem;
+        }
+      }
+    }
+  }
+}

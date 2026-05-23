@@ -53,7 +53,6 @@ body #wrapper #topheader {
   height: 120px;
   width: 100%;
   padding: 0;
-  overflow: visible;
   /* Keep mobile drawer above the page overlay so sidebar links remain tappable. */
   z-index: 3000;
 }
@@ -62,30 +61,25 @@ body #wrapper {
 }
 body #wrapper #logolink {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: auto;
-  height: auto;
+  top: 6px;
+  left: 12px;
+  height: 108px;
   margin: 0;
   padding: 0;
-  display: block;
+  display: flex;
+  align-items: center;
   z-index: 30;
   text-decoration: none;
-  line-height: 0;
-  overflow: visible;
 }
 body #wrapper #sitelogo {
-  display: block;
-  height: 108px !important;
-  width: auto !important;
-  max-width: none !important;
-  max-height: none !important;
+  height: 100%;
+  width: auto;
+  max-width: 125px;
   object-fit: contain;
-  object-position: top left;
-  vertical-align: top;
   -webkit-box-shadow: 6px 7px 5px -5px rgba(0, 0, 0, 0.27);
   -moz-box-shadow: 6px 7px 5px -5px rgba(0, 0, 0, 0.27);
   box-shadow: 6px 7px 5px -5px rgba(0, 0, 0, 0.27);
+  display: block;
 }
 body #wrapper {
   /* TOP CONTACT BAR */
@@ -96,7 +90,7 @@ body #wrapper #topcontactnav {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 1rem 0 6rem;
+  padding: 0 1rem 0 8rem;
   background-color: #ffffff;
   border: 0;
   margin: 0;
@@ -186,7 +180,6 @@ body #wrapper #mainnav-container {
   margin: 0;
   padding: 0;
   line-height: 1;
-  overflow: visible;
 }
 body #wrapper #colordiv,
 body #wrapper #rainbowdiv {
@@ -214,7 +207,7 @@ body #wrapper #main-navbar {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 1rem 0 6rem;
+  padding: 0 1rem 0 8rem;
   margin: 0;
   background: transparent;
   z-index: 3;
@@ -400,9 +393,9 @@ body #wrapper .alc-nav-dropdown.is-open > .alc-dropdown-menu {
   display: block;
 }
 body #wrapper .alc-services-menu {
-  width: 520px;
-  max-width: min(520px, calc(100vw - 2rem));
-  padding: 0.75rem;
+  width: 760px;
+  max-width: calc(100vw - 2rem);
+  padding: 0.9rem;
 }
 body #wrapper .alc-dropdown-grid {
   display: grid;
@@ -416,11 +409,6 @@ body #wrapper .alc-right-menu {
   left: auto;
   right: 0;
 }
-body #wrapper .alc-nav-dropdown > .alc-services-menu {
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
-}
 body #wrapper {
   /* ======== DESKTOP (>=1400px) ======== */
 }
@@ -428,21 +416,9 @@ body #wrapper {
   body #wrapper #topheader {
     height: 120px;
   }
-  body #wrapper #logolink {
-    top: 0;
-    left: 0;
-    width: auto;
-    height: auto;
-  }
-  body #wrapper #sitelogo {
-    height: 116px !important;
-    width: auto !important;
-    max-width: none !important;
-    max-height: none !important;
-  }
   body #wrapper #main-navbar {
     padding-right: 1rem;
-    padding-left: 6rem;
+    padding-left: 8rem;
   }
   body #wrapper #main-navbar .navbar-collapse {
     position: static;
@@ -487,22 +463,22 @@ body #wrapper {
     height: 100px;
   }
   body #wrapper #logolink {
-    top: 0;
-    left: 0;
-    width: auto;
-    height: auto;
+    top: 5px;
+    left: 8px;
+    height: 90px;
+  
   }
   body #wrapper #sitelogo {
-    height: 98px !important;
-    width: auto !important;
-    max-width: none !important;
-    max-height: none !important;
+    height: 100%;
+    width: auto;
+    max-width: 86px;
+  
   }
   body #wrapper #topcontactnav {
     height: 42px;
     min-height: 42px;
     padding-right: 0.75rem;
-    padding-left: 4.8rem;
+    padding-left: 5rem;
   }
   body #wrapper .alc-topbar-right {
     gap: 0.32rem;
@@ -535,7 +511,7 @@ body #wrapper {
   }
   body #wrapper #main-navbar {
     padding-right: 0.85rem;
-    padding-left: 4.8rem;
+    padding-left: 5rem;
   }
   body #wrapper #main-navbar .navbar-collapse {
     position: fixed;
@@ -612,11 +588,15 @@ body #wrapper {
   body #wrapper .alc-services-menu,
   body #wrapper .alc-small-menu,
   body #wrapper .alc-right-menu {
-    position: static;
-    transform: none;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
     width: 100%;
     max-width: 100%;
-    min-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     box-shadow: none;
     border: 0;
     border-radius: 0.85rem;
@@ -627,12 +607,11 @@ body #wrapper {
     overflow-x: hidden;
   }
   body #wrapper .alc-services-menu {
-    max-height: 46vh;
-    max-height: 46dvh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-    scrollbar-width: thin;
+    max-height: none;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: auto;
+    overscroll-behavior-y: auto;
+    scrollbar-width: auto;
   }
   body #wrapper .alc-nested-menu {
     max-height: 32vh;
@@ -652,10 +631,16 @@ body #wrapper {
   body #wrapper .alc-services-menu a,
   body #wrapper .alc-small-menu a,
   body #wrapper .alc-right-menu a {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     padding: 0.5rem 0.55rem;
     border-bottom: 1px solid rgba(230, 83, 89, 0.16);
     border-radius: 0.45rem;
     font-size: 0.9rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
   body #wrapper .alc-dropdown-menu a strong,
   body #wrapper .alc-services-menu a strong,
@@ -691,31 +676,27 @@ body #wrapper {
   }
   body #wrapper .alc-dropdown-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
     gap: 0;
   }
   body #wrapper .alc-nav-dropdown:hover > .alc-dropdown-menu,
   body #wrapper .alc-nav-dropdown:focus-within > .alc-dropdown-menu {
     display: none;
   }
+  body #wrapper #main-navbar .alc-nav-dropdown > .alc-services-menu {
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+  body #wrapper #main-navbar .alc-services-menu .alc-dropdown-grid > a {
+    display: block;
+  }
   body #wrapper .alc-nav-dropdown.is-open > .alc-dropdown-menu {
     display: block !important;
   }
 }
-
-@media screen and (min-width: 700px) and (max-width: 1399px) {
-  body #wrapper #sitelogo {
-    height: 104px !important;
-    width: auto !important;
-  }
-  body #wrapper #topcontactnav {
-    padding-left: 5rem;
-  }
-  body #wrapper #main-navbar {
-    padding-left: 5rem;
-  }
-}
-
 body #wrapper {
   /* Ensure hamburger visible 992–1399px even with navbar-expand-lg */
 }
@@ -728,21 +709,9 @@ body #wrapper {
   }
 }
 @media screen and (max-width: 520px) {
-  body #wrapper #logolink {
-    top: 0;
-    left: 0;
-    width: auto;
-    height: auto;
-  }
-  body #wrapper #sitelogo {
-    height: 92px !important;
-    width: auto !important;
-    max-width: none !important;
-    max-height: none !important;
-  }
   body #wrapper #topcontactnav {
     padding-right: 0.4rem;
-    padding-left: 4.15rem;
+    padding-left: 4.25rem;
   }
   body #wrapper .alc-topbar-right {
     gap: 0.22rem;
@@ -772,21 +741,9 @@ body #wrapper {
   }
 }
 @media screen and (max-width: 390px) {
-  body #wrapper #logolink {
-    top: 0;
-    left: 0;
-    width: auto;
-    height: auto;
-  }
-  body #wrapper #sitelogo {
-    height: 88px !important;
-    width: auto !important;
-    max-width: none !important;
-    max-height: none !important;
-  }
   body #wrapper #topcontactnav {
     padding-right: 0.28rem;
-    padding-left: 3.95rem;
+    padding-left: 4rem;
   }
   body #wrapper .alc-topbar-right {
     gap: 0.16rem;
@@ -906,3 +863,4 @@ body #wrapper #footerservices {
   position: relative;
   margin-right: 4rem;
 }
+/*# sourceMappingURL=skeleton.css.map */

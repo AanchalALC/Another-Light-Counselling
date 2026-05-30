@@ -1,28 +1,41 @@
-version: "3.9"
 services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
   backend:
     build:
       context: .
       args:
-      - SECRET_KEY=${SECRET_KEY}
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_HOST=${DB_HOST}
-      - DEBUG=${DEBUG}
-      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
-      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
-      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+        - SECRET_KEY=${SECRET_KEY}
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_HOST=db
+        - DEBUG=${DEBUG}
+        - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+        - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+        - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+    depends_on:
+      - db
     volumes:
       - .:/app
-  backend_migrate:
-    extends:
-      service: backend
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py createsuperuser --noinput"
-  backend_run:  
-    extends:
-      service: backend
-    tty: true
-    command: sh -c "sass --watch main/static/scss:main/static/css & python manage.py runserver 0.0.0.0:8000"    
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py createsuperuser --noinput || true &&
+             sass --watch main/static/scss:main/static/css &
+             python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
+    environment:
+      - DB_HOST=db
+
+volumes:
+  postgres_data:

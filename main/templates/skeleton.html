@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -84,6 +83,34 @@
     <link rel="stylesheet" href="{% static 'css/skeleton.css' %}" />
     <link rel="stylesheet" href="{% static 'css/onboarding_plan.css' %}" />
     <link rel="stylesheet" href="{% static 'css/services.css' %}" />
+    <!-- NAV DROPDOWN POSITION FIX (Services mega-menu) -->
+    <style>
+      /*
+        Desktop only (matches the 1400px JS breakpoint in the navbar script).
+        The navbar is right-aligned, so anchoring the wide Services menu to its
+        trigger always pushes it off to one side. Instead, we let ONLY the
+        Services menu break out of its narrow <li> so it anchors to the
+        full-width navbar and sits centered (≈ viewport centre).
+        Other dropdowns (Resources) keep their own trigger anchoring untouched.
+      */
+      @media (min-width: 1400px) {
+        /* Force the centering reference to be the full-width navbar */
+        #mainNavbarContent,
+        .navbar-nav {
+          position: static !important;
+        }
+        /* Only the <li> that contains the Services mega-menu becomes static */
+        .alc-nav-dropdown:has(.alc-services-menu) {
+          position: static;
+        }
+        .alc-services-menu {
+          left: 50% !important;
+          right: auto !important;
+          transform: translateX(-50%) !important;
+          max-width: min(880px, calc(100vw - 40px));
+        }
+      }
+    </style>
     <!-- JQUERY -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -231,7 +258,7 @@
                   </div>
                 </li>
                 <!-- Signature Plans -->
-                <li class="nav-item alc-nav-item alc-nav-dropdown">
+                {% comment %} <li class="nav-item alc-nav-item alc-nav-dropdown">
                   <button
                     class="alc-dropdown-toggle nav-link"
                     type="button"
@@ -247,7 +274,7 @@
                     </a>
                     
                   </div>
-                </li>
+                </li> {% endcomment %}
                 <li class="nav-item alc-nav-item">
                   <a class="nav-link" href="{% url 'about' %}">Meet Our Team</a>
                 </li>

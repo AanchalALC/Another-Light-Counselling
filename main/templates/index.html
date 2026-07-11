@@ -43,14 +43,14 @@ and experience a cost-effective and quality solution.{% endblock %}
   #mediasection {
     width: 100%;
     box-sizing: border-box;
-    padding: 78px 0 86px;
+    padding: 24px 0 84px;
     background: linear-gradient(180deg, #ffffff 0%, #FCF6E6 100%);
     text-align: center;
     overflow: hidden;
   }
   #mediasection .media-head {
     max-width: 860px;
-    margin: 0 auto 48px;
+    margin: 0 auto 44px;
     padding: 0 6vw;
   }
   #mediasection .media-kicker {
@@ -89,6 +89,18 @@ and experience a cost-effective and quality solution.{% endblock %}
     font-size: 1.08rem;
     line-height: 1.6;
   }
+  /* Highlighted founder link inside the sub-text */
+  #mediasection .media-sub .founder-link {
+    color: #E36888;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(227, 104, 136, .4);
+    transition: color .25s ease, border-color .25s ease;
+  }
+  #mediasection .media-sub .founder-link:hover {
+    color: #F08C21;
+    border-color: #F08C21;
+  }
 
   /* ---- Carousel viewport with soft fade edges ---- */
   .media-marquee {
@@ -117,14 +129,14 @@ and experience a cost-effective and quality solution.{% endblock %}
   /* ---- Logo card: full colour ALWAYS, richer lift on hover ---- */
   .media-item {
     flex: 0 0 auto;
-    width: 210px;
+    width: 228px;
     margin-right: 24px;   /* equal trailing space keeps the -50% loop seamless */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 14px;
-    padding: 26px 20px;
+    padding: 30px 22px;
     background: #fff;
     border: 1px solid #efe7d3;
     border-radius: 20px;
@@ -135,8 +147,8 @@ and experience a cost-effective and quality solution.{% endblock %}
   .media-logo {
     width: auto;
     height: auto;
-    max-width: 160px;
-    max-height: 58px;
+    max-width: 190px;
+    max-height: 74px;
     object-fit: contain;
     transition: transform .3s ease;   /* full colour, no grayscale filter */
   }
@@ -171,12 +183,12 @@ and experience a cost-effective and quality solution.{% endblock %}
   .media-item:nth-child(5n+4):hover .media-caption { color: #B4B534; }
 
   @media (max-width: 600px) {
-    #mediasection { padding: 56px 0 62px; }
+    #mediasection { padding: 20px 0 60px; }
     #mediasection h2 { font-size: 2.1rem; }
     #mediasection .media-sub { font-size: 1rem; }
     .media-track { animation-duration: 30s; }
-    .media-item { width: 168px; margin-right: 16px; padding: 22px 16px; border-radius: 16px; }
-    .media-logo { max-width: 118px; max-height: 46px; }
+    .media-item { width: 188px; margin-right: 16px; padding: 24px 18px; border-radius: 16px; }
+    .media-logo { max-width: 140px; max-height: 58px; }
   }
 
   /* Respect users who prefer reduced motion: stop scrolling,
@@ -199,7 +211,7 @@ and experience a cost-effective and quality solution.{% endblock %}
 {% block body %}
 
 <div id="content">
-    <div id="promptoverlay" role="dialog" aria-modal="true" aria-labelledby="dialogue-title">
+    <div id="promptoverlay" role="dialog" aria-modal="true" aria-labelledby="dialogue-title" style="display: none;">
 
         <div id="dialoguebox">
             <p class="dialogue-tag">Limited Time Offer</p>
@@ -227,6 +239,32 @@ and experience a cost-effective and quality solution.{% endblock %}
         </div>
 
     </div>
+
+    <!-- Offer popup frequency cap: show at most once every 2 days per visitor -->
+    <script>
+        (function () {
+            var POPUP_KEY = 'alcOfferPopupLastShown';
+            var COOLDOWN_MS = 2 * 24 * 60 * 60 * 1000; // 2 days — change the "2" to tune
+            var overlay = document.getElementById('promptoverlay');
+            if (!overlay) return;
+
+            var last = 0;
+            try {
+                last = parseInt(localStorage.getItem(POPUP_KEY), 10) || 0;
+            } catch (e) {
+                // localStorage blocked (private mode / cookies off) — show once, don't crash
+                last = 0;
+            }
+
+            var now = Date.now();
+            if (now - last >= COOLDOWN_MS) {
+                // Reveal using the styling defined in index.css, after a short beat.
+                setTimeout(function () { overlay.style.display = ''; }, 700);
+                try { localStorage.setItem(POPUP_KEY, String(now)); } catch (e) {}
+            }
+            // otherwise: within the 2-day window, stay hidden this visit
+        })();
+    </script>
 
     <div id="topsection">
         <div class="arrow arrow-left"><i class="fas fa-chevron-circle-left"></i></div>
@@ -506,7 +544,8 @@ and experience a cost-effective and quality solution.{% endblock %}
             <p class="media-kicker">In the Press</p>
             <h2>As Featured In</h2>
             <p class="media-sub">
-                Our founder and team have been featured across leading Indian publications,
+                Our founder <a class="founder-link" href="/about/aanchal-narang/">Aanchal Narang</a> and team
+                have been featured across leading Indian publications,
                 sharing perspectives on mental health, relationships and well-being.
             </p>
         </div>

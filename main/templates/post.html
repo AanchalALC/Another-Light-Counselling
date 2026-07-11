@@ -15,7 +15,6 @@
 
 {% block head %}
 <link rel="canonical" href="https://www.another-light.com/post/{{post.slug}}" />
-<link rel="stylesheet" href="{% static 'css/post.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script async>
@@ -24,61 +23,276 @@
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
 </script>
+
+<!-- Embedded CSS for Editorial Blog Post UI with Shapes & Breadcrumb -->
+<style>
+    #content {
+        font-family: inherit; 
+        color: #333333;
+        background-color: #FFFFFF;
+        padding-bottom: 100px;
+        position: relative;
+        overflow: hidden; /* Contains background shapes */
+    }
+
+    /* =========================================
+       Background Decorative Shapes
+       ========================================= */
+    .bg-shape {
+        position: absolute;
+        z-index: 1; /* Keep behind text */
+        pointer-events: none; /* Allows user to click text over them */
+    }
+    
+    .shape-circle-1 {
+        width: 350px;
+        height: 350px;
+        border: 12px solid #F2D88F; /* Butter */
+        border-radius: 50%;
+        top: 300px;
+        left: -150px;
+        opacity: 0.4;
+    }
+    
+    .shape-circle-2 {
+        width: 200px;
+        height: 200px;
+        background-color: #E36888; /* Blush */
+        border-radius: 50%;
+        top: 1100px;
+        right: -80px;
+        opacity: 0.08;
+    }
+    
+    .shape-circle-3 {
+        width: 150px;
+        height: 150px;
+        border: 8px solid #6698CC; /* Sea */
+        border-radius: 50%;
+        bottom: 500px;
+        left: 5%;
+        opacity: 0.3;
+    }
+
+    .shape-dot-1 {
+        width: 60px;
+        height: 60px;
+        background-color: #B4B534; /* Matcha */
+        border-radius: 50%;
+        top: 700px;
+        right: 15%;
+        opacity: 0.15;
+    }
+
+    /* Bring main content above background shapes */
+    .breadcrumb-container, #article-header, .article-cover, #article-body, #commentsection {
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Breadcrumb Navigation */
+    .breadcrumb-container {
+        max-width: 1000px;
+        margin: 40px auto 10px auto;
+        padding: 0 20px;
+        text-align: left;
+    }
+
+    .breadcrumb-link {
+        display: inline-block;
+        font-size: 0.9rem;
+        color: #888888;
+        text-decoration: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .breadcrumb-link:hover {
+        color: #1A1A1A; /* Darkens on hover */
+        transform: translateX(-4px); /* Subtle slide left interaction */
+    }
+
+    /* Clean, Typography-Focused Header */
+    #article-header {
+        max-width: 1000px;
+        margin: 30px auto 40px auto; /* Reduced top margin to balance with breadcrumb */
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    #article-header h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.25;
+        color: #1A1A1A;
+        margin-bottom: 20px;
+    }
+
+    .article-meta {
+        font-size: 1.1rem;
+        color: #7A7A7A;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 600;
+    }
+    
+    .accent-line {
+        width: 80px;
+        height: 4px;
+        background-color: #E36888;
+        margin: 30px auto;
+        border-radius: 2px;
+    }
+
+    /* Large Cover Image */
+    .article-cover {
+        max-width: 1200px;
+        margin: 0 auto 60px auto;
+        padding: 0 20px;
+    }
+
+    .article-cover img {
+        width: 100%;
+        height: auto;
+        max-height: 600px;
+        object-fit: cover;
+        border-radius: 24px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Widened Reading Column */
+    #article-body {
+        max-width: 1000px; 
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .post-content {
+        font-size: 1.2rem;
+        line-height: 1.95;
+        color: #333333;
+    }
+
+    .post-content h2, .post-content h3, .post-content h4 {
+        color: #1A1A1A;
+        margin-top: 2em;
+        margin-bottom: 1em;
+        font-weight: 700;
+        line-height: 1.35;
+    }
+
+    .post-content p { margin-bottom: 1.8em; }
+    
+    .post-content ul, .post-content ol { 
+        margin-bottom: 1.8em; 
+        padding-left: 25px; 
+    }
+    
+    .post-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin: 30px 0;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    /* Disqus Comments Styling */
+    #commentsection {
+        max-width: 1000px; 
+        margin: 80px auto 0 auto;
+        padding: 40px 20px 0 20px;
+        border-top: 1px solid #EAEAEA;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .breadcrumb-container { margin: 30px auto 0 auto; }
+        #article-header { margin: 30px auto 30px auto; }
+        #article-header h1 { font-size: 2.5rem; }
+        .article-cover { margin-bottom: 40px; }
+        .article-cover img { max-height: 350px; border-radius: 16px; }
+        .post-content { font-size: 1.1rem; line-height: 1.75; }
+        
+        /* Hide complex shapes on smaller screens to keep it readable */
+        .shape-circle-1, .shape-circle-3 { display: none; }
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 <div id="content">
 
-    <div id="topsection">
-        <img src="{{ post.image_file.url }}" id="topgraphic" />
+    <!-- Decorative Background Shapes -->
+    <div class="bg-shape shape-circle-1"></div>
+    <div class="bg-shape shape-circle-2"></div>
+    <div class="bg-shape shape-circle-3"></div>
+    <div class="bg-shape shape-dot-1"></div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb-container">
+        <a href="{% url 'blog' %}" class="breadcrumb-link">&larr; Back to all blogs</a>
     </div>
 
+    <!-- Clean Typography Header -->
+    <div id="article-header">
+        <h1>{{ post.title }}</h1>
+        <div class="accent-line" id="dynamic-accent"></div>
+        <p class="article-meta">{{ post.created }}</p>
+    </div>
 
+    <!-- Massive Cover Image -->
+    <div class="article-cover">
+        <img src="{{ post.image_file.url }}" alt="{{ post.title }}" />
+    </div>
 
-    <div id="blog-post">
-
-        <h2>{{ post.title }}</h2>
-        <p>
-            <small>
-                <em>
-                    {{ post.created }}
-                </em>
-            </small>
-        </p>
+    <!-- Wide Reading Column -->
+    <div id="article-body">
+        
         <div class="post-content">
             {{ post.content | safe }}
         </div>
 
-        <div id="commentsection">
-            <div id="disqus_thread"></div>
-            <script async>
-                let elem = document.querySelectorAll(`span`);
-                    for (const element of elem) {
-                    // console.log(element);
-                    element.style.removeProperty('font-size');
-                    element.style.removeProperty('font-family');
-                }
-                /**
-                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    </div>
+    
+    <!-- Comments -->
+    <div id="commentsection">
+        <div id="disqus_thread"></div>
+        <script async>
+            let elem = document.querySelectorAll('.post-content span');
+                for (const element of elem) {
+                element.style.removeProperty('font-size');
+                element.style.removeProperty('font-family');
+            }
 
-                var disqus_config = function () {
-                    this.page.url = '{{canon_url}}';  // page's canonical URL variable
-                    this.page.identifier = '{{post.slug}}'; // page's unique identifier variable
-                };
+            var disqus_config = function () {
+                this.page.url = '{{canon_url}}';  
+                this.page.identifier = '{{post.slug}}'; 
+            };
 
-                (function () { // DON'T EDIT BELOW THIS LINE
-                    var d = document, s = d.createElement('script');
-                    s.src = 'https://another-light-com.disqus.com/embed.js';
-                    s.setAttribute('data-timestamp', +new Date());
-                    (d.head || d.body).appendChild(s);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered
-                    by Disqus.</a></noscript>
-        </div>
-
+            (function () { 
+                var d = document, s = d.createElement('script');
+                s.src = 'https://another-light-com.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
 
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Keeps branding alive with a subtly colored accent line beneath the title
+        const colors = ['#B4B534', '#F08C21', '#F2D88F', '#6698CC', '#E36888'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const accentLine = document.getElementById("dynamic-accent");
+        
+        if (accentLine) {
+            accentLine.style.backgroundColor = randomColor;
+        }
+    });
+</script>
 {% endblock %}

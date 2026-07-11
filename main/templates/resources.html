@@ -4,7 +4,6 @@
 {% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/resources.css' %}">
 <link rel="canonical" href="https://another-light.com/resources/" />
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
@@ -14,37 +13,293 @@
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
 </script>
+
+<!-- Embedded CSS for the Resources page UI revamp (ALC palette + hub-page pattern) -->
+<style>
+    /* =========================================
+       Palette
+       Tangerine #F08C21 | Butter #F2D88F | Blush #E36888
+       Sea #6698CC | Matcha #B4B534
+       ========================================= */
+    #content {
+        font-family: inherit;
+        color: #333333;
+        background-color: #FAFAFA;
+        /* Same dot-grid canvas used across the hub pages */
+        background-image: radial-gradient(#D1D5DB 2px, transparent 2px);
+        background-size: 30px 30px;
+        padding-bottom: 120px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* =========================================
+       Background Doodles
+       ========================================= */
+    .doodle {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .doodle-circle-dashed {
+        width: 340px;
+        height: 340px;
+        border: 8px dashed rgba(102, 152, 204, 0.35); /* Sea */
+        border-radius: 50%;
+        top: 220px;
+        right: -110px;
+        animation: spinDoodle 45s linear infinite;
+    }
+
+    .doodle-triangle {
+        width: 130px;
+        height: 130px;
+        background-color: #B4B534; /* Matcha */
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        top: 640px;
+        left: 4%;
+        opacity: 0.14;
+        transform: rotate(18deg);
+    }
+
+    .doodle-dot {
+        width: 60px;
+        height: 60px;
+        background-color: #F08C21; /* Tangerine */
+        border-radius: 50%;
+        bottom: 300px;
+        right: 8%;
+        opacity: 0.16;
+    }
+
+    @keyframes spinDoodle { 100% { transform: rotate(360deg); } }
+
+    /* =========================================
+       Hero
+       ========================================= */
+    #hero-section {
+        text-align: center;
+        padding: 110px 20px 150px 20px;
+        background-color: #E36888; /* Blush */
+        color: #FFFFFF;
+        position: relative;
+        z-index: 2;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+    }
+
+    #hero-section h1 {
+        font-size: 4.6rem;
+        font-weight: 800;
+        margin-bottom: 18px;
+        letter-spacing: -2px;
+        color: #FFFFFF;
+    }
+
+    #hero-section p {
+        font-size: 1.2rem;
+        max-width: 620px;
+        margin: 0 auto;
+        opacity: 0.95;
+        line-height: 1.6;
+    }
+
+    /* =========================================
+       Resource Card Grid
+       ========================================= */
+    #resource-list {
+        max-width: 1150px;
+        margin: -70px auto 0 auto; /* pulls the grid up over the hero curve */
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 38px;
+    }
+
+    .resource-card {
+        background: #FFFFFF;
+        border-radius: 20px;
+        border: 2px solid #2C2C2C;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.2s ease;
+    }
+
+    .resource-card:hover {
+        transform: translate(-5px, -5px);
+    }
+
+    /* Cycle the offset shadow through the five brand colours */
+    .resource-card:nth-child(5n+1) { box-shadow: 12px 12px 0px #F08C21; } /* Tangerine */
+    .resource-card:nth-child(5n+2) { box-shadow: 12px 12px 0px #B4B534; } /* Matcha */
+    .resource-card:nth-child(5n+3) { box-shadow: 12px 12px 0px #6698CC; } /* Sea */
+    .resource-card:nth-child(5n+4) { box-shadow: 12px 12px 0px #E36888; } /* Blush */
+    .resource-card:nth-child(5n+5) { box-shadow: 12px 12px 0px #F2D88F; } /* Butter */
+
+    /* Prominent thumbnail (fixes the small-image issue) */
+    .thumb-wrap {
+        width: 100%;
+        height: 210px;
+        background-color: #F2D88F; /* Butter placeholder while images load */
+        border-bottom: 2px solid #2C2C2C;
+        overflow: hidden;
+    }
+
+    .thumb-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.35s ease;
+    }
+
+    .resource-card:hover .thumb-wrap img {
+        transform: scale(1.05);
+    }
+
+    .card-body {
+        padding: 26px 28px 30px 28px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .card-body h3 {
+        font-size: 1.55rem;
+        font-weight: 800;
+        color: #1A1A1A;
+        line-height: 1.3;
+        letter-spacing: -0.5px;
+        margin: 0 0 22px 0;
+    }
+
+    .read-link {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #1A1A1A;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: auto;
+    }
+
+    .read-link::after {
+        content: '→';
+        font-size: 1.25rem;
+        transition: transform 0.2s ease;
+    }
+
+    .resource-card:hover .read-link::after {
+        transform: translateX(6px);
+    }
+
+    /* =========================================
+       Empty state
+       ========================================= */
+    .resources-empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        background: #FFFFFF;
+        border: 2px dashed #C9C9C9;
+        border-radius: 20px;
+        padding: 70px 30px;
+        color: #666666;
+    }
+
+    .resources-empty h3 {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #1A1A1A;
+        margin-bottom: 10px;
+    }
+
+    .resources-empty p {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    /* =========================================
+       Accessibility: honour reduced motion
+       ========================================= */
+    @media (prefers-reduced-motion: reduce) {
+        .doodle-circle-dashed { animation: none; }
+        .resource-card,
+        .thumb-wrap img,
+        .read-link::after { transition: none; }
+    }
+
+    /* =========================================
+       Responsive
+       ========================================= */
+    @media (max-width: 768px) {
+        #hero-section { padding: 80px 20px 110px 20px; }
+        #hero-section h1 { font-size: 3.2rem; letter-spacing: -1px; }
+        #hero-section p { font-size: 1.1rem; }
+
+        #resource-list {
+            margin-top: -50px;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .resource-card { box-shadow: 8px 8px 0px #F08C21; }
+        .resource-card:nth-child(5n+1) { box-shadow: 8px 8px 0px #F08C21; }
+        .resource-card:nth-child(5n+2) { box-shadow: 8px 8px 0px #B4B534; }
+        .resource-card:nth-child(5n+3) { box-shadow: 8px 8px 0px #6698CC; }
+        .resource-card:nth-child(5n+4) { box-shadow: 8px 8px 0px #E36888; }
+        .resource-card:nth-child(5n+5) { box-shadow: 8px 8px 0px #F2D88F; }
+
+        .card-body h3 { font-size: 1.4rem; }
+        .doodle-triangle,
+        .doodle-dot { display: none; }
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 <div id="content">
 
-    <div id="topsection">
-        <img src="{% static 'img/resources/graphic.svg' %}" id="topgraphic" />
+    <div class="doodle doodle-circle-dashed"></div>
+    <div class="doodle doodle-triangle"></div>
+    <div class="doodle doodle-dot"></div>
+
+    <!-- Hero -->
+    <div id="hero-section">
+        <h1>Resources</h1>
+        <p>A growing library of tools, reads, and guides to support you between sessions and along your mental health journey.</p>
     </div>
 
+    <!-- Resource Card Grid -->
+    <div id="resource-list">
+        {% for resource in resources %}
 
-
-    <div id="resources-section">
-
-        <div id="topstuff">
-            <h2>Resources</h2>
-            <img src="{% static 'img/faqs/chat_icon.png' %}">
-        </div>
-
-        <div id="resource-list">
-            {% for resource in resources %}
-
-            <a class="resource" href="{{ resource.link }}">
-                <img src="{{ resource.thumbnail.url }}" class="thumbnail" alt="">
+        <a class="resource-card" href="{{ resource.link }}" target="_blank" rel="noopener noreferrer">
+            <div class="thumb-wrap">
+                <img src="{{ resource.thumbnail.url }}" alt="{{ resource.title }}">
+            </div>
+            <div class="card-body">
                 <h3>{{ resource.title }}</h3>
-            </a>
+                <span class="read-link">View resource</span>
+            </div>
+        </a>
 
-            {% endfor %}
+        {% empty %}
+
+        <div class="resources-empty">
+            <h3>Resources are on the way</h3>
+            <p>We're putting this library together. Check back soon for helpful tools and reads.</p>
         </div>
 
-
-
+        {% endfor %}
     </div>
 
 </div>

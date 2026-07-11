@@ -11,7 +11,6 @@
 {% block tcdescription %}{{service.meta_description}}{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/services.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script async>
@@ -20,6 +19,7 @@
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
 </script>
+
 {% if service.slug == "queer-affirmative-therapy" %}
 <script type="application/ld+json">
 {
@@ -79,86 +79,275 @@
 }
 </script>
 {% endif %}
+
+<!-- Embedded CSS for Individual Service Page UI Revamp -->
+<style>
+    /* Base Background and Typography */
+    #content {
+        font-family: inherit; 
+        color: #333333;
+        background-color: #FAFAFA;
+        padding-bottom: 120px;
+        position: relative; 
+        overflow: hidden; /* Contains background shapes */
+    }
+
+    /* Decorative Background Shapes Behind Content */
+    .bg-shape {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none; /* Allows user to click through them */
+    }
+    .shape-circle-1 {
+        width: 250px;
+        height: 250px;
+        border: 8px solid #F2D88F; /* Butter */
+        border-radius: 50%;
+        top: 350px;
+        left: -80px;
+        opacity: 0.6;
+    }
+    .shape-circle-2 {
+        width: 180px;
+        height: 180px;
+        border: 6px solid #6698CC; /* Sea */
+        border-radius: 50%;
+        bottom: 250px;
+        right: -50px;
+        opacity: 0.5;
+    }
+    .shape-dot-1 {
+        width: 40px;
+        height: 40px;
+        background-color: #E36888; /* Blush */
+        border-radius: 50%;
+        top: 600px;
+        right: 10%;
+        opacity: 0.7;
+    }
+    .shape-dot-2 {
+        width: 60px;
+        height: 60px;
+        background-color: #B4B534; /* Matcha */
+        border-radius: 50%;
+        bottom: 500px;
+        left: 8%;
+        opacity: 0.6;
+    }
+
+    /* Hero Section - Side by Side Layout */
+    #hero-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 80px 8% 220px 8%; /* Deep bottom padding for overlap */
+        position: relative;
+        z-index: 2;
+        transition: background-color 0.5s ease;
+        background-color: #F2D88F; /* Default 'Butter' fallback */
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+    }
+
+    .hero-text {
+        flex: 1;
+        max-width: 50%;
+        padding-right: 40px;
+    }
+
+    .pill-badge {
+        display: inline-block;
+        background-color: #FFFFFF;
+        color: #7A7A7A;
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    .hero-text h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 20px;
+        color: #E36888; /* Fallback color, updated by JS */
+    }
+
+    .hero-image {
+        flex: 1;
+        max-width: 50%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+        height: auto;
+        max-height: 500px;
+        object-fit: contain;
+        transform: rotate(2deg);
+        filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
+    }
+
+    /* Widened Single Service Content Card */
+    #service-section {
+        position: relative;
+        z-index: 10; /* Sits above the background shapes */
+        width: 90%;
+        max-width: 1150px; /* Widened for better screen coverage */
+        margin: -160px auto 0 auto; /* Pulls the card dramatically up */
+    }
+
+    .service-card {
+        background: #FFFFFF;
+        border-radius: 24px;
+        padding: 70px 90px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    /* Rich Text Formatting inside the content card */
+    .service-body {
+        font-size: 1.15rem;
+        line-height: 1.85;
+        color: #444444;
+    }
+    
+    .service-body h2, .service-body h3, .service-body h4 {
+        color: #2C2C2C;
+        margin-top: 2em;
+        margin-bottom: 0.8em;
+        font-weight: 700;
+    }
+
+    .service-body p { margin-bottom: 1.5em; }
+    
+    .service-body ul, .service-body ol { 
+        margin-bottom: 1.5em; 
+        padding-left: 25px; 
+    }
+    
+    .service-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin: 20px 0;
+    }
+
+    /* =========================================
+       SUPER RESPONSIVE MEDIA QUERIES
+       ========================================= */
+       
+    /* Tablets and small desktops (max 1024px) */
+    @media (max-width: 1024px) {
+        .hero-text h1 { font-size: 3.2rem; }
+        .hero-text { max-width: 55%; padding-right: 20px; }
+        .hero-image { max-width: 45%; }
+        .service-card { padding: 50px 60px; }
+        #service-section { width: 92%; }
+    }
+
+    /* Mobile Devices (max 768px) */
+    @media (max-width: 768px) {
+        #hero-section {
+            flex-direction: column;
+            text-align: center;
+            padding: 60px 20px 140px 20px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+        .hero-text {
+            max-width: 100%;
+            padding-right: 0;
+            margin-bottom: 40px;
+        }
+        .hero-text h1 { font-size: 2.8rem; }
+        
+        .hero-image { 
+            max-width: 90%; 
+            justify-content: center; 
+            margin: 0 auto; 
+        }
+        .hero-image img { max-height: 340px; transform: rotate(0deg); }
+        
+        #service-section { 
+            margin-top: -80px; 
+            width: 95%;
+        }
+        .service-card { padding: 40px 30px; }
+        
+        /* Hide complex background shapes on smaller screens to keep it clean */
+        .shape-circle-1, .shape-circle-2 { display: none; }
+    }
+
+    /* Small Mobile Devices (max 480px) */
+    @media (max-width: 480px) {
+        .hero-text h1 { font-size: 2.4rem; }
+        .service-card { padding: 30px 20px; }
+        .service-body { font-size: 1.05rem; }
+        .shape-dot-1, .shape-dot-2 { display: none; }
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 <div id="content">
-    <div id="topsection">
-        <img      
-        src="{{ service.image_file.url }}" alt="{{service.img_alt_text}}"
-        id="topgraphic" alt="Mental Healing & Psychological Counselling" />
-    </div>
 
+    <!-- Decorative Background Shapes -->
+    <div class="bg-shape shape-circle-1"></div>
+    <div class="bg-shape shape-circle-2"></div>
+    <div class="bg-shape shape-dot-1"></div>
+    <div class="bg-shape shape-dot-2"></div>
 
-    <div id="service-section">
-
-        <h1>{{service.title}}</h1>
-        <div class="service">
-            {{ service.content | safe }}
+    <!-- Dynamic Hero Section -->
+    <div id="hero-section">
+        <div class="hero-text">
+            <span class="pill-badge">Therapy & Counselling</span>
+            <h1 id="hero-title">{{service.title}}</h1>
         </div>
-
+        
+        <div class="hero-image">
+            <img src="{{ service.image_file.url }}" alt="{{ service.img_alt_text|default:'Mental Healing & Psychological Counselling' }}" />
+        </div>
     </div>
 
-
+    <!-- Single Service Content Card -->
+    <div id="service-section">
+        <div class="service-card">
+            <div class="service-body">
+                {{ service.content | safe }}
+            </div>
+        </div>
+    </div>
 
 </div>
-<!-- <script>
-    const topgraphic = document.querySelector("#topgraphic");
-    const topsection = document.querySelector("#topsection");
-    if (window.location.href.includes(`EMDR-therapy`)) {
-        // topsection.style.backgroundColor = '#A2F1FF';
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/emdr_adobe_express.svg' %}";
-        // topgraphic.src = "{% static 'img/services/header.svg' %}";
-    }
-    else if (window.location.href.includes(`Internal-Family-Systems-Therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/internal_family.png' %}";
-    }
-    else if (window.location.href.includes(`Depression-Counselling`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/depression.png' %}";
-    }
-    else if (window.location.href.includes(`Panic-Attack`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/panic_attack.png' %}";
-    }
-    else if (window.location.href.includes(`Anxiety-Therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/anxiety_disorder.png' %}";
-    } else if (window.location.href.includes(`Eating-Disorder`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/eating_disorder.png' %}";
-    } else if (window.location.href.includes(`Compassionate-Inquiry-Therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/compassionate_inquiry.png' %}";
-    }
-    else if (window.location.href.includes(`queer-affirmative-therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/queer-affirmative-therapy.jpeg' %}";
-    }
-    else if (window.location.href.includes(`kink-affirmative-therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/kink-affirmative-therapy.jpeg' %}";
-    }
-    else if (window.location.href.includes(`addictions-therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/addictions-therapy.jpeg' %}";
-    }
-    else if (window.location.href.includes(`trauma-therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/trauma-therapy.jpeg' %}";
-    }
-    else if (window.location.href.includes(`couple-therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/couple-therapy.jpeg' %}";
-    }
-    else if (window.location.href.includes(`poly-relationships-counselling`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/poly-relationships-counselling.jpeg' %}";
-    }
-    else {
-        topgraphic.src = "{% static 'img/services/header.svg' %}";
-    }
-</script> -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Defined themes matching the reference images and color palette
+        const themes = [
+            { bg: '#B4B534', text: '#2C4A22' }, // Matcha background, Dark Green text
+            { bg: '#F08C21', text: '#FFFFFF' }, // Tangerine background, White text 
+            { bg: '#F2D88F', text: '#E36888' }, // Butter background, Blush text
+            { bg: '#6698CC', text: '#FFFFFF' }, // Sea background, White text
+            { bg: '#E36888', text: '#FFFFFF' }  // Blush background, White text
+        ];
+        
+        // Select a random theme
+        const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+        
+        // Apply colors to the Hero section
+        const heroSection = document.getElementById("hero-section");
+        const heroTitle = document.getElementById("hero-title");
+        
+        if (heroSection && heroTitle) {
+            heroSection.style.backgroundColor = randomTheme.bg;
+            heroTitle.style.color = randomTheme.text;
+        }
+    });
+</script>
 {% endblock %}

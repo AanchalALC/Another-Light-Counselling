@@ -1,13 +1,11 @@
 {% extends 'skeleton.html' %}
 {% load static %}
 {% block title %}Blog | Another Light Counselling{% endblock %}
-{% block metadescription %}Another Light Counselling blog presents a variety of posts on counselling & therapy for
-LGBTQ, anxiety, depression, trauma, relationship issues, addictions and many more.{% endblock %}
+{% block metadescription %}Another Light Counselling blog presents a variety of posts on counselling & therapy for LGBTQ, anxiety, depression, trauma, relationship issues, addictions and many more.{% endblock %}
 {% block metakeywords %}LGBTQ Mental health tips{% endblock %}
 
 {% block head %}
 <link rel="canonical" href="https://www.another-light.com{% url 'blog' %}" />
-<link rel="stylesheet" href="{% static 'css/posts.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script async>
@@ -20,71 +18,156 @@ LGBTQ, anxiety, depression, trauma, relationship issues, addictions and many mor
     }
 </script>
 
+<!-- Embedded CSS for Blog Magazine UI -->
+<style>
+    #content {
+        font-family: inherit; 
+        color: #333333;
+        background-color: #FAFAFA;
+        padding-bottom: 120px;
+    }
+
+    /* Clean, Solid Color Hero - No Images */
+    #blog-hero {
+        text-align: center;
+        padding: 120px 20px 140px 20px;
+        border-bottom-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        background-color: #6698CC; /* Default Sea fallback */
+        color: #FFFFFF;
+        transition: background-color 0.5s ease;
+    }
+
+    #blog-hero h1 {
+        font-size: 4.5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+    }
+
+    #blog-hero p {
+        font-size: 1.25rem;
+        max-width: 650px;
+        margin: 0 auto;
+        opacity: 0.95;
+        line-height: 1.6;
+        font-weight: 500;
+    }
+
+    /* Blog Card Grid */
+    #resources-section {
+        max-width: 1200px;
+        margin: -60px auto 0 auto; /* Pulls cards slightly up over the hero curve */
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+    }
+
+    #resource-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 40px;
+    }
+
+    .resource {
+        background: #FFFFFF;
+        border-radius: 16px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0,0,0,0.02);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .resource:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .resource .thumbnail {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+    }
+
+    .resource-content {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .resource h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2C2C2C;
+        margin-bottom: 15px;
+        line-height: 1.35;
+    }
+
+    .resource p {
+        margin-top: auto;
+        font-size: 0.9rem;
+        color: #888888;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        #blog-hero { padding: 80px 20px 100px 20px; }
+        #blog-hero h1 { font-size: 3.2rem; }
+        #resources-section { margin-top: -40px; }
+        #resource-list { gap: 30px; grid-template-columns: 1fr; }
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 <div id="content">
 
-    <div id="topsection">
-        <img src="{% static 'img/resources/graphic.svg' %}" id="topgraphic" />
+    <!-- Clean Solid Hero -->
+    <div id="blog-hero">
+        <h1>Our Blog</h1>
+        <p>Insights, thoughts, and tips on mental health, therapy, and navigating life's challenges from the team at Another Light.</p>
     </div>
 
-
-
+    <!-- Blog Grid -->
     <div id="resources-section">
-
-        <div id="topstuff">
-            <h2>Blog</h2>
-            <img src="{% static 'img/faqs/chat_icon.png' %}">
-        </div>
-
         <div id="resource-list">
-
-
-            <!-- {% if postscount == 0 %}
-            <h3>There are no posts yet!</h3>
-            {% endif %}-->
-
-
             {% for post in posts %}
-
             <a class="resource" href="{% url 'post' post.slug %}">
                 <img src="{{ post.image_file.url }}" class="thumbnail" alt="">
-                <!-- <img src="{% static 'img/resources/play_button.png' %}" class="playbutton" alt=""> -->
-                <h3>{{ post.title }}</h3>
-                <p><small><em>{{post.created}}</em></small></p>
+                <div class="resource-content">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{post.created}}</p>
+                </div>
             </a>
-
             {% endfor %}
         </div>
-
-        <!-- PAGINATION commented 2
-        {% if postscount > 0 %}
-        <div id="pagination">
-            {% if page_obj.has_previous %}
-            <div id="newer" class="pagination-item">
-                <a href="{% url 'blog' page_obj.previous_page_number %}"><i class="fas fa-arrow-left"></i> newer</a>
-            </div>
-            {% endif %}
-
-            {% if postscount > 10 %}
-            <div id="current-page" class="pagination-item">
-                Page {{ page_obj.number }}
-            </div>
-            {% endif %}
-
-            {% if page_obj.has_next %}
-            <div id="older" class="pagination-item">
-                <a href="{% url 'blog' page_obj.next_page_number %}">older <i class="fas fa-arrow-right"></i></a>
-            </div>
-            {% endif %}
-        </div>
-        {% endif %} -->
-
     </div>
-
-
-
-
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Solid colors matching the brand palette
+        const colors = [
+            '#F08C21', // Tangerine
+            '#B4B534', // Matcha
+            '#6698CC', // Sea
+            '#E36888'  // Blush
+        ];
+        
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const heroSection = document.getElementById("blog-hero");
+        
+        if (heroSection) {
+            heroSection.style.backgroundColor = randomColor;
+        }
+    });
+</script>
 {% endblock %}

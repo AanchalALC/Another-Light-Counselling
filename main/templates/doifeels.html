@@ -1,10 +1,9 @@
 {% extends 'skeleton.html' %}
 {% load static %}
-{% block title %}DoIFeel - Another Light{% endblock %}
+{% block title %}Do I Feel? - Another Light{% endblock %}
 {% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/services.css' %}">
 <link rel="canonical" href="https://www.another-light.com/doifeels/" />
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
@@ -14,30 +13,230 @@
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
 </script>
+
+<style>
+    #content {
+        font-family: inherit; 
+        color: #333333;
+        background-color: #FAFAFA;
+        /* Matches the dot-grid pattern from the individual page */
+        background-image: radial-gradient(#D1D5DB 2px, transparent 2px);
+        background-size: 30px 30px;
+        padding-bottom: 120px;
+        position: relative;
+        overflow: hidden; 
+    }
+
+    /* =========================================
+       Background Doodles
+       ========================================= */
+    .doodle {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    .doodle-circle-dashed {
+        width: 350px;
+        height: 350px;
+        border: 8px dashed rgba(227, 104, 136, 0.4); /* Blush */
+        border-radius: 50%;
+        top: 200px;
+        right: -100px;
+        animation: spinDoodle 40s linear infinite;
+    }
+
+    .doodle-triangle {
+        width: 140px;
+        height: 140px;
+        background-color: #F08C21; /* Tangerine */
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        top: 600px;
+        left: 5%;
+        opacity: 0.15;
+        transform: rotate(25deg);
+    }
+
+    @keyframes spinDoodle { 100% { transform: rotate(360deg); } }
+
+    /* =========================================
+       Dynamic Header
+       ========================================= */
+    #hero-section {
+        text-align: center;
+        padding: 120px 20px 160px 20px;
+        background-color: #6698CC; /* Default Sea */
+        color: #FFFFFF;
+        position: relative;
+        z-index: 2;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        transition: background-color 0.5s ease;
+        /* Solid background to cover the dots underneath */
+        box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    }
+
+    #hero-section h1 {
+        font-size: 5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        letter-spacing: -2px;
+    }
+
+    #hero-section p {
+        font-size: 1.25rem;
+        max-width: 650px;
+        margin: 0 auto;
+        opacity: 0.95;
+        line-height: 1.6;
+    }
+
+    /* =========================================
+       Bold Stack List Design
+       ========================================= */
+    #doifeel-stack {
+        max-width: 1100px;
+        margin: -80px auto 0 auto; /* Pulls cards over the hero curve */
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 40px;
+    }
+
+    .stack-card {
+        background: #FFFFFF;
+        border-radius: 20px;
+        padding: 45px 40px;
+        border: 2px solid #2C2C2C;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .stack-card:hover {
+        transform: translate(-5px, -5px);
+    }
+
+    /* Cycle shadows */
+    .stack-card:nth-child(5n+1) { box-shadow: 12px 12px 0px #F08C21; } 
+    .stack-card:nth-child(5n+2) { box-shadow: 12px 12px 0px #B4B534; } 
+    .stack-card:nth-child(5n+3) { box-shadow: 12px 12px 0px #6698CC; } 
+    .stack-card:nth-child(5n+4) { box-shadow: 12px 12px 0px #E36888; } 
+    .stack-card:nth-child(5n+5) { box-shadow: 12px 12px 0px #F2D88F; } 
+
+    .stack-card h3 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #1A1A1A;
+        margin-bottom: 20px;
+        line-height: 1.25;
+        letter-spacing: -0.5px;
+    }
+
+    .stack-preview {
+        font-size: 1.15rem;
+        color: #555555;
+        line-height: 1.7;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        margin-bottom: 30px;
+    }
+    
+    .stack-preview img { display: none; }
+
+    .read-link {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1A1A1A;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: auto;
+    }
+
+    .read-link::after {
+        content: '→';
+        font-size: 1.3rem;
+        transition: transform 0.2s ease;
+    }
+
+    .stack-card:hover .read-link::after {
+        transform: translateX(6px);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        #hero-section { padding: 90px 20px 120px 20px; }
+        #hero-section h1 { font-size: 3.5rem; }
+        
+        #doifeel-stack { margin-top: -50px; grid-template-columns: 1fr; }
+        
+        .stack-card { padding: 30px 25px; box-shadow: 8px 8px 0px; }
+        .stack-card:nth-child(5n+1) { box-shadow: 8px 8px 0px #F08C21; } 
+        .stack-card:nth-child(5n+2) { box-shadow: 8px 8px 0px #B4B534; } 
+        .stack-card:nth-child(5n+3) { box-shadow: 8px 8px 0px #6698CC; } 
+        .stack-card:nth-child(5n+4) { box-shadow: 8px 8px 0px #E36888; } 
+        .stack-card:nth-child(5n+5) { box-shadow: 8px 8px 0px #F2D88F; } 
+
+        .stack-card h3 { font-size: 1.8rem; }
+        .doodle-triangle { display: none; }
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 <div id="content">
 
-    <div id="topsection">
-        <img src="{% static 'img/services/header.svg' %}" id="topgraphic" />
+    <div class="doodle doodle-circle-dashed"></div>
+    <div class="doodle doodle-triangle"></div>
+
+    <!-- Header Section -->
+    <div id="hero-section">
+        <h1>Do I Feel?</h1>
+        <p>Explore your emotions and understand the underlying feelings that shape your mental health journey.</p>
     </div>
 
-
-    <div id="doifeel-section">
-
-        <h2>Do I Feel?</h2>
+    <!-- Bold Card Stack -->
+    <div id="doifeel-stack">
         {% for doifeel in doifeels %}
-        <div class="doifeel">
+        <!-- Ensure you update this href to match your specific django routing -->
+        <a href="#" class="stack-card">
             <h3>{{doifeel.title}}</h3>
-            {{ doifeel.content | safe }}
-        </div>
+            
+            <div class="stack-preview">
+                {{ doifeel.content | safe }}
+            </div>
+            
+            <span class="read-link">Explore this feeling</span>
+        </a>
         {% endfor %}
-
-
     </div>
-
-
 
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const colors = [
+            '#F08C21', // Tangerine
+            '#B4B534', // Matcha
+            '#6698CC', // Sea
+            '#E36888'  // Blush
+        ];
+        
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const heroSection = document.getElementById("hero-section");
+        
+        if (heroSection) {
+            heroSection.style.backgroundColor = randomColor;
+        }
+    });
+</script>
 {% endblock %}

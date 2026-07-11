@@ -11,7 +11,6 @@
 {% block tcdescription %}{{doifeel.meta_description}}{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/services.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script async>
@@ -20,27 +19,333 @@
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
 </script>
+
+<style>
+    /* =========================================
+       Wrapper & Background Layout
+       ========================================= */
+    #content {
+        --theme-bg: #E36888; /* Fallback Blush */
+        --theme-text: #FFFFFF;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+        font-family: inherit;
+        min-height: 100vh;
+    }
+
+    /* Left Side Solid Color - Extends full height of content (25% width) */
+    #content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 30%;
+        background-color: var(--theme-bg);
+        z-index: -3; /* Behind everything */
+        transition: background-color 0.5s ease;
+    }
+
+    /* Right Side Dot-Grid Pattern (75% width) */
+    #content::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 70%;
+        background-color: #FAFAFA;
+        background-image: radial-gradient(#D1D5DB 2px, transparent 2px);
+        background-size: 30px 30px;
+        z-index: -4;
+    }
+
+    /* Modern Split Layout Container */
+    #split-layout {
+        display: flex;
+        position: relative;
+    }
+
+    /* =========================================
+       Left Side Doodles (Scrolling visual interest)
+       ========================================= */
+    .left-doodles-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30%;
+        height: 100%;
+        overflow: hidden;
+        z-index: -2; /* Above the solid color, behind the text */
+    }
+
+    .doodle {
+        position: absolute;
+        pointer-events: none;
+    }
+
+    /* Adjusted shapes for narrower 25% column */
+    .shape-1 {
+        top: 5%;
+        left: -20px;
+        width: 180px;
+        height: 180px;
+        border: 4px dashed rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        animation: spinDoodle 40s linear infinite;
+    }
+    
+    .shape-2 {
+        top: 25%;
+        right: 5%;
+        width: 80px;
+        height: 80px;
+        background-color: #B4B534; /* Matcha */
+        opacity: 0.8;
+        border-radius: 16px;
+        transform: rotate(15deg);
+    }
+    
+    .shape-3 {
+        top: 45%;
+        left: 10%;
+        width: 120px;
+        height: 120px;
+        border: 8px solid rgba(0, 0, 0, 0.08);
+        border-radius: 50%;
+    }
+    
+    .shape-4 {
+        top: 65%;
+        right: 15%;
+        width: 80px;
+        height: 80px;
+        background-color: #6698CC; /* Sea */
+        opacity: 0.85;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        transform: rotate(-25deg);
+    }
+    
+    .shape-5 {
+        top: 85%;
+        left: 10%;
+        width: 100px;
+        height: 100px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+    }
+
+    @keyframes spinDoodle { 100% { transform: rotate(360deg); } }
+
+    /* =========================================
+       Left Panel - Sticky Visuals (25% width)
+       ========================================= */
+    .left-panel {
+        width: 30%;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        align-self: flex-start; /* CRITICAL FIX: prevents stretching so it can stick */
+        box-sizing: border-box; /* CRITICAL FIX: keeps padding within the 100vh limit */
+        padding: 60px 4%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: var(--theme-text);
+        z-index: 2;
+    }
+
+    .left-panel h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 30px;
+        color: inherit;
+        letter-spacing: -1px;
+        word-wrap: break-word; /* Ensures long words wrap inside the 25% container */
+    }
+
+    .left-panel img {
+        max-width: 100%;
+        height: auto;
+        max-height: 420px;
+        object-fit: contain;
+        filter: drop-shadow(0 20px 30px rgba(0,0,0,0.2));
+        transform: rotate(-2deg);
+    }
+
+    /* =========================================
+       Right Panel - Scrolling Content (75% width)
+       ========================================= */
+    .right-panel {
+        width: 70%;
+        padding: 80px 6% 120px 6%;
+        position: relative;
+        z-index: 5;
+    }
+
+    /* Clean white frosted card for readability */
+    .doifeel {
+        font-size: 1.25rem;
+        line-height: 2.1;
+        color: #333333;
+        max-width: 900px; /* Increased max-width for the 75% area */
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(5px);
+        padding: 60px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,1);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+    }
+    
+    .doifeel h2, .doifeel h3, .doifeel h4 {
+        color: #1A1A1A;
+        margin-top: 2em;
+        margin-bottom: 1em;
+        font-weight: 800;
+        font-size: 2rem;
+        letter-spacing: -0.5px;
+    }
+
+    .doifeel p { margin-bottom: 1.8em; }
+    
+    .doifeel ul, .doifeel ol { 
+        margin-bottom: 1.8em; 
+        padding-left: 25px; 
+    }
+    
+    .doifeel img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 16px;
+        margin: 40px 0;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    /* =========================================
+       Responsive Design for Mobile
+       ========================================= */
+    @media (max-width: 1024px) {
+        .left-panel h1 { font-size: 2.2rem; }
+        .doifeel { padding: 40px; }
+    }
+
+    @media (max-width: 768px) {
+        /* On mobile, left side becomes top header */
+        #content::before {
+            width: 100%;
+            height: 50vh;
+            bottom: auto;
+        }
+        #content::after {
+            width: 100%;
+            top: 50vh;
+        }
+        
+        .left-doodles-container {
+            width: 100%;
+            height: 50vh; /* Keeps doodles only in the top colored area */
+        }
+        
+        #split-layout { flex-direction: column; }
+        
+        .left-panel {
+            width: 100%;
+            height: 50vh;
+            position: relative; /* Disable sticky on mobile so users can scroll normally */
+            padding: 60px 20px 40px 20px;
+            text-align: center;
+        }
+
+        .left-panel h1 { font-size: 2.5rem; margin-bottom: 20px; }
+        .left-panel img { max-height: 260px; margin: 0 auto; transform: rotate(0); }
+
+        .right-panel {
+            width: 100%;
+            padding: 40px 20px 80px 20px;
+        }
+        
+        .doifeel { padding: 30px 20px; font-size: 1.15rem; }
+        
+        /* Adjust doodle sizes for mobile */
+        .shape-1 { width: 150px; height: 150px; top: -20px; left: -20px; }
+        .shape-2 { width: 80px; height: 80px; top: 10%; right: 5%; }
+        .shape-3 { display: none; }
+        .shape-4 { display: none; }
+        .shape-5 { width: 100px; height: 100px; top: 60%; left: 10%; }
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 <div id="content">
-    <div id="topsection">
-        <img      
-        src="{{ doifeel.image_file.url }}"
-        id="topgraphic" alt="Mental Healing & Psychological Counselling" />
+
+    <!-- Playful shapes isolated entirely on the left side -->
+    <div class="left-doodles-container">
+        <div class="doodle shape-1"></div>
+        <div class="doodle shape-2"></div>
+        <div class="doodle shape-3"></div>
+        <div class="doodle shape-4"></div>
+        <div class="doodle shape-5"></div>
     </div>
 
+    <div id="split-layout">
+        
+        <!-- Fixed Left Side (Image & Title) -->
+        <div class="left-panel">
+            <h1>{{doifeel.title}}</h1>
+            <img src="{{ doifeel.image_file.url }}" alt="{{ doifeel.title }}" />
+        </div>
 
-    <div id="doifeel-section">
-
-        <h1>{{doifeel.title}}</h1>
-        <div class="doifeel">
-            {{ doifeel.content | safe }}
+        <!-- Scrolling Right Side (Text Content) -->
+        <div class="right-panel">
+            <div class="doifeel">
+                {{ doifeel.content | safe }}
+            </div>
         </div>
 
     </div>
 
-
-
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const themes = [
+            { bg: '#F08C21', text: '#FFFFFF' }, // Tangerine
+            { bg: '#F2D88F', text: '#2C2C2C' }, // Butter (Requires Dark Text)
+            { bg: '#E36888', text: '#FFFFFF' }, // Blush
+            { bg: '#6698CC', text: '#FFFFFF' }, // Sea
+            { bg: '#B4B534', text: '#2C4A22' }  // Matcha (Requires Dark Green Text)
+        ];
+        
+        // Convert the title into a simple hash number to permanently assign a color
+        const postTitle = "{{ doifeel.title|escapejs }}";
+        let hash = 0;
+        for (let i = 0; i < postTitle.length; i++) {
+            hash = postTitle.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        
+        // Use the hash to reliably select the exact same theme index every time
+        const colorIndex = Math.abs(hash) % themes.length;
+        const selectedTheme = themes[colorIndex];
+        
+        const contentWrapper = document.getElementById("content");
+        
+        if (contentWrapper) {
+            contentWrapper.style.setProperty('--theme-bg', selectedTheme.bg);
+            contentWrapper.style.setProperty('--theme-text', selectedTheme.text);
+            
+            // Adjust doodles slightly if the assigned background is Butter (yellow)
+            if(selectedTheme.bg === '#F2D88F') {
+                const dashedCircle = document.querySelector('.shape-1');
+                const solidCircle = document.querySelector('.shape-5');
+                if(dashedCircle) dashedCircle.style.borderColor = 'rgba(0,0,0,0.2)';
+                if(solidCircle) solidCircle.style.backgroundColor = 'rgba(0,0,0,0.08)';
+            }
+        }
+    });
+</script>
 {% endblock %}

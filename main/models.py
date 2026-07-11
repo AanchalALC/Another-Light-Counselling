@@ -699,3 +699,42 @@ class OnboardingPlan(models.Model):
 
     def __str__(self):
         return f"Workshop: {self.tagline}"
+
+class MediaFeature(models.Model):
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+    outlet_name = models.CharField(
+        max_length=200,
+        help_text="Publication name, e.g. 'Vogue India', 'The Hindu'."
+    )
+    logo = models.ImageField(
+        upload_to='media_features',
+        help_text="Transparent PNG works best. Renders in grayscale, turns full-colour on hover."
+    )
+    logo_alt = models.CharField(
+        max_length=200, blank=True, default='',
+        help_text="Alt text for the logo. Leave blank to fall back to the outlet name."
+    )
+    article_title = models.CharField(
+        max_length=300, blank=True, default='',
+        help_text="Optional. Shown as a small caption on hover."
+    )
+    link = models.URLField(
+        max_length=1000,
+        help_text="Full URL of the article this logo links to."
+    )
+    order = models.PositiveIntegerField(
+        default=1,
+        help_text="Lower numbers appear first. Put your best-known outlets at the top."
+    )
+    is_active = models.BooleanField(
+        default=True,
+        help_text="Untick to hide from the homepage without deleting."
+    )
+
+    def __str__(self):
+        return self.outlet_name
+
+    class Meta:
+        ordering = ('order', 'id')
+        verbose_name = 'Media Feature'
+        verbose_name_plural = 'Media Features'

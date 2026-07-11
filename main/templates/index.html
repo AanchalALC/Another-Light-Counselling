@@ -36,13 +36,182 @@ and experience a cost-effective and quality solution.{% endblock %}
 </script>
 <style>
   /* Popup spacing is handled in index.scss. Keep this empty style block only if needed later. */
+
+  /* ===== Media Features / "As Featured In" carousel =====
+     NOTE: kept inline for now to match the current index.html.
+     Can be moved into static/css/index.css later (see handoff notes). */
+  #mediasection {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px 0 84px;
+    background: linear-gradient(180deg, #ffffff 0%, #FCF6E6 100%);
+    text-align: center;
+    overflow: hidden;
+  }
+  #mediasection .media-head {
+    max-width: 860px;
+    margin: 0 auto 44px;
+    padding: 0 6vw;
+  }
+  #mediasection .media-kicker {
+    margin: 0 0 12px;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #F08C21;
+  }
+  #mediasection h2 {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #2b2b2b;
+    line-height: 1.1;
+  }
+  #mediasection h2::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -16px;
+    transform: translateX(-50%);
+    width: 84px;
+    height: 5px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #F08C21, #E36888);
+  }
+  #mediasection .media-sub {
+    max-width: 660px;
+    margin: 34px auto 0;
+    color: #6b6b6b;
+    font-size: 1.08rem;
+    line-height: 1.6;
+  }
+  /* Highlighted founder link inside the sub-text */
+  #mediasection .media-sub .founder-link {
+    color: #E36888;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(227, 104, 136, .4);
+    transition: color .25s ease, border-color .25s ease;
+  }
+  #mediasection .media-sub .founder-link:hover {
+    color: #F08C21;
+    border-color: #F08C21;
+  }
+
+  /* ---- Carousel viewport with soft fade edges ---- */
+  .media-marquee {
+    position: relative;
+    max-width: 1240px;
+    margin: 0 auto;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+  }
+  .media-track {
+    display: flex;
+    width: max-content;
+    padding: 14px 0;
+    animation: media-scroll 42s linear infinite;
+    will-change: transform;
+  }
+  /* pause when the visitor is looking at a logo */
+  .media-marquee:hover .media-track { animation-play-state: paused; }
+
+  @keyframes media-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }  /* two identical sets => seamless loop */
+  }
+
+  /* ---- Logo card: full colour ALWAYS, richer lift on hover ---- */
+  .media-item {
+    flex: 0 0 auto;
+    width: 228px;
+    margin-right: 24px;   /* equal trailing space keeps the -50% loop seamless */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 30px 22px;
+    background: #fff;
+    border: 1px solid #efe7d3;
+    border-radius: 20px;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .05);
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
+  }
+  .media-logo {
+    width: auto;
+    height: auto;
+    max-width: 190px;
+    max-height: 74px;
+    object-fit: contain;
+    transition: transform .3s ease;   /* full colour, no grayscale filter */
+  }
+  .media-caption {
+    margin: 0;
+    font-size: .84rem;
+    line-height: 1.4;
+    color: #8a8a8a;
+    text-align: center;
+    /* show at all times, clamp to keep cards even */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.35em;
+    transition: color .3s ease;
+  }
+  .media-item:hover {
+    transform: translateY(-10px);
+  }
+  .media-item:hover .media-logo { transform: scale(1.05); }
+
+  /* Cycle the hover accent through the full brand palette */
+  .media-item:nth-child(5n+1):hover { border-color: #F08C21; box-shadow: 0 16px 30px rgba(240,140,33,.22); }
+  .media-item:nth-child(5n+2):hover { border-color: #E36888; box-shadow: 0 16px 30px rgba(227,104,136,.22); }
+  .media-item:nth-child(5n+3):hover { border-color: #6698CC; box-shadow: 0 16px 30px rgba(102,152,204,.22); }
+  .media-item:nth-child(5n+4):hover { border-color: #B4B534; box-shadow: 0 16px 30px rgba(180,181,52,.22); }
+  .media-item:nth-child(5n+5):hover { border-color: #F2D88F; box-shadow: 0 16px 30px rgba(242,216,143,.34); }
+  .media-item:nth-child(5n+1):hover .media-caption { color: #F08C21; }
+  .media-item:nth-child(5n+2):hover .media-caption { color: #E36888; }
+  .media-item:nth-child(5n+3):hover .media-caption { color: #6698CC; }
+  .media-item:nth-child(5n+4):hover .media-caption { color: #B4B534; }
+
+  @media (max-width: 600px) {
+    #mediasection { padding: 20px 0 60px; }
+    #mediasection h2 { font-size: 2.1rem; }
+    #mediasection .media-sub { font-size: 1rem; }
+    .media-track { animation-duration: 30s; }
+    .media-item { width: 188px; margin-right: 16px; padding: 24px 18px; border-radius: 16px; }
+    .media-logo { max-width: 140px; max-height: 58px; }
+  }
+
+  /* Respect users who prefer reduced motion: stop scrolling,
+     hide the duplicate set, and wrap logos into a centered grid. */
+  @media (prefers-reduced-motion: reduce) {
+    .media-marquee { -webkit-mask-image: none; mask-image: none; }
+    .media-track {
+      animation: none;
+      width: auto;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .media-item { margin-right: 0; }
+    .media-item[aria-hidden="true"] { display: none; }
+  }
 </style>
 {% endblock %}
 
 {% block body %}
 
 <div id="content">
-    <div id="promptoverlay" role="dialog" aria-modal="true" aria-labelledby="dialogue-title">
+    <div id="promptoverlay" role="dialog" aria-modal="true" aria-labelledby="dialogue-title" style="display: none;">
 
         <div id="dialoguebox">
             <p class="dialogue-tag">Limited Time Offer</p>
@@ -70,6 +239,32 @@ and experience a cost-effective and quality solution.{% endblock %}
         </div>
 
     </div>
+
+    <!-- Offer popup frequency cap: show at most once every 2 days per visitor -->
+    <script>
+        (function () {
+            var POPUP_KEY = 'alcOfferPopupLastShown';
+            var COOLDOWN_MS = 2 * 24 * 60 * 60 * 1000; // 2 days — change the "2" to tune
+            var overlay = document.getElementById('promptoverlay');
+            if (!overlay) return;
+
+            var last = 0;
+            try {
+                last = parseInt(localStorage.getItem(POPUP_KEY), 10) || 0;
+            } catch (e) {
+                // localStorage blocked (private mode / cookies off) — show once, don't crash
+                last = 0;
+            }
+
+            var now = Date.now();
+            if (now - last >= COOLDOWN_MS) {
+                // Reveal using the styling defined in index.css, after a short beat.
+                setTimeout(function () { overlay.style.display = ''; }, 700);
+                try { localStorage.setItem(POPUP_KEY, String(now)); } catch (e) {}
+            }
+            // otherwise: within the 2-day window, stay hidden this visit
+        })();
+    </script>
 
     <div id="topsection">
         <div class="arrow arrow-left"><i class="fas fa-chevron-circle-left"></i></div>
@@ -342,6 +537,59 @@ and experience a cost-effective and quality solution.{% endblock %}
         <a id="readmore" href="{% url 'about' %}">READ MORE</a>
 
     </div>
+
+    {% if media_features %}
+    <div id="mediasection">
+        <div class="media-head">
+            <p class="media-kicker">In the Press</p>
+            <h2>As Featured In</h2>
+            <p class="media-sub">
+                Our founder <a class="founder-link" href="/about/aanchal-narang/">Aanchal Narang</a> and team
+                have been featured across leading Indian publications,
+                sharing perspectives on mental health, relationships and well-being.
+            </p>
+        </div>
+
+        <div class="media-marquee">
+            <div class="media-track">
+                {% comment %} Set A — the real, accessible logos {% endcomment %}
+                {% for feature in media_features %}
+                <a class="media-item"
+                   href="{{ feature.link }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="{{ feature.outlet_name }}{% if feature.article_title %} — {{ feature.article_title }}{% endif %}">
+                    <img class="media-logo"
+                         src="{{ feature.logo.url }}"
+                         alt="{{ feature.logo_alt|default:feature.outlet_name }}"
+                         loading="lazy">
+                    {% if feature.article_title %}
+                    <span class="media-caption">{{ feature.article_title }}</span>
+                    {% endif %}
+                </a>
+                {% endfor %}
+
+                {% comment %} Set B — duplicate for the seamless loop; hidden from screen readers {% endcomment %}
+                {% for feature in media_features %}
+                <a class="media-item"
+                   href="{{ feature.link }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-hidden="true"
+                   tabindex="-1">
+                    <img class="media-logo"
+                         src="{{ feature.logo.url }}"
+                         alt=""
+                         loading="lazy">
+                    {% if feature.article_title %}
+                    <span class="media-caption">{{ feature.article_title }}</span>
+                    {% endif %}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
 </div>
 {% endblock %}

@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (
     FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic,
     Service, DoIFeel, Policy, Committee, DynamicContent, PpcContact, Jd,
-    OnboardingPlan, SpecializationTag, TeamPage,  MemberBlogPost,
+    OnboardingPlan, SpecializationTag, TeamPage,  MemberBlogPost, MediaFeature
 )
 
 
@@ -139,3 +139,11 @@ class MemberBlogPostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     ordering = ("-published_at", "-id")
     
+@admin.register(MediaFeature)
+class MediaFeatureAdmin(admin.ModelAdmin):
+    exclude = ('site',)
+    list_display = ('outlet_name', 'article_title', 'order', 'is_active')
+    list_editable = ('order', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('outlet_name', 'article_title')
+    ordering = ('order', 'id')

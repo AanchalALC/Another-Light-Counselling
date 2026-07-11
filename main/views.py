@@ -15,7 +15,7 @@ from .models import (
     Service, DoIFeel, Policy, Committee, DynamicContent, Jd, OnboardingPlan,
     # NEW models for Team module (add these in models.py)
     TeamPage, SpecializationTag,  Member, 
-    MemberBlogPost, 
+    MemberBlogPost, MediaFeature
 )
 from .forms import ContactForm, PpcContactForm
 
@@ -133,6 +133,19 @@ def index(request):
     s3 = DynamicContent.objects.get(key='home_section_3')
 
     # set context
+    # context = {
+    #     'stats': stats,
+    #     'contactdetails': contactdetails,
+    #     'services': services,
+    #     'doifeels': doifeels,
+    #     'h_contacts': get_header_contacts(),
+    #     's1': s1,
+    #     's2': s2,
+    #     's3': s3
+    # }
+    # GET MEDIA FEATURES (press logos)
+    media_features = MediaFeature.objects.filter(is_active=True).order_by('order', 'id')
+
     context = {
         'stats': stats,
         'contactdetails': contactdetails,
@@ -141,7 +154,8 @@ def index(request):
         'h_contacts': get_header_contacts(),
         's1': s1,
         's2': s2,
-        's3': s3
+        's3': s3,
+        'media_features': media_features,   # <-- add this line
     }
     return render(request, 'index.html', context=context)
 

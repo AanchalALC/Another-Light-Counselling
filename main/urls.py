@@ -82,7 +82,10 @@ urlpatterns = [
     # Profile detail should now live under /about/<slug>
     path('about/<slug:slug>/', views.member_profile, name='member-profile'),
 
-    re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
+    # re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
+    # Temporarily redirecting to home until onboarding content is ready.
+    # Original route preserved below — swap back when content lands.
+    re_path(r"^aanchal-onboarding-plan/?$", RedirectView.as_view(url='/', permanent=False), name="onboarding_plan"),
     
     path('about/<slug:slug>/blogs', views.member_blog_list, name='member-blog-list'),
     path('about/<slug:slug>/blogs/', views.member_blog_list, name='member-blog-list'),

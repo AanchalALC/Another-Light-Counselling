@@ -1,0 +1,122 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+{% block title %}Coming Soon | Another Light Counselling{% endblock %}
+{% block metadescription %}This page is currently being updated. Please check back soon.{% endblock %}
+{% block metakeywords %}{% endblock %}
+
+{% block head %}
+<meta name="robots" content="noindex, follow">
+<style>
+  #uc-wrap {
+    box-sizing: border-box;
+    min-height: 64vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 72px 6vw 88px;
+    background: linear-gradient(180deg, #ffffff 0%, #FCF6E6 100%);
+    text-align: center;
+  }
+  .uc-card {
+    max-width: 620px;
+    width: 100%;
+  }
+  .uc-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #F08C21, #E36888);
+    color: #fff;
+    font-size: 2.4rem;
+    box-shadow: 0 14px 30px rgba(240, 140, 33, .28);
+  }
+  .uc-kicker {
+    margin: 0 0 14px;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #F08C21;
+  }
+  #uc-wrap h1 {
+    margin: 0;
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #2b2b2b;
+  }
+  .uc-sub {
+    max-width: 520px;
+    margin: 22px auto 0;
+    color: #6b6b6b;
+    font-size: 1.08rem;
+    line-height: 1.6;
+  }
+  .uc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 34px;
+  }
+  .uc-btn {
+    display: inline-block;
+    padding: 13px 26px;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease;
+  }
+  .uc-btn-primary {
+    background: #F08C21;
+    color: #fff;
+    box-shadow: 0 10px 22px rgba(240, 140, 33, .26);
+  }
+  .uc-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 28px rgba(240, 140, 33, .34);
+  }
+  .uc-btn-ghost {
+    background: #fff;
+    color: #E36888;
+    border: 2px solid #E36888;
+  }
+  .uc-btn-ghost:hover {
+    transform: translateY(-3px);
+    background: #E36888;
+    color: #fff;
+  }
+  @media (max-width: 600px) {
+    #uc-wrap { padding: 52px 5vw 64px; }
+    #uc-wrap h1 { font-size: 1.8rem; }
+    .uc-sub { font-size: 1rem; }
+    .uc-btn { width: 100%; }
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div id="uc-wrap">
+  <div class="uc-card">
+    <div class="uc-icon"><i class="fas fa-tools" aria-hidden="true"></i></div>
+    <p class="uc-kicker">Under Construction</p>
+    <h1>We're putting the finishing touches on this page</h1>
+    <p class="uc-sub">
+      Our onboarding plans are being finalized and will be here very soon.
+      Thanks for your patience — in the meantime, we're just a message away.
+    </p>
+    <div class="uc-actions">
+      <a class="uc-btn uc-btn-primary" href="{% url 'index' %}">Back to Home</a>
+      <a class="uc-btn uc-btn-ghost"
+         href="https://wa.me/918879260310?text=Hello%2C%20I'm%20interested%20in%20therapy%20at%20Another%20Light%20Counselling"
+         target="_blank" rel="noopener noreferrer">
+        Message us on WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

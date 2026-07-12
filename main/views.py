@@ -824,3 +824,14 @@ def onboarding_plan(request):
     })
 
     return render(request, "onboarding_plan.html", context)
+
+
+
+def onboarding_plan_unavailable(request):
+    # Onboarding content is being finalized. Serve a friendly "under construction"
+    # notice with a genuine 503 so search engines treat the page as temporarily down
+    # (not broken) and come back later. Swap the URL back to the real view when ready.
+    context = get_common_template_context()
+    response = render(request, 'under_construction.html', context=context, status=503)
+    response['Retry-After'] = '604800'  # optional hint to crawlers: ~7 days, in seconds
+    return response

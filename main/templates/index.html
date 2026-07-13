@@ -211,7 +211,25 @@ and experience a cost-effective and quality solution.{% endblock %}
 {% block body %}
 
 <div id="content">
-    <div id="promptoverlay" role="dialog" aria-modal="true" aria-labelledby="dialogue-title" style="display: none;">
+    <div id="promptoverlay">
+
+        <div id="dialoguebox">
+            <p style="line-height: 2.5;">
+               We're here for you! <span class="brspacer"></span> Whatever you need, we're happy to talk. Enjoy 20% off on all sessions and therapy packages:  Limited Time Offer! 
+            <br/><span class="brspacer"></span>
+           Reach out anytime; we’re just a message away. <br/><span class="brspacer"></span>Whatsapp us at
+                <a class="textlink" href="https://wa.me/918879260310?text=Hello%2C%20I'm%20interested%20in%20therapy%20at%20Another%20Light%20Counselling" target="_blank">
+                    +918879260310
+                </a>
+            </p>
+            <p>
+                <a class="buttonlink" style="cursor: pointer;" onclick="removePopup()">OK</a>
+            </p>
+        </div>
+
+    </div>
+    {% comment %} New code for pop-up for 2 days {% endcomment %}
+    {% comment %} <div id="promptoverlay" role="dialog" aria-modal="true" aria-labelledby="dialogue-title" style="display: none;">
 
         <div id="dialoguebox">
             <p class="dialogue-tag">Limited Time Offer</p>
@@ -264,7 +282,7 @@ and experience a cost-effective and quality solution.{% endblock %}
             }
             // otherwise: within the 2-day window, stay hidden this visit
         })();
-    </script>
+    </script> {% endcomment %}
 
     <div id="topsection">
         <div class="arrow arrow-left"><i class="fas fa-chevron-circle-left"></i></div>
@@ -542,11 +560,9 @@ and experience a cost-effective and quality solution.{% endblock %}
     <div id="mediasection">
         <div class="media-head">
             <p class="media-kicker">In the Press</p>
-            <h2>As Featured In</h2>
+            <h2>Media Recognition</h2>
             <p class="media-sub">
-                Our founder <a class="founder-link" href="/about/aanchal-narang/">Aanchal Narang</a> and team
-                have been featured across leading Indian publications,
-                sharing perspectives on mental health, relationships and well-being.
+                Our founder & Head Therapist, <a class="founder-link" href="/about/aanchal-narang/">Aanchal Narang, </a>has been featured by leading media platforms for sharing expert insights and perspectives on mental health, trauma, relationships, sexuality, and emotional wellbeing.
             </p>
         </div>
 

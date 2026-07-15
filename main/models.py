@@ -701,38 +701,93 @@ class OnboardingPlan(models.Model):
         return f"Workshop: {self.tagline}"
 
 class MediaFeature(models.Model):
+    FEATURE_TYPE_CHOICES = [
+        ('logo',    'Press logo — carousel / homepage strip'),
+        ('video',   'Video highlight — YouTube'),
+        ('article', 'Article card — with READ button'),
+        ('more',    'More features — simple text link'),
+    ]
+
     site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+
+    feature_type = models.CharField(
+        max_length=10,
+        choices=FEATURE_TYPE_CHOICES,
+        default='logo',
+        help_text="Which block this appears in on the Media Features page. "
+                  "'logo' also powers the homepage press strip."
+    )
     outlet_name = models.CharField(
         max_length=200,
         help_text="Publication name, e.g. 'Vogue India', 'The Hindu'."
     )
     logo = models.ImageField(
         upload_to='media_features',
-        help_text="Transparent PNG works best. Renders in grayscale, turns full-colour on hover."
+        blank=True,
+        help_text="Transparent PNG works best. Used for logo carousel and article cards. "
+                  "Not needed for video or 'more' links."
     )
     logo_alt = models.CharField(
         max_length=200, blank=True, default='',
         help_text="Alt text for the logo. Leave blank to fall back to the outlet name."
     )
+    kicker = models.CharField(
+        max_length=120, blank=True, default='',
+        help_text="Small label shown above an article card's title, "
+                  "e.g. 'Vogue Warriors', 'Tips for parents'."
+    )
     article_title = models.CharField(
         max_length=300, blank=True, default='',
-        help_text="Optional. Shown as a small caption on hover."
+        help_text="For logos: caption on hover. For video/article/more: the headline shown."
+    )
+    description = models.TextField(
+        blank=True, default='',
+        help_text="Short excerpt shown on article cards (the READ cards)."
+    )
+    video_url = models.URLField(
+        max_length=1000, blank=True, default='',
+        help_text="For 'video' type only. Paste a normal YouTube link "
+                  "(watch, youtu.be, shorts or embed) — the site converts it automatically."
     )
     link = models.URLField(
-        max_length=1000,
-        help_text="Full URL of the article this logo links to."
+        max_length=1000, blank=True, default='',
+        help_text="Full URL the logo / READ button / more-feature line points to."
     )
     order = models.PositiveIntegerField(
         default=1,
-        help_text="Lower numbers appear first. Put your best-known outlets at the top."
+        help_text="Lower numbers appear first, within each block."
     )
     is_active = models.BooleanField(
         default=True,
-        help_text="Untick to hide from the homepage without deleting."
+        help_text="Untick to hide without deleting."
     )
 
     def __str__(self):
-        return self.outlet_name
+        return f"{self.get_feature_type_display()} — {self.outlet_name}"
+
+    @property
+    def youtube_id(self):
+        """Pull the 11-char video id out of any common YouTube URL form."""
+        import re
+        url = (self.video_url or "").strip()
+        if not url:
+            return ""
+        patterns = [
+            r"youtube\.com/watch\?(?:.*&)?v=([A-Za-z0-9_-]{11})",
+            r"youtu\.be/([A-Za-z0-9_-]{11})",
+            r"youtube\.com/embed/([A-Za-z0-9_-]{11})",
+            r"youtube\.com/shorts/([A-Za-z0-9_-]{11})",
+        ]
+        for p in patterns:
+            m = re.search(p, url)
+            if m:
+                return m.group(1)
+        return ""
+
+    @property
+    def youtube_embed_url(self):
+        vid = self.youtube_id
+        return f"https://www.youtube.com/embed/{vid}" if vid else ""
 
     class Meta:
         ordering = ('order', 'id')

@@ -1,0 +1,532 @@
+{% extends 'skeleton.html' %}
+{% load static %}
+
+{% block title %}Media Features — Another Light Counselling in the Press{% endblock %}
+{% block metadescription %}Another Light Counselling and our founder Aanchal Narang have been featured across leading media platforms sharing expert insight on mental health, trauma, relationships, sexuality and emotional wellbeing.{% endblock %}
+{% block metakeywords %}Aanchal Narang media, Another Light Counselling press, mental health features, therapy in the media{% endblock %}
+
+{% block head %}
+{# Single canonical for the page regardless of which path (slash / no-slash) is hit #}
+<link rel="canonical" href="https://another-light.com{% url 'media-features' %}">
+
+<style>
+  /* =========================================================
+     MEDIA FEATURES PAGE
+     Reuses the homepage "As Featured In" look (cream gradient,
+     brand-palette hover accents, seamless marquee) and adds
+     video-highlight, article-card and more-features blocks.
+     Palette: Tangerine #F08C21 · Butter #F2D88F · Blush #E36888
+              Sea #6698CC · Matcha #B4B534
+     ========================================================= */
+
+  #media-page {
+    width: 100%;
+    box-sizing: border-box;
+    padding: clamp(28px, 6vw, 64px) 0 clamp(48px, 9vw, 96px);
+    background: linear-gradient(180deg, #ffffff 0%, #FCF6E6 100%);
+    text-align: center;
+    overflow: hidden;
+  }
+
+  /* ---- Shared section head (title + underline accent) ---- */
+  .mf-head {
+    max-width: 900px;
+    margin: 0 auto clamp(30px, 5vw, 52px);
+    padding: 0 6vw;
+  }
+  .mf-kicker {
+    margin: 0 0 12px;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #F08C21;
+  }
+  .mf-title {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    font-size: clamp(2.1rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #2b2b2b;
+    line-height: 1.1;
+  }
+  .mf-title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -16px;
+    transform: translateX(-50%);
+    width: 84px;
+    height: 5px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #F08C21, #E36888);
+  }
+  .mf-sub {
+    max-width: 820px;
+    margin: 34px auto 0;
+    color: #6b6b6b;
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    line-height: 1.6;
+  }
+  .mf-sub .founder-link {
+    color: #E36888;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(227, 104, 136, .4);
+    transition: color .25s ease, border-color .25s ease;
+  }
+  .mf-sub .founder-link:hover { color: #F08C21; border-color: #F08C21; }
+
+  /* Section headers for the video / article / more blocks */
+  .mf-section {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: clamp(40px, 7vw, 72px) 5vw 0;
+  }
+  .mf-section-title {
+    display: inline-block;
+    position: relative;
+    margin: 0 0 clamp(30px, 5vw, 48px);
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    font-weight: 800;
+    color: #2b2b2b;
+    line-height: 1.15;
+  }
+  .mf-section-title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -14px;
+    transform: translateX(-50%);
+    width: 68px;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #6698CC, #B4B534);
+  }
+
+  /* =====================  LOGO MARQUEE  ===================== */
+  /* (Carried over from the homepage so both stay identical.) */
+  .media-marquee {
+    position: relative;
+    max-width: 1240px;
+    margin: 0 auto;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+  }
+  .media-track {
+    display: flex;
+    width: max-content;
+    padding: 14px 0;
+    animation: media-scroll 42s linear infinite;
+    will-change: transform;
+  }
+  .media-marquee:hover .media-track { animation-play-state: paused; }
+  @keyframes media-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .media-item {
+    flex: 0 0 auto;
+    width: 228px;
+    margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 30px 22px;
+    background: #fff;
+    border: 1px solid #efe7d3;
+    border-radius: 20px;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .05);
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
+  }
+  .media-logo {
+    width: auto; height: auto;
+    max-width: 190px; max-height: 74px;
+    object-fit: contain;
+    transition: transform .3s ease;
+  }
+  .media-caption {
+    margin: 0;
+    font-size: .84rem;
+    line-height: 1.4;
+    color: #8a8a8a;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.35em;
+    transition: color .3s ease;
+  }
+  .media-item:hover { transform: translateY(-10px); }
+  .media-item:hover .media-logo { transform: scale(1.05); }
+  .media-item:focus-visible {
+    outline: 3px solid #6698CC;
+    outline-offset: 3px;
+    transform: translateY(-10px);
+  }
+  .media-item:nth-child(5n+1):hover { border-color: #F08C21; box-shadow: 0 16px 30px rgba(240,140,33,.22); }
+  .media-item:nth-child(5n+2):hover { border-color: #E36888; box-shadow: 0 16px 30px rgba(227,104,136,.22); }
+  .media-item:nth-child(5n+3):hover { border-color: #6698CC; box-shadow: 0 16px 30px rgba(102,152,204,.22); }
+  .media-item:nth-child(5n+4):hover { border-color: #B4B534; box-shadow: 0 16px 30px rgba(180,181,52,.22); }
+  .media-item:nth-child(5n+5):hover { border-color: #F2D88F; box-shadow: 0 16px 30px rgba(242,216,143,.34); }
+  .media-item:nth-child(5n+1):hover .media-caption { color: #F08C21; }
+  .media-item:nth-child(5n+2):hover .media-caption { color: #E36888; }
+  .media-item:nth-child(5n+3):hover .media-caption { color: #6698CC; }
+  .media-item:nth-child(5n+4):hover .media-caption { color: #B4B534; }
+
+  /* =====================  VIDEO HIGHLIGHTS  ===================== */
+  .mf-video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(20px, 3vw, 32px);
+  }
+  .mf-video-card {
+    background: #fff;
+    border: 1px solid #efe7d3;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .05);
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
+    text-align: left;
+  }
+  .mf-video-card:hover {
+    transform: translateY(-8px);
+    border-color: #E36888;
+    box-shadow: 0 16px 30px rgba(227,104,136,.20);
+  }
+  .mf-video-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  /* aspect-ratio fallback for older browsers */
+  @supports not (aspect-ratio: 16 / 9) {
+    .mf-video-embed { height: 0; padding-top: 56.25%; }
+  }
+  .mf-video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .mf-video-caption {
+    margin: 0;
+    padding: 18px 20px 22px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: #2b2b2b;
+  }
+
+  /* =====================  ARTICLE / READ CARDS  ===================== */
+  .mf-article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(20px, 3vw, 32px);
+    text-align: left;
+  }
+  .mf-article-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #efe7d3;
+    border-radius: 20px;
+    padding: clamp(22px, 3vw, 30px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .05);
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
+  }
+  .mf-article-card:hover {
+    transform: translateY(-8px);
+    border-color: #F08C21;
+    box-shadow: 0 16px 30px rgba(240,140,33,.18);
+  }
+  .mf-article-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 60px;
+    margin-bottom: 18px;
+  }
+  .mf-article-logo {
+    max-width: 120px;
+    max-height: 52px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .mf-article-kicker {
+    font-size: .9rem;
+    font-weight: 700;
+    color: #6698CC;
+    text-align: right;
+    line-height: 1.3;
+  }
+  .mf-article-title {
+    margin: 0 0 12px;
+    font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+    font-weight: 800;
+    line-height: 1.25;
+    color: #2b2b2b;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  .mf-article-desc {
+    margin: 0 0 22px;
+    font-size: .98rem;
+    line-height: 1.6;
+    color: #6b6b6b;
+    /* keep card heights tidy */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .mf-read-btn {
+    align-self: flex-start;
+    margin-top: auto;
+    display: inline-block;
+    padding: 10px 26px;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    background: #F08C21;
+    border-radius: 8px;
+    transition: background .25s ease, transform .2s ease;
+  }
+  .mf-read-btn:hover { background: #E36888; transform: translateY(-2px); color: #fff; }
+  .mf-read-btn:focus-visible { outline: 3px solid #6698CC; outline-offset: 3px; }
+
+  /* =====================  MORE FEATURES LIST  ===================== */
+  .mf-more-list {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+  }
+  .mf-more-list li {
+    margin: 0;
+    border-bottom: 1px solid #efe7d3;
+  }
+  .mf-more-list li:last-child { border-bottom: 0; }
+  .mf-more-list a {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 8px;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: #3a3a3a;
+    text-decoration: none;
+    transition: color .2s ease, background .2s ease;
+  }
+  .mf-more-list a:hover { color: #F08C21; background: rgba(240,140,33,.05); }
+  .mf-more-list a:focus-visible { outline: 3px solid #6698CC; outline-offset: -3px; }
+  .mf-more-list .mf-star {
+    flex: 0 0 auto;
+    margin-top: 2px;
+    color: #6698CC;
+  }
+  .mf-more-list a:hover .mf-star { color: #F08C21; }
+
+  /* =====================  EMPTY STATE  ===================== */
+  .mf-empty {
+    max-width: 640px;
+    margin: 40px auto 0;
+    color: #8a8a8a;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  /* =====================  RESPONSIVE  ===================== */
+  @media (max-width: 600px) {
+    .media-track { animation-duration: 30s; }
+    .media-item { width: 188px; margin-right: 16px; padding: 24px 18px; border-radius: 16px; }
+    .media-logo { max-width: 140px; max-height: 58px; }
+    .mf-article-title { text-transform: none; }
+  }
+
+  /* Respect reduced-motion: stop the marquee, wrap logos into a grid */
+  @media (prefers-reduced-motion: reduce) {
+    .media-marquee { -webkit-mask-image: none; mask-image: none; }
+    .media-track {
+      animation: none;
+      width: auto;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .media-item { margin-right: 0; }
+    .media-item[aria-hidden="true"] { display: none; }
+    .mf-video-card:hover,
+    .mf-article-card:hover,
+    .media-item:hover { transform: none; }
+    .mf-read-btn:hover { transform: none; }
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div id="media-page">
+
+  {# ---------- PAGE HEAD ---------- #}
+  <div class="mf-head">
+    <p class="mf-kicker">In the Press</p>
+    <h1 class="mf-title">Media Features</h1>
+    <p class="mf-sub">
+      Our founder &amp; Head Therapist,
+      <a class="founder-link" href="/about/aanchal-narang/">Aanchal Narang,</a>
+      and Another Light Counselling have been featured by leading media platforms for expert insight on
+      mental health, trauma, relationships, sexuality and emotional wellbeing.
+    </p>
+  </div>
+
+  {# ---------- LOGO CAROUSEL (seamless marquee, same as homepage) ---------- #}
+  {% if logos %}
+  <div class="media-marquee">
+    <div class="media-track">
+      {% comment %} Set A — real, accessible logos {% endcomment %}
+      {% for feature in logos %}
+      <a class="media-item"
+         href="{{ feature.link }}"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="{{ feature.outlet_name }}{% if feature.article_title %} — {{ feature.article_title }}{% endif %}">
+        {% if feature.logo %}
+        <img class="media-logo"
+             src="{{ feature.logo.url }}"
+             alt="{{ feature.logo_alt|default:feature.outlet_name }}"
+             loading="lazy">
+        {% endif %}
+        {% if feature.article_title %}
+        <span class="media-caption">{{ feature.article_title }}</span>
+        {% endif %}
+      </a>
+      {% endfor %}
+
+      {% comment %} Set B — duplicate for the seamless loop; hidden from screen readers {% endcomment %}
+      {% for feature in logos %}
+      <a class="media-item"
+         href="{{ feature.link }}"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-hidden="true"
+         tabindex="-1">
+        {% if feature.logo %}
+        <img class="media-logo"
+              src="{{ feature.logo.url }}"
+              alt=""
+              loading="lazy">
+        {% endif %}
+        {% if feature.article_title %}
+        <span class="media-caption">{{ feature.article_title }}</span>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {# ---------- FEATURED HIGHLIGHTS (YouTube) ---------- #}
+  {% if videos %}
+  <section class="mf-section" aria-labelledby="mf-highlights">
+    <h2 class="mf-section-title" id="mf-highlights">Featured Highlights</h2>
+    <div class="mf-video-grid">
+      {% for feature in videos %}
+      {% if feature.youtube_embed_url %}
+      <article class="mf-video-card">
+        <div class="mf-video-embed">
+          <iframe
+            src="{{ feature.youtube_embed_url }}"
+            title="{{ feature.article_title|default:feature.outlet_name }}"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+        {% if feature.article_title %}
+        <p class="mf-video-caption">{{ feature.article_title }}</p>
+        {% endif %}
+      </article>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {# ---------- FEATURED ARTICLES (READ cards) ---------- #}
+  {% if articles %}
+  <section class="mf-section" aria-labelledby="mf-articles">
+    <h2 class="mf-section-title" id="mf-articles">Featured Articles</h2>
+    <div class="mf-article-grid">
+      {% for feature in articles %}
+      <article class="mf-article-card">
+        <div class="mf-article-top">
+          {% if feature.logo %}
+          <img class="mf-article-logo"
+               src="{{ feature.logo.url }}"
+               alt="{{ feature.logo_alt|default:feature.outlet_name }}"
+               loading="lazy">
+          {% else %}
+          <span></span>
+          {% endif %}
+          {% if feature.kicker %}
+          <span class="mf-article-kicker">{{ feature.kicker }}</span>
+          {% endif %}
+        </div>
+        {% if feature.article_title %}
+        <h3 class="mf-article-title">{{ feature.article_title }}</h3>
+        {% endif %}
+        {% if feature.description %}
+        <p class="mf-article-desc">{{ feature.description }}</p>
+        {% endif %}
+        {% if feature.link %}
+        <a class="mf-read-btn"
+           href="{{ feature.link }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Read: {{ feature.article_title|default:feature.outlet_name }}">Read</a>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {# ---------- MORE FEATURES (simple links) ---------- #}
+  {% if more_features %}
+  <section class="mf-section" aria-labelledby="mf-more">
+    <h2 class="mf-section-title" id="mf-more">More Features</h2>
+    <ul class="mf-more-list">
+      {% for feature in more_features %}
+      <li>
+        <a href="{{ feature.link }}" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-star mf-star" aria-hidden="true"></i>
+          <span>{{ feature.article_title|default:feature.outlet_name }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {# ---------- EMPTY STATE ---------- #}
+  {% if not logos and not videos and not articles and not more_features %}
+  <p class="mf-empty">Media features are being curated and will appear here soon.</p>
+  {% endif %}
+
+</div>
+{% endblock %}

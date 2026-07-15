@@ -17,7 +17,8 @@ class StaticSiteMap(Sitemap):
             'contact',
             'doifeel',
             'careers',
-            'blog'
+            'blog',
+            'mediafeatures',
         ]
 
     def location(self, item):

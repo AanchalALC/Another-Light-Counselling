@@ -144,7 +144,7 @@ def index(request):
     #     's3': s3
     # }
     # GET MEDIA FEATURES (press logos)
-    media_features = MediaFeature.objects.filter(is_active=True).order_by('order', 'id')
+    media_features = MediaFeature.objects.filter(is_active=True, feature_type='logo').exclude(logo='').order_by('order', 'id')
 
     context = {
         'stats': stats,
@@ -159,6 +159,25 @@ def index(request):
     }
     return render(request, 'index.html', context=context)
 
+def media_features(request):
+    # Shared chrome (footer + nav dropdowns)
+    contactdetails = ContactDetails.objects.all()
+    services = Service.objects.all().order_by('id')
+    doifeels = DoIFeel.objects.all().order_by('id')
+
+    base = MediaFeature.objects.filter(is_active=True).order_by('order', 'id')
+
+    context = {
+        'logos':         base.filter(feature_type='logo'),
+        'videos':        base.filter(feature_type='video'),
+        'articles':      base.filter(feature_type='article'),
+        'more_features': base.filter(feature_type='more'),
+        'contactdetails': contactdetails,
+        'services': services,
+        'doifeels': doifeels,
+        'h_contacts': get_header_contacts(),
+    }
+    return render(request, 'media_features.html', context=context)
 
 def about(request):
     # members = Member.objects.all().order_by('order') // order by order id

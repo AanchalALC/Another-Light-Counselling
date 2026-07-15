@@ -144,7 +144,8 @@ def index(request):
     #     's3': s3
     # }
     # GET MEDIA FEATURES (press logos)
-    media_features = MediaFeature.objects.filter(is_active=True).order_by('order', 'id')
+    # media_features = MediaFeature.objects.filter(is_active=True).order_by('order', 'id')
+    media_features = MediaFeature.objects.exclude(logo="").exclude(logo__isnull=True).order_by("order")
 
     context = {
         'stats': stats,

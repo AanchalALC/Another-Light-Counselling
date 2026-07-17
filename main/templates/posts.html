@@ -6,6 +6,7 @@
 
 {% block head %}
 <link rel="canonical" href="https://www.another-light.com{% url 'blog' %}" />
+
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script async>
@@ -18,111 +19,414 @@
     }
 </script>
 
-<!-- Embedded CSS for Blog Magazine UI -->
 <style>
+    /* ============================================================
+       ALC BLOG — fixed palette. No gradients. No randomisation.
+       ============================================================ */
     #content {
-        font-family: inherit; 
-        color: #333333;
-        background-color: #FAFAFA;
-        padding-bottom: 120px;
+        --alc-tangerine: #F08C21;
+        --alc-butter:    #F2D88F;
+        --alc-blush:     #E36888;
+        --alc-sea:       #6698CC;
+        --alc-matcha:    #B4B534;
+
+        --alc-accent:    #F08C21;   /* single fixed accent */
+        --alc-hero-bg:   #F2D88F;   /* fixed hero band colour */
+        --alc-ink:       #16181D;
+        --alc-slate:     #6B7280;
+        --alc-line:      #E7E4DE;
+        --alc-surface:   #FCFBF9;
+
+        font-family: inherit;
+        color: var(--alc-ink);
+        background-color: var(--alc-surface);
+        padding-bottom: 110px;
+        overflow-x: hidden;
     }
 
-    /* Clean, Solid Color Hero - No Images */
+    #content *,
+    #content *::before,
+    #content *::after { box-sizing: border-box; }
+
+    .wrap {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 32px;
+    }
+
+    /* ============================================================
+       HERO BAND — solid colour + doodle layer
+       ============================================================ */
     #blog-hero {
-        text-align: center;
-        padding: 120px 20px 140px 20px;
-        border-bottom-left-radius: 50px;
-        border-bottom-right-radius: 50px;
-        background-color: #6698CC; /* Default Sea fallback */
-        color: #FFFFFF;
-        transition: background-color 0.5s ease;
+        position: relative;
+        background-color: var(--alc-hero-bg);
+        padding: 92px 0 96px;
+        overflow: hidden;
+        isolation: isolate;
+    }
+    #blog-hero .wrap { position: relative; z-index: 2; }
+
+    /* Doodle canvas */
+    .doodles {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+    }
+    .doodles .ink { stroke: var(--alc-ink); opacity: .10; }
+    .doodles .tan { stroke: #C96F12; opacity: .35; }
+    .doodles .sea { stroke: var(--alc-sea); opacity: .5;  }
+    .doodles .mat { stroke: #8E8F26; opacity: .45; }
+    .doodles .blu { stroke: var(--alc-blush); opacity: .45; }
+
+    .doodles g[class*="float"] { will-change: transform; }
+    .float-a { animation: floatY 9s  ease-in-out infinite alternate; }
+    .float-b { animation: floatY 12s ease-in-out infinite alternate-reverse; }
+    .float-c { animation: floatY 15s ease-in-out infinite alternate; }
+    .spin-s  { animation: spinSlow 40s linear infinite; transform-origin: center; transform-box: fill-box; }
+    @keyframes floatY {
+        from { transform: translateY(0); }
+        to   { transform: translateY(14px); }
+    }
+    @keyframes spinSlow {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+    }
+
+    .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px 16px 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .55);
+        border: 1px solid rgba(22, 24, 29, .10);
+        font-size: .7rem;
+        font-weight: 800;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        color: var(--alc-ink);
+        margin-bottom: 24px;
+    }
+    .eyebrow .dot {
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: var(--alc-accent);
     }
 
     #blog-hero h1 {
-        font-size: 4.5rem;
+        font-size: clamp(3.4rem, 9vw, 6.4rem);
         font-weight: 800;
-        margin-bottom: 20px;
-        letter-spacing: -1px;
+        line-height: .95;
+        letter-spacing: -.045em;
+        color: var(--alc-ink);
+        margin: 0 0 22px;
     }
+    /* Masked reveal. Padding keeps the descender from clipping. */
+    .reveal-line { display: block; overflow: hidden; padding-bottom: .12em; }
+    .reveal-line > span {
+        display: inline-block;
+        transform: translateY(105%);
+        animation: wordUp .85s cubic-bezier(.22, 1, .36, 1) forwards;
+    }
+    @keyframes wordUp { to { transform: translateY(0); } }
 
-    #blog-hero p {
-        font-size: 1.25rem;
-        max-width: 650px;
-        margin: 0 auto;
-        opacity: 0.95;
-        line-height: 1.6;
+    .hero-sub {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #4A4E57;
+        max-width: 52ch;
+        margin: 0;
         font-weight: 500;
+        opacity: 0;
+        animation: fadeUp .7s ease .28s forwards;
+    }
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to   { opacity: 1; transform: none; }
     }
 
-    /* Blog Card Grid */
-    #resources-section {
-        max-width: 1200px;
-        margin: -60px auto 0 auto; /* Pulls cards slightly up over the hero curve */
-        padding: 0 20px;
+    /* ============================================================
+       FEATURED
+       ============================================================ */
+    .featured-section { padding: 0; }
+    .featured-section .wrap { margin-top: -48px; }
+
+    .featured {
         position: relative;
-        z-index: 10;
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        background: #FFFFFF;
+        border: 1px solid var(--alc-line);
+        border-radius: 20px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 18px 50px rgba(22, 24, 29, .08);
+        transition: transform .45s cubic-bezier(.22, 1, .36, 1), box-shadow .45s ease;
+    }
+    .featured:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 30px 70px rgba(22, 24, 29, .13);
+        text-decoration: none;
+        color: inherit;
+    }
+    .featured-media {
+        position: relative;
+        min-height: 340px;
+        overflow: hidden;
+        background: var(--alc-line);
+    }
+    .featured-media img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 1s cubic-bezier(.22, 1, .36, 1);
+    }
+    .featured:hover .featured-media img { transform: scale(1.05); }
+
+    .featured-body {
+        padding: 48px 44px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .tag {
+        align-self: flex-start;
+        display: inline-block;
+        padding: 6px 13px;
+        border-radius: 999px;
+        background: rgba(240, 140, 33, .12);
+        color: #C96F12;
+        font-size: .66rem;
+        font-weight: 800;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+    }
+    .featured-body h2 {
+        font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+        font-weight: 700;
+        line-height: 1.22;
+        letter-spacing: -.025em;
+        color: var(--alc-ink);
+        margin: 0 0 18px;
+    }
+
+    .meta {
+        font-size: .76rem;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: var(--alc-slate);
+    }
+
+    .read-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 26px;
+        font-size: .9rem;
+        font-weight: 700;
+        color: var(--alc-ink);
+    }
+    .read-link .arrow { transition: transform .35s cubic-bezier(.22, 1, .36, 1); }
+    .featured:hover .read-link .arrow,
+    .resource:hover .read-link .arrow { transform: translateX(6px); }
+
+    /* ============================================================
+       LIST
+       ============================================================ */
+    .list-section { padding: 76px 0 0; }
+
+    .list-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--alc-line);
+        margin-bottom: 44px;
+    }
+    .list-head h2 {
+        font-size: 1.15rem;
+        font-weight: 800;
+        letter-spacing: -.01em;
+        margin: 0;
+    }
+    .list-head .count {
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: var(--alc-slate);
+        white-space: nowrap;
     }
 
     #resource-list {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-        gap: 40px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 36px 32px;
     }
 
     .resource {
+        position: relative;
+        display: flex;
+        flex-direction: column;
         background: #FFFFFF;
-        border-radius: 16px;
+        border: 1px solid var(--alc-line);
+        border-radius: 18px;
         overflow: hidden;
         text-decoration: none;
         color: inherit;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        border: 1px solid rgba(0,0,0,0.02);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        display: flex;
-        flex-direction: column;
+        transition: transform .45s cubic-bezier(.22, 1, .36, 1),
+                    box-shadow .45s ease,
+                    border-color .45s ease;
     }
-
     .resource:hover {
         transform: translateY(-8px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 24px 55px rgba(22, 24, 29, .12);
+        border-color: rgba(22, 24, 29, .04);
+        text-decoration: none;
+        color: inherit;
     }
+    /* Deterministic accent bar — colour set inline via {% templatetag openblock %} cycle {% templatetag closeblock %} */
+    .resource::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: var(--card-accent, var(--alc-accent));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+        z-index: 3;
+    }
+    .resource:hover::before { transform: scaleX(1); }
 
+    .resource .media {
+        position: relative;
+        aspect-ratio: 3 / 2;
+        overflow: hidden;
+        background: var(--alc-line);
+    }
     .resource .thumbnail {
-        width: 100%;
-        height: 240px;
+        width: 100%; height: 100%;
         object-fit: cover;
+        display: block;
+        transition: transform 1s cubic-bezier(.22, 1, .36, 1);
+    }
+    .resource:hover .thumbnail { transform: scale(1.06); }
+
+    .date-pill {
+        position: absolute;
+        left: 14px; bottom: 14px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .94);
+        font-size: .66rem;
+        font-weight: 800;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--alc-ink);
+        z-index: 2;
     }
 
     .resource-content {
-        padding: 30px;
+        padding: 24px 24px 26px;
         display: flex;
         flex-direction: column;
         flex-grow: 1;
     }
-
     .resource h3 {
-        font-size: 1.5rem;
+        font-size: 1.18rem;
         font-weight: 700;
-        color: #2C2C2C;
-        margin-bottom: 15px;
-        line-height: 1.35;
+        line-height: 1.4;
+        letter-spacing: -.015em;
+        color: var(--alc-ink);
+        margin: 0;
+        transition: color .3s ease;
     }
-
-    .resource p {
+    .resource:hover h3 { color: var(--alc-accent); }
+    .resource .read-link {
         margin-top: auto;
-        font-size: 0.9rem;
-        color: #888888;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 600;
+        padding-top: 20px;
+        font-size: .82rem;
+        color: var(--alc-slate);
     }
 
-    /* Mobile Responsiveness */
+    /* Fallback tile when a post has no image */
+    .media-fallback {
+        width: 100%; height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF;
+        font-size: 2.6rem;
+        font-weight: 800;
+        letter-spacing: -.02em;
+    }
+
+    /* ============================================================
+       EMPTY STATE
+       ============================================================ */
+    .empty-state {
+        margin-top: 64px;
+        padding: 90px 24px;
+        background: #FFFFFF;
+        border: 1px dashed var(--alc-line);
+        border-radius: 20px;
+        text-align: center;
+    }
+    .empty-state h3 { font-weight: 800; margin: 0 0 10px; font-size: 1.3rem; }
+    .empty-state p  { color: var(--alc-slate); margin: 0; }
+
+    /* ============================================================
+       SCROLL REVEAL
+       ============================================================ */
+    .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity .65s ease, transform .65s cubic-bezier(.22, 1, .36, 1);
+    }
+    .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 900px) {
+        .featured { grid-template-columns: 1fr; }
+        .featured-media { min-height: 230px; }
+        .featured-body { padding: 32px 26px 36px; }
+    }
     @media (max-width: 768px) {
-        #blog-hero { padding: 80px 20px 100px 20px; }
-        #blog-hero h1 { font-size: 3.2rem; }
-        #resources-section { margin-top: -40px; }
-        #resource-list { gap: 30px; grid-template-columns: 1fr; }
+        #content { padding-bottom: 72px; }
+        .wrap { padding: 0 20px; }
+        #blog-hero { padding: 64px 0 76px; }
+        .featured-section .wrap { margin-top: -40px; }
+        .list-section { padding-top: 56px; }
+        .list-head { margin-bottom: 32px; }
+        .list-head .count { display: none; }
+        #resource-list { grid-template-columns: 1fr; gap: 26px; }
+        /* Trim doodle density on small screens */
+        .doodles .m-hide { display: none; }
+    }
+
+    /* ============================================================
+       REDUCED MOTION
+       ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+        #content *,
+        #content *::before,
+        #content *::after {
+            animation: none !important;
+            transition: none !important;
+        }
+        .reveal { opacity: 1; transform: none; }
+        .reveal-line > span { transform: none; }
+        .hero-sub { opacity: 1; }
     }
 </style>
 {% endblock %}
@@ -130,44 +434,176 @@
 {% block body %}
 <div id="content">
 
-    <!-- Clean Solid Hero -->
-    <div id="blog-hero">
-        <h1>Our Blog</h1>
-        <p>Insights, thoughts, and tips on mental health, therapy, and navigating life's challenges from the team at Another Light.</p>
-    </div>
+    <!-- ================= HERO BAND ================= -->
+    <section id="blog-hero">
 
-    <!-- Blog Grid -->
-    <div id="resources-section">
-        <div id="resource-list">
-            {% for post in posts %}
-            <a class="resource" href="{% url 'post' post.slug %}">
-                <img src="{{ post.image_file.url }}" class="thumbnail" alt="">
-                <div class="resource-content">
-                    <h3>{{ post.title }}</h3>
-                    <p>{{post.created}}</p>
-                </div>
-            </a>
-            {% endfor %}
+        <!-- Doodle layer: hand-drawn line art, fixed colours, no gradients -->
+        <svg class="doodles" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMid slice"
+             fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+
+            <!-- Concentric rings, top-left -->
+            <g class="float-a">
+                <circle class="tan" cx="122" cy="76" r="30" stroke-width="2"/>
+                <circle class="tan" cx="122" cy="76" r="19" stroke-width="2"/>
+                <circle class="tan" cx="122" cy="76" r="8"  stroke-width="2"/>
+            </g>
+
+            <!-- Spiral, bottom-left -->
+            <g class="float-b m-hide">
+                <path class="sea" stroke-width="2"
+                      d="M96 330c0-14 11-25 25-25s25 11 25 25-11 25-25 25-25-11-25-25 11-25 25-25 25 11 25 25"
+                      transform="scale(0.9) translate(6, 20)"/>
+            </g>
+
+            <!-- Squiggle, left edge -->
+            <path class="ink m-hide" stroke-width="2"
+                  d="M-10 210c26-22 52 22 78 0s52 22 78 0"/>
+
+            <!-- Small sun, mid-left -->
+            <g class="spin-s m-hide">
+                <circle class="mat" cx="236" cy="316" r="12" stroke-width="2"/>
+                <path class="mat" stroke-width="2"
+                      d="M236 292v-9M236 349v-9M212 316h-9M269 316h-9M219 299l-7-7M260 340l-7-7M253 299l7-7M212 340l7-7"/>
+            </g>
+
+            <!-- Speech bubble, top-right -->
+            <g class="float-b">
+                <path class="sea" stroke-width="2"
+                      d="M1196 52h132a16 16 0 0 1 16 16v56a16 16 0 0 1-16 16h-84l-30 26v-26h-18a16 16 0 0 1-16-16V68a16 16 0 0 1 16-16z"/>
+                <path class="sea" stroke-width="2" d="M1222 84h80M1222 106h52"/>
+            </g>
+
+            <!-- Heart, right -->
+            <g class="float-c">
+                <path class="blu" stroke-width="2"
+                      d="M1130 226c0-14 11-24 24-24 9 0 16 5 20 12 4-7 11-12 20-12 13 0 24 10 24 24 0 26-44 48-44 48s-44-22-44-48z"/>
+            </g>
+
+            <!-- Leaf / growth sprig, bottom-right -->
+            <g class="float-a">
+                <path class="mat" stroke-width="2" d="M1298 372V284"/>
+                <path class="mat" stroke-width="2"
+                      d="M1298 322c0-20 16-36 36-36 0 20-16 36-36 36zM1298 356c0-20-16-36-36-36 0 20 16 36 36 36z"/>
+            </g>
+
+            <!-- Dotted arc, right of centre -->
+            <g class="float-c m-hide">
+                <path class="ink" stroke-width="2" stroke-dasharray="2 12"
+                      d="M980 380c40-70 120-110 200-96"/>
+            </g>
+
+            <!-- Plus marks / sparkles -->
+            <g class="float-b">
+                <path class="tan" stroke-width="2" d="M1088 96v22M1077 107h22"/>
+                <path class="tan" stroke-width="2" d="M1382 246v16M1374 254h16"/>
+                <path class="blu m-hide" stroke-width="2" d="M60 118v16M52 126h16"/>
+            </g>
+
+            <!-- Open ring, far right -->
+            <circle class="ink m-hide" cx="1408" cy="352" r="46" stroke-width="2"/>
+
+        </svg>
+
+        <div class="wrap">
+            <span class="eyebrow"><span class="dot"></span> The Journal</span>
+            <h1><span class="reveal-line"><span>Blog</span></span></h1>
+            <p class="hero-sub">Explore expert articles, therapy insights, and practical mental health guidance on trauma, relationships, anxiety, depression, emotional wellbeing, and more from the psychologists at Another Light Counselling.</p>
         </div>
-    </div>
+    </section>
+
+    {% if posts %}
+
+        {% for post in posts %}
+
+            {% if forloop.first %}
+            <!-- ================= FEATURED ================= -->
+            <section class="featured-section">
+                <div class="wrap">
+                    <a class="featured reveal" href="{% url 'post' post.slug %}">
+                        <div class="featured-media">
+                            {% if post.image_file %}
+                                <img src="{{ post.image_file.url }}" alt="{{ post.title }}" loading="eager">
+                            {% else %}
+                                <div class="media-fallback" style="background: #6698CC;">{{ post.title|first }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="featured-body">
+                            <span class="tag">Latest article</span>
+                            <h2>{{ post.title }}</h2>
+                            <span class="meta">{{ post.created|date:"d M Y" }}</span>
+                            <span class="read-link">Read the article <span class="arrow">&rarr;</span></span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- ================= LIST ================= -->
+            <section class="list-section">
+                <div class="wrap">
+                    <div class="list-head reveal">
+                        <h2>More from the journal</h2>
+                        <span class="count">{{ posts|length }} articles</span>
+                    </div>
+                    <div id="resource-list">
+            {% endif %}
+
+            {% if not forloop.first %}
+                    <a class="resource reveal" href="{% url 'post' post.slug %}"
+                       style="--card-accent: {% cycle '#6698CC' '#B4B534' '#E36888' '#F08C21' as cardaccent %};">
+                        <div class="media">
+                            {% if post.image_file %}
+                                <img src="{{ post.image_file.url }}" class="thumbnail" alt="{{ post.title }}" loading="lazy">
+                            {% else %}
+                                <div class="media-fallback" style="background: {% cycle cardaccent %};">{{ post.title|first }}</div>
+                            {% endif %}
+                            <span class="date-pill">{{ post.created|date:"d M Y" }}</span>
+                        </div>
+                        <div class="resource-content">
+                            <h3>{{ post.title }}</h3>
+                            <span class="read-link">Read more <span class="arrow">&rarr;</span></span>
+                        </div>
+                    </a>
+            {% endif %}
+
+            {% if forloop.last %}
+                    </div><!-- /#resource-list -->
+                </div>
+            </section>
+            {% endif %}
+
+        {% endfor %}
+
+    {% else %}
+        <section class="wrap">
+            <div class="empty-state">
+                <h3>Nothing here just yet</h3>
+                <p>New articles from the Another Light team are on the way. Do check back soon.</p>
+            </div>
+        </section>
+    {% endif %}
+
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Solid colors matching the brand palette
-        const colors = [
-            '#F08C21', // Tangerine
-            '#B4B534', // Matcha
-            '#6698CC', // Sea
-            '#E36888'  // Blush
-        ];
-        
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        const heroSection = document.getElementById("blog-hero");
-        
-        if (heroSection) {
-            heroSection.style.backgroundColor = randomColor;
+    document.addEventListener("DOMContentLoaded", function () {
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var items = document.querySelectorAll('.reveal');
+
+        if (reduce || !('IntersectionObserver' in window)) {
+            items.forEach(function (el) { el.classList.add('is-visible'); });
+            return;
         }
+
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+        items.forEach(function (el) { io.observe(el); });
     });
 </script>
 {% endblock %}

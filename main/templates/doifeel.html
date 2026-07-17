@@ -22,260 +22,396 @@
 
 <style>
     /* =========================================
-       Wrapper & Background Layout
+       0. Tokens  (ALC palette — solid only, no gradients)
+       Tangerine #F08C21 | Butter #F2D88F | Blush #E36888
+       Sea #6698CC | Matcha #B4B534
        ========================================= */
     #content {
-        --theme-bg: #E36888; /* Fallback Blush */
-        --theme-text: #FFFFFF;
+        --theme-bg:    #E36888;   /* fallback: Blush */
+        --theme-text:  #FFFFFF;
+        --theme-chrome:rgba(255,255,255,0.55);
+        --theme-badge-bg: rgba(255,255,255,0.18);
+        --theme-badge-br: rgba(255,255,255,0.32);
+        --ink:   #1A1A1A;
+        --body:  #3A3A3A;
+        --paper: #FBFAF8;
+        --card:  #FFFFFF;
+        --line:  #EDE9E3;
+
+        /* --- article width knob: change this one value to retune --- */
+        --card-w: 80vw;      /* target width of the reading card */
+        --card-max: 1280px;  /* hard cap so text measure stays sane on 1920+ */
+
         padding: 0;
         margin: 0;
         position: relative;
         z-index: 1;
-        font-family: inherit;
+        background: var(--paper);
+        overflow-x: hidden;
         min-height: 100vh;
     }
 
-    /* Left Side Solid Color - Extends full height of content (25% width) */
-    #content::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 30%;
-        background-color: var(--theme-bg);
-        z-index: -3; /* Behind everything */
-        transition: background-color 0.5s ease;
-    }
-
-    /* Right Side Dot-Grid Pattern (75% width) */
-    #content::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 70%;
-        background-color: #FAFAFA;
-        background-image: radial-gradient(#D1D5DB 2px, transparent 2px);
-        background-size: 30px 30px;
-        z-index: -4;
-    }
-
-    /* Modern Split Layout Container */
-    #split-layout {
-        display: flex;
-        position: relative;
-    }
-
     /* =========================================
-       Left Side Doodles (Scrolling visual interest)
+       1. HERO — full width, solid theme colour
        ========================================= */
-    .left-doodles-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 30%;
-        height: 100%;
+    .df-hero {
+        position: relative;
+        background-color: var(--theme-bg);
+        color: var(--theme-text);
+        padding: 88px 5% 92px 5%;
         overflow: hidden;
-        z-index: -2; /* Above the solid color, behind the text */
+        transition: background-color .5s ease;
     }
 
-    .doodle {
+    .df-hero::before,
+    .df-hero::after {
+        content: '';
         position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.08);
         pointer-events: none;
     }
+    .df-hero::before { top: -180px; left: -120px;  width: 420px; height: 420px; }
+    .df-hero::after  { bottom: -240px; right: 6%;  width: 560px; height: 560px; }
 
-    /* Adjusted shapes for narrower 25% column */
-    .shape-1 {
-        top: 5%;
-        left: -20px;
-        width: 180px;
-        height: 180px;
-        border: 4px dashed rgba(255, 255, 255, 0.4);
-        border-radius: 50%;
-        animation: spinDoodle 40s linear infinite;
+    .df-hero-doodles {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 1;
     }
-    
-    .shape-2 {
-        top: 25%;
-        right: 5%;
-        width: 80px;
-        height: 80px;
-        background-color: #B4B534; /* Matcha */
-        opacity: 0.8;
-        border-radius: 16px;
-        transform: rotate(15deg);
-    }
-    
-    .shape-3 {
-        top: 45%;
-        left: 10%;
-        width: 120px;
-        height: 120px;
-        border: 8px solid rgba(0, 0, 0, 0.08);
-        border-radius: 50%;
-    }
-    
-    .shape-4 {
-        top: 65%;
-        right: 15%;
-        width: 80px;
-        height: 80px;
-        background-color: #6698CC; /* Sea */
-        opacity: 0.85;
-        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        transform: rotate(-25deg);
-    }
-    
-    .shape-5 {
-        top: 85%;
-        left: 10%;
-        width: 100px;
-        height: 100px;
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-    }
+    .df-hero-doodles .df-doodle { color: #FFFFFF; opacity: 0.18; }
 
-    @keyframes spinDoodle { 100% { transform: rotate(360deg); } }
-
-    /* =========================================
-       Left Panel - Sticky Visuals (25% width)
-       ========================================= */
-    .left-panel {
-        width: 30%;
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        align-self: flex-start; /* CRITICAL FIX: prevents stretching so it can stick */
-        box-sizing: border-box; /* CRITICAL FIX: keeps padding within the 100vh limit */
-        padding: 60px 4%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        color: var(--theme-text);
-        z-index: 2;
-    }
-
-    .left-panel h1 {
-        font-size: 2.8rem;
-        font-weight: 800;
-        line-height: 1.15;
-        margin-bottom: 30px;
-        color: inherit;
-        letter-spacing: -1px;
-        word-wrap: break-word; /* Ensures long words wrap inside the 25% container */
-    }
-
-    .left-panel img {
-        max-width: 100%;
-        height: auto;
-        max-height: 420px;
-        object-fit: contain;
-        filter: drop-shadow(0 20px 30px rgba(0,0,0,0.2));
-        transform: rotate(-2deg);
-    }
-
-    /* =========================================
-       Right Panel - Scrolling Content (75% width)
-       ========================================= */
-    .right-panel {
-        width: 70%;
-        padding: 80px 6% 120px 6%;
+    .df-hero-inner {
         position: relative;
-        z-index: 5;
-    }
-
-    /* Clean white frosted card for readability */
-    .doifeel {
-        font-size: 1.25rem;
-        line-height: 2.1;
-        color: #333333;
-        max-width: 900px; /* Increased max-width for the 75% area */
+        z-index: 3;
+        width: 100%;
+        max-width: 1440px;
         margin: 0 auto;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(5px);
-        padding: 60px;
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,1);
-        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-    }
-    
-    .doifeel h2, .doifeel h3, .doifeel h4 {
-        color: #1A1A1A;
-        margin-top: 2em;
-        margin-bottom: 1em;
-        font-weight: 800;
-        font-size: 2rem;
-        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        gap: 5%;
     }
 
-    .doifeel p { margin-bottom: 1.8em; }
-    
-    .doifeel ul, .doifeel ol { 
-        margin-bottom: 1.8em; 
-        padding-left: 25px; 
+    /* ---- Hero left: heading ---- */
+    .df-hero-copy { flex: 1 1 50%; min-width: 0; }
+
+    .df-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: inherit;
+        background: var(--theme-badge-bg);
+        border: 1px solid var(--theme-badge-br);
+        padding: 8px 16px;
+        border-radius: 999px;
+        margin-bottom: 26px;
     }
-    
-    .doifeel img {
-        max-width: 100%;
+    .df-kicker .dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: currentColor;
+        animation: dfPulse 2.4s ease-in-out infinite;
+    }
+
+    .df-title {
+        font-size: clamp(2.1rem, 4.2vw, 4rem);
+        font-weight: 800;
+        line-height: 1.08;
+        letter-spacing: -0.025em;
+        color: inherit;
+        margin: 0 0 24px 0;
+        word-wrap: break-word;
+    }
+
+    .df-rule {
+        width: 78px;
+        height: 5px;
+        border-radius: 5px;
+        background: var(--theme-chrome);
+        transform-origin: left center;
+    }
+
+    /* ---- Hero right: image (BIGGER) ---- */
+    .df-media {
+        flex: 0 0 46%;
+        position: relative;
+        max-width: 560px;
+    }
+    .df-media-frame {
+        position: relative;
+        z-index: 2;
+        border-radius: 26px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.14);
+        border: 1px solid rgba(255,255,255,0.38);
+        box-shadow: 0 36px 70px rgba(0,0,0,0.22);
+        transform: rotate(-1.5deg);
+        animation: dfFloat 7s ease-in-out infinite;
+    }
+    .df-media-frame img {
+        display: block;
+        width: 100%;
         height: auto;
-        border-radius: 16px;
-        margin: 40px 0;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        max-height: 560px;
+        object-fit: cover;
+        transition: transform .6s cubic-bezier(.2,.8,.2,1);
+    }
+    .df-media-frame:hover img { transform: scale(1.045); }
+
+    /* dashed sticker ring behind the photo */
+    .df-media::before {
+        content: '';
+        position: absolute;
+        top: -30px; right: -30px;
+        width: 130px; height: 130px;
+        border: 3px dashed rgba(255,255,255,0.55);
+        border-radius: 50%;
+        z-index: 1;
+        animation: dfSpin 26s linear infinite;
+    }
+    /* solid offset block bottom-left of photo */
+    .df-media::after {
+        content: '';
+        position: absolute;
+        left: -22px; bottom: -22px;
+        width: 104px; height: 104px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.16);
+        z-index: 1;
+        transform: rotate(8deg);
     }
 
     /* =========================================
-       Responsive Design for Mobile
+       2. ARTICLE SECTION — paper + doodle field
        ========================================= */
-    @media (max-width: 1024px) {
-        .left-panel h1 { font-size: 2.2rem; }
-        .doifeel { padding: 40px; }
+    .df-main {
+        position: relative;
+        padding: 90px 3% 120px 3%;
+        background-color: var(--paper);
+        background-image: radial-gradient(#DDD8D0 1.6px, transparent 1.6px);
+        background-size: 26px 26px;
+    }
+
+    .df-doodles {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+    }
+    .df-doodle {
+        position: absolute;
+        color: var(--theme-bg);
+        opacity: 0.17;
+        will-change: transform;
+    }
+    .df-doodle svg { display: block; width: 100%; height: 100%; }
+
+    /* hero doodle placement */
+    .h1d { top: 10%; left: 2%;   width: 90px;  height: 90px;  animation: dfSpin 44s linear infinite; }
+    .h2d { bottom: 8%; left: 32%; width: 74px; height: 74px;  animation: dfFloat 8s ease-in-out infinite; }
+    .h3d { top: 14%; right: 46%; width: 62px;  height: 62px;  animation: dfFloat 6.5s ease-in-out infinite reverse; }
+
+    /* article doodle placement — pulled to the very edges since the card is now wide */
+    .d1 { top: 3%;  left: 0.5%;  width: 92px;  height: 92px;  animation: dfSpin 46s linear infinite; }
+    .d2 { top: 12%; right: 0.6%; width: 104px; height: 104px; animation: dfFloat 9s ease-in-out infinite; }
+    .d3 { top: 28%; left: 0.4%;  width: 74px;  height: 74px;  animation: dfFloat 7.5s ease-in-out infinite reverse; }
+    .d4 { top: 42%; right: 0.5%; width: 96px;  height: 96px;  animation: dfSpin 62s linear infinite reverse; }
+    .d5 { top: 57%; left: 0.6%;  width: 98px;  height: 98px;  animation: dfFloat 10s ease-in-out infinite; }
+    .d6 { top: 71%; right: 0.4%; width: 80px;  height: 80px;  animation: dfFloat 8s ease-in-out infinite reverse; }
+    .d7 { top: 85%; left: 0.5%;  width: 88px;  height: 88px;  animation: dfSpin 52s linear infinite; }
+    .d8 { top: 92%; right: 0.6%; width: 70px;  height: 70px;  animation: dfFloat 6.5s ease-in-out infinite; }
+
+    /* =========================================
+       3. Article card — WIDE
+       ========================================= */
+    .df-article {
+        position: relative;
+        z-index: 2;
+        width: var(--card-w);
+        max-width: var(--card-max);
+        margin: 0 auto;
+        box-sizing: border-box;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        padding: 72px 6% 64px 6%;
+        box-shadow: 0 18px 60px rgba(26,26,26,0.06);
+    }
+    .df-article::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: 6%;
+        width: 92px;
+        height: 6px;
+        border-radius: 0 0 6px 6px;
+        background: var(--theme-bg);
+    }
+
+    .df-body {
+        font-size: 1.16rem;
+        line-height: 1.9;
+        color: var(--body);
+    }
+    .df-body > *:first-child { margin-top: 0; }
+    .df-body h2, .df-body h3, .df-body h4 {
+        color: var(--ink);
+        font-weight: 800;
+        letter-spacing: -0.015em;
+        margin: 2em 0 0.75em 0;
+        line-height: 1.25;
+    }
+    .df-body h2 { font-size: 1.95rem; }
+    .df-body h3 { font-size: 1.5rem; }
+    .df-body h4 { font-size: 1.22rem; }
+    .df-body p { margin: 0 0 1.4em 0; }
+    /* CKEditor often emits empty <p>&nbsp;</p> — stop them creating huge dead gaps */
+    .df-body p:empty { display: none; }
+    .df-body a {
+        color: var(--ink);
+        text-decoration: none;
+        box-shadow: inset 0 -2px 0 var(--theme-bg);
+        transition: box-shadow .25s ease, color .25s ease;
+    }
+    .df-body a:hover { box-shadow: inset 0 -22px 0 var(--theme-bg); }
+    .df-body ul, .df-body ol { margin: 0 0 1.5em 0; padding-left: 1.3em; }
+    .df-body li { margin-bottom: 0.55em; }
+    .df-body ul { list-style: none; padding-left: 1.5em; }
+    .df-body ul li { position: relative; }
+    .df-body ul li::before {
+        content: '';
+        position: absolute;
+        left: -1.2em; top: 0.7em;
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: var(--theme-bg);
+    }
+    .df-body blockquote {
+        margin: 2em 0;
+        padding: 4px 0 4px 24px;
+        border-left: 4px solid var(--theme-bg);
+        font-size: 1.3rem;
+        line-height: 1.7;
+        color: var(--ink);
+        font-weight: 500;
+    }
+    .df-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 14px;
+        margin: 36px 0;
+        box-shadow: 0 14px 34px rgba(0,0,0,0.10);
+    }
+    .df-body hr { border: 0; height: 1px; background: var(--line); margin: 3em 0; }
+
+    /* =========================================
+       4. Motion
+       ========================================= */
+    @keyframes dfSpin  { to { transform: rotate(360deg); } }
+    @keyframes dfFloat {
+        0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+        50%      { transform: translateY(-14px) rotate(1.5deg); }
+    }
+    @keyframes dfPulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50%      { opacity: .45; transform: scale(.75); }
+    }
+
+    .df-in { opacity: 0; transform: translateY(24px); }
+    .is-ready .df-in {
+        opacity: 1; transform: none;
+        transition: opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);
+    }
+    .is-ready .df-in.delay-1 { transition-delay: .08s; }
+    .is-ready .df-in.delay-2 { transition-delay: .16s; }
+    .is-ready .df-in.delay-3 { transition-delay: .26s; }
+    .is-ready .df-rule { animation: dfRule .7s .34s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes dfRule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    .df-reveal { opacity: 0; transform: translateY(26px); }
+    .df-reveal.in-view {
+        opacity: 1; transform: none;
+        transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1);
+    }
+
+    /* =========================================
+       5. Responsive
+       ========================================= */
+    @media (max-width: 1400px) {
+        #content { --card-w: 84vw; }
+        .df-article { padding: 64px 5% 56px 5%; }
+        .df-article::before { left: 5%; }
+    }
+
+    @media (max-width: 1200px) {
+        #content { --card-w: 88vw; }
+        .df-hero { padding: 76px 4% 80px 4%; }
+        .df-media { flex-basis: 44%; }
+        .df-main { padding: 78px 2.5% 104px 2.5%; }
+        .df-article { padding: 54px 44px; }
+        .df-article::before { left: 44px; }
+        .d1, .d3, .d5, .d7 { left: 0; }
+        .d2, .d4, .d6, .d8 { right: 0; }
+    }
+
+    @media (max-width: 992px) {
+        #content { --card-w: 92vw; }
+        .df-hero-inner { gap: 4%; }
+        .df-media { flex-basis: 46%; }
+        .df-main { padding: 74px 3% 100px 3%; }
+        .df-article { padding: 46px 32px; }
+        .df-article::before { left: 32px; }
+        .df-doodle { opacity: 0.13; }
+        .h3d { display: none; }
     }
 
     @media (max-width: 768px) {
-        /* On mobile, left side becomes top header */
-        #content::before {
-            width: 100%;
-            height: 50vh;
-            bottom: auto;
-        }
-        #content::after {
-            width: 100%;
-            top: 50vh;
-        }
-        
-        .left-doodles-container {
-            width: 100%;
-            height: 50vh; /* Keeps doodles only in the top colored area */
-        }
-        
-        #split-layout { flex-direction: column; }
-        
-        .left-panel {
-            width: 100%;
-            height: 50vh;
-            position: relative; /* Disable sticky on mobile so users can scroll normally */
-            padding: 60px 20px 40px 20px;
+        #content { --card-w: 100%; --card-max: 100%; }
+        .df-hero { padding: 60px 22px 64px 22px; }
+        .df-hero-inner {
+            flex-direction: column;
+            align-items: center;
             text-align: center;
+            gap: 40px;
         }
+        .df-hero-copy { flex: none; width: 100%; }
+        .df-title { font-size: 2.15rem; }
+        .df-rule { margin: 0 auto; transform-origin: center; }
+        .df-media { flex: none; width: 100%; max-width: 340px; }
+        .df-media::before { top: -16px; right: -12px; width: 76px; height: 76px; }
+        .df-media::after { display: none; }
+        .df-media-frame img { max-height: 380px; }
+        .df-hero::before, .df-hero::after { display: none; }
+        .h2d { display: none; }
 
-        .left-panel h1 { font-size: 2.5rem; margin-bottom: 20px; }
-        .left-panel img { max-height: 260px; margin: 0 auto; transform: rotate(0); }
+        .df-main { padding: 52px 16px 84px 16px; }
+        .df-article { padding: 34px 22px; border-radius: 18px; }
+        .df-article::before { left: 24px; }
+        .df-body { font-size: 1.05rem; line-height: 1.85; }
+        .df-body h2 { font-size: 1.5rem; }
 
-        .right-panel {
-            width: 100%;
-            padding: 40px 20px 80px 20px;
-        }
-        
-        .doifeel { padding: 30px 20px; font-size: 1.15rem; }
-        
-        /* Adjust doodle sizes for mobile */
-        .shape-1 { width: 150px; height: 150px; top: -20px; left: -20px; }
-        .shape-2 { width: 80px; height: 80px; top: 10%; right: 5%; }
-        .shape-3 { display: none; }
-        .shape-4 { display: none; }
-        .shape-5 { width: 100px; height: 100px; top: 60%; left: 10%; }
+        .d3, .d4, .d6, .d8 { display: none; }
+        .d1 { width: 68px; height: 68px; }
+        .d2 { width: 78px; height: 78px; }
+        .d5 { width: 74px; height: 74px; }
+        .d7 { width: 68px; height: 68px; }
+        .df-doodle { opacity: 0.1; }
+    }
+
+    /* =========================================
+       6. Reduced motion
+       ========================================= */
+    @media (prefers-reduced-motion: reduce) {
+        .df-doodle, .df-media-frame, .df-kicker .dot, .df-media::before { animation: none !important; }
+        .df-in, .df-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+        .is-ready .df-rule { animation: none !important; }
+        .df-media-frame img { transition: none; }
     }
 </style>
 {% endblock %}
@@ -283,69 +419,206 @@
 {% block body %}
 <div id="content">
 
-    <!-- Playful shapes isolated entirely on the left side -->
-    <div class="left-doodles-container">
-        <div class="doodle shape-1"></div>
-        <div class="doodle shape-2"></div>
-        <div class="doodle shape-3"></div>
-        <div class="doodle shape-4"></div>
-        <div class="doodle shape-5"></div>
-    </div>
-
-    <div id="split-layout">
-        
-        <!-- Fixed Left Side (Image & Title) -->
-        <div class="left-panel">
-            <h1>{{doifeel.title}}</h1>
-            <img src="{{ doifeel.image_file.url }}" alt="{{ doifeel.title }}" />
-        </div>
-
-        <!-- Scrolling Right Side (Text Content) -->
-        <div class="right-panel">
-            <div class="doifeel">
-                {{ doifeel.content | safe }}
+    <!-- ================= HERO ================= -->
+    <header class="df-hero">
+        <div class="df-hero-doodles" aria-hidden="true">
+            <div class="df-doodle h1d">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5">
+                    <circle cx="50" cy="50" r="42" stroke-dasharray="10 12"/>
+                    <circle cx="50" cy="50" r="20"/>
+                </svg>
+            </div>
+            <div class="df-doodle h2d">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+                    <path d="M8 62c10-26 22-26 32 0s22 26 32 0"/>
+                    <path d="M8 84c10-26 22-26 32 0s22 26 32 0" opacity=".6"/>
+                </svg>
+            </div>
+            <div class="df-doodle h3d">
+                <svg viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M50 6c4 24 16 36 40 40-24 4-36 16-40 40-4-24-16-36-40-40 24-4 36-16 40-40z"/>
+                </svg>
             </div>
         </div>
 
-    </div>
+        <div class="df-hero-inner">
+
+            <!-- heading -->
+            <div class="df-hero-copy">
+                <span class="df-kicker df-in"><span class="dot"></span> Do I Feel</span>
+                <h1 class="df-title df-in delay-1">{{ doifeel.title }}</h1>
+                <div class="df-rule"></div>
+            </div>
+
+            <!-- image, right -->
+            {% if doifeel.image_file %}
+            <div class="df-media df-in delay-2">
+                <div class="df-media-frame">
+                    <img src="{{ doifeel.image_file.url }}" alt="{{ doifeel.title }}" />
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </header>
+
+    <!-- ================= ARTICLE ================= -->
+    <main class="df-main">
+
+        <div class="df-doodles" aria-hidden="true">
+            <!-- squiggle -->
+            <div class="df-doodle d1" data-speed="0.06">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+                    <path d="M8 62c10-26 22-26 32 0s22 26 32 0"/>
+                    <path d="M8 82c10-26 22-26 32 0s22 26 32 0" opacity=".6"/>
+                </svg>
+            </div>
+            <!-- spiral -->
+            <div class="df-doodle d2" data-speed="-0.09">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+                    <path d="M50 50c0-6 5-11 11-11s11 5 11 11-5 13-13 13-15-7-15-16 8-18 18-18 21 9 21 21-11 24-24 24S35 63 35 48"/>
+                </svg>
+            </div>
+            <!-- sparkle -->
+            <div class="df-doodle d3" data-speed="0.12">
+                <svg viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M50 6c4 24 16 36 40 40-24 4-36 16-40 40-4-24-16-36-40-40 24-4 36-16 40-40z"/>
+                </svg>
+            </div>
+            <!-- concentric rings -->
+            <div class="df-doodle d4" data-speed="-0.05">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5">
+                    <circle cx="50" cy="50" r="42" stroke-dasharray="10 12"/>
+                    <circle cx="50" cy="50" r="24"/>
+                    <circle cx="50" cy="50" r="7" fill="currentColor" stroke="none"/>
+                </svg>
+            </div>
+            <!-- leaf / breath -->
+            <div class="df-doodle d5" data-speed="0.08">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+                    <path d="M20 80C20 44 44 20 80 20c0 36-24 60-60 60z"/>
+                    <path d="M34 66L72 28"/>
+                </svg>
+            </div>
+            <!-- plus grid -->
+            <div class="df-doodle d6" data-speed="-0.11">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round">
+                    <path d="M22 12v20M12 22h20M78 40v20M68 50h20M50 68v20M40 78h20"/>
+                </svg>
+            </div>
+            <!-- speech bubble -->
+            <div class="df-doodle d7" data-speed="0.07">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round">
+                    <path d="M14 24h72v46H46L26 88V70H14z"/>
+                    <path d="M32 40h36M32 54h22" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <!-- triangle -->
+            <div class="df-doodle d8" data-speed="-0.13">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round">
+                    <path d="M50 16L86 82H14z"/>
+                </svg>
+            </div>
+        </div>
+
+        <article class="df-article df-reveal">
+            <div class="df-body">
+                {{ doifeel.content | safe }}
+            </div>
+        </article>
+    </main>
 
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const themes = [
-            { bg: '#F08C21', text: '#FFFFFF' }, // Tangerine
-            { bg: '#F2D88F', text: '#2C2C2C' }, // Butter (Requires Dark Text)
-            { bg: '#E36888', text: '#FFFFFF' }, // Blush
-            { bg: '#6698CC', text: '#FFFFFF' }, // Sea
-            { bg: '#B4B534', text: '#2C4A22' }  // Matcha (Requires Dark Green Text)
-        ];
-        
-        // Convert the title into a simple hash number to permanently assign a color
-        const postTitle = "{{ doifeel.title|escapejs }}";
-        let hash = 0;
-        for (let i = 0; i < postTitle.length; i++) {
-            hash = postTitle.charCodeAt(i) + ((hash << 5) - hash);
+(function () {
+    var root = document.getElementById("content");
+    if (!root) return;
+
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ---- 1. Deterministic palette pick per post ---- */
+    var themes = [
+        { name:'Tangerine', bg:'#F08C21', text:'#FFFFFF', light:false },
+        { name:'Butter',    bg:'#F2D88F', text:'#2C2C2C', light:true  },
+        { name:'Blush',     bg:'#E36888', text:'#FFFFFF', light:false },
+        { name:'Sea',       bg:'#6698CC', text:'#FFFFFF', light:false },
+        { name:'Matcha',    bg:'#B4B534', text:'#2C4A22', light:true  }
+    ];
+
+    var postTitle = "{{ doifeel.title|escapejs }}";
+    var hash = 0;
+    for (var i = 0; i < postTitle.length; i++) {
+        hash = postTitle.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    var theme = themes[Math.abs(hash) % themes.length];
+
+    root.style.setProperty('--theme-bg', theme.bg);
+    root.style.setProperty('--theme-text', theme.text);
+
+    /* Butter + Matcha are light — flip hero chrome + doodles to dark for contrast */
+    if (theme.light) {
+        root.style.setProperty('--theme-chrome', 'rgba(0,0,0,0.32)');
+        root.style.setProperty('--theme-badge-bg', 'rgba(0,0,0,0.07)');
+        root.style.setProperty('--theme-badge-br', 'rgba(0,0,0,0.20)');
+
+        var heroDoodles = root.querySelectorAll('.df-hero-doodles .df-doodle');
+        for (var j = 0; j < heroDoodles.length; j++) {
+            heroDoodles[j].style.color = '#000000';
+            heroDoodles[j].style.opacity = '0.12';
         }
-        
-        // Use the hash to reliably select the exact same theme index every time
-        const colorIndex = Math.abs(hash) % themes.length;
-        const selectedTheme = themes[colorIndex];
-        
-        const contentWrapper = document.getElementById("content");
-        
-        if (contentWrapper) {
-            contentWrapper.style.setProperty('--theme-bg', selectedTheme.bg);
-            contentWrapper.style.setProperty('--theme-text', selectedTheme.text);
-            
-            // Adjust doodles slightly if the assigned background is Butter (yellow)
-            if(selectedTheme.bg === '#F2D88F') {
-                const dashedCircle = document.querySelector('.shape-1');
-                const solidCircle = document.querySelector('.shape-5');
-                if(dashedCircle) dashedCircle.style.borderColor = 'rgba(0,0,0,0.2)';
-                if(solidCircle) solidCircle.style.backgroundColor = 'rgba(0,0,0,0.08)';
+        var frame = root.querySelector('.df-media-frame');
+        if (frame) frame.style.borderColor = 'rgba(0,0,0,0.14)';
+    }
+
+    /* ---- 2. Entrance ---- */
+    requestAnimationFrame(function () { root.classList.add('is-ready'); });
+
+    /* ---- 3. Scroll reveal for the card + each CKEditor block ---- */
+    var body = root.querySelector('.df-body');
+    var targets = [].slice.call(root.querySelectorAll('.df-reveal'));
+
+    if (body) {
+        [].slice.call(body.children).forEach(function (el, idx) {
+            if (idx === 0) return; /* first block rides the card reveal */
+            el.classList.add('df-reveal');
+            targets.push(el);
+        });
+    }
+
+    if (reduce || !('IntersectionObserver' in window)) {
+        targets.forEach(function (el) { el.classList.add('in-view'); });
+    } else {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+        targets.forEach(function (el) { io.observe(el); });
+    }
+
+    /* ---- 4. Doodle parallax (article field only, rAF-throttled) ---- */
+    if (!reduce) {
+        var doodles = [].slice.call(root.querySelectorAll('.df-main .df-doodle'));
+        var ticking = false;
+        var main = root.querySelector('.df-main');
+
+        function shift() {
+            var offset = window.pageYOffset - (main ? main.offsetTop : 0);
+            for (var k = 0; k < doodles.length; k++) {
+                var s = parseFloat(doodles[k].getAttribute('data-speed')) || 0;
+                doodles[k].style.transform = 'translate3d(0,' + (offset * s) + 'px,0)';
             }
+            ticking = false;
         }
-    });
+        window.addEventListener('scroll', function () {
+            if (!ticking) { window.requestAnimationFrame(shift); ticking = true; }
+        }, { passive: true });
+        shift();
+    }
+})();
 </script>
 {% endblock %}

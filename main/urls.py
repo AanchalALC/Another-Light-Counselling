@@ -44,6 +44,9 @@ urlpatterns = [
     path('resources/', views.resources, name='resources'),
 
     path('reviews/', views.reviews, name='reviews'),
+    
+    path('media-features/', views.media_features, name='media-features'),
+    path('media-features', views.media_features, name='media-features'),
 
     path('contact', views.contact, name='contact'),
     path('contact/', RedirectView.as_view(url='/contact', permanent=True)),

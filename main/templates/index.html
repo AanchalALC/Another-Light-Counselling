@@ -37,9 +37,13 @@ and experience a cost-effective and quality solution.{% endblock %}
 <style>
   /* Popup spacing is handled in index.scss. Keep this empty style block only if needed later. */
 
-  /* ===== Media Features / "As Featured In" carousel =====
+  /* ===== Media Recognition — logos-only teaser strip =====
+     De-duplicated from /media-features/: the homepage now shows
+     ONLY the outlet logos (no article titles / captions) plus a
+     CTA into the full Media Features page, which holds the
+     interviews, article cards and press-mention grid.
      NOTE: kept inline for now to match the current index.html.
-     Can be moved into static/css/index.css later (see handoff notes). */
+     Can be moved into static/css/index.css later. */
   #mediasection {
     width: 100%;
     box-sizing: border-box;
@@ -83,23 +87,11 @@ and experience a cost-effective and quality solution.{% endblock %}
     background: linear-gradient(90deg, #F08C21, #E36888);
   }
   #mediasection .media-sub {
-    max-width: 800px;
+    max-width: 720px;
     margin: 34px auto 0;
     color: #6b6b6b;
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     line-height: 1.6;
-  }
-  /* Highlighted founder link inside the sub-text */
-  #mediasection .media-sub .founder-link {
-    color: #E36888;
-    font-weight: 700;
-    text-decoration: none;
-    border-bottom: 2px solid rgba(227, 104, 136, .4);
-    transition: color .25s ease, border-color .25s ease;
-  }
-  #mediasection .media-sub .founder-link:hover {
-    color: #F08C21;
-    border-color: #F08C21;
   }
 
   /* ---- Carousel viewport with soft fade edges ---- */
@@ -126,16 +118,14 @@ and experience a cost-effective and quality solution.{% endblock %}
     to   { transform: translateX(-50%); }  /* two identical sets => seamless loop */
   }
 
-  /* ---- Logo card: full colour ALWAYS, richer lift on hover ---- */
+  /* ---- Logo card: logos only (captions live on /media-features/) ---- */
   .media-item {
     flex: 0 0 auto;
-    width: 228px;
+    width: 210px;
     margin-right: 24px;   /* equal trailing space keeps the -50% loop seamless */
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    gap: 14px;
+    justify-content: center;
     padding: 30px 22px;
     background: #fff;
     border: 1px solid #efe7d3;
@@ -147,29 +137,20 @@ and experience a cost-effective and quality solution.{% endblock %}
   .media-logo {
     width: auto;
     height: auto;
-    max-width: 190px;
-    max-height: 74px;
+    max-width: 170px;
+    max-height: 70px;
     object-fit: contain;
     transition: transform .3s ease;   /* full colour, no grayscale filter */
-  }
-  .media-caption {
-    margin: 0;
-    font-size: .84rem;
-    line-height: 1.4;
-    color: #8a8a8a;
-    text-align: center;
-    /* show at all times, clamp to keep cards even */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    min-height: 2.35em;
-    transition: color .3s ease;
   }
   .media-item:hover {
     transform: translateY(-10px);
   }
   .media-item:hover .media-logo { transform: scale(1.05); }
+  .media-item:focus-visible {
+    outline: 3px solid #6698CC;
+    outline-offset: 3px;
+    transform: translateY(-10px);
+  }
 
   /* Cycle the hover accent through the full brand palette */
   .media-item:nth-child(5n+1):hover { border-color: #F08C21; box-shadow: 0 16px 30px rgba(240,140,33,.22); }
@@ -177,18 +158,40 @@ and experience a cost-effective and quality solution.{% endblock %}
   .media-item:nth-child(5n+3):hover { border-color: #6698CC; box-shadow: 0 16px 30px rgba(102,152,204,.22); }
   .media-item:nth-child(5n+4):hover { border-color: #B4B534; box-shadow: 0 16px 30px rgba(180,181,52,.22); }
   .media-item:nth-child(5n+5):hover { border-color: #F2D88F; box-shadow: 0 16px 30px rgba(242,216,143,.34); }
-  .media-item:nth-child(5n+1):hover .media-caption { color: #F08C21; }
-  .media-item:nth-child(5n+2):hover .media-caption { color: #E36888; }
-  .media-item:nth-child(5n+3):hover .media-caption { color: #6698CC; }
-  .media-item:nth-child(5n+4):hover .media-caption { color: #B4B534; }
+
+  /* ---- CTA into the full Media Features page ---- */
+  .media-cta {
+    display: inline-block;
+    margin-top: 44px;
+    padding: 14px 34px;
+    font-size: .86rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    background: #F08C21;
+    border-radius: 10px;
+    box-shadow: 0 10px 24px rgba(240,140,33,.28);
+    transition: background .25s ease, transform .2s ease, box-shadow .25s ease;
+  }
+  .media-cta:hover {
+    background: #E36888;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(227,104,136,.30);
+  }
+  .media-cta:focus-visible { outline: 3px solid #6698CC; outline-offset: 3px; }
+  .media-cta i { margin-left: 8px; font-size: .78rem; }
 
   @media (max-width: 600px) {
     #mediasection { padding: 20px 0 60px; }
     #mediasection h2 { font-size: 2.1rem; }
     #mediasection .media-sub { font-size: 1rem; }
     .media-track { animation-duration: 30s; }
-    .media-item { width: 188px; margin-right: 16px; padding: 24px 18px; border-radius: 16px; }
-    .media-logo { max-width: 140px; max-height: 58px; }
+    .media-item { width: 170px; margin-right: 16px; padding: 24px 18px; border-radius: 16px; }
+    .media-logo { max-width: 130px; max-height: 56px; }
+    .media-cta { margin-top: 34px; padding: 12px 28px; }
   }
 
   /* Respect users who prefer reduced motion: stop scrolling,
@@ -204,6 +207,8 @@ and experience a cost-effective and quality solution.{% endblock %}
     }
     .media-item { margin-right: 0; }
     .media-item[aria-hidden="true"] { display: none; }
+    .media-item:hover { transform: none; }
+    .media-cta:hover { transform: none; }
   }
 </style>
 {% endblock %}
@@ -557,9 +562,10 @@ and experience a cost-effective and quality solution.{% endblock %}
     </div>
 
     {% if media_features %}
+    {# Logos-only teaser — full coverage (videos, articles, mentions) lives on /media-features/ #}
     <div id="mediasection">
         <div class="media-head">
-            <p class="media-kicker">In the Press</p>
+            <p class="media-kicker">In the press</p>
             <h2>Media Recognition</h2>
             <p class="media-sub">
                 Our founder & Head Therapist, <a class="founder-link" href="/about/aanchal-narang/">Aanchal Narang, </a>has been featured by leading media platforms for sharing expert insights and perspectives on mental health, trauma, relationships, sexuality, and emotional wellbeing.
@@ -570,6 +576,7 @@ and experience a cost-effective and quality solution.{% endblock %}
             <div class="media-track">
                 {% comment %} Set A — the real, accessible logos {% endcomment %}
                 {% for feature in media_features %}
+                {% if feature.logo %}
                 <a class="media-item"
                    href="{{ feature.link }}"
                    target="_blank"
@@ -579,14 +586,13 @@ and experience a cost-effective and quality solution.{% endblock %}
                          src="{{ feature.logo.url }}"
                          alt="{{ feature.logo_alt|default:feature.outlet_name }}"
                          loading="lazy">
-                    {% if feature.article_title %}
-                    <span class="media-caption">{{ feature.article_title }}</span>
-                    {% endif %}
                 </a>
+                {% endif %}
                 {% endfor %}
 
                 {% comment %} Set B — duplicate for the seamless loop; hidden from screen readers {% endcomment %}
                 {% for feature in media_features %}
+                {% if feature.logo %}
                 <a class="media-item"
                    href="{{ feature.link }}"
                    target="_blank"
@@ -597,13 +603,15 @@ and experience a cost-effective and quality solution.{% endblock %}
                          src="{{ feature.logo.url }}"
                          alt=""
                          loading="lazy">
-                    {% if feature.article_title %}
-                    <span class="media-caption">{{ feature.article_title }}</span>
-                    {% endif %}
                 </a>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
+
+        <a class="media-cta" href="{% url 'media-features' %}">
+            Explore All Media Features <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
     </div>
     {% endif %}
 

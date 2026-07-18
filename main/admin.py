@@ -142,8 +142,22 @@ class MemberBlogPostAdmin(admin.ModelAdmin):
 @admin.register(MediaFeature)
 class MediaFeatureAdmin(admin.ModelAdmin):
     exclude = ('site',)
-    list_display = ('outlet_name', 'article_title', 'order', 'is_active')
-    list_editable = ('order', 'is_active')
-    list_filter = ('is_active',)
-    search_fields = ('outlet_name', 'article_title')
-    ordering = ('order', 'id')
+    list_display = ('outlet_name', 'feature_type', 'article_title', 'order', 'is_active')
+    list_editable = ('feature_type', 'order', 'is_active')
+    list_filter = ('feature_type', 'is_active')
+    search_fields = ('outlet_name', 'article_title', 'kicker', 'description')
+    ordering = ('feature_type', 'order', 'id')
+    fieldsets = (
+        (None, {
+            'fields': ('feature_type', 'outlet_name', 'order', 'is_active'),
+        }),
+        ('Logo (for logo carousel & article cards)', {
+            'fields': ('logo', 'logo_alt'),
+        }),
+        ('Article / More features', {
+            'fields': ('kicker', 'article_title', 'description', 'link'),
+        }),
+        ('Video highlight', {
+            'fields': ('video_url',),
+        }),
+    )

@@ -1,56 +1,161 @@
 {% extends 'skeleton.html' %}
 {% load static %}
 
-{% block title %}Media Features — Another Light Counselling in the Press{% endblock %}
-{% block metadescription %}Another Light Counselling and our founder Aanchal Narang have been featured across leading media platforms sharing expert insight on mental health, trauma, relationships, sexuality and emotional wellbeing.{% endblock %}
-{% block metakeywords %}Aanchal Narang media, Another Light Counselling press, mental health features, therapy in the media{% endblock %}
+{% block title %}Press, Interviews & Expert Commentary — Another Light Counselling{% endblock %}
+{% block metadescription %}Explore video interviews, in-depth articles and press mentions featuring Another Light Counselling and founder Aanchal Narang — expert commentary on mental health, trauma, relationships, sexuality and emotional wellbeing across India's leading publications.{% endblock %}
+{% block metakeywords %}Aanchal Narang interviews, Another Light Counselling press coverage, mental health expert commentary, therapist media interviews India{% endblock %}
 
 {% block head %}
 {# Single canonical for the page regardless of which path (slash / no-slash) is hit #}
 <link rel="canonical" href="https://another-light.com{% url 'media-features' %}">
 
+{# Preconnect so the modal iframe boots fast on click #}
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+<link rel="preconnect" href="https://i.ytimg.com">
+
 <style>
   /* =========================================================
-     MEDIA FEATURES PAGE
-     Reuses the homepage "As Featured In" look (cream gradient,
-     brand-palette hover accents, seamless marquee) and adds
-     video-highlight, article-card and more-features blocks.
-     Palette: Tangerine #F08C21 · Butter #F2D88F · Blush #E36888
-              Sea #6698CC · Matcha #B4B534
+     MEDIA FEATURES PAGE  —  v4
+     ---------------------------------------------------------
+     · HERO  → SEA (#6698CC) band, white type, palette doodles
+     · BODY  → white, dotted texture
+     · CARDS → white, Butter-derived border + corner palette wash
+     Distinct from the homepage "Media Recognition" logo strip.
+
+     Tangerine #F08C21 · Butter #F2D88F · Blush #E36888
+     Sea #6698CC · Matcha #B4B534
      ========================================================= */
 
   #media-page {
+    /* --- brand palette --- */
+    --alc-tangerine: #F08C21;
+    --alc-butter:    #F2D88F;
+    --alc-blush:     #E36888;
+    --alc-sea:       #6698CC;
+    --alc-matcha:    #B4B534;
+
+    /* --- Sea tints for the hero band --- */
+    --alc-sea-light: #7FAADA;   /* Sea lightened ~14% */
+    --alc-sea-deep:  #5581B4;   /* Sea deepened ~14% */
+
+    /* --- surfaces --- */
+    --alc-body:      #FFFFFF;
+    --alc-card:      #FFFFFF;
+    --alc-line:      #E8D9B6;   /* Butter-derived border */
+    --alc-line-soft: #F0E5CB;
+
+    --alc-ink:       #2b2b2b;
+    --alc-muted:     #6b6b6b;
+
     width: 100%;
     box-sizing: border-box;
-    padding: clamp(28px, 6vw, 64px) 0 clamp(48px, 9vw, 96px);
-    background: linear-gradient(180deg, #ffffff 0%, #FCF6E6 100%);
+    background: var(--alc-body);
     text-align: center;
     overflow: hidden;
   }
 
-  /* ---- Shared section head (title + underline accent) ---- */
-  .mf-head {
-    max-width: 900px;
-    margin: 0 auto clamp(30px, 5vw, 52px);
-    padding: 0 6vw;
+  /* =====================  1 · HERO BAND — SEA  ===================== */
+  .mf-hero {
+    position: relative;
+    padding: clamp(48px, 7vw, 84px) 6vw clamp(52px, 7vw, 88px);
+    background:
+      {% comment %} radial-gradient(880px 400px at 14% 0%,  rgba(242,216,143,.28) 0%, rgba(242,216,143,0) 58%),
+      radial-gradient(820px 420px at 88% 6%,  rgba(227,104,136,.26) 0%, rgba(227,104,136,0) 56%),
+      radial-gradient(700px 400px at 50% 112%, rgba(240,140,33,.24) 0%, rgba(240,140,33,0) 60%), {% endcomment %}
+      linear-gradient(180deg, var(--alc-sea-light) 0%, var(--alc-sea) 58%, var(--alc-sea-deep) 100%);
+    /* hard edge so the hero clearly ENDS and the body begins */
+    border-bottom: 4px solid var(--alc-tangerine);
+    box-shadow: 0 10px 28px rgba(102,152,204,.28);
+    overflow: hidden;
+  }
+  /* dotted texture, light on Sea */
+  .mf-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,.22) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
+    opacity: .8;
+    pointer-events: none;
+  }
+
+  /* doodle layer — light strokes read well on Sea */
+  .mf-doodles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .mf-doodle {
+    position: absolute;
+    opacity: .75;
+    animation: mf-float 9s ease-in-out infinite;
+  }
+  .mf-doodle svg { display: block; width: 100%; height: auto; }
+  .mf-doodle--1 { top: 10%; left: 5%;     width: 74px; animation-delay: 0s;    }
+  .mf-doodle--2 { top: 18%; right: 6%;    width: 88px; animation-delay: -2.2s; }
+  .mf-doodle--3 { bottom: 14%; left: 10%; width: 66px; animation-delay: -4s;   }
+  .mf-doodle--4 { bottom: 12%; right: 10%; width: 80px; animation-delay: -1.2s; }
+  .mf-doodle--5 { top: 54%; left: 2%;     width: 56px; animation-delay: -3.1s; }
+  .mf-doodle--6 { top: 8%;  right: 27%;   width: 46px; animation-delay: -5.3s; }
+  .mf-doodle--7 { bottom: 28%; right: 2%; width: 54px; animation-delay: -6.1s; }
+  .mf-doodle--8 { top: 46%; right: 21%;   width: 40px; animation-delay: -2.8s; }
+  @keyframes mf-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-14px) rotate(5deg); }
+  }
+  @media (max-width: 980px) {
+    .mf-doodle--6, .mf-doodle--8 { display: none; }
+    .mf-doodle { opacity: .55; }
+  }
+  @media (max-width: 620px) {
+    .mf-doodle--2, .mf-doodle--5, .mf-doodle--7 { display: none; }
+  }
+
+  .mf-hero-inner {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* --- kicker forced onto its own centred line above the title --- */
+  .mf-kicker-wrap {
+    display: block;
+    width: 100%;
+    margin: 0 0 20px;
+    text-align: center;
+    line-height: 1;
   }
   .mf-kicker {
-    margin: 0 0 12px;
-    font-size: .82rem;
+    display: inline-block;
+    margin: 0;
+    padding: 8px 20px;
+    font-size: .74rem;
     font-weight: 700;
-    letter-spacing: .2em;
+    letter-spacing: .22em;
     text-transform: uppercase;
-    color: #F08C21;
+    color: var(--alc-sea);
+    background: #fff;
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 999px;
+    box-shadow: 0 6px 16px rgba(30,60,100,.20);
+  }
+
+  .mf-title-wrap {
+    display: block;
+    width: 100%;
+    text-align: center;
   }
   .mf-title {
     display: inline-block;
     position: relative;
     margin: 0;
-    font-size: clamp(2.1rem, 5vw, 3rem);
+    font-size: clamp(2.3rem, 5.6vw, 3.4rem);
     font-weight: 800;
-    letter-spacing: -0.01em;
-    color: #2b2b2b;
-    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: #fff;
+    line-height: 1.08;
+    text-shadow: 0 2px 14px rgba(30,60,100,.22);
   }
   .mf-title::after {
     content: "";
@@ -58,198 +163,381 @@
     left: 50%;
     bottom: -16px;
     transform: translateX(-50%);
-    width: 84px;
-    height: 5px;
-    border-radius: 5px;
-    background: linear-gradient(90deg, #F08C21, #E36888);
+    width: 96px;
+    height: 6px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--alc-butter), var(--alc-tangerine), var(--alc-blush));
   }
   .mf-sub {
-    max-width: 820px;
-    margin: 34px auto 0;
-    color: #6b6b6b;
-    font-size: clamp(1rem, 2.2vw, 1.3rem);
-    line-height: 1.6;
+    max-width: 700px;
+    margin: 40px auto 0;
+    color: rgba(255,255,255,.95);
+    font-size: clamp(1rem, 2.1vw, 1.18rem);
+    line-height: 1.65;
   }
   .mf-sub .founder-link {
-    color: #E36888;
+    color: var(--alc-butter);
     font-weight: 700;
     text-decoration: none;
-    border-bottom: 2px solid rgba(227, 104, 136, .4);
+    border-bottom: 2px solid rgba(242, 216, 143, .6);
     transition: color .25s ease, border-color .25s ease;
   }
-  .mf-sub .founder-link:hover { color: #F08C21; border-color: #F08C21; }
+  .mf-sub .founder-link:hover { color: #fff; border-color: #fff; }
 
-  /* Section headers for the video / article / more blocks */
+  /* quick-jump chips */
+  .mf-jump {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 34px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .mf-jump li { margin: 0; }
+  .mf-jump a {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 24px;
+    font-size: .84rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-decoration: none;
+    color: var(--alc-ink);
+    background: #fff;
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 999px;
+    box-shadow: 0 8px 18px rgba(30,60,100,.20);
+    transition: transform .25s ease, box-shadow .25s ease, color .25s ease;
+  }
+  .mf-jump a i { font-size: .82rem; }
+  .mf-jump li:nth-child(1) a i { color: var(--alc-blush); }
+  .mf-jump li:nth-child(2) a i { color: var(--alc-tangerine); }
+  .mf-jump li:nth-child(3) a i { color: var(--alc-matcha); }
+  .mf-jump a:hover {
+    transform: translateY(-3px);
+    color: var(--alc-tangerine);
+    box-shadow: 0 14px 26px rgba(30,60,100,.28);
+  }
+  .mf-jump a:focus-visible { outline: 3px solid var(--alc-butter); outline-offset: 3px; }
+
+  /* =====================  2 · BODY BAND + SECTIONS  ===================== */
+  .mf-body {
+    position: relative;
+    background-color: var(--alc-body);
+  }
+  /* faint dotted texture so the floor reads as a surface, not a void */
+  .mf-body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(43,43,43,.07) 1.2px, transparent 1.2px);
+    background-size: 24px 24px;
+    opacity: .7;
+    pointer-events: none;
+  }
   .mf-section {
+    position: relative;
     max-width: 1240px;
     margin: 0 auto;
-    padding: clamp(40px, 7vw, 72px) 5vw 0;
+    padding: clamp(46px, 7vw, 78px) 5vw 0;
+    scroll-margin-top: 90px;
   }
   .mf-section-title {
     display: inline-block;
     position: relative;
-    margin: 0 0 clamp(30px, 5vw, 48px);
-    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    margin: 0 0 14px;
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
     font-weight: 800;
-    color: #2b2b2b;
+    color: var(--alc-ink);
     line-height: 1.15;
   }
   .mf-section-title::after {
     content: "";
     position: absolute;
     left: 50%;
-    bottom: -14px;
+    bottom: -12px;
     transform: translateX(-50%);
     width: 68px;
     height: 4px;
     border-radius: 4px;
-    background: linear-gradient(90deg, #6698CC, #B4B534);
+    background: linear-gradient(90deg, var(--alc-sea), var(--alc-matcha));
+  }
+  .mf-section--articles .mf-section-title::after { background: linear-gradient(90deg, var(--alc-tangerine), var(--alc-blush)); }
+  .mf-section--more .mf-section-title::after     { background: linear-gradient(90deg, var(--alc-blush), var(--alc-matcha)); }
+  .mf-section-note {
+    max-width: 700px;
+    margin: 30px auto clamp(30px, 4vw, 44px);
+    color: #7d7566;
+    font-size: .98rem;
+    line-height: 1.6;
   }
 
-  /* =====================  LOGO MARQUEE  ===================== */
-  /* (Carried over from the homepage so both stay identical.) */
-  .media-marquee {
+  /* =====================  SHARED CARD SHELL  ===================== */
+  .mf-card {
+    background: var(--alc-card);
+    border: 1px solid var(--alc-line);
+    border-radius: 20px;
+    box-shadow: 0 6px 18px rgba(120,90,30,.10), 0 1px 3px rgba(120,90,30,.06);
+  }
+
+  /* =====================  VIDEOS — 2-UP + MODAL  ===================== */
+  .mf-video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(22px, 3vw, 32px);
+  }
+  @media (max-width: 860px) {
+    .mf-video-grid { grid-template-columns: 1fr; }
+  }
+
+  .mf-video-card {
     position: relative;
-    max-width: 1240px;
-    margin: 0 auto;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
-  }
-  .media-track {
-    display: flex;
-    width: max-content;
-    padding: 14px 0;
-    animation: media-scroll 42s linear infinite;
-    will-change: transform;
-  }
-  .media-marquee:hover .media-track { animation-play-state: paused; }
-  @keyframes media-scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  .media-item {
-    flex: 0 0 auto;
-    width: 228px;
-    margin-right: 24px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 14px;
-    padding: 30px 22px;
-    background: #fff;
-    border: 1px solid #efe7d3;
-    border-radius: 20px;
-    text-decoration: none;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, .05);
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
     transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
   }
-  .media-logo {
-    width: auto; height: auto;
-    max-width: 190px; max-height: 74px;
-    object-fit: contain;
-    transition: transform .3s ease;
+  .mf-video-card:hover,
+  .mf-video-card:focus-visible {
+    transform: translateY(-8px);
+    border-color: var(--alc-blush);
+    box-shadow: 0 18px 34px rgba(227,104,136,.24);
   }
-  .media-caption {
-    margin: 0;
-    font-size: .84rem;
-    line-height: 1.4;
-    color: #8a8a8a;
-    text-align: center;
+  .mf-video-card:focus-visible { outline: 3px solid var(--alc-sea); outline-offset: 3px; }
+
+  .mf-video-thumb {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #1a1a1a;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  @supports not (aspect-ratio: 16 / 9) {
+    .mf-video-thumb { height: 0; padding-top: 56.25%; }
+  }
+  .mf-video-thumb::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.35) 100%);
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .mf-video-card:hover .mf-video-thumb::after { opacity: 1; }
+
+  .mf-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: var(--alc-tangerine);
+    color: #fff;
+    font-size: 1.5rem;
+    box-shadow: 0 10px 28px rgba(0,0,0,.35);
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), background .3s ease;
+    z-index: 2;
+  }
+  .mf-play i { margin-left: 5px; } /* optically centre the triangle */
+  .mf-video-card:hover .mf-play,
+  .mf-video-card:focus-visible .mf-play {
+    transform: translate(-50%, -50%) scale(1.12);
+    background: var(--alc-blush);
+  }
+  .mf-play::before {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.55);
+    animation: mf-pulse 2.4s ease-out infinite;
+  }
+  @keyframes mf-pulse {
+    0%   { transform: scale(.9); opacity: .8; }
+    70%  { transform: scale(1.25); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .mf-video-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 24px 24px;
+    border-top: 1px solid var(--alc-line-soft);
+  }
+  .mf-video-outlet {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--alc-sea);
+    /* outlet names can be long — keep them to one tidy line */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mf-video-caption {
     display: -webkit-box;
+    margin: 0;
+    font-size: 1.06rem;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--alc-ink);
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 2.35em;
-    transition: color .3s ease;
+    min-height: 2.8em;
+    transition: color .25s ease;
   }
-  .media-item:hover { transform: translateY(-10px); }
-  .media-item:hover .media-logo { transform: scale(1.05); }
-  .media-item:focus-visible {
-    outline: 3px solid #6698CC;
-    outline-offset: 3px;
-    transform: translateY(-10px);
+  .mf-video-card:hover .mf-video-caption { color: var(--alc-blush); }
+  .mf-video-watch {
+    margin-top: 4px;
+    font-size: .76rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--alc-tangerine);
   }
-  .media-item:nth-child(5n+1):hover { border-color: #F08C21; box-shadow: 0 16px 30px rgba(240,140,33,.22); }
-  .media-item:nth-child(5n+2):hover { border-color: #E36888; box-shadow: 0 16px 30px rgba(227,104,136,.22); }
-  .media-item:nth-child(5n+3):hover { border-color: #6698CC; box-shadow: 0 16px 30px rgba(102,152,204,.22); }
-  .media-item:nth-child(5n+4):hover { border-color: #B4B534; box-shadow: 0 16px 30px rgba(180,181,52,.22); }
-  .media-item:nth-child(5n+5):hover { border-color: #F2D88F; box-shadow: 0 16px 30px rgba(242,216,143,.34); }
-  .media-item:nth-child(5n+1):hover .media-caption { color: #F08C21; }
-  .media-item:nth-child(5n+2):hover .media-caption { color: #E36888; }
-  .media-item:nth-child(5n+3):hover .media-caption { color: #6698CC; }
-  .media-item:nth-child(5n+4):hover .media-caption { color: #B4B534; }
+  .mf-video-watch i { margin-left: 6px; font-size: .7rem; transition: transform .25s ease; }
+  .mf-video-card:hover .mf-video-watch i { transform: translateX(4px); }
 
-  /* =====================  VIDEO HIGHLIGHTS  ===================== */
-  .mf-video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: clamp(20px, 3vw, 32px);
+  /* ---- Video modal ---- */
+  .mf-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 4vw;
+    background: rgba(18, 34, 56, .92);   /* Sea-tinted scrim */
+    opacity: 0;
+    transition: opacity .25s ease;
   }
-  .mf-video-card {
-    background: #fff;
-    border: 1px solid #efe7d3;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, .05);
-    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
-    text-align: left;
+  .mf-modal.is-open { display: flex; opacity: 1; }
+  .mf-modal-box {
+    position: relative;
+    width: 100%;
+    max-width: 1040px;
+    background: #000;
+    border-radius: 18px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6);
+    transform: translateY(14px) scale(.98);
+    transition: transform .3s cubic-bezier(.2,.7,.2,1);
   }
-  .mf-video-card:hover {
-    transform: translateY(-8px);
-    border-color: #E36888;
-    box-shadow: 0 16px 30px rgba(227,104,136,.20);
-  }
-  .mf-video-embed {
+  .mf-modal.is-open .mf-modal-box { transform: translateY(0) scale(1); }
+  .mf-modal-frame {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    background: #000;
+    border-radius: 18px 18px 0 0;
+    overflow: hidden;
   }
-  /* aspect-ratio fallback for older browsers */
   @supports not (aspect-ratio: 16 / 9) {
-    .mf-video-embed { height: 0; padding-top: 56.25%; }
+    .mf-modal-frame { height: 0; padding-top: 56.25%; }
   }
-  .mf-video-embed iframe {
+  .mf-modal-frame iframe {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     border: 0;
   }
-  .mf-video-caption {
+  .mf-modal-title {
     margin: 0;
-    padding: 18px 20px 22px;
+    padding: 16px 22px;
+    background: #fff;
+    border-radius: 0 0 18px 18px;
     font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.45;
-    color: #2b2b2b;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--alc-ink);
+    text-align: left;
   }
+  .mf-modal-close {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    z-index: 3;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    background: var(--alc-tangerine);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,.4);
+    transition: background .25s ease, transform .25s ease;
+  }
+  .mf-modal-close:hover { background: var(--alc-blush); transform: rotate(90deg); }
+  .mf-modal-close:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  @media (max-width: 600px) {
+    .mf-modal { padding: 0 12px; }
+    .mf-modal-close { top: -54px; right: 0; }
+  }
+  body.mf-modal-open { overflow: hidden; }
 
-  /* =====================  ARTICLE / READ CARDS  ===================== */
+  /* =====================  ARTICLE / READ CARDS  =====================
+     Restored to the corner-wash treatment: a soft palette circle bleeds
+     out of the top-right corner and grows on hover. No top accent rule,
+     no divider under the logo row. */
   .mf-article-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: clamp(20px, 3vw, 32px);
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: clamp(20px, 3vw, 30px);
     text-align: left;
   }
   .mf-article-card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    background: #fff;
-    border: 1px solid #efe7d3;
-    border-radius: 20px;
+    border-radius: 22px;
     padding: clamp(22px, 3vw, 30px);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, .05);
+    overflow: hidden;
     transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
   }
+  .mf-article-card::before {
+    content: "";
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    opacity: .16;
+    transition: transform .35s ease, opacity .35s ease;
+  }
+  .mf-article-card:nth-child(5n+1)::before { background: var(--alc-tangerine); }
+  .mf-article-card:nth-child(5n+2)::before { background: var(--alc-blush); }
+  .mf-article-card:nth-child(5n+3)::before { background: var(--alc-sea); }
+  .mf-article-card:nth-child(5n+4)::before { background: var(--alc-matcha); }
+  .mf-article-card:nth-child(5n+5)::before { background: var(--alc-butter); opacity: .34; }
+  .mf-article-card:hover::before { transform: scale(1.25); opacity: .26; }
   .mf-article-card:hover {
     transform: translateY(-8px);
-    border-color: #F08C21;
-    box-shadow: 0 16px 30px rgba(240,140,33,.18);
+    border-color: var(--alc-tangerine);
+    box-shadow: 0 18px 34px rgba(240,140,33,.18);
   }
   .mf-article-top {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -265,116 +553,272 @@
     object-fit: contain;
   }
   .mf-article-kicker {
-    font-size: .9rem;
+    flex: 0 0 auto;
+    max-width: 45%;
+    font-size: .78rem;
     font-weight: 700;
-    color: #6698CC;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--alc-sea);
     text-align: right;
     line-height: 1.3;
   }
   .mf-article-title {
+    position: relative;
+    display: -webkit-box;
     margin: 0 0 12px;
-    font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+    font-size: clamp(1.12rem, 2.3vw, 1.32rem);
     font-weight: 800;
-    line-height: 1.25;
-    color: #2b2b2b;
-    text-transform: uppercase;
+    line-height: 1.3;
+    color: var(--alc-ink);
     letter-spacing: -0.01em;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .mf-article-desc {
-    margin: 0 0 22px;
-    font-size: .98rem;
-    line-height: 1.6;
-    color: #6b6b6b;
-    /* keep card heights tidy */
+    position: relative;
     display: -webkit-box;
+    margin: 0 0 22px;
+    font-size: .96rem;
+    line-height: 1.6;
+    color: var(--alc-muted);
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
   .mf-read-btn {
+    position: relative;
     align-self: flex-start;
     margin-top: auto;
-    display: inline-block;
-    padding: 10px 26px;
-    font-size: .82rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 26px;
+    font-size: .78rem;
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
     text-decoration: none;
     color: #fff;
-    background: #F08C21;
-    border-radius: 8px;
-    transition: background .25s ease, transform .2s ease;
+    background: var(--alc-tangerine);
+    border-radius: 999px;
+    transition: background .25s ease, transform .2s ease, gap .25s ease;
   }
-  .mf-read-btn:hover { background: #E36888; transform: translateY(-2px); color: #fff; }
-  .mf-read-btn:focus-visible { outline: 3px solid #6698CC; outline-offset: 3px; }
+  .mf-read-btn i { font-size: .7rem; }
+  .mf-read-btn:hover { background: var(--alc-blush); transform: translateY(-2px); color: #fff; gap: 12px; }
+  .mf-read-btn:focus-visible { outline: 3px solid var(--alc-sea); outline-offset: 3px; }
 
-  /* =====================  MORE FEATURES LIST  ===================== */
-  .mf-more-list {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0;
-    list-style: none;
+  /* =====================  MORE FEATURES — CARD GRID  ===================== */
+  .mf-more-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: clamp(18px, 2.5vw, 26px);
     text-align: left;
   }
-  .mf-more-list li {
-    margin: 0;
-    border-bottom: 1px solid #efe7d3;
-  }
-  .mf-more-list li:last-child { border-bottom: 0; }
-  .mf-more-list a {
+  .mf-more-card {
     display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 16px 8px;
-    font-size: 1.02rem;
-    line-height: 1.5;
-    color: #3a3a3a;
+    flex-direction: column;
+    overflow: hidden;
     text-decoration: none;
-    transition: color .2s ease, background .2s ease;
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
   }
-  .mf-more-list a:hover { color: #F08C21; background: rgba(240,140,33,.05); }
-  .mf-more-list a:focus-visible { outline: 3px solid #6698CC; outline-offset: -3px; }
-  .mf-more-list .mf-star {
-    flex: 0 0 auto;
-    margin-top: 2px;
-    color: #6698CC;
+  .mf-more-media {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 126px;
+    padding: 20px;
+    border-bottom: 1px solid var(--alc-line-soft);
+    overflow: hidden;
   }
-  .mf-more-list a:hover .mf-star { color: #F08C21; }
+  .mf-more-media::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(43,43,43,.10) 1.2px, transparent 1.2px);
+    background-size: 18px 18px;
+    opacity: .55;
+  }
+  .mf-more-card:nth-child(5n+1) .mf-more-media { background: rgba(240,140,33,.14); }
+  .mf-more-card:nth-child(5n+2) .mf-more-media { background: rgba(227,104,136,.14); }
+  .mf-more-card:nth-child(5n+3) .mf-more-media { background: rgba(102,152,204,.14); }
+  .mf-more-card:nth-child(5n+4) .mf-more-media { background: rgba(180,181,52,.14); }
+  .mf-more-card:nth-child(5n+5) .mf-more-media { background: rgba(242,216,143,.34); }
+  .mf-more-media img {
+    position: relative;
+    max-width: 160px;
+    max-height: 74px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: transform .3s ease;
+  }
+  /* No logo? Show a palette doodle instead of repeating the headline. */
+  .mf-more-doodle {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    opacity: .75;
+    transition: transform .3s ease;
+  }
+  .mf-more-doodle svg { width: 100%; height: 100%; display: block; }
+  .mf-more-card:nth-child(5n+1) .mf-more-doodle svg { stroke: var(--alc-tangerine); }
+  .mf-more-card:nth-child(5n+2) .mf-more-doodle svg { stroke: var(--alc-blush); }
+  .mf-more-card:nth-child(5n+3) .mf-more-doodle svg { stroke: var(--alc-sea); }
+  .mf-more-card:nth-child(5n+4) .mf-more-doodle svg { stroke: var(--alc-matcha); }
+  .mf-more-card:nth-child(5n+5) .mf-more-doodle svg { stroke: var(--alc-tangerine); }
+  .mf-more-card:hover .mf-more-doodle { transform: rotate(-6deg) scale(1.08); }
+
+  .mf-more-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 18px 20px 20px;
+  }
+  .mf-more-title {
+    display: -webkit-box;
+    margin: 0 0 14px;
+    font-size: .98rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--alc-ink);
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color .25s ease;
+  }
+  .mf-more-read {
+    margin-top: auto;
+    font-size: .74rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--alc-tangerine);
+    transition: color .25s ease;
+  }
+  .mf-more-read i {
+    margin-left: 6px;
+    font-size: .7rem;
+    transition: transform .25s ease;
+  }
+  .mf-more-card:hover { transform: translateY(-8px); box-shadow: 0 18px 34px rgba(120,90,30,.18); }
+  .mf-more-card:hover .mf-more-media img { transform: scale(1.06); }
+  .mf-more-card:hover .mf-more-read i { transform: translateX(4px); }
+  .mf-more-card:focus-visible {
+    outline: 3px solid var(--alc-sea);
+    outline-offset: 3px;
+    transform: translateY(-8px);
+  }
+  .mf-more-card:nth-child(5n+1):hover { border-color: var(--alc-tangerine); }
+  .mf-more-card:nth-child(5n+2):hover { border-color: var(--alc-blush); }
+  .mf-more-card:nth-child(5n+3):hover { border-color: var(--alc-sea); }
+  .mf-more-card:nth-child(5n+4):hover { border-color: var(--alc-matcha); }
+  .mf-more-card:nth-child(5n+5):hover { border-color: var(--alc-butter); }
+  .mf-more-card:nth-child(5n+1):hover .mf-more-title { color: var(--alc-tangerine); }
+  .mf-more-card:nth-child(5n+2):hover .mf-more-title { color: var(--alc-blush); }
+  .mf-more-card:nth-child(5n+3):hover .mf-more-title { color: var(--alc-sea); }
+  .mf-more-card:nth-child(5n+4):hover .mf-more-title { color: var(--alc-matcha); }
+
+  /* =====================  CLOSING CTA — SEA, ties back to the hero  ===================== */
+  .mf-cta-band {
+    position: relative;
+    max-width: 1140px;
+    margin: clamp(56px, 8vw, 88px) auto 0;
+    padding: clamp(38px, 6vw, 58px) 6vw;
+    border-radius: 24px;
+    background: linear-gradient(135deg, var(--alc-sea-light) 0%, var(--alc-sea) 55%, var(--alc-sea-deep) 100%);
+    box-shadow: 0 18px 40px rgba(102,152,204,.34);
+    overflow: hidden;
+  }
+  .mf-cta-band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,.26) 1.4px, transparent 1.4px);
+    background-size: 22px 22px;
+    opacity: .7;
+    pointer-events: none;
+  }
+  .mf-cta-title {
+    position: relative;
+    margin: 0 0 12px;
+    font-size: clamp(1.5rem, 3.4vw, 2rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .mf-cta-text {
+    position: relative;
+    max-width: 620px;
+    margin: 0 auto 26px;
+    color: rgba(255,255,255,.94);
+    font-size: 1.02rem;
+    line-height: 1.6;
+  }
+  .mf-cta-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 38px;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    background: var(--alc-tangerine);
+    border-radius: 999px;
+    box-shadow: 0 12px 26px rgba(0,0,0,.22);
+    transition: background .25s ease, transform .2s ease, gap .25s ease;
+  }
+  .mf-cta-btn:hover { background: var(--alc-blush); color: #fff; transform: translateY(-3px); gap: 14px; }
+  .mf-cta-btn:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+
+  /* bottom breathing room before the footer */
+  .mf-page-tail { height: clamp(56px, 9vw, 96px); }
 
   /* =====================  EMPTY STATE  ===================== */
   .mf-empty {
     max-width: 640px;
-    margin: 40px auto 0;
-    color: #8a8a8a;
+    margin: 0 auto;
+    padding: 60px 6vw 80px;
+    color: #7d7566;
     font-size: 1.05rem;
     line-height: 1.6;
   }
 
   /* =====================  RESPONSIVE  ===================== */
   @media (max-width: 600px) {
-    .media-track { animation-duration: 30s; }
-    .media-item { width: 188px; margin-right: 16px; padding: 24px 18px; border-radius: 16px; }
-    .media-logo { max-width: 140px; max-height: 58px; }
-    .mf-article-title { text-transform: none; }
+    .mf-video-caption { font-size: 1rem; min-height: 0; }
+    .mf-video-body { padding: 16px 18px 20px; }
+    .mf-more-media { height: 108px; }
+    .mf-play { width: 62px; height: 62px; font-size: 1.2rem; }
+    .mf-jump a { padding: 9px 16px; font-size: .78rem; }
+    .mf-article-kicker { max-width: 50%; }
   }
 
-  /* Respect reduced-motion: stop the marquee, wrap logos into a grid */
+  /* Respect reduced-motion */
   @media (prefers-reduced-motion: reduce) {
-    .media-marquee { -webkit-mask-image: none; mask-image: none; }
-    .media-track {
-      animation: none;
-      width: auto;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-    .media-item { margin-right: 0; }
-    .media-item[aria-hidden="true"] { display: none; }
+    .mf-doodle { animation: none; }
+    .mf-play::before { animation: none; }
     .mf-video-card:hover,
+    .mf-video-card:focus-visible,
     .mf-article-card:hover,
-    .media-item:hover { transform: none; }
-    .mf-read-btn:hover { transform: none; }
+    .mf-more-card:hover { transform: none; }
+    .mf-article-card:hover::before { transform: none; }
+    .mf-read-btn:hover,
+    .mf-cta-btn:hover,
+    .mf-jump a:hover { transform: none; }
+    .mf-more-card:hover .mf-more-media img,
+    .mf-more-card:hover .mf-more-read i,
+    .mf-more-card:hover .mf-more-doodle,
+    .mf-video-card:hover .mf-video-watch i { transform: none; }
+    .mf-video-card:hover .mf-play,
+    .mf-video-card:focus-visible .mf-play { transform: translate(-50%, -50%); }
+    .mf-modal, .mf-modal-box { transition: none; }
   }
 </style>
 {% endblock %}
@@ -382,151 +826,328 @@
 {% block body %}
 <div id="media-page">
 
-  {# ---------- PAGE HEAD ---------- #}
-  <div class="mf-head">
-    <p class="mf-kicker">In the Press</p>
-    <h1 class="mf-title">Media Features</h1>
-    <p class="mf-sub">
-      Our founder &amp; Head Therapist,
-      <a class="founder-link" href="/about/aanchal-narang/">Aanchal Narang,</a>
-      and Another Light Counselling have been featured by leading media platforms for expert insight on
-      mental health, trauma, relationships, sexuality and emotional wellbeing.
-    </p>
-  </div>
-
-  {# ---------- LOGO CAROUSEL (seamless marquee, same as homepage) ---------- #}
-  {% if logos %}
-  <div class="media-marquee">
-    <div class="media-track">
-      {% comment %} Set A — real, accessible logos {% endcomment %}
-      {% for feature in logos %}
-      <a class="media-item"
-         href="{{ feature.link }}"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="{{ feature.outlet_name }}{% if feature.article_title %} — {{ feature.article_title }}{% endif %}">
-        {% if feature.logo %}
-        <img class="media-logo"
-             src="{{ feature.logo.url }}"
-             alt="{{ feature.logo_alt|default:feature.outlet_name }}"
-             loading="lazy">
-        {% endif %}
-        {% if feature.article_title %}
-        <span class="media-caption">{{ feature.article_title }}</span>
-        {% endif %}
-      </a>
-      {% endfor %}
-
-      {% comment %} Set B — duplicate for the seamless loop; hidden from screen readers {% endcomment %}
-      {% for feature in logos %}
-      <a class="media-item"
-         href="{{ feature.link }}"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-hidden="true"
-         tabindex="-1">
-        {% if feature.logo %}
-        <img class="media-logo"
-              src="{{ feature.logo.url }}"
-              alt=""
-              loading="lazy">
-        {% endif %}
-        {% if feature.article_title %}
-        <span class="media-caption">{{ feature.article_title }}</span>
-        {% endif %}
-      </a>
-      {% endfor %}
+  {# ================= 1 · HERO BAND (Sea) ================= #}
+  {# Copy is intentionally different from the homepage "Media Recognition"  #}
+  {# strip: the homepage teases the logos; this page is the full archive.   #}
+  <section class="mf-hero">
+    <div class="mf-doodles" aria-hidden="true">
+      {# 1 · microphone — Butter #}
+      <div class="mf-doodle mf-doodle--1">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F2D88F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="24" y="6" width="16" height="30" rx="8"/>
+          <path d="M16 30a16 16 0 0 0 32 0"/>
+          <path d="M32 46v10M24 58h16"/>
+        </svg>
+      </div>
+      {# 2 · speech bubbles — white #}
+      <div class="mf-doodle mf-doodle--2">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 14a6 6 0 0 1 6-6h26a6 6 0 0 1 6 6v14a6 6 0 0 1-6 6H20l-10 8V34a6 6 0 0 1-4-6z"/>
+          <path d="M50 24h4a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4h-2v8l-8-8H36"/>
+        </svg>
+      </div>
+      {# 3 · star — Butter #}
+      <div class="mf-doodle mf-doodle--3">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F2D88F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 6l7.6 15.6L57 24.1 44.5 36.2l3 17.3L32 45.4l-15.5 8.1 3-17.3L7 24.1l17.4-2.5z"/>
+        </svg>
+      </div>
+      {# 4 · newspaper — white #}
+      <div class="mf-doodle mf-doodle--4">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 12h38v40a4 4 0 0 0 4 4H12a4 4 0 0 1-4-4z"/>
+          <path d="M46 22h6a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4"/>
+          <path d="M15 21h24M15 31h24M15 41h14"/>
+        </svg>
+      </div>
+      {# 5 · heart — Blush #}
+      <div class="mf-doodle mf-doodle--5">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#E36888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 54S8 40 8 24a12 12 0 0 1 24-4 12 12 0 0 1 24 4c0 16-24 30-24 30z"/>
+        </svg>
+      </div>
+      {# 6 · squiggle — Butter #}
+      <div class="mf-doodle mf-doodle--6">
+        <svg viewBox="0 0 64 34" fill="none" stroke="#F2D88F" stroke-width="4" stroke-linecap="round">
+          <path d="M3 25c8-24 16 0 24-12s16 12 24 0"/>
+        </svg>
+      </div>
+      {# 7 · play button — Tangerine #}
+      <div class="mf-doodle mf-doodle--7">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F08C21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="12" width="56" height="40" rx="8"/>
+          <path d="M27 26l14 6-14 6z"/>
+        </svg>
+      </div>
+      {# 8 · sparkle — white #}
+      <div class="mf-doodle mf-doodle--8">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round">
+          <path d="M32 6v52M6 32h52M14 14l36 36M50 14L14 50"/>
+        </svg>
+      </div>
     </div>
-  </div>
-  {% endif %}
 
-  {# ---------- FEATURED HIGHLIGHTS (YouTube) ---------- #}
-  {% if videos %}
-  <section class="mf-section" aria-labelledby="mf-highlights">
-    <h2 class="mf-section-title" id="mf-highlights">Featured Highlights</h2>
-    <div class="mf-video-grid">
-      {% for feature in videos %}
-      {% if feature.youtube_embed_url %}
-      <article class="mf-video-card">
-        <div class="mf-video-embed">
-          <iframe
-            src="{{ feature.youtube_embed_url }}"
-            title="{{ feature.article_title|default:feature.outlet_name }}"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-        </div>
-        {% if feature.article_title %}
-        <p class="mf-video-caption">{{ feature.article_title }}</p>
+    <div class="mf-hero-inner">
+      {# kicker gets its own block-level line so it always sits ABOVE the title #}
+      <div class="mf-kicker-wrap"><span class="mf-kicker">In the Press</span></div>
+
+      <div class="mf-title-wrap">
+        <h1 class="mf-title">Media Features</h1>
+      </div>
+
+      <p class="mf-sub">
+        From interviews and panel discussions to published articles and media features,
+        explore the complete archive of press coverage featuring
+        <a class="founder-link" href="/about/aanchal-narang/">Aanchal Narang</a>
+        and the
+        <a class="founder-link" href="https://www.another-light.com/about">Another Light Counselling team</a>,
+        covering trauma, relationships, sexuality, workplace mental health, and emotional wellbeing.
+      </p>
+
+      <ul class="mf-jump">
+        {% if videos %}
+        <li><a href="#mf-highlights"><i class="fas fa-play" aria-hidden="true"></i> Interviews &amp; Panels</a></li>
         {% endif %}
-      </article>
-      {% endif %}
-      {% endfor %}
+        {% if articles %}
+        <li><a href="#mf-articles"><i class="fas fa-book-open" aria-hidden="true"></i> Featured Articles</a></li>
+        {% endif %}
+        {% if more_features %}
+        <li><a href="#mf-more"><i class="fas fa-newspaper" aria-hidden="true"></i> More Press Mentions</a></li>
+        {% endif %}
+      </ul>
     </div>
   </section>
-  {% endif %}
 
-  {# ---------- FEATURED ARTICLES (READ cards) ---------- #}
-  {% if articles %}
-  <section class="mf-section" aria-labelledby="mf-articles">
-    <h2 class="mf-section-title" id="mf-articles">Featured Articles</h2>
-    <div class="mf-article-grid">
-      {% for feature in articles %}
-      <article class="mf-article-card">
-        <div class="mf-article-top">
-          {% if feature.logo %}
-          <img class="mf-article-logo"
-               src="{{ feature.logo.url }}"
-               alt="{{ feature.logo_alt|default:feature.outlet_name }}"
-               loading="lazy">
-          {% else %}
-          <span></span>
-          {% endif %}
-          {% if feature.kicker %}
-          <span class="mf-article-kicker">{{ feature.kicker }}</span>
-          {% endif %}
-        </div>
-        {% if feature.article_title %}
-        <h3 class="mf-article-title">{{ feature.article_title }}</h3>
+  {# ================= 2 · BODY BAND ================= #}
+  <div class="mf-body">
+
+    {# ---------- WATCH — 2-up grid, click-to-play modal ---------- #}
+    {% if videos %}
+    <section class="mf-section mf-section--videos" id="mf-highlights" aria-labelledby="mf-highlights-h">
+      <h2 class="mf-section-title" id="mf-highlights-h">Interviews &amp; Panels</h2>
+      <p class="mf-section-note">Full-length conversations, interviews, and expert panels where our team explores mental health topics on camera.</p>
+      <div class="mf-video-grid">
+        {% for feature in videos %}
+        {% if feature.youtube_embed_url %}
+        <button type="button"
+                class="mf-card mf-video-card js-video-card"
+                data-embed="{{ feature.youtube_embed_url }}"
+                data-title="{{ feature.article_title|default:feature.outlet_name }}"
+                aria-label="Play video: {{ feature.article_title|default:feature.outlet_name }}">
+          <span class="mf-video-thumb js-video-thumb">
+            <span class="mf-play" aria-hidden="true"><i class="fas fa-play"></i></span>
+          </span>
+          <span class="mf-video-body">
+            {% if feature.outlet_name %}
+            <span class="mf-video-outlet">{{ feature.outlet_name }}</span>
+            {% endif %}
+            {% if feature.article_title %}
+            <span class="mf-video-caption">{{ feature.article_title }}</span>
+            {% endif %}
+            <span class="mf-video-watch">Watch Now <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+          </span>
+        </button>
         {% endif %}
-        {% if feature.description %}
-        <p class="mf-article-desc">{{ feature.description }}</p>
-        {% endif %}
-        {% if feature.link %}
-        <a class="mf-read-btn"
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {# ---------- READ — article cards ---------- #}
+    {% if articles %}
+    <section class="mf-section mf-section--articles" id="mf-articles" aria-labelledby="mf-articles-h">
+      <h2 class="mf-section-title" id="mf-articles-h">Featured Articles</h2>
+      <p class="mf-section-note">Browse thoughtful articles, feature stories, and expert insights featuring Another Light Counselling and its work in mental health.</p>
+      <div class="mf-article-grid">
+        {% for feature in articles %}
+        <article class="mf-card mf-article-card">
+          <div class="mf-article-top">
+            {% if feature.logo %}
+            <img class="mf-article-logo"
+                 src="{{ feature.logo.url }}"
+                 alt="{{ feature.logo_alt|default:feature.outlet_name }}"
+                 loading="lazy">
+            {% else %}
+            <span></span>
+            {% endif %}
+            {% if feature.kicker %}
+            <span class="mf-article-kicker">{{ feature.kicker }}</span>
+            {% endif %}
+          </div>
+          {% if feature.article_title %}
+          <h3 class="mf-article-title">{{ feature.article_title }}</h3>
+          {% endif %}
+          {% if feature.description %}
+          <p class="mf-article-desc">{{ feature.description }}</p>
+          {% endif %}
+          {% if feature.link %}
+          <a class="mf-read-btn"
+             href="{{ feature.link }}"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Read: {{ feature.article_title|default:feature.outlet_name }}">
+             Read <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          </a>
+          {% endif %}
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {# ---------- MORE PRESS MENTIONS — card grid ---------- #}
+    {% if more_features %}
+    <section class="mf-section mf-section--more" id="mf-more" aria-labelledby="mf-more-h">
+      <h2 class="mf-section-title" id="mf-more-h">More Press Mentions</h2>
+      <p class="mf-section-note">Explore additional press coverage, quotes, and mentions across various publications.</p>
+      <div class="mf-more-grid">
+        {% for feature in more_features %}
+        <a class="mf-card mf-more-card"
            href="{{ feature.link }}"
            target="_blank"
            rel="noopener noreferrer"
-           aria-label="Read: {{ feature.article_title|default:feature.outlet_name }}">Read</a>
-        {% endif %}
-      </article>
-      {% endfor %}
-    </div>
-  </section>
-  {% endif %}
-
-  {# ---------- MORE FEATURES (simple links) ---------- #}
-  {% if more_features %}
-  <section class="mf-section" aria-labelledby="mf-more">
-    <h2 class="mf-section-title" id="mf-more">More Features</h2>
-    <ul class="mf-more-list">
-      {% for feature in more_features %}
-      <li>
-        <a href="{{ feature.link }}" target="_blank" rel="noopener noreferrer">
-          <i class="fas fa-star mf-star" aria-hidden="true"></i>
-          <span>{{ feature.article_title|default:feature.outlet_name }}</span>
+           aria-label="Read: {{ feature.article_title|default:feature.outlet_name }}">
+          <span class="mf-more-media">
+            {% if feature.logo %}
+            <img src="{{ feature.logo.url }}"
+                 alt="{{ feature.logo_alt|default:feature.outlet_name }}"
+                 loading="lazy">
+            {% else %}
+            {# no logo on file — a palette doodle reads better than repeating the headline #}
+            <span class="mf-more-doodle" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 12h38v40a4 4 0 0 0 4 4H12a4 4 0 0 1-4-4z"/>
+                <path d="M46 22h6a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4"/>
+                <path d="M15 21h24M15 31h24M15 41h14"/>
+              </svg>
+            </span>
+            {% endif %}
+          </span>
+          <span class="mf-more-body">
+            <span class="mf-more-title">{{ feature.article_title|default:feature.outlet_name }}</span>
+            <span class="mf-more-read">Read Article <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+          </span>
         </a>
-      </li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
 
-  {# ---------- EMPTY STATE ---------- #}
-  {% if not logos and not videos and not articles and not more_features %}
-  <p class="mf-empty">Media features are being curated and will appear here soon.</p>
-  {% endif %}
+    {# ---------- CLOSING CTA ---------- #}
+    {% if videos or articles or more_features %}
+    <div class="mf-cta-band">
+      <h2 class="mf-cta-title">Ready to Take the Next Step?</h2>
+      <p class="mf-cta-text">
+        Behind every interview and article is a team committed to helping individuals, couples,
+        and families navigate life's emotional challenges with confidence and care.
+      </p>
+      <a class="mf-cta-btn" href="{% url 'contact' %}">
+        Book a Session <i class="fas fa-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="mf-page-tail"></div>
+    {% endif %}
 
+    {# ---------- EMPTY STATE ---------- #}
+    {% if not videos and not articles and not more_features %}
+    <p class="mf-empty">Media features are being curated and will appear here soon.</p>
+    {% endif %}
+
+  </div>
 </div>
+
+{# ================= VIDEO MODAL (single reusable instance) ================= #}
+{% if videos %}
+<div class="mf-modal" id="mf-modal" role="dialog" aria-modal="true" aria-labelledby="mf-modal-title">
+  <div class="mf-modal-box">
+    <button type="button" class="mf-modal-close" id="mf-modal-close" aria-label="Close video">
+      <i class="fas fa-times" aria-hidden="true"></i>
+    </button>
+    <div class="mf-modal-frame" id="mf-modal-frame"></div>
+    <p class="mf-modal-title" id="mf-modal-title"></p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var cards = document.querySelectorAll('.js-video-card');
+  if (!cards.length) return;
+
+  var modal      = document.getElementById('mf-modal');
+  var modalFrame = document.getElementById('mf-modal-frame');
+  var modalTitle = document.getElementById('mf-modal-title');
+  var closeBtn   = document.getElementById('mf-modal-close');
+  var lastFocused = null;
+
+  /* --- Pull the YouTube video id out of whatever URL shape the admin saved --- */
+  function videoIdFrom(url) {
+    if (!url) return '';
+    var m = url.match(/(?:embed\/|v=|youtu\.be\/|\/v\/|shorts\/)([A-Za-z0-9_-]{11})/);
+    return m ? m[1] : '';
+  }
+
+  /* --- Facade thumbnails: no YouTube iframe loads until a click --- */
+  Array.prototype.forEach.call(cards, function (card) {
+    var id = videoIdFrom(card.getAttribute('data-embed'));
+    if (!id) return;
+    var thumb = card.querySelector('.js-video-thumb');
+    if (!thumb) return;
+
+    var hd = 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg';
+    var sd = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+    var probe = new Image();
+    probe.onload = function () {
+      // YouTube serves a 120x90 grey placeholder when maxres doesn't exist.
+      thumb.style.backgroundImage = 'url("' + (probe.naturalWidth > 200 ? hd : sd) + '")';
+    };
+    probe.onerror = function () { thumb.style.backgroundImage = 'url("' + sd + '")'; };
+    probe.src = hd;
+  });
+
+  function openModal(embedUrl, title) {
+    var id = videoIdFrom(embedUrl);
+    if (!id) { window.open(embedUrl, '_blank', 'noopener'); return; }
+
+    lastFocused = document.activeElement;
+
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+    iframe.title = title || 'Video';
+    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('allowfullscreen', '');
+
+    modalFrame.innerHTML = '';
+    modalFrame.appendChild(iframe);
+    modalTitle.textContent = title || '';
+
+    modal.classList.add('is-open');
+    document.body.classList.add('mf-modal-open');
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    modalFrame.innerHTML = '';      // kills playback
+    modalTitle.textContent = '';
+    document.body.classList.remove('mf-modal-open');
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+
+  Array.prototype.forEach.call(cards, function (card) {
+    card.addEventListener('click', function () {
+      openModal(card.getAttribute('data-embed'), card.getAttribute('data-title'));
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeModal();   // backdrop click
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+})();
+</script>
+{% endif %}
 {% endblock %}

@@ -435,7 +435,7 @@
     <div id="resource-list">
         {% for resource in resources %}
 
-        <a class="resource-card" href="{{ resource.link }}" target="_blank" rel="noopener noreferrer">
+        <a class="resource-card" href="{{ resource.link }}" target="_blank" rel="noopener noreferrer nofollow">
             <div class="thumb-wrap">
                 {% if resource.thumbnail %}
                 <img src="{{ resource.thumbnail.url }}" alt="{{ resource.title }}">

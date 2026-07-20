@@ -493,7 +493,7 @@
           {% endif %}
           <div class="cta-row">
             {% if member.is_therapist and member.booking_url %}
-              <a class="btn book" href="{{ member.booking_url }}" target="_blank" rel="noopener">Book a Session with {{ member.name }}</a>
+              <a class="btn book" href="{{ member.booking_url }}" target="_blank" rel="noopener nofollow">Book a Session with {{ member.name }}</a>
             {% endif %}
           </div>
         </div>

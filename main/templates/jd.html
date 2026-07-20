@@ -43,7 +43,7 @@
             {{ jd.content | safe }}
         </div>
         <div style="margin-top:2.5rem; display: flex; gap: 1rem; justify-content: flex-start;">
-            <a class="career-view-btn{% if not jd.apply_link %} disabled-btn{% endif %}" style="{% if not jd.apply_link %}pointer-events:none;opacity:0.6;{% endif %}" href="{% if jd.apply_link %}{{ jd.apply_link }}{% else %}#{% endif %}" {% if jd.apply_link %}target="_blank" rel="noopener"{% endif %}>
+            <a class="career-view-btn{% if not jd.apply_link %} disabled-btn{% endif %}" style="{% if not jd.apply_link %}pointer-events:none;opacity:0.6;{% endif %}" href="{% if jd.apply_link %}{{ jd.apply_link }}{% else %}#{% endif %}" {% if jd.apply_link %}target="_blank" rel="noopener nofollow"{% endif %}>
                 Apply to this job <span class="arrow-icon">&#8594;</span>
             </a>
         </div>

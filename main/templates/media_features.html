@@ -984,7 +984,7 @@
           <a class="mf-read-btn"
              href="{{ feature.link }}"
              target="_blank"
-             rel="noopener noreferrer"
+             rel="noopener noreferrer nofollow"
              aria-label="Read: {{ feature.article_title|default:feature.outlet_name }}">
              Read <i class="fas fa-arrow-right" aria-hidden="true"></i>
           </a>
@@ -1005,7 +1005,7 @@
         <a class="mf-card mf-more-card"
            href="{{ feature.link }}"
            target="_blank"
-           rel="noopener noreferrer"
+           rel="noopener noreferrer nofollow"
            aria-label="Read: {{ feature.article_title|default:feature.outlet_name }}">
           <span class="mf-more-media">
             {% if feature.logo %}

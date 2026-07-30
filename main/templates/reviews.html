@@ -1,11 +1,21 @@
 {% extends 'skeleton.html' %}
 {% load static %}
-{% block title %}Reviews | Another Light{% endblock %}
-{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+
+{% block title %}Client Reviews & Google Ratings | Another Light Counselling{% endblock %}
+{% block metadescription %}Read verified Google reviews for Another Light Counselling — real experiences from people who have worked with our therapists in Mumbai and online across India.{% endblock %}
+{% block metakeywords %}Another Light Counselling reviews, Aanchal Narang reviews, therapist reviews Mumbai, counselling reviews Andheri, Google reviews therapy India{% endblock %}
+
+{% block ogtitle %}Client Reviews & Google Ratings | Another Light Counselling{% endblock %}
+{% block ogdescription %}Verified Google reviews from people who have sat with our therapists.{% endblock %}
+{% block ogurl %}https://www.another-light.com/reviews/{% endblock %}
+{% block ogtype %}website{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/reviews.css' %}">
 <link rel="canonical" href="https://www.another-light.com/reviews/" />
+
+{# Reviewer avatars come from Google's CDN #}
+<link rel="preconnect" href="https://lh3.googleusercontent.com">
+
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script async>
@@ -14,44 +24,640 @@
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
 </script>
+
+<style>
+  /* =========================================================
+     REVIEWS PAGE
+     ---------------------------------------------------------
+     HERO  -> Blush band, white type, palette doodles
+     BODY  -> white, dotted texture
+     CARDS -> white, per-review accent chosen server-side from
+              the Google review ID (never randomised)
+
+     Tangerine #F08C21 · Butter #F2D88F · Blush #E36888
+     Sea #6698CC · Matcha #B4B534
+     ========================================================= */
+
+  #reviews-page {
+    --alc-tangerine: #F08C21;
+    --alc-butter:    #F2D88F;
+    --alc-blush:     #E36888;
+    --alc-sea:       #6698CC;
+    --alc-matcha:    #B4B534;
+
+    --alc-blush-light: #EC8AA3;
+    --alc-blush-deep:  #CE5476;
+
+    --alc-body:      #FFFFFF;
+    --alc-card:      #FFFFFF;
+    --alc-line:      #E8D9B6;
+    --alc-line-soft: #F0E5CB;
+
+    --alc-ink:       #2b2b2b;
+    --alc-muted:     #6b6b6b;
+
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--alc-body);
+    text-align: center;
+    overflow: hidden;
+  }
+  #reviews-page *, #reviews-page *::before, #reviews-page *::after { box-sizing: border-box; }
+
+  /* =====================  1 · HERO  ===================== */
+  .rv-hero {
+    position: relative;
+    padding: clamp(48px, 7vw, 84px) 6vw clamp(52px, 7vw, 88px);
+    background: linear-gradient(180deg, var(--alc-blush-light) 0%, var(--alc-blush) 58%, var(--alc-blush-deep) 100%);
+    border-bottom: 4px solid var(--alc-butter);
+    box-shadow: 0 10px 28px rgba(227,104,136,.28);
+    overflow: hidden;
+  }
+  .rv-hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,.22) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
+    opacity: .8;
+    pointer-events: none;
+  }
+
+  .rv-doodles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .rv-doodle  { position: absolute; opacity: .78; animation: rv-float 9s ease-in-out infinite; }
+  .rv-doodle svg { display: block; width: 100%; height: auto; }
+
+  .rv-doodle--1 { top: 11%; left: 5%;     width: 76px; animation-delay: 0s;    }
+  .rv-doodle--2 { top: 16%; right: 6%;    width: 86px; animation-delay: -2.2s; }
+  .rv-doodle--3 { bottom: 15%; left: 9%;  width: 64px; animation-delay: -4s;   }
+  .rv-doodle--4 { bottom: 12%; right: 9%; width: 78px; animation-delay: -1.2s; }
+  .rv-doodle--5 { top: 55%; left: 2%;     width: 54px; animation-delay: -3.1s; }
+  .rv-doodle--6 { top: 7%;  right: 28%;   width: 48px; animation-delay: -5.3s; }
+  .rv-doodle--7 { bottom: 30%; right: 2%; width: 58px; animation-delay: -6.1s; }
+  .rv-doodle--8 { top: 47%; right: 20%;   width: 42px; animation-delay: -2.8s; }
+
+  @keyframes rv-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-14px) rotate(5deg); }
+  }
+  @media (max-width: 980px) {
+    .rv-doodle--6, .rv-doodle--8 { display: none; }
+    .rv-doodle { opacity: .55; }
+  }
+  @media (max-width: 620px) {
+    .rv-doodle--2, .rv-doodle--5, .rv-doodle--7 { display: none; }
+  }
+
+  .rv-hero-inner { position: relative; max-width: 860px; margin: 0 auto; }
+
+  .rv-kicker {
+    display: inline-block;
+    background: rgba(255,255,255,.9);
+    color: var(--alc-blush-deep);
+    font-size: clamp(11px, 1.2vw, 13px);
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .rv-hero h1 {
+    color: #fff;
+    font-size: clamp(30px, 4.6vw, 52px);
+    line-height: 1.14;
+    margin: 0 0 16px;
+    font-weight: 800;
+    text-shadow: 0 2px 12px rgba(0,0,0,.12);
+  }
+  .rv-hero p.rv-sub {
+    color: rgba(255,255,255,.94);
+    font-size: clamp(15px, 1.7vw, 19px);
+    line-height: 1.62;
+    margin: 0 auto;
+    max-width: 640px;
+  }
+
+  .rv-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(14px, 2.4vw, 26px);
+    flex-wrap: wrap;
+    justify-content: center;
+    background: #fff;
+    border-radius: 20px;
+    padding: 18px clamp(20px, 3vw, 32px);
+    margin-top: 30px;
+    box-shadow: 0 14px 34px rgba(0,0,0,.16);
+  }
+  .rv-summary-score {
+    font-size: clamp(38px, 5vw, 52px);
+    font-weight: 800; line-height: 1;
+    color: var(--alc-ink);
+  }
+  .rv-summary-score span { font-size: .42em; color: var(--alc-muted); font-weight: 600; }
+  .rv-summary-meta { text-align: left; }
+  .rv-summary-meta .rv-stars { margin-bottom: 5px; }
+  .rv-summary-meta small { display: block; color: var(--alc-muted); font-size: 13px; line-height: 1.5; }
+  .rv-summary-divider { width: 1px; align-self: stretch; background: var(--alc-line-soft); }
+
+  .rv-stars { display: inline-flex; gap: 3px; line-height: 0; }
+  .rv-star { width: 18px; height: 18px; }
+  .rv-star--on  { fill: var(--alc-tangerine); }
+  .rv-star--off { fill: #DCDCDC; }
+
+  .rv-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+  .rv-btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 24px; border-radius: 999px;
+    font-size: 15px; font-weight: 700; text-decoration: none;
+    transition: transform .18s ease, box-shadow .18s ease;
+    border: 2px solid transparent;
+  }
+  .rv-btn:hover, .rv-btn:focus { transform: translateY(-2px); text-decoration: none; }
+  .rv-btn--solid { background: #fff; color: var(--alc-blush-deep); box-shadow: 0 8px 20px rgba(0,0,0,.16); }
+  .rv-btn--solid:hover { color: var(--alc-blush-deep); box-shadow: 0 12px 26px rgba(0,0,0,.22); }
+  .rv-btn--ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.75); }
+  .rv-btn--ghost:hover { background: rgba(255,255,255,.14); color: #fff; }
+  .rv-btn svg { width: 17px; height: 17px; flex: 0 0 auto; }
+
+  /* =====================  2 · BODY  ===================== */
+  .rv-body {
+    position: relative;
+    padding: clamp(44px, 6vw, 72px) 5vw clamp(50px, 6vw, 80px);
+    background: var(--alc-body);
+  }
+  .rv-body::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(0,0,0,.045) 1.4px, transparent 1.4px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+  .rv-body-inner { position: relative; max-width: 1180px; margin: 0 auto; }
+
+  .rv-filters { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 18px; }
+  .rv-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 18px; border-radius: 999px;
+    border: 2px solid var(--alc-line);
+    background: #fff; color: var(--alc-ink);
+    font-size: 14px; font-weight: 700; text-decoration: none;
+    transition: all .18s ease;
+  }
+  .rv-chip:hover { border-color: var(--alc-tangerine); color: var(--alc-ink); text-decoration: none; }
+  .rv-chip--active { background: var(--alc-tangerine); border-color: var(--alc-tangerine); color: #fff; }
+  .rv-chip--active:hover { color: #fff; }
+  .rv-chip .rv-star { width: 14px; height: 14px; }
+  .rv-chip--active .rv-star--on { fill: #fff; }
+
+  .rv-count {
+    font-size: 14px; color: var(--alc-muted);
+    margin: 0 0 clamp(24px, 3.5vw, 38px);
+  }
+
+  /* ---- masonry wall ---- */
+  .rv-wall { column-count: 3; column-gap: 22px; }
+  @media (max-width: 1000px) { .rv-wall { column-count: 2; } }
+  @media (max-width: 640px)  { .rv-wall { column-count: 1; } }
+
+  .rv-card {
+    display: block;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    margin: 0 0 22px;
+    background: var(--alc-card);
+    border: 2px solid var(--alc-line-soft);
+    border-radius: 20px;
+    padding: 22px 22px 18px;
+    text-align: left;
+    text-decoration: none;
+    color: var(--alc-ink);
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .rv-card:hover, .rv-card:focus-visible {
+    transform: translateY(-4px) rotate(-.35deg);
+    box-shadow: 0 16px 34px rgba(0,0,0,.11);
+    text-decoration: none; color: var(--alc-ink);
+  }
+  .rv-card:focus-visible { outline: 3px solid var(--alc-sea); outline-offset: 3px; }
+
+  .rv-card::after {
+    content: ""; position: absolute;
+    top: -60px; right: -60px; width: 150px; height: 150px;
+    border-radius: 50%; opacity: .16; pointer-events: none;
+    transition: opacity .2s ease;
+  }
+  .rv-card:hover::after { opacity: .28; }
+  .rv-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; }
+
+  .rv-card--tangerine::after, .rv-card--tangerine::before { background: var(--alc-tangerine); }
+  .rv-card--butter::after,    .rv-card--butter::before    { background: var(--alc-butter); }
+  .rv-card--blush::after,     .rv-card--blush::before     { background: var(--alc-blush); }
+  .rv-card--sea::after,       .rv-card--sea::before       { background: var(--alc-sea); }
+  .rv-card--matcha::after,    .rv-card--matcha::before    { background: var(--alc-matcha); }
+
+  .rv-card--tangerine:hover { border-color: var(--alc-tangerine); }
+  .rv-card--butter:hover    { border-color: var(--alc-butter); }
+  .rv-card--blush:hover     { border-color: var(--alc-blush); }
+  .rv-card--sea:hover       { border-color: var(--alc-sea); }
+  .rv-card--matcha:hover    { border-color: var(--alc-matcha); }
+
+  .rv-card-head { position: relative; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .rv-avatar {
+    flex: 0 0 auto; width: 44px; height: 44px;
+    border-radius: 50%; object-fit: cover;
+    background: var(--alc-line-soft);
+    border: 2px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  }
+  .rv-avatar--letter { display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: #fff; }
+  .rv-card--tangerine .rv-avatar--letter { background: var(--alc-tangerine); }
+  .rv-card--butter .rv-avatar--letter    { background: var(--alc-butter); color: #6b5a20; }
+  .rv-card--blush .rv-avatar--letter     { background: var(--alc-blush); }
+  .rv-card--sea .rv-avatar--letter       { background: var(--alc-sea); }
+  .rv-card--matcha .rv-avatar--letter    { background: var(--alc-matcha); }
+
+  .rv-card-who { min-width: 0; flex: 1 1 auto; }
+  .rv-card-name { display: block; font-weight: 800; font-size: 15px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rv-card-when { display: block; font-size: 12.5px; color: var(--alc-muted); margin-top: 2px; }
+  .rv-gmark { flex: 0 0 auto; width: 20px; height: 20px; opacity: .9; }
+
+  .rv-card-stars { margin-bottom: 12px; }
+
+  .rv-quote { position: relative; font-size: 15px; line-height: 1.68; color: #3a3a3a; margin: 0; }
+  .rv-card--long .rv-quote {
+    display: -webkit-box; -webkit-line-clamp: 14; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .rv-quote-mark { font-size: 46px; line-height: 0; position: relative; top: 14px; margin-right: 4px; opacity: .28; font-weight: 800; }
+  .rv-card--tangerine .rv-quote-mark { color: var(--alc-tangerine); }
+  .rv-card--butter .rv-quote-mark    { color: #C9A83C; }
+  .rv-card--blush .rv-quote-mark     { color: var(--alc-blush); }
+  .rv-card--sea .rv-quote-mark       { color: var(--alc-sea); }
+  .rv-card--matcha .rv-quote-mark    { color: var(--alc-matcha); }
+
+  .rv-rating-only { font-size: 14px; font-style: italic; color: var(--alc-muted); margin: 0; }
+
+  .rv-reply {
+    margin-top: 14px; padding: 12px 14px;
+    border-radius: 12px; background: #FBF6E8;
+    border-left: 3px solid var(--alc-butter);
+  }
+  .rv-reply-label {
+    display: block; font-size: 11.5px; font-weight: 800;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: #8A7326; margin-bottom: 5px;
+  }
+  .rv-reply p { font-size: 13.5px; line-height: 1.6; color: #4a4a4a; margin: 0; }
+
+  .rv-card-foot {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    margin-top: 15px; padding-top: 12px;
+    border-top: 1px dashed var(--alc-line);
+    font-size: 12.5px; font-weight: 700; color: var(--alc-muted);
+  }
+  .rv-card-cta { display: inline-flex; align-items: center; gap: 5px; }
+  .rv-card:hover .rv-card-cta { color: var(--alc-blush-deep); }
+  .rv-verified { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; }
+  .rv-verified svg { width: 13px; height: 13px; fill: var(--alc-matcha); }
+
+  .rv-attribution {
+    margin-top: clamp(28px, 4vw, 40px);
+    font-size: 13px; color: var(--alc-muted);
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; flex-wrap: wrap;
+  }
+  .rv-attribution svg { width: 17px; height: 17px; }
+
+  .rv-empty {
+    max-width: 560px; margin: 0 auto;
+    padding: 38px 28px;
+    border: 2px dashed var(--alc-line);
+    border-radius: 20px; background: #FDFBF5;
+  }
+  .rv-empty h3 { font-size: 21px; font-weight: 800; margin: 0 0 10px; }
+  .rv-empty p  { font-size: 15px; color: var(--alc-muted); line-height: 1.6; margin: 0 0 18px; }
+
+  /* =====================  3 · DIRECT TESTIMONIALS  ===================== */
+  .rv-written {
+    position: relative;
+    padding: clamp(44px, 6vw, 72px) 5vw;
+    background: #FDF6E4;
+    border-top: 4px solid var(--alc-butter);
+    border-bottom: 4px solid var(--alc-butter);
+  }
+  .rv-written-inner { max-width: 1100px; margin: 0 auto; }
+  .rv-section-title { font-size: clamp(23px, 3vw, 33px); font-weight: 800; margin: 0 0 10px; color: var(--alc-ink); }
+  .rv-section-sub { font-size: 15px; color: var(--alc-muted); line-height: 1.6; max-width: 620px; margin: 0 auto clamp(26px, 4vw, 40px); }
+  .rv-written-wall { column-count: 2; column-gap: 22px; }
+  @media (max-width: 760px) { .rv-written-wall { column-count: 1; } }
+  .rv-note {
+    break-inside: avoid; -webkit-column-break-inside: avoid;
+    margin: 0 0 22px; background: #fff;
+    border: 2px solid #EFE3C4; border-radius: 18px;
+    padding: 22px; text-align: left;
+  }
+  .rv-note p { font-size: 15px; line-height: 1.68; color: #3a3a3a; margin: 0; }
+  .rv-note-tag { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: #9A8433; }
+
+  /* =====================  4 · CLOSING CTA  ===================== */
+  .rv-cta {
+    position: relative;
+    padding: clamp(46px, 6vw, 76px) 6vw;
+    background: linear-gradient(180deg, #7FAADA 0%, var(--alc-sea) 100%);
+    overflow: hidden;
+  }
+  .rv-cta::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,.2) 1.5px, transparent 1.5px);
+    background-size: 26px 26px; pointer-events: none;
+  }
+  .rv-cta-inner { position: relative; max-width: 720px; margin: 0 auto; }
+  .rv-cta h2 { color: #fff; font-weight: 800; font-size: clamp(24px, 3.4vw, 38px); line-height: 1.22; margin: 0 0 14px; }
+  .rv-cta p { color: rgba(255,255,255,.94); font-size: clamp(15px, 1.6vw, 17px); line-height: 1.62; margin: 0 0 26px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rv-doodle { animation: none; }
+    .rv-card, .rv-btn { transition: none; }
+    .rv-card:hover { transform: none; }
+  }
+</style>
 {% endblock %}
 
 {% block body %}
-<div id="content">
 
-    <div id="topsection">
-        <!-- <img src="{% static 'img/reviews/topgraphic.svg' %}" id="topgraphic" /> -->
+{# one-time SVG sprite #}
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="rv-icon-star" viewBox="0 0 24 24">
+    <path d="M12 2.5l2.95 6.02 6.64.96-4.8 4.68 1.13 6.6L12 17.65 6.08 20.76l1.13-6.6-4.8-4.68 6.64-.96z"/>
+  </symbol>
+  <symbol id="rv-icon-google" viewBox="0 0 48 48">
+    <path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.8-.4-4.1H24v7.4h12.1c-.2 2-1.6 5-4.5 7l6.9 5.3c4.1-3.8 6.6-9.4 6.6-15.6z"/>
+    <path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-6.9-5.3c-1.9 1.3-4.4 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.1l-7.1 5.5C7.9 41.1 15.4 46 24 46z"/>
+    <path fill="#FBBC05" d="M11.5 28.5c-.5-1.4-.8-2.9-.8-4.5s.3-3.1.7-4.5l-7.1-5.5C2.8 17 2 20.4 2 24s.8 7 2.3 10z"/>
+    <path fill="#EA4335" d="M24 10.6c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 4.4 29.9 2 24 2 15.4 2 7.9 6.9 4.3 14l7.1 5.5c1.8-5.3 6.8-8.9 12.6-8.9z"/>
+  </symbol>
+  <symbol id="rv-icon-tick" viewBox="0 0 24 24">
+    <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1.2 14.4l-4.2-4.2 1.7-1.7 2.5 2.5 5.9-5.9 1.7 1.7z"/>
+  </symbol>
+  <symbol id="rv-icon-arrow" viewBox="0 0 24 24">
+    <path d="M5 12h13M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="rv-icon-pen" viewBox="0 0 24 24">
+    <path d="M3 21l4-1 11-11-3-3L4 17zM14 5l3 3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<div id="reviews-page">
+
+  {# ================= 1 · HERO ================= #}
+  <section class="rv-hero">
+    <div class="rv-doodles" aria-hidden="true">
+
+      {# speech bubble with a heart - Butter #}
+      <div class="rv-doodle rv-doodle--1">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F2D88F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 14a6 6 0 0 1 6-6h36a6 6 0 0 1 6 6v22a6 6 0 0 1-6 6H26L14 52V42a6 6 0 0 1-6-6z"/>
+          <path d="M32 34s-9-5.4-9-11a4.6 4.6 0 0 1 9-1.6A4.6 4.6 0 0 1 41 23c0 5.6-9 11-9 11z"/>
+        </svg>
+      </div>
+
+      {# arc of little stars - white #}
+      <div class="rv-doodle rv-doodle--2">
+        <svg viewBox="0 0 92 44" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 30l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L1.6 36l5.8-.8z"/>
+          <path d="M29 20l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/>
+          <path d="M50 14l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/>
+          <path d="M71 20l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/>
+        </svg>
+      </div>
+
+      {# open quote marks - Butter #}
+      <div class="rv-doodle rv-doodle--3">
+        <svg viewBox="0 0 64 48" fill="none" stroke="#F2D88F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 30c0-11 6-19 15-22-5 4-7 8-7 12h6a7 7 0 1 1-7 7 8 8 0 0 1-7-1z"/>
+          <path d="M38 30c0-11 6-19 15-22-5 4-7 8-7 12h6a7 7 0 1 1-7 7 8 8 0 0 1-7-1z"/>
+        </svg>
+      </div>
+
+      {# smiling face - white #}
+      <div class="rv-doodle rv-doodle--4">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="32" r="24"/>
+          <path d="M22 39a12 12 0 0 0 20 0"/>
+          <path d="M23 25v3M41 25v3"/>
+        </svg>
+      </div>
+
+      {# sprouting plant - Matcha #}
+      <div class="rv-doodle rv-doodle--5">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#B4B534" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 56V26"/>
+          <path d="M32 34c-10 0-16-6-16-15 9 0 16 5 16 15z"/>
+          <path d="M32 28c9 0 15-6 15-14-9 0-15 5-15 14z"/>
+        </svg>
+      </div>
+
+      {# sparkle - Butter #}
+      <div class="rv-doodle rv-doodle--6">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#F2D88F" stroke-width="3.4" stroke-linecap="round">
+          <path d="M32 6v18M32 40v18M6 32h18M40 32h18"/>
+        </svg>
+      </div>
+
+      {# sun with rays - white #}
+      <div class="rv-doodle rv-doodle--7">
+        <svg viewBox="0 0 64 64" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="32" r="11"/>
+          <path d="M32 4v8M32 52v8M4 32h8M52 32h8M12 12l6 6M46 46l6 6M52 12l-6 6M18 46l-6 6"/>
+        </svg>
+      </div>
+
+      {# squiggly underline - Butter #}
+      <div class="rv-doodle rv-doodle--8">
+        <svg viewBox="0 0 64 34" fill="none" stroke="#F2D88F" stroke-width="4" stroke-linecap="round">
+          <path d="M3 25c8-24 16 0 24-12s16 12 24 0"/>
+        </svg>
+      </div>
     </div>
 
+    <div class="rv-hero-inner">
+      <span class="rv-kicker">In their own words</span>
+      <h1>What it&rsquo;s actually like to work with us</h1>
+      <p class="rv-sub">
+        Every review below comes straight from our Google listing &mdash; unedited,
+        unfiltered, and written by people who have sat in the room (or on the call)
+        with our therapists.
+      </p>
 
-
-    <div id="reviews-section">
-
-        <div id="topstuff">
-            <h2>Reviews</h2>
-            <p>Take a look at our clients' testimonials...</p>
-        </div>
-
-        <div id="review-list">
-            {% for review in reviews %}
-
-            {% if review.type == 'doodle' %}
-            <img src="{% static review.art %}" class="doodle {{ review.position }}" alt="">
-            {% endif %}
-
-            {% if review.type == 'review' %}
-            <div class="review {{ review.position }}">
-                <p class="mypara">{{ review.obj.review }}</p>
-            </div>
-            {% endif %}
-
+      {% if stats and stats.total_ratings %}
+      <div class="rv-summary">
+        <div class="rv-summary-score">{{ stats.average_rating|default:"—" }}<span>/5</span></div>
+        <div class="rv-summary-divider" aria-hidden="true"></div>
+        <div class="rv-summary-meta">
+          <div class="rv-stars" role="img" aria-label="Average rating {{ stats.average_rating }} out of 5">
+            {% for on in stats.star_list %}
+            <svg class="rv-star {% if on %}rv-star--on{% else %}rv-star--off{% endif %}" aria-hidden="true"><use href="#rv-icon-star" xlink:href="#rv-icon-star"></use></svg>
             {% endfor %}
+          </div>
+          <small>
+            Based on <strong>{{ stats.total_ratings }}</strong> Google rating{{ stats.total_ratings|pluralize }}<br>
+            {% if stats.last_synced %}Last updated {{ stats.last_synced|date:"j M Y" }}{% endif %}
+          </small>
         </div>
+      </div>
+      {% endif %}
 
+      <div class="rv-hero-actions">
+        {% if stats and stats.reviews_url %}
+        <a class="rv-btn rv-btn--solid" href="{{ stats.reviews_url }}" target="_blank" rel="noopener noreferrer nofollow">
+          <svg aria-hidden="true"><use href="#rv-icon-google" xlink:href="#rv-icon-google"></use></svg>
+          Read them on Google
+        </a>
+        {% endif %}
+        {% if stats and stats.write_review_url %}
+        <a class="rv-btn rv-btn--ghost" href="{{ stats.write_review_url }}" target="_blank" rel="noopener noreferrer nofollow">
+          <svg aria-hidden="true" style="stroke:currentColor;fill:none"><use href="#rv-icon-pen" xlink:href="#rv-icon-pen"></use></svg>
+          Leave a review
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
 
+  {# ================= 2 · REVIEW WALL ================= #}
+  <section class="rv-body">
+    <div class="rv-body-inner">
+
+      {% if google_reviews %}
+      <nav class="rv-filters" aria-label="Filter reviews by rating">
+        <a class="rv-chip {% if not active_star_filter %}rv-chip--active{% endif %}" href="{% url 'reviews' %}" rel="nofollow">All reviews</a>
+        <a class="rv-chip {% if active_star_filter == '5' %}rv-chip--active{% endif %}" href="{% url 'reviews' %}?stars=5" rel="nofollow">
+          <svg class="rv-star rv-star--on" aria-hidden="true"><use href="#rv-icon-star" xlink:href="#rv-icon-star"></use></svg>
+          5 star only
+        </a>
+        <a class="rv-chip {% if active_star_filter == '4' %}rv-chip--active{% endif %}" href="{% url 'reviews' %}?stars=4" rel="nofollow">
+          <svg class="rv-star rv-star--on" aria-hidden="true"><use href="#rv-icon-star" xlink:href="#rv-icon-star"></use></svg>
+          4 star &amp; up
+        </a>
+      </nav>
+
+      <p class="rv-count">
+        Showing <strong>{{ google_review_count }}</strong> review{{ google_review_count|pluralize }}.
+      </p>
+
+      <div class="rv-wall">
+        {% for r in google_reviews %}
+        <a class="rv-card rv-card--{{ r.accent }} rv-card--{{ r.size_class }}"
+           href="{{ r.review_url }}" target="_blank" rel="noopener noreferrer nofollow"
+           aria-label="Read {{ r.display_name }}'s {{ r.rating }} star review on Google">
+
+          <div class="rv-card-head">
+            {% if r.author_photo_url %}
+            <img class="rv-avatar" src="{{ r.author_photo_url }}" alt="" loading="lazy"
+                 width="44" height="44" referrerpolicy="no-referrer">
+            {% else %}
+            <span class="rv-avatar rv-avatar--letter" aria-hidden="true">{{ r.initial }}</span>
+            {% endif %}
+
+            <span class="rv-card-who">
+              <span class="rv-card-name">{{ r.display_name }}</span>
+              <span class="rv-card-when">
+                {% if r.created_at_google %}{{ r.created_at_google|date:"M Y" }}{% else %}Google review{% endif %}
+              </span>
+            </span>
+
+            <svg class="rv-gmark" aria-hidden="true"><use href="#rv-icon-google" xlink:href="#rv-icon-google"></use></svg>
+          </div>
+
+          <div class="rv-card-stars rv-stars" role="img" aria-label="{{ r.rating }} out of 5 stars">
+            {% for on in r.star_list %}
+            <svg class="rv-star {% if on %}rv-star--on{% else %}rv-star--off{% endif %}" aria-hidden="true"><use href="#rv-icon-star" xlink:href="#rv-icon-star"></use></svg>
+            {% endfor %}
+          </div>
+
+          {% if r.comment %}
+          <p class="rv-quote"><span class="rv-quote-mark" aria-hidden="true">&ldquo;</span>{{ r.comment|linebreaksbr }}</p>
+          {% else %}
+          <p class="rv-rating-only">Left a {{ r.rating }}-star rating without a written note.</p>
+          {% endif %}
+
+          {% if r.has_reply %}
+          <div class="rv-reply">
+            <span class="rv-reply-label">Another Light replied</span>
+            <p>{{ r.reply_comment|linebreaksbr }}</p>
+          </div>
+          {% endif %}
+
+          <div class="rv-card-foot">
+            <span class="rv-verified">
+              <svg aria-hidden="true"><use href="#rv-icon-tick" xlink:href="#rv-icon-tick"></use></svg>
+              Verified Google review
+            </span>
+            <span class="rv-card-cta">
+              {% if r.size_class == 'long' %}Read in full{% else %}View on Google{% endif %}
+              <svg width="14" height="14" aria-hidden="true" style="stroke:currentColor"><use href="#rv-icon-arrow" xlink:href="#rv-icon-arrow"></use></svg>
+            </span>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+
+      <p class="rv-attribution">
+        <svg aria-hidden="true"><use href="#rv-icon-google" xlink:href="#rv-icon-google"></use></svg>
+        Reviews and ratings provided by Google. Clicking any card opens the original on Google.
+      </p>
+
+      {% else %}
+      <div class="rv-empty">
+        <h3>Our reviews are on the way</h3>
+        <p>We&rsquo;re syncing our Google reviews onto this page. In the meantime you can read them all on our Google listing.</p>
+        <a class="rv-btn rv-btn--solid" style="border:2px solid var(--alc-line)"
+           href="{% if stats and stats.reviews_url %}{{ stats.reviews_url }}{% else %}https://www.google.com/maps{% endif %}"
+           target="_blank" rel="noopener noreferrer nofollow">
+          <svg aria-hidden="true"><use href="#rv-icon-google" xlink:href="#rv-icon-google"></use></svg>
+          See our Google reviews
+        </a>
+      </div>
+      {% endif %}
 
     </div>
+  </section>
+
+  {# ================= 3 · DIRECT TESTIMONIALS ================= #}
+  {% if written_reviews %}
+  <section class="rv-written">
+    <div class="rv-written-inner">
+      <h2 class="rv-section-title">Notes people have sent us directly</h2>
+      <p class="rv-section-sub">Shared with permission, anonymised, and kept exactly as they were written.</p>
+      <div class="rv-written-wall">
+        {% for wr in written_reviews %}
+        <div class="rv-note">
+          <p>{{ wr.review|linebreaksbr }}</p>
+          <span class="rv-note-tag">Shared with permission</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {# ================= 4 · CLOSING CTA ================= #}
+  <section class="rv-cta">
+    <div class="rv-cta-inner">
+      <h2>Ready to start your own chapter?</h2>
+      <p>Book a first conversation with one of our therapists &mdash; in person in Mumbai, or online from wherever you are.</p>
+      <div class="rv-hero-actions">
+        <a class="rv-btn rv-btn--solid" href="{% url 'contact' %}" style="color:#3E6FA6">
+          Book a session
+          <svg width="15" height="15" aria-hidden="true" style="stroke:currentColor"><use href="#rv-icon-arrow" xlink:href="#rv-icon-arrow"></use></svg>
+        </a>
+        <a class="rv-btn rv-btn--ghost" href="{% url 'about' %}">Meet our team</a>
+      </div>
+    </div>
+  </section>
 
 </div>
-<script src="{% static 'js/reviews.js' %}"></script>
 {% endblock %}

@@ -15,7 +15,8 @@ from .models import (
     Service, DoIFeel, Policy, Committee, DynamicContent, Jd, OnboardingPlan,
     # NEW models for Team module (add these in models.py)
     TeamPage, SpecializationTag,  Member, 
-    MemberBlogPost, MediaFeature
+    MemberBlogPost, MediaFeature,
+    GoogleReview, GoogleReviewStats
 )
 from .forms import ContactForm, PpcContactForm
 
@@ -465,25 +466,39 @@ def get_review_doodle_list(reviews):
 
 
 def reviews(request):
-    reviews = Review.objects.all().order_by('-id')
+    google_reviews = GoogleReview.objects.filter(is_published=True)
 
-    # GET CONTACTS FOR FOOTER
-    contactdetails = ContactDetails.objects.all()
+    # /reviews/?stars=5  or  ?stars=4
+    stars = request.GET.get('stars', '')
+    if stars in ('3', '4', '5'):
+        google_reviews = google_reviews.filter(rating__gte=int(stars))
 
-    # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    google_reviews = list(google_reviews)
 
-    # GET DO I FEEL
-    doifeels = DoIFeel.objects.all().order_by('id')
+    # Pinned first, then reviews that actually have words, then newest.
+    # Fully deterministic - card colours never shuffle between loads.
+    google_reviews.sort(
+        key=lambda r: (
+            not r.is_pinned,
+            r.word_count == 0,
+            -(r.created_at_google.timestamp() if r.created_at_google else 0),
+        )
+    )
 
-    reviews_and_doodles = get_review_doodle_list(reviews)
-    context = {
-        'reviews': reviews_and_doodles,
-        'contactdetails': contactdetails,
-        'services': services,
-        'doifeels': doifeels,
-        'h_contacts': get_header_contacts()
-    }
+    stats = GoogleReviewStats.objects.first()
+
+    # Legacy hand-curated testimonials (main.Review) keep their own band, so
+    # nothing already on the page is lost.
+    written_reviews = Review.objects.all().order_by('-id')
+
+    context = get_common_template_context()
+    context.update({
+        'google_reviews': google_reviews,
+        'google_review_count': len(google_reviews),
+        'stats': stats,
+        'active_star_filter': stars,
+        'written_reviews': written_reviews,
+    })
     return render(request, 'reviews.html', context=context)
 
 

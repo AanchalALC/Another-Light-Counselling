@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models import (
     FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic,
     Service, DoIFeel, Policy, Committee, DynamicContent, PpcContact, Jd,
-    OnboardingPlan, SpecializationTag, TeamPage,  MemberBlogPost, MediaFeature
+    OnboardingPlan, SpecializationTag, TeamPage,  MemberBlogPost, MediaFeature,
+    GoogleReview, GoogleReviewStats
 )
 
 
@@ -161,3 +162,54 @@ class MediaFeatureAdmin(admin.ModelAdmin):
             'fields': ('video_url',),
         }),
     )
+    
+@admin.register(GoogleReview)
+class GoogleReviewAdmin(admin.ModelAdmin):
+    list_display = ('author_name', 'rating', 'short_comment', 'source',
+                    'is_published', 'is_pinned', 'created_at_google')
+    list_editable = ('is_published', 'is_pinned')
+    list_filter = ('is_published', 'is_pinned', 'rating', 'source')
+    search_fields = ('author_name', 'comment', 'reply_comment')
+    ordering = ('-is_pinned', '-created_at_google', '-id')
+    date_hierarchy = 'created_at_google'
+    exclude = ('site',)
+    actions = ('publish', 'unpublish')
+
+    # Everything except the moderation toggles belongs to Google. Editing it by
+    # hand just gets overwritten on the next sync, so it is locked.
+    readonly_fields = (
+        'source', 'external_id', 'author_name', 'author_photo_url', 'rating',
+        'comment', 'review_url', 'created_at_google', 'updated_at_google',
+        'reply_comment', 'reply_time', 'synced_at',
+    )
+
+    def short_comment(self, obj):
+        text = (obj.comment or '').replace('\n', ' ')
+        return (text[:80] + '...') if len(text) > 80 else (text or '(rating only)')
+    short_comment.short_description = 'Review'
+
+    def publish(self, request, queryset):
+        self.message_user(request, '%d review(s) published.' % queryset.update(is_published=True))
+    publish.short_description = 'Publish selected reviews'
+
+    def unpublish(self, request, queryset):
+        self.message_user(request, '%d review(s) hidden.' % queryset.update(is_published=False))
+    unpublish.short_description = 'Hide selected reviews from the site'
+
+    def has_add_permission(self, request):
+        # Reviews arrive via sync_google_reviews / import_reviews_csv only.
+        return False
+
+
+@admin.register(GoogleReviewStats)
+class GoogleReviewStatsAdmin(admin.ModelAdmin):
+    list_display = ('average_rating', 'total_ratings', 'last_synced', 'last_status')
+    readonly_fields = ('average_rating', 'total_ratings', 'reviews_url',
+                       'write_review_url', 'last_synced', 'last_status')
+    exclude = ('site',)
+
+    def has_add_permission(self, request):
+        return not GoogleReviewStats.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False

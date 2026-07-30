@@ -793,3 +793,123 @@ class MediaFeature(models.Model):
         ordering = ('order', 'id')
         verbose_name = 'Media Feature'
         verbose_name_plural = 'Media Features'
+        
+
+class GoogleReview(models.Model):
+    """One Google review. Everything except the two moderation toggles is
+    owned by the sync and gets overwritten on the next run."""
+
+    SOURCE_GBP = 'gbp'
+    SOURCE_MANUAL = 'manual'
+    SOURCE_CHOICES = (
+        (SOURCE_GBP, 'Google Business Profile API'),
+        (SOURCE_MANUAL, 'Seeded by hand (temporary bridge)'),
+    )
+
+    # Brand palette in a fixed order. A review's card colour is derived from
+    # its Google ID, so it never changes between page loads.
+    ACCENTS = ('tangerine', 'butter', 'blush', 'sea', 'matcha')
+
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+
+    source = models.CharField(max_length=10, choices=SOURCE_CHOICES, default=SOURCE_GBP)
+    external_id = models.CharField(max_length=255)
+
+    author_name = models.CharField(max_length=255, blank=True, default='')
+    author_photo_url = models.URLField(max_length=1000, blank=True, default='')
+
+    rating = models.PositiveSmallIntegerField(default=0)
+    comment = models.TextField(blank=True, default='')
+
+    review_url = models.URLField(max_length=1000, blank=True, default='')
+
+    created_at_google = models.DateTimeField(null=True, blank=True)
+    updated_at_google = models.DateTimeField(null=True, blank=True)
+
+    reply_comment = models.TextField(blank=True, default='')
+    reply_time = models.DateTimeField(null=True, blank=True)
+
+    is_published = models.BooleanField(
+        default=True, help_text='Untick to hide this review from the website.')
+    is_pinned = models.BooleanField(
+        default=False, help_text='Pinned reviews appear first.')
+
+    synced_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('source', 'external_id')
+        ordering = ('-is_pinned', '-created_at_google', '-id')
+        verbose_name = 'Google review'
+        verbose_name_plural = 'Google reviews'
+
+    def __str__(self):
+        return '%s (%s*) - %s' % (
+            self.author_name or 'Anonymous', self.rating, (self.comment or '')[:40])
+
+    # ------------------------------------------------------------ display
+    @property
+    def display_name(self):
+        return self.author_name.strip() or 'A Google user'
+
+    @property
+    def initial(self):
+        name = self.display_name.strip()
+        return name[0].upper() if name else 'G'
+
+    @property
+    def accent(self):
+        seed = sum(ord(c) for c in (self.external_id or str(self.pk) or 'x'))
+        return self.ACCENTS[seed % len(self.ACCENTS)]
+
+    @property
+    def star_list(self):
+        return [i < int(self.rating or 0) for i in range(5)]
+
+    @property
+    def word_count(self):
+        return len((self.comment or '').split())
+
+    @property
+    def size_class(self):
+        words = self.word_count
+        if words == 0:
+            return 'rating-only'
+        if words < 30:
+            return 'short'
+        if words < 90:
+            return 'medium'
+        return 'long'
+
+    @property
+    def has_reply(self):
+        return bool((self.reply_comment or '').strip())
+
+
+class GoogleReviewStats(models.Model):
+    """Single row (pk=1): the listing average, total count, and sync health."""
+
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+    average_rating = models.DecimalField(
+        max_digits=3, decimal_places=2, null=True, blank=True)
+    total_ratings = models.PositiveIntegerField(default=0)
+    reviews_url = models.URLField(max_length=1000, blank=True, default='')
+    write_review_url = models.URLField(max_length=1000, blank=True, default='')
+    last_synced = models.DateTimeField(null=True, blank=True)
+    last_status = models.CharField(max_length=500, blank=True, default='')
+
+    class Meta:
+        verbose_name = 'Google review sync status'
+        verbose_name_plural = 'Google review sync status'
+
+    def __str__(self):
+        return 'Google: %s from %s ratings' % (
+            self.average_rating or '-', self.total_ratings)
+
+    @property
+    def star_list(self):
+        value = float(self.average_rating or 0)
+        return [i < int(round(value)) for i in range(5)]
+
+    @property
+    def is_healthy(self):
+        return str(self.last_status or '').startswith('OK')

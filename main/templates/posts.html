@@ -54,6 +54,9 @@
         padding: 0 32px;
     }
 
+    /* Utility used by the search filter */
+    #content .is-hidden { display: none !important; }
+
     /* ============================================================
        HERO BAND — solid colour + doodle layer
        ============================================================ */
@@ -149,6 +152,78 @@
     }
 
     /* ============================================================
+       SEARCH
+       ============================================================ */
+    .search-shell {
+        max-width: 540px;
+        margin: 32px 0 0;
+        opacity: 0;
+        animation: fadeUp .7s ease .42s forwards;
+    }
+    .search-field {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #FFFFFF;
+        border: 1px solid rgba(22, 24, 29, .12);
+        border-radius: 999px;
+        padding: 13px 14px 13px 20px;
+        box-shadow: 0 12px 32px rgba(22, 24, 29, .08);
+        transition: border-color .25s ease, box-shadow .25s ease;
+    }
+    .search-field:focus-within {
+        border-color: var(--alc-accent);
+        box-shadow: 0 14px 36px rgba(240, 140, 33, .20);
+    }
+    .search-field .search-icon {
+        flex: 0 0 auto;
+        stroke: var(--alc-slate);
+    }
+    #blog-search {
+        flex: 1 1 auto;
+        min-width: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--alc-ink);
+        padding: 0;
+        box-shadow: none;
+    }
+    #blog-search::placeholder { color: #9AA0A8; font-weight: 500; }
+    #blog-search::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+
+    .search-clear {
+        flex: 0 0 auto;
+        width: 30px; height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        padding: 0;
+        border-radius: 50%;
+        background: rgba(22, 24, 29, .06);
+        color: var(--alc-ink);
+        cursor: pointer;
+        transition: background .25s ease;
+    }
+    .search-clear:hover { background: rgba(22, 24, 29, .12); }
+    .search-clear:focus-visible { outline: 2px solid var(--alc-ink); outline-offset: 2px; }
+    .search-clear[hidden] { display: none; }
+
+    .search-status {
+        display: block;
+        margin: 12px 4px 0;
+        font-size: .78rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: #6E6A5C;
+        min-height: 1em;
+    }
+
+    /* ============================================================
        FEATURED
        ============================================================ */
     .featured-section { padding: 0; }
@@ -240,6 +315,7 @@
        LIST
        ============================================================ */
     .list-section { padding: 76px 0 0; }
+    .featured-section.is-hidden + .list-section { padding-top: 64px; }
 
     .list-head {
         display: flex;
@@ -370,7 +446,7 @@
     }
 
     /* ============================================================
-       EMPTY STATE
+       EMPTY STATES
        ============================================================ */
     .empty-state {
         margin-top: 64px;
@@ -382,6 +458,23 @@
     }
     .empty-state h3 { font-weight: 800; margin: 0 0 10px; font-size: 1.3rem; }
     .empty-state p  { color: var(--alc-slate); margin: 0; }
+
+    #search-empty { margin-top: 0; padding: 72px 24px; }
+    #search-empty .term { color: var(--alc-ink); font-weight: 700; }
+    .search-reset {
+        margin-top: 22px;
+        border: 1px solid rgba(22, 24, 29, .14);
+        background: #FFFFFF;
+        border-radius: 999px;
+        padding: 11px 22px;
+        font-size: .84rem;
+        font-weight: 700;
+        color: var(--alc-ink);
+        cursor: pointer;
+        transition: background .25s ease, border-color .25s ease;
+    }
+    .search-reset:hover { background: rgba(240, 140, 33, .10); border-color: var(--alc-accent); }
+    .search-reset:focus-visible { outline: 2px solid var(--alc-ink); outline-offset: 2px; }
 
     /* ============================================================
        SCROLL REVEAL
@@ -405,6 +498,9 @@
         #content { padding-bottom: 72px; }
         .wrap { padding: 0 20px; }
         #blog-hero { padding: 64px 0 76px; }
+        .search-shell { max-width: 100%; margin-top: 26px; }
+        .search-field { padding: 11px 12px 11px 16px; }
+        #blog-search { font-size: 16px; } /* prevents iOS zoom-on-focus */
         .featured-section .wrap { margin-top: -40px; }
         .list-section { padding-top: 56px; }
         .list-head { margin-bottom: 32px; }
@@ -426,7 +522,7 @@
         }
         .reveal { opacity: 1; transform: none; }
         .reveal-line > span { transform: none; }
-        .hero-sub { opacity: 1; }
+        .hero-sub, .search-shell { opacity: 1; }
     }
 </style>
 {% endblock %}
@@ -508,6 +604,29 @@
             <span class="eyebrow"><span class="dot"></span> The Journal</span>
             <h1><span class="reveal-line"><span>Blog</span></span></h1>
             <p class="hero-sub">Explore expert articles, therapy insights, and practical mental health guidance on trauma, relationships, anxiety, depression, emotional wellbeing, and more from the psychologists at Another Light Counselling.</p>
+
+            {% if posts %}
+            <!-- ================= SEARCH ================= -->
+            <div class="search-shell">
+                <label class="sr-only" for="blog-search" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;">Search articles by title</label>
+                <div class="search-field">
+                    <svg class="search-icon" width="19" height="19" viewBox="0 0 24 24" fill="none"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="M20 20l-3.6-3.6"></path>
+                    </svg>
+                    <input id="blog-search" type="search" autocomplete="off" spellcheck="false"
+                           placeholder="Search articles — try anxiety, grief, LGBTQ…">
+                    <button type="button" id="blog-search-clear" class="search-clear" aria-label="Clear search" hidden>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2.4" stroke-linecap="round" aria-hidden="true" focusable="false">
+                            <path d="M6 6l12 12M18 6L6 18"></path>
+                        </svg>
+                    </button>
+                </div>
+                <span class="search-status" id="search-status" role="status" aria-live="polite"></span>
+            </div>
+            {% endif %}
         </div>
     </section>
 
@@ -517,9 +636,10 @@
 
             {% if forloop.first %}
             <!-- ================= FEATURED ================= -->
-            <section class="featured-section">
+            <section class="featured-section" id="featured-section">
                 <div class="wrap">
-                    <a class="featured reveal" href="{% url 'post' post.slug %}">
+                    <a class="featured reveal" href="{% url 'post' post.slug %}"
+                       data-search="{{ post.title|lower }} {{ post.created|date:'M Y'|lower }}">
                         <div class="featured-media">
                             {% if post.image_file %}
                                 <img src="{{ post.image_file.url }}" alt="{{ post.title }}" loading="eager">
@@ -538,17 +658,18 @@
             </section>
 
             <!-- ================= LIST ================= -->
-            <section class="list-section">
+            <section class="list-section" id="list-section">
                 <div class="wrap">
                     <div class="list-head reveal">
-                        <h2>More from the journal</h2>
-                        <span class="count">{{ posts|length }} articles</span>
+                        <h2 id="list-title" data-default="More from the journal">More from the journal</h2>
+                        <span class="count" id="list-count" data-total="{{ posts|length }}">{{ posts|length }} articles</span>
                     </div>
                     <div id="resource-list">
             {% endif %}
 
             {% if not forloop.first %}
                     <a class="resource reveal" href="{% url 'post' post.slug %}"
+                       data-search="{{ post.title|lower }} {{ post.created|date:'M Y'|lower }}"
                        style="--card-accent: {% cycle '#6698CC' '#B4B534' '#E36888' '#F08C21' as cardaccent %};">
                         <div class="media">
                             {% if post.image_file %}
@@ -567,6 +688,12 @@
 
             {% if forloop.last %}
                     </div><!-- /#resource-list -->
+
+                    <div class="empty-state is-hidden" id="search-empty">
+                        <h3>No articles match <span class="term" id="search-empty-term"></span></h3>
+                        <p>Try a shorter word, or check the spelling.</p>
+                        <button type="button" class="search-reset" id="search-reset">Show all articles</button>
+                    </div>
                 </div>
             </section>
             {% endif %}
@@ -586,24 +713,154 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+
+        /* ---------- Scroll reveal ---------- */
         var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         var items = document.querySelectorAll('.reveal');
+        var io = null;
 
         if (reduce || !('IntersectionObserver' in window)) {
             items.forEach(function (el) { el.classList.add('is-visible'); });
-            return;
+        } else {
+            io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+            items.forEach(function (el) { io.observe(el); });
         }
 
-        var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    io.unobserve(entry.target);
+        /* ---------- Blog search ---------- */
+        var input = document.getElementById('blog-search');
+        if (!input) { return; }
+
+        var clearBtn   = document.getElementById('blog-search-clear');
+        var resetBtn   = document.getElementById('search-reset');
+        var statusEl   = document.getElementById('search-status');
+        var featSec    = document.getElementById('featured-section');
+        var featCard   = featSec ? featSec.querySelector('.featured') : null;
+        var listTitle  = document.getElementById('list-title');
+        var countEl    = document.getElementById('list-count');
+        var emptyEl    = document.getElementById('search-empty');
+        var emptyTerm  = document.getElementById('search-empty-term');
+        var cards      = Array.prototype.slice.call(document.querySelectorAll('#resource-list .resource'));
+        var total      = countEl ? parseInt(countEl.getAttribute('data-total'), 10) : cards.length;
+        var defaultTitle = listTitle ? listTitle.getAttribute('data-default') : '';
+        var timer = null;
+
+        function norm(s) {
+            s = (s || '').toLowerCase();
+            if (s.normalize) { s = s.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+            return s.replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+        }
+
+        function show(el) {
+            if (!el) { return; }
+            el.classList.remove('is-hidden');
+            el.classList.add('is-visible');
+        }
+        function hide(el) {
+            if (!el) { return; }
+            el.classList.add('is-hidden');
+        }
+
+        function apply(raw) {
+            var q = norm(raw);
+            var tokens = q ? q.split(' ') : [];
+
+            if (clearBtn) { clearBtn.hidden = !raw; }
+
+            if (!tokens.length) {
+                show(featSec);
+                cards.forEach(function (c) { c.classList.remove('is-hidden'); });
+                hide(emptyEl);
+                if (listTitle) { listTitle.textContent = defaultTitle; }
+                if (countEl)   { countEl.textContent = total + ' articles'; }
+                if (statusEl)  { statusEl.textContent = ''; }
+                return;
+            }
+
+            function matches(el) {
+                var hay = el.getAttribute('data-search') || '';
+                hay = norm(hay);
+                for (var i = 0; i < tokens.length; i++) {
+                    if (hay.indexOf(tokens[i]) === -1) { return false; }
+                }
+                return true;
+            }
+
+            var found = 0;
+
+            if (featCard) {
+                if (matches(featCard)) { show(featSec); found++; }
+                else { hide(featSec); }
+            }
+
+            cards.forEach(function (c) {
+                if (matches(c)) {
+                    c.classList.remove('is-hidden');
+                    c.classList.add('is-visible');
+                    found++;
+                } else {
+                    c.classList.add('is-hidden');
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-        items.forEach(function (el) { io.observe(el); });
+            if (listTitle) { listTitle.textContent = 'Search results'; }
+            if (countEl)   { countEl.textContent = found + ' of ' + total + ' articles'; }
+            if (statusEl)  { statusEl.textContent = found === 0
+                                ? 'No matches'
+                                : found + (found === 1 ? ' article found' : ' articles found'); }
+
+            if (found === 0) {
+                if (emptyTerm) { emptyTerm.textContent = '“' + raw.trim() + '”'; }
+                show(emptyEl);
+            } else {
+                hide(emptyEl);
+            }
+        }
+
+        function run() {
+            var raw = input.value;
+            apply(raw);
+            try {
+                var url = window.location.pathname;
+                if (raw.trim()) { url += '?q=' + encodeURIComponent(raw.trim()); }
+                window.history.replaceState(null, '', url);
+            } catch (e) { /* no-op */ }
+        }
+
+        input.addEventListener('input', function () {
+            clearTimeout(timer);
+            timer = setTimeout(run, 130);
+        });
+
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' || e.keyCode === 27) {
+                input.value = '';
+                run();
+            }
+        });
+
+        function resetSearch() {
+            input.value = '';
+            run();
+            input.focus();
+        }
+        if (clearBtn) { clearBtn.addEventListener('click', resetSearch); }
+        if (resetBtn) { resetBtn.addEventListener('click', resetSearch); }
+
+        /* Preload from ?q= so a shared search URL works */
+        var initial = (window.location.search.match(/[?&]q=([^&]*)/) || [])[1];
+        if (initial) {
+            input.value = decodeURIComponent(initial.replace(/\+/g, ' '));
+            apply(input.value);
+            if (clearBtn) { clearBtn.hidden = false; }
+        }
     });
 </script>
 {% endblock %}

@@ -188,3 +188,19 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+GOOGLE_OAUTH_CLIENT_ID     = os.environ.get('GOOGLE_OAUTH_CLIENT_ID', '')
+GOOGLE_OAUTH_CLIENT_SECRET = os.environ.get('GOOGLE_OAUTH_CLIENT_SECRET', '')
+GOOGLE_OAUTH_REFRESH_TOKEN = os.environ.get('GOOGLE_OAUTH_REFRESH_TOKEN', '')
+
+GBP_ACCOUNT_ID  = os.environ.get('GBP_ACCOUNT_ID', '')
+GBP_LOCATION_ID = os.environ.get('GBP_LOCATION_ID', '')
+
+# Only used to build the "read on Google" / "leave a review" links.
+GOOGLE_PLACE_ID = os.environ.get('GOOGLE_PLACE_ID', '')
+
+# Django 3.1 defaults SECURE_REFERRER_POLICY to "same-origin", which strips the
+# Referer on cross-origin requests. Reviewer avatars on lh3.googleusercontent.com
+# are already guarded with referrerpolicy="no-referrer" in reviews.html, so
+# nothing more is needed. Noted so nobody re-debugs it in six months.

@@ -128,6 +128,9 @@
         --alc-ink: #43281f;
 
         position: relative;
+        /* Clear band at the bottom so the illustration never sits under
+           the contact rows, however many contact entries are added. */
+        padding-bottom: 100px !important;
       }
       #footer .footersection {
         position: relative;
@@ -137,6 +140,7 @@
       /* ---- Headings: no decorative rule, just breathing room ---- */
       #footer .footersection h4 {
         letter-spacing: 0.01em;
+        {% comment %} margin-bottom: 22px !important; {% endcomment %}
       }
 
       /* ---- Contact details: borderless rows, deep ink text ---- */
@@ -274,9 +278,7 @@
         height: auto;
       }
 
-      /* Tablet & mobile: move the flowers to the right and reserve clear
-         space beneath the stacked content so they are never hidden
-         behind the map. */
+      /* Tablet & mobile: flowers move to the right, clear band shrinks. */
       @media (max-width: 991px) {
         #footer {
           padding-bottom: 130px !important;

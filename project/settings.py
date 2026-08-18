@@ -29,6 +29,7 @@ except Exception:
     pass
 secret_key = os.environ.get('SECRET_KEY')
 main_host = os.environ.get('MAIN_HOST')
+canonical_redirect = os.environ.get('CANONICAL_REDIRECT', 'false').lower() == 'true'
 db_name = os.environ.get('DB_NAME')
 db_user = os.environ.get('DB_USER')
 db_pass = os.environ.get('DB_PASS')
@@ -47,8 +48,20 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '0.0.0.0',
     '192.168.0.101',
+    'another-light.com',
+    'www.another-light.com',
     main_host
 ]
+
+# Canonical host is www — that's what Google has indexed.
+# See main/middleware.py for why PREPEND_WWW is not used here.
+CANONICAL_HOST = 'www.another-light.com'
+REDIRECT_HOSTS = ['another-light.com']
+CANONICAL_REDIRECT_ENABLED = canonical_redirect
+
+# Enable ONLY after confirming the reverse proxy sets X-Forwarded-Proto.
+# If nothing in front of Django sets it, a client can spoof it.
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
@@ -83,6 +96,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'main.middleware.CanonicalHostRedirectMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

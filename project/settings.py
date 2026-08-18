@@ -47,8 +47,16 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '0.0.0.0',
     '192.168.0.101',
+    'another-light.com',
+    'www.another-light.com',
     main_host
 ]
+
+# Canonical host is the www version (that's what's indexed on Google).
+# CommonMiddleware (already enabled below) uses this to 301-redirect any
+# request for the bare apex domain to the www version, e.g.
+# https://another-light.com/about -> https://www.another-light.com/about
+PREPEND_WWW = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'

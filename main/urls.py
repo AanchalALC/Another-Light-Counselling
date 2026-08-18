@@ -2,13 +2,14 @@ from django.urls import path, re_path
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import RedirectView  # <-- Import this
 
-from .sitemaps import PostSiteMap, PostTypeSiteMap, StaticSiteMap
+from .sitemaps import PostSiteMap, PostTypeSiteMap, StaticSiteMap, DoIFeelSiteMap
 from . import views
 
 sitemaps = {
     'static': StaticSiteMap,
     'posts': PostSiteMap,
-    'types': PostTypeSiteMap
+    'types': PostTypeSiteMap,
+    'doifeels': DoIFeelSiteMap
 }
 
 urlpatterns = [

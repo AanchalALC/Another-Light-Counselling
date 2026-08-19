@@ -1,11 +1,27 @@
+from django.conf import settings
 from django.contrib.sitemaps import Sitemap
-from .models import Post, PostType
+from .models import Post, PostType, DoIFeel
 from django.urls import reverse
 
 
-class StaticSiteMap(Sitemap):
-    changefreq = "monthly"
+class _CanonicalSite:
+    def __init__(self, domain):
+        self.domain = domain
+
+
+class CanonicalDomainSitemap(Sitemap):
+    # Migrations are gitignored in this repo, so the sites.Site row for
+    # SITE_ID can't be pinned in version control — hardcode the domain
+    # instead of relying on django.contrib.sites.
     protocol = 'https'
+
+    def get_urls(self, page=1, site=None, protocol=None):
+        site = _CanonicalSite(getattr(settings, 'CANONICAL_HOST', 'www.another-light.com'))
+        return super().get_urls(page=page, site=site, protocol=protocol)
+
+
+class StaticSiteMap(CanonicalDomainSitemap):
+    changefreq = "monthly"
 
     def items(self):
         return [
@@ -15,10 +31,12 @@ class StaticSiteMap(Sitemap):
             'resources',
             'reviews',
             'contact',
-            'doifeel',
+            # 'doifeel' removed: its URL pattern requires a <slug:slug> arg,
+            # so reverse('doifeel') with no args raised NoReverseMatch.
+            # See DoIFeelSiteMap below for the per-object entries.
             'careers',
             'blog',
-            'mediafeatures',
+            'media-features',
         ]
 
     def location(self, item):
@@ -30,10 +48,9 @@ class StaticSiteMap(Sitemap):
         else:
             return 0.9
 
-class PostSiteMap(Sitemap):
+class PostSiteMap(CanonicalDomainSitemap):
     changefreq = "monthly"
     priority = 0.64
-    protocol = 'https'
 
     def items(self):
         return Post.objects.all()
@@ -42,10 +59,20 @@ class PostSiteMap(Sitemap):
         return obj.modified
 
 
-class PostTypeSiteMap(Sitemap):
+class PostTypeSiteMap(CanonicalDomainSitemap):
     changefreq = "monthly"
     priority = 0.9
-    protocol = 'https'
 
     def items(self):
         return PostType.objects.all()
+
+
+class DoIFeelSiteMap(CanonicalDomainSitemap):
+    changefreq = "monthly"
+    priority = 0.7
+
+    def items(self):
+        return DoIFeel.objects.all()
+
+    def location(self, obj):
+        return reverse('doifeel', args=[obj.slug])

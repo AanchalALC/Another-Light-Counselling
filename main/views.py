@@ -12,9 +12,9 @@ from django.db.models import Case, When, Value, IntegerField
 
 from .models import (
     Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails,
-    Service, DoIFeel, Policy, Committee, DynamicContent, Jd, OnboardingPlan,
+    Service, ServicesHubPage, DoIFeel, Policy, Committee, DynamicContent, Jd, OnboardingPlan,
     # NEW models for Team module (add these in models.py)
-    TeamPage, SpecializationTag,  Member, 
+    TeamPage, SpecializationTag,  Member,
     MemberBlogPost, MediaFeature
 )
 from .forms import ContactForm, PpcContactForm
@@ -62,7 +62,7 @@ def get_common_template_context():
     return {
         'contactdetails': contactdetails,
         'h_contacts': {cd.key: cd for cd in contactdetails},
-        'services': Service.objects.all().order_by('id'),
+        'services': Service.objects.filter(is_published=True).order_by('id'),
         'doifeels': DoIFeel.objects.all().order_by('id'),
     }
 # ---- Meet Our Team: YouTube helper ----
@@ -122,7 +122,7 @@ def index(request):
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
@@ -162,7 +162,7 @@ def index(request):
 def media_features(request):
     # Shared chrome (footer + nav dropdowns)
     contactdetails = ContactDetails.objects.all()
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
     doifeels = DoIFeel.objects.all().order_by('id')
 
     base = MediaFeature.objects.filter(is_active=True).order_by('order', 'id')
@@ -211,7 +211,7 @@ def about(request):
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
@@ -260,7 +260,7 @@ def team_list(request):
         'team_page': team_page,
         'members': members,
         'h_contacts': get_header_contacts(),
-        'services': Service.objects.all().order_by('id'),
+        'services': Service.objects.filter(is_published=True).order_by('id'),
         'doifeels': DoIFeel.objects.all().order_by('id'),
     }
     return render(request, 'team_list.html', context)
@@ -327,7 +327,7 @@ def faqs(request):
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
@@ -360,7 +360,7 @@ def resources(request):
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
@@ -471,7 +471,7 @@ def reviews(request):
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
@@ -488,7 +488,8 @@ def reviews(request):
 
 
 def services(request):
-    services = Service.objects.all().order_by('id')
+    """Services hub: modalities grouped by category (same grouping as the nav dropdown)."""
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
@@ -496,24 +497,30 @@ def services(request):
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
 
+    hub_page = ServicesHubPage.objects.first()
+    hub_faqs = FAQ.objects.filter(show_on_services_hub=True).order_by('id')
+
     context = {
         'doifeels': doifeels,
         'services': services,
+        'hub_page': hub_page,
+        'hub_faqs': hub_faqs,
         'contactdetails': contactdetails,
         'h_contacts': get_header_contacts()
+        # 'service_categories' comes from main.context_processors.service_categories
     }
     return render(request, 'services.html', context=context)
 
 
 def service(request, slug):
-    # FETCH OBJ
-    service_obj = Service.objects.get(slug=str(slug))
+    # FETCH OBJ — 404s (not 500s) on a bad slug, and hides unpublished services
+    service_obj = get_object_or_404(Service, slug=str(slug), is_published=True)
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
@@ -521,6 +528,7 @@ def service(request, slug):
     # CREATE CONTEXT
     context = {
         'service': service_obj,
+        'related_services': service_obj.related_services(),
         'contactdetails': contactdetails,
         'services': services,
         'doifeels': doifeels,
@@ -534,7 +542,7 @@ def doifeels(request):
     doifeels = DoIFeel.objects.all().order_by('id')
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
@@ -556,7 +564,7 @@ def doifeel(request, slug):
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
@@ -580,7 +588,7 @@ def careers(request):
     careers = Jd.objects.all().order_by('id')
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
@@ -603,7 +611,7 @@ def jd(request, slug):
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
@@ -630,7 +638,7 @@ def contact(request):
         form = ContactForm()
 
         # GET SERVICES FOR FOOTER
-        services = Service.objects.all().order_by('id')
+        services = Service.objects.filter(is_published=True).order_by('id')
 
         # GET DO I FEEL
         doifeels = DoIFeel.objects.all().order_by('id')
@@ -657,7 +665,7 @@ def post(request, slug):
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')
@@ -696,7 +704,7 @@ def blog(request, pageno=1):
     contactdetails = ContactDetails.objects.all()
 
     # GET SERVICES FOR FOOTER
-    services = Service.objects.all().order_by('id')
+    services = Service.objects.filter(is_published=True).order_by('id')
 
     # GET DO I FEEL
     doifeels = DoIFeel.objects.all().order_by('id')

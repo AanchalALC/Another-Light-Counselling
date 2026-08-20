@@ -1,10 +1,15 @@
 {% extends 'skeleton.html' %}
 {% load static %}
-{% block title %}Services - Another Light{% endblock %}
-{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling{% endblock %}
+{% block title %}Counselling & Therapy Services | Another Light{% endblock %}
+{% block metakeywords %}Aanchal Narang, Psychiatrist, Another Light Counselling, Counselling, Therapy Services{% endblock %}
+
+{% block metadescription %}Explore Another Light Counselling's therapy services — trauma recovery, individual mental health, relationship & couples counselling, and identity-affirmative therapy — online and in Mumbai.{% endblock %}
+{% block ogtitle %}Counselling & Therapy Services | Another Light{% endblock %}
+{% block ogdescription %}Explore Another Light Counselling's therapy services, grouped by category, online and in Mumbai.{% endblock %}
+{% block tctitle %}Counselling & Therapy Services | Another Light{% endblock %}
+{% block tcdescription %}Explore Another Light Counselling's therapy services, grouped by category, online and in Mumbai.{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/services.css' %}">
 <link rel="canonical" href="https://www.another-light.com/services/" />
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
@@ -14,30 +19,451 @@
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
 </script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.another-light.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.another-light.com/services/"}
+  ]
+}
+</script>
+
+{% if hub_faqs %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for faq in hub_faqs %}
+    {
+      "@type": "Question",
+      "name": "{{ faq.question|escapejs }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ faq.answer|striptags|escapejs }}"
+      }
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
+
+<style>
+    /* =========================================
+       ALC Services Hub — built from the same solid-colour,
+       hand-drawn-doodle pattern already used on Resources/Blog/Do I Feel.
+       Palette: Tangerine #F08C21 | Butter #F2D88F | Blush #E36888
+                Sea #6698CC | Matcha #B4B534. No gradients anywhere.
+       ========================================= */
+    #content {
+        font-family: inherit;
+        color: #333333;
+        background-color: #FAFAFA;
+        padding-bottom: 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .alc-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #FFFFFF;
+        border-radius: 999px;
+        padding: 9px 20px;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #1A1A1A;
+        margin-bottom: 22px;
+    }
+    .alc-kicker::before {
+        content: '';
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: #F08C21;
+    }
+    .alc-kicker.on-dark { background: rgba(255,255,255,0.85); }
+
+    /* ===== HERO — solid Tangerine ===== */
+    #services-hero {
+        position: relative;
+        z-index: 2;
+        background-color: #F08C21;
+        padding: 90px 20px 130px 20px;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        text-align: center;
+        overflow: hidden;
+    }
+    #services-hero .alc-kicker { background: #FFFFFF; }
+    #services-hero-inner {
+        position: relative;
+        z-index: 3;
+        max-width: 760px;
+        margin: 0 auto;
+    }
+    #services-hero h1 {
+        font-size: clamp(2.4rem, 5vw, 4.4rem);
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -1.5px;
+        color: #FFFFFF;
+        margin: 0 0 20px 0;
+    }
+    #services-hero p {
+        font-size: 1.15rem;
+        line-height: 1.65;
+        color: #FFF6EA;
+        margin: 0 0 34px 0;
+    }
+    .alc-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.9rem 2rem;
+        border-radius: 999px;
+        font-weight: 800;
+        font-size: 1rem;
+        text-decoration: none;
+        border: 2px solid transparent;
+        min-height: 44px;
+        transition: transform 0.18s ease;
+    }
+    .alc-btn:hover, .alc-btn:focus-visible { transform: translateY(-3px); text-decoration: none; }
+    .alc-btn-light { background: #FFFFFF; color: #1A1A1A; }
+    .alc-btn-outline-light { background: transparent; color: #FFFFFF; border-color: #FFFFFF; }
+    .alc-btn-dark { background: #1A1A1A; color: #FFFFFF; }
+
+    .hero-doodle { position: absolute; z-index: 1; pointer-events: none; opacity: 0.85; }
+    .hd-star     { top: 40px;  left: 3%;   width: 64px; }
+    .hd-spiral   { bottom: 40px; left: 8%;  width: 80px; }
+    .hd-waves    { top: 130px; left: -10px; width: 110px; }
+    .hd-cloud    { top: 50px;  right: 6%;  width: 130px; }
+    .hd-book     { bottom: 60px; right: 9%; width: 96px; }
+    .hd-sparkle  { bottom: 150px; right: 3%; width: 48px; }
+    .hd-plus-a   { top: 110px; left: 24%;  width: 24px; }
+    .hd-plus-b   { bottom: 50px; right: 30%; width: 20px; }
+    .hero-doodle .stroke-white  { stroke: #FFFFFF; opacity: 0.55; }
+    .hero-doodle .fill-white    { fill: #FFFFFF; opacity: 0.5; }
+    .hd-spiral svg { animation: alcSpin 50s linear infinite; transform-origin: center; }
+    @keyframes alcSpin { 100% { transform: rotate(360deg); } }
+
+    /* ===== VIDEO SLOT ===== */
+    #video-section { max-width: 900px; margin: -70px auto 70px; padding: 0 20px; position: relative; z-index: 10; }
+    .alc-video-frame {
+        position: relative; width: 100%; padding-top: 56.25%;
+        border-radius: 22px; overflow: hidden; background: #1A1A1A;
+        border: 2px solid #1A1A1A; box-shadow: 10px 10px 0px #B4B534;
+    }
+    .alc-video-frame video, .alc-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .alc-video-caption { text-align: center; margin-top: 14px; color: #555; font-size: 0.95rem; }
+
+    /* ===== SECTION shell ===== */
+    .alc-section { max-width: 1150px; margin: 0 auto; padding: 70px 20px; position: relative; }
+    .alc-section h2 {
+        font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+        font-weight: 800; letter-spacing: -1px; color: #1A1A1A;
+        margin: 0 0 14px 0; text-align: center;
+    }
+    .alc-section .alc-section-sub {
+        text-align: center; max-width: 640px; margin: 0 auto 46px; color: #444; font-size: 1.05rem;
+    }
+    .alc-section-band { border-radius: 60px; }
+
+    /* ===== HOW WE CAN HELP — card grid ===== */
+    #how-we-help { background-color: #FAFAFA; }
+    .service-card-grid {
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 34px;
+    }
+    .service-card {
+        background: #FFFFFF; border-radius: 20px; border: 2px solid #1A1A1A;
+        overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: inherit;
+        transition: transform 0.2s ease;
+    }
+    .service-card:hover, .service-card:focus-visible { transform: translate(-5px, -5px); text-decoration: none; color: inherit; }
+    .service-card:nth-child(5n+1) { box-shadow: 10px 10px 0px #F08C21; }
+    .service-card:nth-child(5n+2) { box-shadow: 10px 10px 0px #B4B534; }
+    .service-card:nth-child(5n+3) { box-shadow: 10px 10px 0px #6698CC; }
+    .service-card:nth-child(5n+4) { box-shadow: 10px 10px 0px #E36888; }
+    .service-card:nth-child(5n+5) { box-shadow: 10px 10px 0px #F2D88F; }
+    .service-card-thumb { width: 100%; height: 170px; border-bottom: 2px solid #1A1A1A; overflow: hidden; }
+    .service-card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .service-card-thumb.no-image { display: flex; align-items: center; justify-content: center; }
+    .service-card-thumb.no-image svg { width: 46px; height: 46px; opacity: 0.5; }
+    .service-card-body { padding: 22px 24px 26px; display: flex; flex-direction: column; flex: 1; }
+    .service-card-body h3 { font-size: 1.28rem; font-weight: 800; color: #1A1A1A; margin: 0 0 10px; letter-spacing: -0.3px; }
+    .service-card-body p { font-size: 0.96rem; line-height: 1.55; color: #4a4a4a; margin: 0 0 18px; flex: 1; }
+    .service-card-learn { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #1A1A1A; display: inline-flex; align-items: center; gap: 8px; margin-top: auto; }
+    .service-card-learn::after { content: '→'; font-size: 1.15rem; transition: transform 0.2s ease; }
+    .service-card:hover .service-card-learn::after { transform: translateX(6px); }
+
+    /* ===== THERAPY CATEGORIES ===== */
+    #therapy-categories { background-color: #F2D88F; }
+    .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
+    .category-block {
+        background: #FFFFFF; border-radius: 18px; border: 2px solid #1A1A1A;
+        padding: 24px 26px; scroll-margin-top: 90px;
+    }
+    .category-block h3 {
+        font-size: 1.15rem; font-weight: 800; letter-spacing: -0.2px; margin: 0 0 14px;
+        padding-bottom: 10px; border-bottom: 3px solid var(--cat-color, #F08C21); color: #1A1A1A;
+    }
+    .category-block ul { list-style: none; margin: 0; padding: 0; }
+    .category-block li { margin-bottom: 8px; }
+    .category-block a { color: #333; text-decoration: none; font-weight: 600; font-size: 0.96rem; }
+    .category-block a:hover, .category-block a:focus-visible { color: var(--cat-color, #F08C21); text-decoration: underline; }
+
+    /* ===== WHY CHOOSE US — solid Sea ===== */
+    #why-choose { background-color: #6698CC; color: #FFFFFF; }
+    #why-choose h2, #why-choose .alc-section-sub { color: #FFFFFF; }
+    .why-choose-list { list-style: none; margin: 0 auto; padding: 0; max-width: 620px; display: grid; gap: 16px; }
+    .why-choose-list li {
+        display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.14);
+        border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 16px 20px; font-weight: 600;
+    }
+    .why-choose-list li svg { flex: 0 0 auto; width: 22px; height: 22px; }
+
+    /* ===== OUR THERAPY PROCESS ===== */
+    #therapy-process { background-color: #FAFAFA; }
+    .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; counter-reset: step; }
+    .process-step { text-align: center; padding: 0 10px; }
+    .process-step .step-num {
+        width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 18px;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 1.3rem; color: #FFFFFF; background: var(--step-color, #F08C21);
+        border: 2px solid #1A1A1A;
+    }
+    .process-step h3 { font-size: 1.1rem; font-weight: 800; margin: 0 0 8px; color: #1A1A1A; }
+    .process-step p { font-size: 0.94rem; color: #4a4a4a; margin: 0; }
+
+    /* ===== FAQ ===== */
+    #services-faq { background-color: #FAFAFA; max-width: 780px; }
+    .faq-item { background: #FFFFFF; border: 2px solid #1A1A1A; border-radius: 16px; margin-bottom: 14px; overflow: hidden; }
+    .faq-question {
+        width: 100%; text-align: left; background: transparent; border: 0; padding: 18px 22px;
+        font-weight: 700; font-size: 1.02rem; color: #1A1A1A; display: flex; justify-content: space-between;
+        align-items: center; gap: 1rem; min-height: 44px;
+    }
+    .faq-question .fa-chevron-down { transition: transform 0.2s ease; color: #F08C21; }
+    .faq-question[aria-expanded="true"] .fa-chevron-down { transform: rotate(180deg); }
+    .faq-answer { padding: 0 22px 20px; color: #444; line-height: 1.6; }
+
+    /* ===== FINAL CTA — solid Blush ===== */
+    #final-cta { background-color: #E36888; border-radius: 60px 60px 0 0; text-align: center; padding: 80px 20px; margin-top: 0; }
+    #final-cta h2 { color: #FFFFFF; font-size: clamp(1.9rem, 3.6vw, 2.8rem); font-weight: 800; margin: 0 0 30px; }
+
+    /* ===== Canvas doodles shared by sections ===== */
+    .doodle { position: absolute; z-index: 0; pointer-events: none; }
+    .doodle-circle-dashed { width: 300px; height: 300px; border: 8px dashed rgba(240,140,33,0.3); border-radius: 50%; animation: alcSpin 45s linear infinite; }
+    .doodle-triangle { width: 110px; height: 110px; background-color: #6698CC; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); opacity: 0.12; transform: rotate(18deg); }
+    .doodle-dot { width: 54px; height: 54px; background-color: #E36888; border-radius: 50%; opacity: 0.16; }
+
+    /* ===== Accessibility ===== */
+    #content a:focus-visible, #content button:focus-visible { outline: 3px solid #1A1A1A; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+        .doodle-circle-dashed, .hd-spiral svg { animation: none; }
+        .service-card, .alc-btn, .service-card-learn::after, .faq-question .fa-chevron-down { transition: none; }
+        .service-card:hover { transform: none; }
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 991px) {
+        #services-hero { padding: 70px 20px 100px; }
+        .hd-plus-a, .hd-plus-b, .hd-sparkle { display: none; }
+    }
+    @media (max-width: 768px) {
+        #services-hero h1 { letter-spacing: -1px; }
+        .hd-waves, .hd-book { display: none; }
+        #video-section { margin-top: -50px; }
+        .alc-section { padding: 50px 18px; }
+        #final-cta { border-radius: 40px 40px 0 0; padding: 60px 18px; }
+        .doodle-circle-dashed, .doodle-triangle, .doodle-dot { display: none; }
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 <div id="content">
 
-    <div id="topsection">
-        <img src="{% static 'img/services/header.svg' %}" id="topgraphic" />
-    </div>
+    <!-- ============ HERO ============ -->
+    <section id="services-hero">
+        <div class="hero-doodle hd-star" aria-hidden="true">
+            <svg viewBox="0 0 100 100" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path class="stroke-white" d="M50 10 L60 40 L90 50 L60 60 L50 90 L40 60 L10 50 L40 40 Z"/>
+            </svg>
+        </div>
+        <div class="hero-doodle hd-waves" aria-hidden="true">
+            <svg viewBox="0 0 160 60" fill="none" stroke-width="4" stroke-linecap="round">
+                <path class="stroke-white" d="M5 15 q20 -14 40 0 t40 0 t40 0 t30 0"/>
+                <path class="stroke-white" d="M5 35 q20 -14 40 0 t40 0 t40 0 t30 0"/>
+            </svg>
+        </div>
+        <div class="hero-doodle hd-cloud" aria-hidden="true">
+            <svg viewBox="0 0 180 110" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path class="stroke-white" d="M45 85 a26 26 0 0 1 2 -52 a34 34 0 0 1 64 -8 a24 24 0 0 1 26 26 a22 22 0 0 1 -6 34 Z"/>
+            </svg>
+        </div>
+        <div class="hero-doodle hd-book" aria-hidden="true">
+            <svg viewBox="0 0 140 100" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path class="stroke-white" d="M70 26 C56 12, 30 12, 12 18 v62 c18 -6 44 -6 58 8 c14 -14 40 -14 58 -8 V18 c-18 -6 -44 -6 -58 8 Z"/>
+                <path class="stroke-white" d="M70 26 v62"/>
+            </svg>
+        </div>
+        <div class="hero-doodle hd-sparkle" aria-hidden="true">
+            <svg viewBox="0 0 80 80" fill="none" stroke-width="4" stroke-linecap="round">
+                <path class="stroke-white" d="M40 6 C44 30, 50 36, 74 40 C50 44, 44 50, 40 74 C36 50, 30 44, 6 40 C30 36, 36 30, 40 6 Z"/>
+            </svg>
+        </div>
+        <div class="hero-doodle hd-spiral" aria-hidden="true">
+            <svg viewBox="0 0 100 100" fill="none" stroke-width="4" stroke-linecap="round">
+                <path class="stroke-white" d="M50 50 m0 0 a5 5 0 1 1 -5 5 a12 12 0 1 0 12 -12 a20 20 0 1 1 -20 20 a30 30 0 1 0 30 -30"/>
+            </svg>
+        </div>
+        <div class="hero-doodle hd-plus-a" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" stroke-width="5" stroke-linecap="round"><path class="stroke-white" d="M20 6 v28 M6 20 h28"/></svg>
+        </div>
+        <div class="hero-doodle hd-plus-b" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none" stroke-width="5" stroke-linecap="round"><path class="stroke-white" d="M20 6 v28 M6 20 h28"/></svg>
+        </div>
 
+        <div id="services-hero-inner">
+            <span class="alc-kicker">Our Services</span>
+            <h1>{% if hub_page.hub_heading %}{{ hub_page.hub_heading }}{% else %}Counselling &amp; Therapy Services{% endif %}</h1>
+            <p>
+                {% if hub_page.hub_intro %}{{ hub_page.hub_intro }}{% else %}Every service below is led by a therapist working within a structured, supervised practice — offered online across India and in person in Mumbai. Explore by category, or reach out and we'll help you find the right fit.{% endif %}
+            </p>
+            <a class="alc-btn alc-btn-light" href="{% url 'contact' %}">Book a Consultation</a>
+        </div>
+    </section>
 
-    <div id="service-section">
+    <!-- ============ VIDEO SLOT (empty-state guarded) ============ -->
+    {% if hub_page.has_video %}
+    <section id="video-section">
+        <div class="alc-video-frame">
+            {% if hub_page.video_source == 'file' %}
+            <video controls playsinline {% if hub_page.video_poster %}poster="{{ hub_page.video_poster.url }}"{% endif %}>
+                <source src="{{ hub_page.video_file.url }}">
+            </video>
+            {% elif hub_page.video_source == 'youtube' %}
+            <iframe src="{{ hub_page.youtube_embed_url }}" title="{{ hub_page.video_caption|default:'Another Light Counselling' }}"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            {% endif %}
+        </div>
+        {% if hub_page.video_caption %}<p class="alc-video-caption">{{ hub_page.video_caption }}</p>{% endif %}
+    </section>
+    {% endif %}
 
-        <h2>Services</h2>
-        {% for service in services %}
-        <div class="service">
-            <h3>{{service.title}}</h3>
-            {{ service.content | safe }}
+    <!-- ============ HOW WE CAN HELP ============ -->
+    <section class="alc-section" id="how-we-help">
+        <h2>How We Can Help</h2>
+        <p class="alc-section-sub">Every service links through to its own page, with what to expect, who it's for, and how sessions actually run.</p>
+        <div class="service-card-grid">
+            {% for service in services %}
+            <a class="service-card" href="{% url 'service' service.slug %}" target="_blank" rel="noopener">
+                <div class="service-card-thumb{% if not service.image_file %} no-image{% endif %}" style="background-color: {{ service.card_color }};">
+                    {% if service.image_file %}
+                    <img src="{{ service.image_file.url }}" alt="{{ service.img_alt_text|default:service.title }}">
+                    {% else %}
+                    <svg viewBox="0 0 100 100" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"><path d="M50 6c4 24 16 36 40 40-24 4-36 16-40 40-4-24-16-36-40-40 24-4 36-16 40-40z"/></svg>
+                    {% endif %}
+                </div>
+                <div class="service-card-body">
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.card_summary }}</p>
+                    <span class="service-card-learn">Learn More</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="doodle doodle-circle-dashed" style="top: 60px; right: -100px;" aria-hidden="true"></div>
+
+    <!-- ============ THERAPY CATEGORIES ============ -->
+    <section class="alc-section" id="therapy-categories">
+        <h2>Therapy Categories</h2>
+        <p class="alc-section-sub">Our services are grouped so you can find the right kind of support faster — and so it's easy for us to add new modalities without redesigning the page.</p>
+        <div class="category-grid">
+            {% for group in service_categories %}
+            <div class="category-block" id="{{ group.key }}" style="--cat-color: {{ group.services.0.card_color }};">
+                <h3>{{ group.label }}</h3>
+                <ul>
+                    {% for svc in group.services %}
+                    <li><a href="{% url 'service' svc.slug %}">{{ svc.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- ============ WHY CHOOSE ALC ============ -->
+    {% if hub_page.why_choose_list %}
+    <section class="alc-section" id="why-choose">
+        <h2>Why Choose Another Light Counselling?</h2>
+        {% if hub_page.why_choose_intro %}<p class="alc-section-sub">{{ hub_page.why_choose_intro }}</p>{% endif %}
+        <ul class="why-choose-list">
+            {% for point in hub_page.why_choose_list %}
+            <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+                {{ point }}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    <div class="doodle doodle-triangle" style="bottom: 40px; left: 4%;" aria-hidden="true"></div>
+    <div class="doodle doodle-dot" style="top: 20%; right: 7%;" aria-hidden="true"></div>
+
+    <!-- ============ OUR THERAPY PROCESS ============ -->
+    {% if hub_page.process_steps %}
+    <section class="alc-section" id="therapy-process">
+        <h2>Our Therapy Process</h2>
+        <div class="process-grid">
+            {% for step in hub_page.process_steps %}
+            <div class="process-step">
+                <div class="step-num" style="--step-color: {% cycle '#F08C21' '#B4B534' '#6698CC' '#E36888' %};">{{ step.order }}</div>
+                <h3>{{ step.title }}</h3>
+                <p>{{ step.detail }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- ============ FAQ ============ -->
+    {% if hub_faqs %}
+    <section class="alc-section" id="services-faq" aria-label="Frequently asked questions">
+        <h2>Frequently Asked Questions</h2>
+        {% for faq in hub_faqs %}
+        <div class="faq-item">
+            <h3 style="margin:0;">
+                <button class="faq-question" type="button" data-toggle="collapse"
+                        data-target="#hubfaq-{{ faq.id }}" aria-expanded="false" aria-controls="hubfaq-{{ faq.id }}">
+                    <span>{{ faq.question }}</span>
+                    <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                </button>
+            </h3>
+            <div class="collapse faq-answer" id="hubfaq-{{ faq.id }}">{{ faq.answer | safe }}</div>
         </div>
         {% endfor %}
+    </section>
+    {% endif %}
 
-
-    </div>
-
-
+    <!-- ============ FINAL CTA ============ -->
+    <section id="final-cta">
+        <h2>Ready to take the next step?</h2>
+        <a class="alc-btn alc-btn-dark" href="{% url 'contact' %}">Book a Consultation</a>
+    </section>
 
 </div>
 {% endblock %}

@@ -18,6 +18,11 @@ class FAQ(models.Model):
     site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
     question = models.CharField(max_length=500)
     answer = RichTextUploadingField()
+    show_on_services_hub = models.BooleanField(
+        default=False,
+        help_text="Tick to also feature this FAQ (with FAQPage schema) on the Services hub page. "
+                   "Keep the hub selection to 4-6 highly relevant questions."
+    )
     tippy_answer = ''
 
     def generate_tooltip_markup(self):
@@ -314,6 +319,36 @@ class Statistic(models.Model):
 
 
 class Service(models.Model):
+    # Taxonomy per the ALC services-page brief (servicepage-suggestion-ALC.pdf)
+    CATEGORY_TRAUMA = 'trauma-recovery'
+    CATEGORY_MENTAL_HEALTH = 'mental-health-wellbeing'
+    CATEGORY_RELATIONSHIPS = 'relationship-couples'
+    CATEGORY_IDENTITY = 'gender-identity'
+    CATEGORY_CHOICES = [
+        (CATEGORY_TRAUMA, 'Trauma Recovery & Healing Therapies'),
+        (CATEGORY_MENTAL_HEALTH, 'Individual Mental Health & Emotional Wellbeing'),
+        (CATEGORY_RELATIONSHIPS, 'Relationship & Couples Counselling'),
+        (CATEGORY_IDENTITY, 'Gender, Sexuality & Identity Affirmative Therapy'),
+    ]
+    # Fixed display order for the hub/nav grouping; categories not listed here sort last.
+    CATEGORY_ORDER = [
+        CATEGORY_TRAUMA,
+        CATEGORY_MENTAL_HEALTH,
+        CATEGORY_RELATIONSHIPS,
+        CATEGORY_IDENTITY,
+    ]
+
+    # Deterministic palette theme per service (hash of slug -> one of 5 brand colors).
+    # Mirrors the client-side theme array already used on doifeel.html, but computed
+    # server-side so there's no JS randomisation and no flash-of-unstyled-color.
+    CARD_THEMES = [
+        {'bg': '#F08C21', 'text': '#FFFFFF', 'light': False},  # Tangerine
+        {'bg': '#F2D88F', 'text': '#2C2C2C', 'light': True},   # Butter
+        {'bg': '#E36888', 'text': '#FFFFFF', 'light': False},  # Blush
+        {'bg': '#6698CC', 'text': '#FFFFFF', 'light': False},  # Sea
+        {'bg': '#B4B534', 'text': '#2C4A22', 'light': True},   # Matcha
+    ]
+
     image_file = models.ImageField(upload_to='services', blank=True)
     title = models.CharField(max_length=250)
     img_alt_text = models.CharField(max_length=250, blank=True, default='')
@@ -324,8 +359,90 @@ class Service(models.Model):
     meta_description = models.TextField(blank=True, default='')
     meta_keywords = models.CharField(max_length=500, blank=True, default='')
 
+    # PUBLISHING
+    is_published = models.BooleanField(
+        default=True,
+        help_text="Untick to hide this service everywhere (nav, hub, sitemap, direct URL) "
+                   "without deleting it. New services default to this being off until you're ready to go live."
+    )
+
+    # CATEGORY (for the services hub + nav grouping + related modalities)
+    category = models.CharField(
+        max_length=30, choices=CATEGORY_CHOICES, blank=True, default='',
+        help_text="Which group this service appears under on the Services hub and nav dropdown."
+    )
+
+    # STRUCTURED DETAIL-PAGE SECTIONS (all optional — leave blank and the section just won't show)
+    hero_subtitle = models.CharField(
+        max_length=300, blank=True, default='',
+        help_text="One short line under the page title, e.g. 'Support for processing traumatic experiences at your own pace.'"
+    )
+    short_summary = models.CharField(
+        max_length=400, blank=True, default='',
+        help_text="25-40 word summary shown on the Services hub card grid. Leave blank and the hero subtitle is used instead."
+    )
+    who_its_for = RichTextUploadingField(
+        blank=True, default='',
+        help_text="'Who this is for' section — signs/symptoms that suggest this service is a fit."
+    )
+    how_it_works = RichTextUploadingField(
+        blank=True, default='',
+        help_text="'How it works at ALC' — process, safety, pacing."
+    )
+    session_looks_like = RichTextUploadingField(
+        blank=True, default='',
+        help_text="'What a session looks like' — practical, concrete expectations."
+    )
+    format_availability = RichTextUploadingField(
+        blank=True, default='',
+        help_text="Format & availability — e.g. online globally / in-person Mumbai (Andheri + 180 Studio Bandra)."
+    )
+    credibility_blurb = RichTextUploadingField(
+        blank=True, default='',
+        help_text="Optional short note above the therapist/supervision credibility block. Leave blank for the standard text."
+    )
+    cta_whatsapp_message = models.CharField(
+        max_length=300, blank=True, default='',
+        help_text="Optional pre-filled WhatsApp message for this service's booking CTA. "
+                   "Leave blank to use the site-wide default message."
+    )
+
     def __str__(self):
         return str(self.title)
+
+    def get_absolute_url(self):
+        return reverse('service', args=[self.slug])
+
+    def _theme(self):
+        import zlib
+        index = zlib.crc32(self.slug.encode('utf-8')) % len(self.CARD_THEMES)
+        return self.CARD_THEMES[index]
+
+    def card_color(self):
+        """Deterministic brand-palette colour for hub/nav cards, derived from the slug."""
+        return self._theme()['bg']
+
+    def card_text_color(self):
+        """Readable text colour for whatever card_color() picked (white on dark, ink on light)."""
+        return self._theme()['text']
+
+    def card_theme_is_light(self):
+        return self._theme()['light']
+
+    def card_summary(self):
+        """25-40 word hub-card summary, falling back to the hero subtitle."""
+        return self.short_summary or self.hero_subtitle
+
+    def related_services(self):
+        """Sibling services in the same category, for the 'Related modalities' section."""
+        if not self.category:
+            return Service.objects.none()
+        return Service.objects.filter(
+            category=self.category, is_published=True
+        ).exclude(pk=self.pk).order_by('id')
+
+    def whatsapp_cta_text(self):
+        return self.cta_whatsapp_message or "Hello, I'm interested in {}".format(self.title)
 
     def get_first_header(self):
         part1 = str(self.content).split('<h')[1]
@@ -362,6 +479,113 @@ class Service(models.Model):
             print(str(ie))
             preview = content
         return preview
+
+
+class ServiceFAQ(models.Model):
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='faqs')
+    question = models.CharField(max_length=500)
+    answer = RichTextUploadingField()
+    order = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return '{} — {}'.format(self.service.title, self.question)
+
+    class Meta:
+        ordering = ('order', 'id')
+        verbose_name = 'Service FAQ'
+        verbose_name_plural = 'Service FAQs'
+
+
+class ServicesHubPage(models.Model):
+    VIDEO_SOURCE_NONE = 'none'
+    VIDEO_SOURCE_FILE = 'file'
+    VIDEO_SOURCE_YOUTUBE = 'youtube'
+    VIDEO_SOURCE_CHOICES = [
+        (VIDEO_SOURCE_NONE, 'No video (hide section)'),
+        (VIDEO_SOURCE_FILE, 'Self-hosted file'),
+        (VIDEO_SOURCE_YOUTUBE, 'YouTube embed'),
+    ]
+
+    hub_heading = models.CharField(
+        max_length=200, blank=True, default='',
+        help_text="Defaults to 'Counselling & Therapy Services' if left blank."
+    )
+    hub_intro = models.TextField(
+        blank=True, default='',
+        help_text="50-80 word introductory paragraph under the hero heading."
+    )
+
+    # "Why Choose Another Light Counselling?" section
+    why_choose_intro = models.CharField(
+        max_length=300, blank=True, default='',
+        help_text="Single line under the 'Why Choose Another Light Counselling?' heading."
+    )
+    why_choose_points = models.TextField(
+        blank=True, default='',
+        help_text="One point per line, e.g. 'Experienced therapists'. Leave blank to hide the whole section."
+    )
+
+    # "Our Therapy Process" — simple 4-step visual
+    process_step1_title = models.CharField(max_length=100, blank=True, default='')
+    process_step1_detail = models.CharField(max_length=250, blank=True, default='')
+    process_step2_title = models.CharField(max_length=100, blank=True, default='')
+    process_step2_detail = models.CharField(max_length=250, blank=True, default='')
+    process_step3_title = models.CharField(max_length=100, blank=True, default='')
+    process_step3_detail = models.CharField(max_length=250, blank=True, default='')
+    process_step4_title = models.CharField(max_length=100, blank=True, default='')
+    process_step4_detail = models.CharField(max_length=250, blank=True, default='')
+
+    video_source = models.CharField(
+        max_length=10, choices=VIDEO_SOURCE_CHOICES, default=VIDEO_SOURCE_NONE,
+        help_text="Switch between a self-hosted video file and a YouTube embed, or hide the video slot entirely."
+    )
+    video_file = models.FileField(upload_to='services_hub', blank=True, null=True)
+    video_youtube_url = models.URLField(
+        blank=True, default='',
+        help_text="Full YouTube watch/share URL. Only used when Video source is 'YouTube embed'."
+    )
+    video_poster = models.ImageField(
+        upload_to='services_hub', blank=True,
+        help_text="Optional poster/thumbnail image shown before a self-hosted video plays."
+    )
+    video_caption = models.CharField(max_length=300, blank=True, default='')
+
+    def has_video(self):
+        if self.video_source == self.VIDEO_SOURCE_FILE:
+            return bool(self.video_file)
+        if self.video_source == self.VIDEO_SOURCE_YOUTUBE:
+            return bool(self.video_youtube_url)
+        return False
+
+    def why_choose_list(self):
+        return [line.strip() for line in self.why_choose_points.splitlines() if line.strip()]
+
+    def process_steps(self):
+        steps = []
+        for n in (1, 2, 3, 4):
+            title = getattr(self, 'process_step{}_title'.format(n))
+            if title:
+                steps.append({'order': n, 'title': title, 'detail': getattr(self, 'process_step{}_detail'.format(n))})
+        return steps
+
+    def youtube_embed_url(self):
+        if self.video_source != self.VIDEO_SOURCE_YOUTUBE or not self.video_youtube_url:
+            return ''
+        from urllib.parse import urlparse, parse_qs
+        parsed = urlparse(self.video_youtube_url)
+        video_id = ''
+        if 'youtu.be' in parsed.netloc:
+            video_id = parsed.path.lstrip('/')
+        elif 'youtube.com' in parsed.netloc:
+            video_id = parse_qs(parsed.query).get('v', [''])[0]
+        return 'https://www.youtube.com/embed/{}'.format(video_id) if video_id else ''
+
+    def __str__(self):
+        return 'Services Hub Page'
+
+    class Meta:
+        verbose_name = 'Services Hub Page'
+        verbose_name_plural = 'Services Hub Page'
 
 
 class DoIFeel(models.Model):

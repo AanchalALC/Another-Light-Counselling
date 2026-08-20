@@ -12,7 +12,6 @@
 
 {% block head %}
 <link rel="canonical" href="https://www.another-light.com/service/{{ service.slug }}" />
-<link rel="stylesheet" href="{% static 'css/services.css' %}">
 <!-- Global site tag (gtag.js) - Google Ads: 10878605404 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10878605404"></script>
 <script async>
@@ -21,16 +20,20 @@
     gtag('js', new Date());
     gtag('config', 'AW-10878605404');
 </script>
-{% if service.slug == "queer-affirmative-therapy" %}
+
+<!-- MedicalTherapy schema: one per service, data-driven, doesn't duplicate the
+     org-level Product schema in skeleton.html or the LocalBusiness schema on /about -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Service",
-  "serviceType": "Queer Affirmative Therapy",
+  "@type": "MedicalTherapy",
+  "name": "{{ service.title|escapejs }}",
+  "url": "https://www.another-light.com/service/{{ service.slug }}",
+  "description": "{{ service.meta_description|escapejs }}",
   "provider": {
-    "@type": "LocalBusiness",
+    "@type": "MedicalBusiness",
     "name": "Another Light Counselling",
-    "url": "https://www.another-light.com/service/queer-affirmative-therapy",
+    "url": "https://www.another-light.com/about",
     "telephone": "+91-8879260310",
     "email": "admin@another-light.com",
     "address": {
@@ -41,125 +44,316 @@
       "postalCode": "400053",
       "addressCountry": "IN"
     },
-    "areaServed": {
-      "@type": "Country",
-      "name": "India"
-    },
+    "areaServed": {"@type": "Country", "name": "India"},
     "image": "https://www.another-light.com/static/img/skeleton/sitelogo.png"
-  },
-  "description": "Another Light Counselling provides therapeutic practices that affirm gender and sexuality of marginalized communities. We conduct therapy that takes a positive view of Lesbian, Gay, Transgender and Queer persons.",
-  "audience": {
-    "@type": "Audience",
-    "audienceType": "LGBTQ+ individuals seeking queer-affirmative therapy"
-  },
-  "offers": {
-    "@type": "Offer",
-    "name": "Session with Junior Counsellor",
-    "price": "900",
-    "priceCurrency": "INR",
-    "url": "https://www.another-light.com/contact"
-  },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Counselling Sessions",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "name": "Session with Junior Counsellor",
-        "price": "900",
-        "priceCurrency": "INR"
-      },
-      {
-        "@type": "Offer",
-        "name": "Session with Senior Counsellor",
-        "price": "1600",
-        "priceCurrency": "INR"
-      }
-    ]
   }
 }
 </script>
+
+<!-- BreadcrumbList: Home -> Services -> Category -> Service -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.another-light.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.another-light.com/services/"}
+    {% if service.category %},{
+      "@type": "ListItem", "position": 3,
+      "name": "{{ service.get_category_display|escapejs }}",
+      "item": "https://www.another-light.com/services/#{{ service.category }}"
+    },{
+      "@type": "ListItem", "position": 4,
+      "name": "{{ service.title|escapejs }}",
+      "item": "https://www.another-light.com/service/{{ service.slug }}"
+    }
+    {% else %},{
+      "@type": "ListItem", "position": 3,
+      "name": "{{ service.title|escapejs }}",
+      "item": "https://www.another-light.com/service/{{ service.slug }}"
+    }
+    {% endif %}
+  ]
+}
+</script>
+
+{% if service.faqs.exists %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for faq in service.faqs.all %}
+    {
+      "@type": "Question",
+      "name": "{{ faq.question|escapejs }}",
+      "acceptedAnswer": {"@type": "Answer", "text": "{{ faq.answer|striptags|escapejs }}"}
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
 {% endif %}
+
+<style>
+    /* =========================================
+       ALC Service Detail — same solid-colour "df-" pattern used on doifeel.html,
+       but the theme colour is picked server-side (Service.card_color) instead of
+       a client-side JS hash, so there's no randomisation and no flash of colour.
+       Palette: Tangerine #F08C21 | Butter #F2D88F | Blush #E36888
+                Sea #6698CC | Matcha #B4B534. No gradients anywhere.
+       ========================================= */
+    #content {
+        --theme-bg: {{ service.card_color }};
+        --theme-text: {{ service.card_text_color }};
+        --ink:   #1A1A1A;
+        --body:  #3A3A3A;
+        --paper: #FBFAF8;
+        --card:  #FFFFFF;
+        --line:  #EDE9E3;
+        --card-w: 80vw;
+        --card-max: 1150px;
+
+        padding: 0; margin: 0; position: relative; z-index: 1;
+        background: var(--paper); overflow-x: hidden; min-height: 100vh;
+    }
+
+    /* ===== HERO ===== */
+    .df-hero { position: relative; background-color: var(--theme-bg); color: var(--theme-text); padding: 88px 5% 92px; overflow: hidden; }
+    .df-hero::before, .df-hero::after { content: ''; position: absolute; border-radius: 50%; background: rgba(255,255,255,0.08); pointer-events: none; }
+    .df-hero::before { top: -180px; left: -120px; width: 420px; height: 420px; }
+    .df-hero::after { bottom: -240px; right: 6%; width: 560px; height: 560px; }
+    .df-hero-doodles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+    .df-hero-doodles .df-doodle { color: {% if service.card_theme_is_light %}#000000{% else %}#FFFFFF{% endif %}; opacity: {% if service.card_theme_is_light %}0.12{% else %}0.18{% endif %}; }
+    .df-hero-inner { position: relative; z-index: 3; width: 100%; max-width: 1440px; margin: 0 auto; display: flex; align-items: center; gap: 5%; }
+    .df-hero-copy { flex: 1 1 50%; min-width: 0; }
+    .df-kicker {
+        display: inline-flex; align-items: center; gap: 9px; font-size: 0.72rem; font-weight: 700;
+        letter-spacing: 0.18em; text-transform: uppercase; color: inherit;
+        background: {% if service.card_theme_is_light %}rgba(0,0,0,0.07){% else %}rgba(255,255,255,0.18){% endif %};
+        border: 1px solid {% if service.card_theme_is_light %}rgba(0,0,0,0.20){% else %}rgba(255,255,255,0.32){% endif %};
+        padding: 8px 16px; border-radius: 999px; margin-bottom: 24px;
+    }
+    .df-kicker .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .df-title { font-size: clamp(2.1rem, 4.2vw, 3.6rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.025em; color: inherit; margin: 0 0 18px; }
+    .df-subtitle { font-size: 1.12rem; line-height: 1.6; max-width: 480px; margin: 0 0 26px; opacity: 0.92; }
+    .df-rule { width: 78px; height: 5px; border-radius: 5px; background: {% if service.card_theme_is_light %}rgba(0,0,0,0.32){% else %}rgba(255,255,255,0.55){% endif %}; margin-bottom: 28px; }
+    .df-hero-ctas { display: flex; flex-wrap: wrap; gap: 0.85rem; }
+    .alc-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.7rem; border-radius: 999px; font-weight: 800; text-decoration: none; min-height: 44px; border: 2px solid transparent; transition: transform 0.18s ease; }
+    .alc-btn:hover, .alc-btn:focus-visible { transform: translateY(-3px); text-decoration: none; }
+    .df-cta-primary { background: {% if service.card_theme_is_light %}#1A1A1A{% else %}#FFFFFF{% endif %}; color: {% if service.card_theme_is_light %}#FFFFFF{% else %}var(--theme-bg){% endif %}; }
+    .df-cta-secondary { background: transparent; color: inherit; border-color: currentColor; }
+
+    .df-media { flex: 0 0 44%; position: relative; max-width: 520px; }
+    .df-media-frame { position: relative; z-index: 2; border-radius: 26px; overflow: hidden; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.38); box-shadow: 0 30px 60px rgba(0,0,0,0.2); transform: rotate(-1.5deg); }
+    .df-media-frame img { display: block; width: 100%; height: auto; max-height: 480px; object-fit: cover; }
+    .df-media::before { content: ''; position: absolute; top: -26px; right: -26px; width: 110px; height: 110px; border: 3px dashed {% if service.card_theme_is_light %}rgba(0,0,0,0.3){% else %}rgba(255,255,255,0.55){% endif %}; border-radius: 50%; z-index: 1; }
+
+    /* ===== MAIN — paper canvas with doodles ===== */
+    .df-main { position: relative; padding: 80px 3% 100px; background-color: var(--paper); }
+    .df-doodles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .df-doodle { position: absolute; color: var(--theme-bg); opacity: 0.15; }
+    .df-doodle svg { display: block; width: 100%; height: 100%; }
+    .d1 { top: 4%; left: 1%; width: 86px; height: 86px; }
+    .d2 { top: 10%; right: 1%; width: 96px; height: 96px; }
+    .d3 { top: 40%; left: 0.6%; width: 70px; height: 70px; }
+    .d4 { top: 55%; right: 0.6%; width: 90px; height: 90px; }
+    .d5 { bottom: 6%; left: 2%; width: 80px; height: 80px; }
+
+    /* ===== ARTICLE CARD ===== */
+    .df-article { position: relative; z-index: 2; width: var(--card-w); max-width: var(--card-max); margin: 0 auto; box-sizing: border-box; background: var(--card); border: 2px solid #1A1A1A; border-radius: 24px; padding: 60px 6%; box-shadow: 10px 10px 0px var(--theme-bg); }
+    .df-body { font-size: 1.1rem; line-height: 1.85; color: var(--body); }
+    .df-body > *:first-child { margin-top: 0; }
+    .df-body h2 { font-size: 1.7rem; font-weight: 800; color: var(--ink); letter-spacing: -0.01em; margin: 2em 0 0.7em; }
+    .df-body h2:first-child { margin-top: 0; }
+    .df-body h3, .df-body h4 { color: var(--ink); font-weight: 800; margin: 1.6em 0 0.6em; }
+    .df-body p { margin: 0 0 1.3em; }
+    .df-body p:empty { display: none; }
+    .df-body a { color: var(--ink); text-decoration: none; box-shadow: inset 0 -2px 0 var(--theme-bg); }
+    .df-body a:hover { box-shadow: inset 0 -20px 0 var(--theme-bg); }
+    .df-body ul { list-style: none; margin: 0 0 1.4em; padding-left: 1.4em; }
+    .df-body li { margin-bottom: 0.5em; position: relative; }
+    .df-body ul li::before { content: ''; position: absolute; left: -1.2em; top: 0.65em; width: 8px; height: 8px; border-radius: 50%; background: var(--theme-bg); }
+    .df-body img { max-width: 100%; height: auto; border-radius: 14px; margin: 32px 0; }
+    .df-section-divider { border: 0; height: 1px; background: var(--line); margin: 2.6em 0; }
+
+    /* ===== RELATED MODALITIES ===== */
+    .related-wrap { position: relative; z-index: 2; width: var(--card-w); max-width: var(--card-max); margin: 60px auto 0; }
+    .related-wrap h2 { font-size: 1.5rem; font-weight: 800; color: var(--ink); text-align: center; margin: 0 0 26px; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .related-card { display: block; padding: 20px 22px; border-radius: 16px; border: 2px solid #1A1A1A; background: #FFFFFF; box-shadow: 8px 8px 0px var(--related-color, #6698CC); text-decoration: none; color: var(--ink); font-weight: 700; transition: transform 0.18s ease; }
+    .related-card:hover, .related-card:focus-visible { transform: translate(-4px, -4px); text-decoration: none; color: var(--ink); }
+
+    /* ===== CREDIBILITY ===== */
+    .credibility-wrap { position: relative; z-index: 2; width: var(--card-w); max-width: 780px; margin: 60px auto 0; text-align: center; }
+    .credibility-wrap p { color: var(--body); font-size: 1.05rem; line-height: 1.7; }
+    .credibility-wrap a { color: var(--theme-bg); font-weight: 800; text-decoration: none; }
+    .credibility-wrap a:hover { text-decoration: underline; }
+
+    /* ===== FAQ ===== */
+    .faq-wrap { position: relative; z-index: 2; width: var(--card-w); max-width: 780px; margin: 60px auto 0; }
+    .faq-wrap h2 { font-size: 1.5rem; font-weight: 800; color: var(--ink); margin: 0 0 22px; }
+    .faq-item { background: #FFFFFF; border: 2px solid #1A1A1A; border-radius: 16px; margin-bottom: 14px; overflow: hidden; }
+    .faq-question { width: 100%; text-align: left; background: transparent; border: 0; padding: 18px 22px; font-weight: 700; font-size: 1.02rem; color: var(--ink); display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 44px; }
+    .faq-question .fa-chevron-down { transition: transform 0.2s ease; color: var(--theme-bg); }
+    .faq-question[aria-expanded="true"] .fa-chevron-down { transform: rotate(180deg); }
+    .faq-answer { padding: 0 22px 20px; color: var(--body); line-height: 1.6; }
+
+    /* ===== CLOSING CTA — solid band ===== */
+    .closing-cta { position: relative; z-index: 2; margin-top: 90px; background-color: var(--theme-bg); color: var(--theme-text); border-radius: 50px 50px 0 0; text-align: center; padding: 70px 20px; }
+    .closing-cta h2 { font-weight: 800; font-size: clamp(1.7rem, 3.2vw, 2.4rem); margin: 0 0 28px; }
+    .closing-cta .df-cta-primary { background: {% if service.card_theme_is_light %}#1A1A1A{% else %}#FFFFFF{% endif %}; color: {% if service.card_theme_is_light %}#FFFFFF{% else %}var(--theme-bg){% endif %}; }
+    .closing-cta .df-cta-secondary { border-color: currentColor; }
+    .closing-cta .df-hero-ctas { justify-content: center; }
+
+    #content a:focus-visible, #content button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .alc-btn, .related-card, .faq-question .fa-chevron-down { transition: none; }
+        .related-card:hover { transform: none; }
+    }
+
+    @media (max-width: 1200px) { #content { --card-w: 88vw; } .df-article { padding: 50px 5%; } }
+    @media (max-width: 992px) {
+        #content { --card-w: 92vw; }
+        .df-media { flex-basis: 46%; }
+        .d3, .d4 { display: none; }
+    }
+    @media (max-width: 768px) {
+        #content { --card-w: 100%; --card-max: 100%; }
+        .df-hero { padding: 56px 22px 60px; }
+        .df-hero-inner { flex-direction: column; align-items: center; text-align: center; gap: 36px; }
+        .df-hero-copy { flex: none; width: 100%; }
+        .df-subtitle { margin-left: auto; margin-right: auto; }
+        .df-rule { margin-left: auto; margin-right: auto; }
+        .df-hero-ctas { justify-content: center; }
+        .df-media { flex: none; width: 100%; max-width: 320px; }
+        .df-hero::before, .df-hero::after { display: none; }
+        .df-main { padding: 50px 4% 70px; }
+        .df-article, .related-wrap, .credibility-wrap, .faq-wrap { width: 100%; }
+        .df-article { padding: 34px 22px; border-radius: 18px; }
+        .df-body { font-size: 1.02rem; }
+        .closing-cta { border-radius: 34px 34px 0 0; padding: 54px 18px; margin-top: 60px; }
+        .d1, .d2, .d5 { display: none; }
+    }
+</style>
 {% endblock %}
 
 {% block body %}
 <div id="content">
-    <div id="topsection">
-        <img      
-        src="{{ service.image_file.url }}" alt="{{service.img_alt_text}}"
-        id="topgraphic" alt="Mental Healing & Psychological Counselling" />
-    </div>
 
-
-    <div id="service-section">
-
-        <h1>{{service.title}}</h1>
-        <div class="service">
-            {{ service.content | safe }}
+    <!-- ================= HERO ================= -->
+    <header class="df-hero">
+        <div class="df-hero-doodles" aria-hidden="true">
+            <div class="df-doodle" style="top:10%; left:2%; width:80px; height:80px;">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5"><circle cx="50" cy="50" r="42" stroke-dasharray="10 12"/><circle cx="50" cy="50" r="20"/></svg>
+            </div>
+            <div class="df-doodle" style="bottom:10%; left:30%; width:70px; height:70px;">
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"><path d="M8 62c10-26 22-26 32 0s22 26 32 0"/></svg>
+            </div>
+            <div class="df-doodle" style="top:14%; right:8%; width:58px; height:58px;">
+                <svg viewBox="0 0 100 100" fill="currentColor"><path d="M50 6c4 24 16 36 40 40-24 4-36 16-40 40-4-24-16-36-40-40 24-4 36-16 40-40z"/></svg>
+            </div>
         </div>
 
-    </div>
+        <div class="df-hero-inner">
+            <div class="df-hero-copy">
+                <span class="df-kicker"><span class="dot"></span>{% if service.category %}{{ service.get_category_display }}{% else %}Service{% endif %}</span>
+                <h1 class="df-title">{{ service.title }}</h1>
+                {% if service.hero_subtitle %}<p class="df-subtitle">{{ service.hero_subtitle }}</p>{% endif %}
+                <div class="df-rule"></div>
+                <div class="df-hero-ctas">
+                    <a class="alc-btn df-cta-primary" href="https://api.whatsapp.com/send/?phone=918879260310&text={{ service.whatsapp_cta_text|urlencode }}&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer nofollow">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i> Book on WhatsApp
+                    </a>
+                    <a class="alc-btn df-cta-secondary" href="{% url 'contact' %}">Contact Us</a>
+                </div>
+            </div>
 
+            {% if service.image_file %}
+            <div class="df-media">
+                <div class="df-media-frame">
+                    <img src="{{ service.image_file.url }}" alt="{{ service.img_alt_text|default:service.title }}" />
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </header>
 
+    <!-- ================= MAIN ================= -->
+    <main class="df-main">
+        <div class="df-doodles" aria-hidden="true">
+            <div class="df-doodle d1"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5"><circle cx="50" cy="50" r="42" stroke-dasharray="10 12"/></svg></div>
+            <div class="df-doodle d2"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"><path d="M50 50c0-6 5-11 11-11s11 5 11 11-5 13-13 13-15-7-15-16 8-18 18-18 21 9 21 21-11 24-24 24S35 63 35 48"/></svg></div>
+            <div class="df-doodle d3"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"><path d="M20 80C20 44 44 20 80 20c0 36-24 60-60 60z"/></svg></div>
+            <div class="df-doodle d4"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"><path d="M22 12v20M12 22h20M78 40v20M68 50h20M50 68v20M40 78h20"/></svg></div>
+            <div class="df-doodle d5"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"><path d="M50 16L86 82H14z"/></svg></div>
+        </div>
+
+        <!-- Intro + structured sections, one continuous reading card -->
+        <article class="df-article">
+            <div class="df-body">
+                {{ service.content | safe }}
+
+                {% if service.who_its_for %}<hr class="df-section-divider"><h2>Who This Is For</h2>{{ service.who_its_for | safe }}{% endif %}
+                {% if service.how_it_works %}<hr class="df-section-divider"><h2>How It Works at ALC</h2>{{ service.how_it_works | safe }}{% endif %}
+                {% if service.session_looks_like %}<hr class="df-section-divider"><h2>What a Session Looks Like</h2>{{ service.session_looks_like | safe }}{% endif %}
+                {% if service.format_availability %}<hr class="df-section-divider"><h2>Format &amp; Availability</h2>{{ service.format_availability | safe }}{% endif %}
+            </div>
+        </article>
+
+        <!-- Related modalities -->
+        {% if related_services %}
+        <section class="related-wrap">
+            <h2>Related Modalities</h2>
+            <div class="related-grid">
+                {% for related in related_services %}
+                <a class="related-card" style="--related-color: {{ related.card_color }};" href="{% url 'service' related.slug %}">{{ related.title }}</a>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- Credibility -->
+        <section class="credibility-wrap">
+            {% if service.credibility_blurb %}
+                {{ service.credibility_blurb | safe }}
+            {% else %}
+                <p>Every therapist at Another Light Counselling works within a structured supervision framework, so you're never just supported by one person's judgement alone.</p>
+            {% endif %}
+            <p><a href="{% url 'about' %}">Meet our team &rarr;</a></p>
+        </section>
+
+        <!-- FAQ -->
+        {% if service.faqs.exists %}
+        <section class="faq-wrap" aria-label="Frequently asked questions">
+            <h2>Frequently Asked Questions</h2>
+            {% for faq in service.faqs.all %}
+            <div class="faq-item">
+                <h3 style="margin:0;">
+                    <button class="faq-question" type="button" data-toggle="collapse"
+                            data-target="#faq-{{ faq.id }}" aria-expanded="false" aria-controls="faq-{{ faq.id }}">
+                        <span>{{ faq.question }}</span>
+                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                </h3>
+                <div class="collapse faq-answer" id="faq-{{ faq.id }}">{{ faq.answer | safe }}</div>
+            </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+    </main>
+
+    <!-- ================= CLOSING CTA ================= -->
+    <section class="closing-cta">
+        <h2>Ready to take the next step?</h2>
+        <div class="df-hero-ctas">
+            <a class="alc-btn df-cta-primary" href="https://api.whatsapp.com/send/?phone=918879260310&text={{ service.whatsapp_cta_text|urlencode }}&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer nofollow">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i> Book on WhatsApp
+            </a>
+            <a class="alc-btn df-cta-secondary" href="{% url 'contact' %}">Contact Us</a>
+        </div>
+    </section>
 
 </div>
-<!-- <script>
-    const topgraphic = document.querySelector("#topgraphic");
-    const topsection = document.querySelector("#topsection");
-    if (window.location.href.includes(`EMDR-therapy`)) {
-        // topsection.style.backgroundColor = '#A2F1FF';
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/emdr_adobe_express.svg' %}";
-        // topgraphic.src = "{% static 'img/services/header.svg' %}";
-    }
-    else if (window.location.href.includes(`Internal-Family-Systems-Therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/internal_family.png' %}";
-    }
-    else if (window.location.href.includes(`Depression-Counselling`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/depression.png' %}";
-    }
-    else if (window.location.href.includes(`Panic-Attack`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/panic_attack.png' %}";
-    }
-    else if (window.location.href.includes(`Anxiety-Therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/anxiety_disorder.png' %}";
-    } else if (window.location.href.includes(`Eating-Disorder`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/eating_disorder.png' %}";
-    } else if (window.location.href.includes(`Compassionate-Inquiry-Therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/compassionate_inquiry.png' %}";
-    }
-    else if (window.location.href.includes(`queer-affirmative-therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/queer-affirmative-therapy.jpeg' %}";
-    }
-    else if (window.location.href.includes(`kink-affirmative-therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/kink-affirmative-therapy.jpeg' %}";
-    }
-    else if (window.location.href.includes(`addictions-therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/addictions-therapy.jpeg' %}";
-    }
-    else if (window.location.href.includes(`trauma-therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/trauma-therapy.jpeg' %}";
-    }
-    else if (window.location.href.includes(`couple-therapy`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/couple-therapy.jpeg' %}";
-    }
-    else if (window.location.href.includes(`poly-relationships-counselling`)) {
-        topsection.style.backgroundColor = '#FFFFFF';
-        topgraphic.src = "{% static 'img/services/poly-relationships-counselling.jpeg' %}";
-    }
-    else {
-        topgraphic.src = "{% static 'img/services/header.svg' %}";
-    }
-</script> -->
 {% endblock %}

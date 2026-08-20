@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic,
-    Service, DoIFeel, Policy, Committee, DynamicContent, PpcContact, Jd,
+    Service, ServiceFAQ, ServicesHubPage, DoIFeel, Policy, Committee, DynamicContent, PpcContact, Jd,
     OnboardingPlan, SpecializationTag, TeamPage,  MemberBlogPost, MediaFeature
 )
 
@@ -28,7 +28,9 @@ class ResourceAdmin(admin.ModelAdmin):
 @admin.register(FAQ)
 class FAQAdmin(admin.ModelAdmin):
     exclude = ('site',)
-    list_display = ('question',)
+    list_display = ('question', 'show_on_services_hub')
+    list_filter = ('show_on_services_hub',)
+    list_editable = ('show_on_services_hub',)
     ordering = ('id',)
     search_fields = ('question',)
 
@@ -72,11 +74,66 @@ class StatisticAdmin(admin.ModelAdmin):
     ordering = ('name', 'value',)
     search_fields = ('name', )
 
+class ServiceFAQInline(admin.TabularInline):
+    model = ServiceFAQ
+    extra = 1
+    fields = ('question', 'answer', 'order')
+
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('title',)
-    ordering = ('title',)
+    list_display = ('title', 'category', 'is_published')
+    list_filter = ('category', 'is_published')
+    list_editable = ('is_published',)
+    ordering = ('category', 'title')
     search_fields = ('title', )
+    inlines = [ServiceFAQInline]
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'slug', 'category', 'is_published', 'image_file', 'img_alt_text'),
+        }),
+        ('Intro (existing content — unchanged)', {
+            'fields': ('content',),
+        }),
+        ('Detail page sections (optional — leave blank to hide)', {
+            'fields': (
+                'hero_subtitle', 'short_summary', 'who_its_for', 'how_it_works',
+                'session_looks_like', 'format_availability', 'credibility_blurb',
+            ),
+        }),
+        ('Booking CTA', {
+            'fields': ('cta_whatsapp_message',),
+        }),
+        ('SEO', {
+            'fields': ('meta_title', 'meta_description', 'meta_keywords'),
+        }),
+    )
+
+@admin.register(ServicesHubPage)
+class ServicesHubPageAdmin(admin.ModelAdmin):
+    list_display = ('hub_heading', 'video_source')
+    fieldsets = (
+        ('Hero', {
+            'fields': ('hub_heading', 'hub_intro'),
+        }),
+        ('Why Choose Another Light Counselling? (leave points blank to hide the section)', {
+            'fields': ('why_choose_intro', 'why_choose_points'),
+        }),
+        ('Our Therapy Process (leave a step title blank to stop before that step)', {
+            'fields': (
+                'process_step1_title', 'process_step1_detail',
+                'process_step2_title', 'process_step2_detail',
+                'process_step3_title', 'process_step3_detail',
+                'process_step4_title', 'process_step4_detail',
+            ),
+        }),
+        ('Video slot', {
+            'fields': ('video_source', 'video_file', 'video_youtube_url', 'video_poster', 'video_caption'),
+        }),
+    )
+    def has_add_permission(self, request):
+        if ServicesHubPage.objects.exists():
+            return False
+        return super().has_add_permission(request)
 
 @admin.register(DoIFeel)
 class DoIFeelAdmin(admin.ModelAdmin):

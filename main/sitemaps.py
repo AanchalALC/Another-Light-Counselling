@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.sitemaps import Sitemap
-from .models import Post, PostType, DoIFeel
+from .models import Post, PostType, DoIFeel, Service
 from django.urls import reverse
 
 
@@ -27,6 +27,7 @@ class StaticSiteMap(CanonicalDomainSitemap):
         return [
             'index',
             'about',
+            'services',
             'faqs',
             'resources',
             'reviews',
@@ -76,3 +77,16 @@ class DoIFeelSiteMap(CanonicalDomainSitemap):
 
     def location(self, obj):
         return reverse('doifeel', args=[obj.slug])
+
+
+class ServiceSiteMap(CanonicalDomainSitemap):
+    changefreq = "monthly"
+    priority = 0.8
+
+    def items(self):
+        # Unpublished rows (e.g. ISP/Brainspotting pending SEO sign-off) stay out
+        # until is_published is switched on.
+        return Service.objects.filter(is_published=True)
+
+    def location(self, obj):
+        return reverse('service', args=[obj.slug])

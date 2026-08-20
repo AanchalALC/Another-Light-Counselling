@@ -29,7 +29,7 @@ except Exception:
     pass
 secret_key = os.environ.get('SECRET_KEY')
 main_host = os.environ.get('MAIN_HOST')
-canonical_redirect = os.environ.get('CANONICAL_REDIRECT', 'false').lower() == 'true'
+canonical_redirect = os.environ.get('CANONICAL_REDIRECT', 'true').lower() == 'true'
 db_name = os.environ.get('DB_NAME')
 db_user = os.environ.get('DB_USER')
 db_pass = os.environ.get('DB_PASS')

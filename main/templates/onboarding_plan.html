@@ -227,7 +227,7 @@
   .step-icon { width: 70px; height: 70px; border-radius: 50%; background: var(--paper); border: 3px solid var(--tangerine); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--tangerine); font-size: 2rem; box-shadow: 0 8px 25px rgba(240, 140, 33, .1); }
   
   /* ========= PLAN CARDS ========= */
-  .plans { --grid-cols: 1; display: grid; grid-template-columns: repeat(var(--grid-cols), 1fr); gap: 1.5rem; }
+  .plans { display: grid; grid-template-columns: 1fr; gap: 1.75rem; max-width: 860px; margin: 0 auto; }
   .plan-card { background: var(--paper); border: 1px solid var(--border-subtle); border-radius: 1rem; display: flex; flex-direction: column; box-shadow: 0 8px 25px rgba(0,0,0,.05); transition: all .2s ease; }
   .plan-card:hover { transform: translateY(-8px); box-shadow: 0 12px 35px rgba(0,0,0,.1); }
   .plan-card-header { padding: 1.25rem; border-bottom: 1px solid var(--border-subtle); position: relative; }
@@ -239,12 +239,11 @@
   .plan-card .price { font-size: 2.2rem; font-weight: 900; color: var(--tangerine); margin-bottom: 1rem; }
   .plan-card .plist { padding-left: 1.25rem; margin: 0; font-size: 0.9rem; }
   .plan-card-footer { padding: 0 1.25rem 1.25rem; }
-  @media (min-width: 640px) { .plans { --grid-cols: 2; } }
-  @media (min-width: 1200px) { .plans { --grid-cols: 4; } }
+  @media (min-width: 640px) { .plans { grid-template-columns: 1fr 1fr; } }
 
   /* ========= COMPARISON TABLE ========= */
-  .comparison-table { overflow-x: auto; background: var(--paper); border-radius: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,.1); }
-  table.compare { width: 100%; min-width: 800px; border-collapse: collapse; }
+  .comparison-table { overflow-x: auto; background: var(--paper); border-radius: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,.1); max-width: 860px; margin: 0 auto; }
+  table.compare { width: 100%; min-width: 480px; border-collapse: collapse; }
   .compare th, .compare td { padding: 1rem; border: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; font-size: 0.9rem; }
   .compare thead { background: var(--sea); color: var(--text-light); font-size: 1rem; }
   .compare tbody th { text-align: left; background: var(--bg-light); font-weight: 800; }

@@ -86,11 +86,7 @@ urlpatterns = [
     # Profile detail should now live under /about/<slug>
     path('about/<slug:slug>/', views.member_profile, name='member-profile'),
 
-    # re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
-    # Onboarding content is being finalized — serve a 503 "under construction" notice.
-    # Swap back to the line below when the content is ready:
-    # re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
-    re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan_unavailable, name="onboarding_plan"),
+    re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
 
     
     path('about/<slug:slug>/blogs', views.member_blog_list, name='member-blog-list'),

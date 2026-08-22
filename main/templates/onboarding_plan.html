@@ -596,38 +596,14 @@
     <section id="plans" class="reveal">
       <div class="inner inner-wide">
         <h2>Pick Your Onboarding Plan</h2>
-        <p class="section-subtitle">Select the foundational plan that best fits your needs. Specialised combo plans are available below.</p>
+        <p class="section-subtitle">Select the foundational plan that best fits your needs.</p>
         <div class="plans">
-          {% for plan in plans %}{% if not plan.is_combo and forloop.counter <= 4 %}
+          {% for plan in plans %}{% if not plan.is_combo %}
             <div class="plan-card {% if 'Individual' in plan.name %}plan-card-popular{% endif %}">
               <div class="plan-card-header">
                 {% if 'Individual' in plan.name %}<span class="badge">Most Popular</span>{% endif %}
                 <h3>{{ plan.name }}</h3>
               </div>
-              <div class="plan-card-body">
-                <div class="price">₹{{ plan.price }}</div>
-                <ul class="plist">
-                  {% for f in plan.features %}<li>{{ f }}</li>{% endfor %}
-                  {% if plan.prerequisites %}<li><em>{{ plan.prerequisites }}</em></li>{% endif %}
-                </ul>
-              </div>
-              <div class="plan-card-footer">
-                <a class="btn btn-book" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hello%2C%20I%27m%20interested%20in%20the%20{{ plan.name|urlencode }}%20plan.&type=phone_number&app_absent=0" target="_blank">Book this plan</a>
-              </div>
-            </div>
-          {% endif %}{% endfor %}
-        </div>
-      </div>
-    </section>
-
-    <!-- COMBO PLANS -->
-    <section id="combo-plans" class="reveal">
-      <div class="inner inner-wide" style="padding-top:0;">
-        <h2 style="margin-bottom: 3.5rem;">Specialised Combo Plans</h2>
-        <div class="plans">
-          {% for plan in plans %}{% if plan.is_combo %}
-            <div class="plan-card">
-              <div class="plan-card-header"><h3>{{ plan.name }}</h3></div>
               <div class="plan-card-body">
                 <div class="price">₹{{ plan.price }}</div>
                 <ul class="plist">
@@ -668,14 +644,6 @@
               <tr>
                 <th>Couple Sessions</th>
                 {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">{% if 'couple session' in plan.features|join:' ' or 'joint/couple session' in plan.features|join:' ' %}<i class="fas fa-check check-mark"></i>{% else %}-{% endif %}</td>{% endfor %}
-              </tr>
-              <tr>
-                <th>EMDR Add-on</th>
-                {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">{% if 'EMDR' in plan.name %}<i class="fas fa-check check-mark"></i>{% else %}-{% endif %}</td>{% endfor %}
-              </tr>
-              <tr>
-                <th>IFS Add-on</th>
-                {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">{% if 'IFS' in plan.name %}<i class="fas fa-check check-mark"></i>{% else %}-{% endif %}</td>{% endfor %}
               </tr>
               <tr>
                 <th></th>
@@ -768,8 +736,8 @@
           <div class="renewal-card">
             <div class="renewal-card-icon"><i class="fas fa-user"></i></div>
             <h3>Individual Therapy Supervision</h3>
-            <div class="renewal-price">₹3,000 <span class="renewal-duration">/ 3 months</span></div>
-            <p class="renewal-per">That's just <strong>₹250 per session</strong> of Aanchal's supervision input</p>
+            <div class="renewal-price">₹4,000 <span class="renewal-duration">/ 3 months</span></div>
+            <p class="renewal-per">That's just <strong>₹333 per session</strong> of Aanchal's supervision input</p>
             <ul class="renewal-features">
               <li><i class="fas fa-check"></i> Covers 12 weeks of weekly sessions</li>
               <li><i class="fas fa-check"></i> Aanchal reviews your therapist's case work</li>
@@ -784,8 +752,8 @@
             <div class="renewal-badge-tag">Couples</div>
             <div class="renewal-card-icon"><i class="fas fa-heart"></i></div>
             <h3>Couple / Relationship Therapy Supervision</h3>
-            <div class="renewal-price">₹5,000 <span class="renewal-duration">/ 3 months</span></div>
-            <p class="renewal-per">That's just <strong>₹417 per session</strong> of Aanchal's supervision input</p>
+            <div class="renewal-price">₹6,000 <span class="renewal-duration">/ 3 months</span></div>
+            <p class="renewal-per">That's just <strong>₹500 per session</strong> of Aanchal's supervision input</p>
             <ul class="renewal-features">
               <li><i class="fas fa-check"></i> Covers 12 weeks of weekly sessions</li>
               <li><i class="fas fa-check"></i> Relational dynamics supervision included</li>

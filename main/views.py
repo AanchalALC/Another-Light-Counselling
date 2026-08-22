@@ -769,7 +769,9 @@ def onboarding_plan(request):
         },
     ]
 
-    # Prepare plans list for template
+    # Prepare plans list for template.
+    # Only the two core onboarding options (Individual, Couple) are offered —
+    # EMDR/IFS add-ons (plan3/plan4) and all combo plans (plan5-8) are discontinued.
     plans = [
         {
             "name": plan.plan1_name,
@@ -784,48 +786,6 @@ def onboarding_plan(request):
             "features": [f for f in plan.plan2_features.splitlines() if f.strip()],
             "prerequisites": plan.plan2_prerequisites,
             "is_combo": plan.plan2_is_combo,
-        },
-        {
-            "name": plan.plan3_name,
-            "price": plan.plan3_price,
-            "features": [f for f in plan.plan3_features.splitlines() if f.strip()],
-            "prerequisites": plan.plan3_prerequisites,
-            "is_combo": plan.plan3_is_combo,
-        },
-        {
-            "name": plan.plan4_name,
-            "price": plan.plan4_price,
-            "features": [f for f in plan.plan4_features.splitlines() if f.strip()],
-            "prerequisites": plan.plan4_prerequisites,
-            "is_combo": plan.plan4_is_combo,
-        },
-        {
-            "name": plan.plan5_name,
-            "price": plan.plan5_price,
-            "features": [f for f in plan.plan5_features.splitlines() if f.strip()],
-            "prerequisites": plan.plan5_prerequisites,
-            "is_combo": plan.plan5_is_combo,
-        },
-        {
-            "name": plan.plan6_name,
-            "price": plan.plan6_price,
-            "features": [f for f in plan.plan6_features.splitlines() if f.strip()],
-            "prerequisites": plan.plan6_prerequisites,
-            "is_combo": plan.plan6_is_combo,
-        },
-        {
-            "name": plan.plan7_name,
-            "price": plan.plan7_price,
-            "features": [f for f in plan.plan7_features.splitlines() if f.strip()],
-            "prerequisites": plan.plan7_prerequisites,
-            "is_combo": plan.plan7_is_combo,
-        },
-        {
-            "name": plan.plan8_name,
-            "price": plan.plan8_price,
-            "features": [f for f in plan.plan8_features.splitlines() if f.strip()],
-            "prerequisites": plan.plan8_prerequisites,
-            "is_combo": plan.plan8_is_combo,
         },
     ]
 

@@ -810,115 +810,117 @@ class TeamPage(models.Model):
 
 class OnboardingPlan(models.Model):
     # — PAGE META
-    slug = models.SlugField(max_length=200, unique=True)
-    tagline = models.CharField(max_length=200)
-    subheading = models.TextField()
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
+    tagline = models.CharField(max_length=200, blank=True)
+    subheading = models.TextField(blank=True)
 
     cta_primary = models.CharField(
         max_length=50,
+        blank=True,
         help_text="e.g. 'Pick a Plan'"
     )
     cta_primary_url = models.URLField(blank=True)
     cta_secondary = models.CharField(
         max_length=50,
+        blank=True,
         help_text="e.g. 'Speak to Us'"
     )
     cta_secondary_url = models.URLField(blank=True)
 
     # — ONBOARDING STEPS (1–3)
-    step1_title = models.CharField(max_length=100)
-    step1_detail = models.TextField()
+    step1_title = models.CharField(max_length=100, blank=True)
+    step1_detail = models.TextField(blank=True)
     step1_icon = models.ImageField(upload_to="onboarding/icons", blank=True)
 
-    step2_title = models.CharField(max_length=100)
-    step2_detail = models.TextField()
+    step2_title = models.CharField(max_length=100, blank=True)
+    step2_detail = models.TextField(blank=True)
     step2_icon = models.ImageField(upload_to="onboarding/icons", blank=True)
 
-    step3_title = models.CharField(max_length=100)
-    step3_detail = models.TextField()
+    step3_title = models.CharField(max_length=100, blank=True)
+    step3_detail = models.TextField(blank=True)
     step3_icon = models.ImageField(upload_to="onboarding/icons", blank=True)
 
     # — PLAN OPTION 1
-    plan1_name = models.CharField(max_length=100)
-    plan1_price = models.PositiveIntegerField(help_text="In rupees")
-    plan1_features = models.TextField(help_text="One feature per line")
+    plan1_name = models.CharField(max_length=100, blank=True)
+    plan1_price = models.PositiveIntegerField(help_text="In rupees", blank=True, null=True)
+    plan1_features = models.TextField(help_text="One feature per line", blank=True)
     plan1_prerequisites = models.CharField(max_length=200, blank=True)
     plan1_combo_tag = models.CharField(max_length=50, blank=True)
     plan1_is_combo = models.BooleanField(default=False)
     plan1_order = models.PositiveSmallIntegerField(default=1)
 
     # — PLAN OPTION 2
-    plan2_name = models.CharField(max_length=100)
-    plan2_price = models.PositiveIntegerField(help_text="In rupees")
-    plan2_features = models.TextField(help_text="One feature per line")
+    plan2_name = models.CharField(max_length=100, blank=True)
+    plan2_price = models.PositiveIntegerField(help_text="In rupees", blank=True, null=True)
+    plan2_features = models.TextField(help_text="One feature per line", blank=True)
     plan2_prerequisites = models.CharField(max_length=200, blank=True)
     plan2_combo_tag = models.CharField(max_length=50, blank=True)
     plan2_is_combo = models.BooleanField(default=False)
     plan2_order = models.PositiveSmallIntegerField(default=2)
 
     # — PLAN OPTION 3
-    plan3_name = models.CharField(max_length=100)
-    plan3_price = models.PositiveIntegerField(help_text="In rupees")
-    plan3_features = models.TextField(help_text="One feature per line")
+    plan3_name = models.CharField(max_length=100, blank=True)
+    plan3_price = models.PositiveIntegerField(help_text="In rupees", blank=True, null=True)
+    plan3_features = models.TextField(help_text="One feature per line", blank=True)
     plan3_prerequisites = models.CharField(max_length=200, blank=True)
     plan3_combo_tag = models.CharField(max_length=50, blank=True)
     plan3_is_combo = models.BooleanField(default=False)
     plan3_order = models.PositiveSmallIntegerField(default=3)
 
     # — PLAN OPTION 4
-    plan4_name = models.CharField(max_length=100)
-    plan4_price = models.PositiveIntegerField(help_text="In rupees")
-    plan4_features = models.TextField(help_text="One feature per line")
+    plan4_name = models.CharField(max_length=100, blank=True)
+    plan4_price = models.PositiveIntegerField(help_text="In rupees", blank=True, null=True)
+    plan4_features = models.TextField(help_text="One feature per line", blank=True)
     plan4_prerequisites = models.CharField(max_length=200, blank=True)
     plan4_combo_tag = models.CharField(max_length=50, blank=True)
     plan4_is_combo = models.BooleanField(default=False)
     plan4_order = models.PositiveSmallIntegerField(default=4)
 
     # — COMBO OPTION A (05A)
-    plan5_name = models.CharField(max_length=100)
-    plan5_price = models.PositiveIntegerField(help_text="In rupees")
-    plan5_features = models.TextField(help_text="One feature per line")
+    plan5_name = models.CharField(max_length=100, blank=True)
+    plan5_price = models.PositiveIntegerField(help_text="In rupees", blank=True, null=True)
+    plan5_features = models.TextField(help_text="One feature per line", blank=True)
     plan5_prerequisites = models.CharField(max_length=200, blank=True)
     plan5_combo_tag = models.CharField(max_length=50, blank=True)
     plan5_is_combo = models.BooleanField(default=True)
     plan5_order = models.PositiveSmallIntegerField(default=5)
 
     # — COMBO OPTION B (05B)
-    plan6_name = models.CharField(max_length=100)
-    plan6_price = models.PositiveIntegerField(help_text="In rupees")
-    plan6_features = models.TextField(help_text="One feature per line")
+    plan6_name = models.CharField(max_length=100, blank=True)
+    plan6_price = models.PositiveIntegerField(help_text="In rupees", blank=True, null=True)
+    plan6_features = models.TextField(help_text="One feature per line", blank=True)
     plan6_prerequisites = models.CharField(max_length=200, blank=True)
     plan6_combo_tag = models.CharField(max_length=50, blank=True)
     plan6_is_combo = models.BooleanField(default=True)
     plan6_order = models.PositiveSmallIntegerField(default=6)
 
     # — COMBO OPTION C (05C)
-    plan7_name = models.CharField(max_length=100)
-    plan7_price = models.PositiveIntegerField(help_text="In rupees")
-    plan7_features = models.TextField(help_text="One feature per line")
+    plan7_name = models.CharField(max_length=100, blank=True)
+    plan7_price = models.PositiveIntegerField(help_text="In rupees", blank=True, null=True)
+    plan7_features = models.TextField(help_text="One feature per line", blank=True)
     plan7_prerequisites = models.CharField(max_length=200, blank=True)
     plan7_combo_tag = models.CharField(max_length=50, blank=True)
     plan7_is_combo = models.BooleanField(default=True)
     plan7_order = models.PositiveSmallIntegerField(default=7)
 
     # — SUPERSAVER COMBO D (05D)
-    plan8_name = models.CharField(max_length=100)
-    plan8_price = models.PositiveIntegerField(help_text="In rupees")
-    plan8_features = models.TextField(help_text="One feature per line")
+    plan8_name = models.CharField(max_length=100, blank=True)
+    plan8_price = models.PositiveIntegerField(help_text="In rupees", blank=True, null=True)
+    plan8_features = models.TextField(help_text="One feature per line", blank=True)
     plan8_prerequisites = models.CharField(max_length=200, blank=True)
     plan8_combo_tag = models.CharField(max_length=50, blank=True)
     plan8_is_combo = models.BooleanField(default=True)
     plan8_order = models.PositiveSmallIntegerField(default=8)
 
     # — RENEWAL OPTIONS
-    renewal1_name = models.CharField(max_length=100)
-    renewal1_price = models.PositiveIntegerField()
-    renewal1_description = models.TextField()
+    renewal1_name = models.CharField(max_length=100, blank=True)
+    renewal1_price = models.PositiveIntegerField(blank=True, null=True)
+    renewal1_description = models.TextField(blank=True)
     renewal1_order = models.PositiveSmallIntegerField(default=1)
 
-    renewal2_name = models.CharField(max_length=100)
-    renewal2_price = models.PositiveIntegerField()
-    renewal2_description = models.TextField()
+    renewal2_name = models.CharField(max_length=100, blank=True)
+    renewal2_price = models.PositiveIntegerField(blank=True, null=True)
+    renewal2_description = models.TextField(blank=True)
     renewal2_order = models.PositiveSmallIntegerField(default=2)
 
     def __str__(self):

@@ -386,15 +386,12 @@
   .after-note span { font-size: .92rem; color: var(--ink-muted); font-style: italic; }
 
   .after-reveal-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 0;
+    display: flex; flex-direction: column;
   }
   .after-reveal-item {
-    border-right: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
   }
-  .after-reveal-item:nth-child(2n) { border-right: none; }
-  .after-reveal-item:nth-child(3), .after-reveal-item:nth-child(4) { border-bottom: none; }
+  .after-reveal-item:last-child { border-bottom: none; }
 
   .after-reveal-trigger {
     width: 100%; display: flex; align-items: center; gap: .85rem;
@@ -417,19 +414,13 @@
     max-height: 0;
     transition: max-height .35s ease-out, padding-bottom .35s ease-out;
 }
-.after-reveal-body.open { 
-    max-height: 200px; 
+.after-reveal-body.open {
     padding-bottom: 1.1rem;        /* ← bottom padding only when open */
 }
   .after-reveal-body p { font-size: .9rem; margin: 0; color: var(--ink-subtle); }
 
   @media (max-width: 680px) {
     .after-sessions-main { flex-direction: column; }
-    .after-reveal-grid { grid-template-columns: 1fr; }
-    .after-reveal-item { border-right: none; border-bottom: 1px solid var(--border-subtle); }
-    .after-reveal-item:last-child { border-bottom: none; }
-    .after-reveal-item:nth-child(3) { border-bottom: 1px solid var(--border-subtle); }
-    .after-reveal-item:nth-child(4) { border-bottom: none; }
   }
 
   /* ========= OPTIONAL RENEWAL ========= */
@@ -619,7 +610,7 @@
       </div>
     </section>
 
-    <!-- COMPARE -->
+    {% comment %} <!-- COMPARE -->
     <section id="compare" class="comparison reveal">
       <div class="inner">
         <h2>Compare All Plans</h2>
@@ -652,7 +643,7 @@
           </table>
         </div>
       </div>
-    </section>
+    </section> {% endcomment %}
 
     <!-- ============================================================
          NEW SECTION 5: WHAT HAPPENS AFTER THE 3 SESSIONS?
@@ -988,7 +979,10 @@
           otherBtn.setAttribute('aria-expanded', 'false');
           const otherId = otherBtn.getAttribute('aria-controls');
           const otherBody = document.getElementById(otherId);
-          if (otherBody) otherBody.classList.remove('open');
+          if (otherBody) {
+            otherBody.classList.remove('open');
+            otherBody.style.maxHeight = null;
+          }
         }
       });
 
@@ -996,9 +990,11 @@
       if (!expanded) {
         btn.setAttribute('aria-expanded', 'true');
         body.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + "px";
       } else {
         btn.setAttribute('aria-expanded', 'false');
         body.classList.remove('open');
+        body.style.maxHeight = null;
       }
     });
   });

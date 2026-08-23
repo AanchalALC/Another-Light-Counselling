@@ -367,7 +367,7 @@
         <p class="alc-section-sub">Every service links through to its own page, with what to expect, who it's for, and how sessions actually run.</p>
         <div class="service-card-grid">
             {% for service in services %}
-            <a class="service-card" href="{% url 'service' service.slug %}" target="_blank" rel="noopener">
+            <a class="service-card" href="{% url 'service' service.slug %}">
                 <div class="service-card-thumb{% if not service.image_file %} no-image{% endif %}" style="background-color: {{ service.card_color }};">
                     {% if service.image_file %}
                     <img src="{{ service.image_file.url }}" alt="{{ service.img_alt_text|default:service.title }}">

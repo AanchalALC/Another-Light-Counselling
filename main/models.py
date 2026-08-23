@@ -320,22 +320,30 @@ class Statistic(models.Model):
 
 class Service(models.Model):
     # Taxonomy per the ALC services-page brief (servicepage-suggestion-ALC.pdf)
-    CATEGORY_TRAUMA = 'trauma-recovery'
-    CATEGORY_MENTAL_HEALTH = 'mental-health-wellbeing'
+    # Taxonomy per the "Modalities" slide: all 13 existing services are
+    # modality-type therapies, so this is the hub/nav grouping used site-wide.
+    # Individual Therapy / Family Therapy / Therapy for Children / Parenting
+    # are left out entirely — no services exist for them yet, so no empty
+    # categories are shown to visitors.
+    CATEGORY_TRAUMA = 'trauma-therapy'
+    CATEGORY_IDENTITY = 'identity-affirming'
+    CATEGORY_ADDICTION = 'addiction-recovery'
+    CATEGORY_MOOD = 'anxiety-depression-mood'
     CATEGORY_RELATIONSHIPS = 'relationship-couples'
-    CATEGORY_IDENTITY = 'gender-identity'
     CATEGORY_CHOICES = [
-        (CATEGORY_TRAUMA, 'Trauma Recovery & Healing Therapies'),
-        (CATEGORY_MENTAL_HEALTH, 'Individual Mental Health & Emotional Wellbeing'),
-        (CATEGORY_RELATIONSHIPS, 'Relationship & Couples Counselling'),
-        (CATEGORY_IDENTITY, 'Gender, Sexuality & Identity Affirmative Therapy'),
+        (CATEGORY_TRAUMA, 'Trauma Therapy'),
+        (CATEGORY_IDENTITY, 'Identity Affirming & Sex-Positive Therapy'),
+        (CATEGORY_ADDICTION, 'Addiction & Recovery'),
+        (CATEGORY_MOOD, 'Anxiety, Depression & Mood Support'),
+        (CATEGORY_RELATIONSHIPS, 'Relationship & Couples Therapy'),
     ]
     # Fixed display order for the hub/nav grouping; categories not listed here sort last.
     CATEGORY_ORDER = [
         CATEGORY_TRAUMA,
-        CATEGORY_MENTAL_HEALTH,
-        CATEGORY_RELATIONSHIPS,
         CATEGORY_IDENTITY,
+        CATEGORY_ADDICTION,
+        CATEGORY_MOOD,
+        CATEGORY_RELATIONSHIPS,
     ]
 
     # Deterministic palette theme per service (hash of slug -> one of 5 brand colors).

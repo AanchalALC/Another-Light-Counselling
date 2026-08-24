@@ -194,13 +194,25 @@
     .faq-wrap { position: relative; z-index: 2; width: var(--card-w); max-width: 780px; margin: 60px auto 0; }
     .faq-wrap h2 { font-size: 1.5rem; font-weight: 800; color: var(--ink); margin: 0 0 22px; }
     .faq-item { background: #FFFFFF; border: 2px solid #1A1A1A; border-radius: 16px; margin-bottom: 14px; overflow: hidden; }
-    .faq-question { width: 100%; text-align: left; background: transparent; border: 0; padding: 18px 22px; font-weight: 700; font-size: 1.02rem; color: var(--ink); display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 44px; }
-    .faq-question .fa-chevron-down { transition: transform 0.2s ease; color: var(--theme-bg); }
-    .faq-question[aria-expanded="true"] .fa-chevron-down { transform: rotate(180deg); }
-    .faq-answer { padding: 0 22px 20px; color: var(--body); line-height: 1.6; }
+    .faq-question { width: 100%; text-align: left; background: transparent; border: 0; padding: 18px 22px; font-weight: 700; font-size: 1.02rem; color: var(--ink); display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 44px; cursor: pointer; }
+    .faq-question .chevron-badge {
+        flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        background: #F2D88F; border: 2px solid #1A1A1A;
+        transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .faq-question .chevron-badge i { color: #1A1A1A; font-size: 0.85rem; }
+    .faq-item.is-open .faq-question .chevron-badge { transform: rotate(180deg); background: var(--theme-bg); }
+    /* Pure-CSS/JS accordion (no Bootstrap/jQuery dependency). max-height is a
+       more reliably-supported animation technique than the grid 0fr/1fr trick. */
+    .faq-answer-wrap { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-item.is-open .faq-answer-wrap { max-height: 700px; }
+    /* alc-faq-answer, not faq-answer — that name collides with a
+       display:none rule already defined globally in onboarding_plan.css. */
+    .alc-faq-answer { padding: 0 22px 20px; color: var(--body); line-height: 1.6; }
 
     /* ===== CLOSING CTA — solid band ===== */
-    .closing-cta { position: relative; z-index: 2; margin-top: 90px; background-color: var(--theme-bg); color: var(--theme-text); border-radius: 50px 50px 0 0; text-align: center; padding: 70px 20px; }
+    .closing-cta { position: relative; z-index: 2; margin-top: 90px; background-color: var(--theme-bg); color: var(--theme-text); text-align: center; padding: 70px 20px; }
     .closing-cta h2 { font-weight: 800; font-size: clamp(1.7rem, 3.2vw, 2.4rem); margin: 0 0 28px; }
     .closing-cta .df-cta-primary { background: {% if service.card_theme_is_light %}#1A1A1A{% else %}#FFFFFF{% endif %}; color: {% if service.card_theme_is_light %}#FFFFFF{% else %}var(--theme-bg){% endif %}; }
     .closing-cta .df-cta-secondary { border-color: currentColor; }
@@ -209,7 +221,7 @@
     #content a:focus-visible, #content button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 
     @media (prefers-reduced-motion: reduce) {
-        .alc-btn, .related-card, .faq-question .fa-chevron-down { transition: none; }
+        .alc-btn, .related-card, .faq-question .chevron-badge, .faq-answer-wrap { transition: none; }
         .related-card:hover { transform: none; }
     }
 
@@ -233,7 +245,7 @@
         .df-article, .related-wrap, .credibility-wrap, .faq-wrap { width: 100%; }
         .df-article { padding: 34px 22px; border-radius: 18px; }
         .df-body { font-size: 1.02rem; }
-        .closing-cta { border-radius: 34px 34px 0 0; padding: 54px 18px; margin-top: 60px; }
+        .closing-cta { padding: 54px 18px; margin-top: 60px; }
         .d1, .d2, .d5 { display: none; }
     }
 </style>
@@ -331,13 +343,15 @@
             {% for faq in service.faqs.all %}
             <div class="faq-item">
                 <h3 style="margin:0;">
-                    <button class="faq-question" type="button" data-toggle="collapse"
-                            data-target="#faq-{{ faq.id }}" aria-expanded="false" aria-controls="faq-{{ faq.id }}">
+                    <button class="faq-question" type="button"
+                            aria-expanded="false" aria-controls="faq-{{ faq.id }}">
                         <span>{{ faq.question }}</span>
-                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        <span class="chevron-badge"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
                     </button>
                 </h3>
-                <div class="collapse faq-answer" id="faq-{{ faq.id }}">{{ faq.answer | safe }}</div>
+                <div class="faq-answer-wrap" id="faq-{{ faq.id }}">
+                    <div class="alc-faq-answer">{{ faq.answer | safe }}</div>
+                </div>
             </div>
             {% endfor %}
         </section>
@@ -356,4 +370,18 @@
     </section>
 
 </div>
+
+<script>
+    (function () {
+        var buttons = document.querySelectorAll('.faq-wrap .faq-question');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', function () {
+                var item = this.closest('.faq-item');
+                var expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', String(!expanded));
+                item.classList.toggle('is-open', !expanded);
+            });
+        }
+    })();
+</script>
 {% endblock %}

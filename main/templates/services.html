@@ -164,7 +164,12 @@
     .alc-video-frame video, .alc-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .alc-video-caption { text-align: center; margin-top: 14px; color: #555; font-size: 0.95rem; }
 
-    /* ===== SECTION shell ===== */
+    /* ===== SECTION shell =====
+       .alc-band is the full-bleed colour strip (spans the whole viewport);
+       .alc-section is the centred, width-capped content that sits inside it.
+       Keeping these separate means a band's background is never accidentally
+       capped at 1150px on a wide screen. ===== */
+    .alc-band { width: 100%; position: relative; }
     .alc-section { max-width: 1150px; margin: 0 auto; padding: 70px 20px; position: relative; }
     .alc-section h2 {
         font-size: clamp(1.8rem, 3.2vw, 2.6rem);
@@ -174,7 +179,10 @@
     .alc-section .alc-section-sub {
         text-align: center; max-width: 640px; margin: 0 auto 46px; color: #444; font-size: 1.05rem;
     }
-    .alc-section-band { border-radius: 60px; }
+
+    .alc-band-butter { background-color: #F2D88F; }
+    .alc-band-sea { background-color: #6698CC; }
+    .alc-band-matcha { background-color: #B4B534; }
 
     /* ===== HOW WE CAN HELP — card grid ===== */
     #how-we-help { background-color: #FAFAFA; }
@@ -204,10 +212,10 @@
     .service-card:hover .service-card-learn::after { transform: translateX(6px); }
 
     /* ===== THERAPY CATEGORIES ===== */
-    #therapy-categories { background-color: #F2D88F; }
     .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
     .category-block {
         background: #FFFFFF; border-radius: 18px; border: 2px solid #1A1A1A;
+        box-shadow: 8px 8px 0px rgba(26, 26, 26, 0.12);
         padding: 24px 26px; scroll-margin-top: 90px;
     }
     .category-block h3 {
@@ -219,15 +227,23 @@
     .category-block a { color: #333; text-decoration: none; font-weight: 600; font-size: 0.96rem; }
     .category-block a:hover, .category-block a:focus-visible { color: var(--cat-color, #F08C21); text-decoration: underline; }
 
-    /* ===== WHY CHOOSE US — solid Sea ===== */
-    #why-choose { background-color: #6698CC; color: #FFFFFF; }
+    /* ===== WHY CHOOSE US — solid Sea band, bold white cards ===== */
     #why-choose h2, #why-choose .alc-section-sub { color: #FFFFFF; }
-    .why-choose-list { list-style: none; margin: 0 auto; padding: 0; max-width: 620px; display: grid; gap: 16px; }
-    .why-choose-list li {
-        display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.14);
-        border: 1px solid rgba(255,255,255,0.35); border-radius: 14px; padding: 16px 20px; font-weight: 600;
+    .why-choose-list {
+        list-style: none; margin: 0; padding: 0; max-width: 980px; margin: 0 auto;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px;
     }
-    .why-choose-list li svg { flex: 0 0 auto; width: 22px; height: 22px; }
+    .why-choose-list li {
+        display: flex; align-items: center; gap: 14px; background: #FFFFFF;
+        border: 2px solid #1A1A1A; border-radius: 14px; padding: 16px 20px;
+        font-weight: 700; color: #1A1A1A; box-shadow: 6px 6px 0px rgba(26, 26, 26, 0.22);
+    }
+    .why-choose-list li .check-badge {
+        flex: 0 0 auto; width: 32px; height: 32px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        background: var(--check-color, #F08C21); border: 2px solid #1A1A1A;
+    }
+    .why-choose-list li .check-badge svg { width: 16px; height: 16px; }
 
     /* ===== OUR THERAPY PROCESS ===== */
     #therapy-process { background-color: #FAFAFA; }
@@ -242,20 +258,46 @@
     .process-step h3 { font-size: 1.1rem; font-weight: 800; margin: 0 0 8px; color: #1A1A1A; }
     .process-step p { font-size: 0.94rem; color: #4a4a4a; margin: 0; }
 
-    /* ===== FAQ ===== */
-    #services-faq { background-color: #FAFAFA; max-width: 780px; }
-    .faq-item { background: #FFFFFF; border: 2px solid #1A1A1A; border-radius: 16px; margin-bottom: 14px; overflow: hidden; }
-    .faq-question {
-        width: 100%; text-align: left; background: transparent; border: 0; padding: 18px 22px;
-        font-weight: 700; font-size: 1.02rem; color: #1A1A1A; display: flex; justify-content: space-between;
-        align-items: center; gap: 1rem; min-height: 44px;
+    /* ===== FAQ — solid Matcha band, bold accordion cards ===== */
+    #services-faq h2 { color: #1A1A1A; }
+    #services-faq .alc-section-sub { color: #2C4A22; }
+    .faq-list { max-width: 820px; margin: 0 auto; }
+    .faq-item {
+        background: #FFFFFF; border: 2px solid #1A1A1A; border-radius: 16px;
+        box-shadow: 8px 8px 0px rgba(26, 26, 26, 0.18);
+        margin-bottom: 18px; overflow: hidden;
     }
-    .faq-question .fa-chevron-down { transition: transform 0.2s ease; color: #F08C21; }
-    .faq-question[aria-expanded="true"] .fa-chevron-down { transform: rotate(180deg); }
-    .faq-answer { padding: 0 22px 20px; color: #444; line-height: 1.6; }
+    .faq-question {
+        width: 100%; text-align: left; background: transparent; border: 0; padding: 20px 24px;
+        font-weight: 700; font-size: 1.06rem; color: #1A1A1A; display: flex; justify-content: space-between;
+        align-items: center; gap: 1rem; min-height: 44px; cursor: pointer;
+    }
+    .faq-question .chevron-badge {
+        flex: 0 0 auto; width: 30px; height: 30px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        background: #F2D88F; border: 2px solid #1A1A1A;
+        transition: transform 0.25s ease, background 0.25s ease;
+    }
+    .faq-question .chevron-badge i { color: #1A1A1A; font-size: 0.85rem; }
+    .faq-item.is-open .faq-question .chevron-badge { transform: rotate(180deg); background: #B4B534; }
+    /* Pure-CSS/JS accordion (no Bootstrap/jQuery dependency, so it can't be
+       broken by a CDN load failure or extension conflict). max-height is a
+       more reliably-supported animation technique than the grid 0fr/1fr
+       trick, which doesn't resolve consistently on an intrinsic-height card. */
+    .faq-answer-wrap {
+        max-height: 0; overflow: hidden; background: #FAF7EA;
+        transition: max-height 0.35s ease;
+    }
+    .faq-item.is-open .faq-answer-wrap { max-height: 700px; border-top: 2px solid #1A1A1A; }
+    /* Named alc-faq-answer, not faq-answer — that class already exists
+       globally in onboarding_plan.css (loaded site-wide) with display:none
+       as its default state, which silently won since our rule didn't
+       declare display at all (CSS cascades per-property, not per-rule). */
+    .alc-faq-answer { padding: 18px 24px; color: #3A3A3A; line-height: 1.65; }
+    .alc-faq-answer p:last-child { margin-bottom: 0; }
 
     /* ===== FINAL CTA — solid Blush ===== */
-    #final-cta { background-color: #E36888; border-radius: 60px 60px 0 0; text-align: center; padding: 80px 20px; margin-top: 0; }
+    #final-cta { background-color: #E36888; text-align: center; padding: 80px 20px; margin-top: 0; }
     #final-cta h2 { color: #FFFFFF; font-size: clamp(1.9rem, 3.6vw, 2.8rem); font-weight: 800; margin: 0 0 30px; }
 
     /* ===== Canvas doodles shared by sections ===== */
@@ -268,7 +310,7 @@
     #content a:focus-visible, #content button:focus-visible { outline: 3px solid #1A1A1A; outline-offset: 2px; }
     @media (prefers-reduced-motion: reduce) {
         .doodle-circle-dashed, .hd-spiral svg { animation: none; }
-        .service-card, .alc-btn, .service-card-learn::after, .faq-question .fa-chevron-down { transition: none; }
+        .service-card, .alc-btn, .service-card-learn::after, .faq-question .chevron-badge, .faq-answer-wrap { transition: none; }
         .service-card:hover { transform: none; }
     }
 
@@ -282,7 +324,7 @@
         .hd-waves, .hd-book { display: none; }
         #video-section { margin-top: -50px; }
         .alc-section { padding: 50px 18px; }
-        #final-cta { border-radius: 40px 40px 0 0; padding: 60px 18px; }
+        #final-cta { padding: 60px 18px; }
         .doodle-circle-dashed, .doodle-triangle, .doodle-dot { display: none; }
     }
 </style>
@@ -367,7 +409,7 @@
         <p class="alc-section-sub">Every service links through to its own page, with what to expect, who it's for, and how sessions actually run.</p>
         <div class="service-card-grid">
             {% for service in services %}
-            <a class="service-card" href="{% url 'service' service.slug %}" target="_blank" rel="noopener">
+            <a class="service-card" href="{% url 'service' service.slug %}">
                 <div class="service-card-thumb{% if not service.image_file %} no-image{% endif %}" style="background-color: {{ service.card_color }};">
                     {% if service.image_file %}
                     <img src="{{ service.image_file.url }}" alt="{{ service.img_alt_text|default:service.title }}">
@@ -388,36 +430,42 @@
     <div class="doodle doodle-circle-dashed" style="top: 60px; right: -100px;" aria-hidden="true"></div>
 
     <!-- ============ THERAPY CATEGORIES ============ -->
-    <section class="alc-section" id="therapy-categories">
-        <h2>Therapy Categories</h2>
-        <p class="alc-section-sub">Our services are grouped so you can find the right kind of support faster — and so it's easy for us to add new modalities without redesigning the page.</p>
-        <div class="category-grid">
-            {% for group in service_categories %}
-            <div class="category-block" id="{{ group.key }}" style="--cat-color: {{ group.services.0.card_color }};">
-                <h3>{{ group.label }}</h3>
-                <ul>
-                    {% for svc in group.services %}
-                    <li><a href="{% url 'service' svc.slug %}">{{ svc.title }}</a></li>
-                    {% endfor %}
-                </ul>
+    <section class="alc-band alc-band-butter" id="therapy-categories">
+        <div class="alc-section">
+            <h2>Therapy Categories</h2>
+            <p class="alc-section-sub">Our services are grouped so you can find the right kind of support faster — and so it's easy for us to add new modalities without redesigning the page.</p>
+            <div class="category-grid">
+                {% for group in service_categories %}
+                <div class="category-block" id="{{ group.key }}" style="--cat-color: {{ group.services.0.card_color }};">
+                    <h3>{{ group.label }}</h3>
+                    <ul>
+                        {% for svc in group.services %}
+                        <li><a href="{% url 'service' svc.slug %}">{{ svc.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </section>
 
     <!-- ============ WHY CHOOSE ALC ============ -->
     {% if hub_page.why_choose_list %}
-    <section class="alc-section" id="why-choose">
-        <h2>Why Choose Another Light Counselling?</h2>
-        {% if hub_page.why_choose_intro %}<p class="alc-section-sub">{{ hub_page.why_choose_intro }}</p>{% endif %}
-        <ul class="why-choose-list">
-            {% for point in hub_page.why_choose_list %}
-            <li>
-                <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
-                {{ point }}
-            </li>
-            {% endfor %}
-        </ul>
+    <section class="alc-band alc-band-sea" id="why-choose">
+        <div class="alc-section">
+            <h2>Why Choose Another Light Counselling?</h2>
+            {% if hub_page.why_choose_intro %}<p class="alc-section-sub">{{ hub_page.why_choose_intro }}</p>{% endif %}
+            <ul class="why-choose-list">
+                {% for point in hub_page.why_choose_list %}
+                <li>
+                    <span class="check-badge" style="--check-color: {% cycle '#F08C21' '#E36888' '#F2D88F' '#B4B534' '#6698CC' %};">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+                    </span>
+                    {{ point }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     </section>
     {% endif %}
 
@@ -442,20 +490,26 @@
 
     <!-- ============ FAQ ============ -->
     {% if hub_faqs %}
-    <section class="alc-section" id="services-faq" aria-label="Frequently asked questions">
-        <h2>Frequently Asked Questions</h2>
-        {% for faq in hub_faqs %}
-        <div class="faq-item">
-            <h3 style="margin:0;">
-                <button class="faq-question" type="button" data-toggle="collapse"
-                        data-target="#hubfaq-{{ faq.id }}" aria-expanded="false" aria-controls="hubfaq-{{ faq.id }}">
-                    <span>{{ faq.question }}</span>
-                    <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                </button>
-            </h3>
-            <div class="collapse faq-answer" id="hubfaq-{{ faq.id }}">{{ faq.answer | safe }}</div>
+    <section class="alc-band alc-band-matcha" id="services-faq" aria-label="Frequently asked questions">
+        <div class="alc-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                {% for faq in hub_faqs %}
+                <div class="faq-item">
+                    <h3 style="margin:0;">
+                        <button class="faq-question" type="button"
+                                aria-expanded="false" aria-controls="hubfaq-{{ faq.id }}">
+                            <span>{{ faq.question }}</span>
+                            <span class="chevron-badge"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
+                        </button>
+                    </h3>
+                    <div class="faq-answer-wrap" id="hubfaq-{{ faq.id }}">
+                        <div class="alc-faq-answer">{{ faq.answer | safe }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
     </section>
     {% endif %}
 
@@ -466,4 +520,18 @@
     </section>
 
 </div>
+
+<script>
+    (function () {
+        var buttons = document.querySelectorAll('#services-faq .faq-question');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', function () {
+                var item = this.closest('.faq-item');
+                var expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', String(!expanded));
+                item.classList.toggle('is-open', !expanded);
+            });
+        }
+    })();
+</script>
 {% endblock %}

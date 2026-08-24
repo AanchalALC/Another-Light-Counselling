@@ -2,14 +2,15 @@ from django.urls import path, re_path
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import RedirectView  # <-- Import this
 
-from .sitemaps import PostSiteMap, PostTypeSiteMap, StaticSiteMap, DoIFeelSiteMap
+from .sitemaps import PostSiteMap, PostTypeSiteMap, StaticSiteMap, DoIFeelSiteMap, ServiceSiteMap
 from . import views
 
 sitemaps = {
     'static': StaticSiteMap,
     'posts': PostSiteMap,
     'types': PostTypeSiteMap,
-    'doifeels': DoIFeelSiteMap
+    'doifeels': DoIFeelSiteMap,
+    'services': ServiceSiteMap,
 }
 
 urlpatterns = [
@@ -55,18 +56,17 @@ urlpatterns = [
     path('policy/<slug:slug>', views.policy, name='policy'),
     path('committee/<slug:slug>', views.committee, name='committee'),
 
-    # path('services', views.services, name='services'),
-    # path('services/', views.services, name='services'),
+    path('services', views.services, name='services'),
+    path('services/', views.services, name='services'),
     path('service/<slug:slug>', views.service, name='service'),
 
     # path('doifeels', views.doifeels, name='doifeels'),
     # path('doifeels/', views.doifeels, name='doifeels'),
     path('doifeel/<slug:slug>', views.doifeel, name='doifeel'),
-    
-    # 5 & 6. The "Blunder" Fix: 301 Redirect /services and /doifeels to Homepage (/)
-    path('services', RedirectView.as_view(url='/', permanent=True)),
-    path('services/', RedirectView.as_view(url='/', permanent=True)),
-    
+
+    # 6. The "Blunder" Fix: 301 Redirect /doifeels to Homepage (/)
+    # (/services was also redirected here previously — reinstated above as the
+    # real Services hub per the services-restructure project.)
     path('doifeels', RedirectView.as_view(url='/', permanent=True)),
     path('doifeels/', RedirectView.as_view(url='/', permanent=True)),
 
@@ -86,11 +86,7 @@ urlpatterns = [
     # Profile detail should now live under /about/<slug>
     path('about/<slug:slug>/', views.member_profile, name='member-profile'),
 
-    # re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
-    # Onboarding content is being finalized — serve a 503 "under construction" notice.
-    # Swap back to the line below when the content is ready:
-    # re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
-    re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan_unavailable, name="onboarding_plan"),
+    re_path(r"^aanchal-onboarding-plan/?$", views.onboarding_plan, name="onboarding_plan"),
 
     
     path('about/<slug:slug>/blogs', views.member_blog_list, name='member-blog-list'),

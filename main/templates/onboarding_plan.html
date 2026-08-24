@@ -227,7 +227,7 @@
   .step-icon { width: 70px; height: 70px; border-radius: 50%; background: var(--paper); border: 3px solid var(--tangerine); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--tangerine); font-size: 2rem; box-shadow: 0 8px 25px rgba(240, 140, 33, .1); }
   
   /* ========= PLAN CARDS ========= */
-  .plans { --grid-cols: 1; display: grid; grid-template-columns: repeat(var(--grid-cols), 1fr); gap: 1.5rem; }
+  .plans { display: grid; grid-template-columns: 1fr; gap: 1.75rem; max-width: 860px; margin: 0 auto; }
   .plan-card { background: var(--paper); border: 1px solid var(--border-subtle); border-radius: 1rem; display: flex; flex-direction: column; box-shadow: 0 8px 25px rgba(0,0,0,.05); transition: all .2s ease; }
   .plan-card:hover { transform: translateY(-8px); box-shadow: 0 12px 35px rgba(0,0,0,.1); }
   .plan-card-header { padding: 1.25rem; border-bottom: 1px solid var(--border-subtle); position: relative; }
@@ -239,12 +239,11 @@
   .plan-card .price { font-size: 2.2rem; font-weight: 900; color: var(--tangerine); margin-bottom: 1rem; }
   .plan-card .plist { padding-left: 1.25rem; margin: 0; font-size: 0.9rem; }
   .plan-card-footer { padding: 0 1.25rem 1.25rem; }
-  @media (min-width: 640px) { .plans { --grid-cols: 2; } }
-  @media (min-width: 1200px) { .plans { --grid-cols: 4; } }
+  @media (min-width: 640px) { .plans { grid-template-columns: 1fr 1fr; } }
 
   /* ========= COMPARISON TABLE ========= */
-  .comparison-table { overflow-x: auto; background: var(--paper); border-radius: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,.1); }
-  table.compare { width: 100%; min-width: 800px; border-collapse: collapse; }
+  .comparison-table { overflow-x: auto; background: var(--paper); border-radius: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,.1); max-width: 860px; margin: 0 auto; }
+  table.compare { width: 100%; min-width: 480px; border-collapse: collapse; }
   .compare th, .compare td { padding: 1rem; border: 1px solid var(--border-subtle); text-align: center; vertical-align: middle; font-size: 0.9rem; }
   .compare thead { background: var(--sea); color: var(--text-light); font-size: 1rem; }
   .compare tbody th { text-align: left; background: var(--bg-light); font-weight: 800; }
@@ -387,15 +386,12 @@
   .after-note span { font-size: .92rem; color: var(--ink-muted); font-style: italic; }
 
   .after-reveal-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 0;
+    display: flex; flex-direction: column;
   }
   .after-reveal-item {
-    border-right: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
   }
-  .after-reveal-item:nth-child(2n) { border-right: none; }
-  .after-reveal-item:nth-child(3), .after-reveal-item:nth-child(4) { border-bottom: none; }
+  .after-reveal-item:last-child { border-bottom: none; }
 
   .after-reveal-trigger {
     width: 100%; display: flex; align-items: center; gap: .85rem;
@@ -418,19 +414,13 @@
     max-height: 0;
     transition: max-height .35s ease-out, padding-bottom .35s ease-out;
 }
-.after-reveal-body.open { 
-    max-height: 200px; 
+.after-reveal-body.open {
     padding-bottom: 1.1rem;        /* ← bottom padding only when open */
 }
   .after-reveal-body p { font-size: .9rem; margin: 0; color: var(--ink-subtle); }
 
   @media (max-width: 680px) {
     .after-sessions-main { flex-direction: column; }
-    .after-reveal-grid { grid-template-columns: 1fr; }
-    .after-reveal-item { border-right: none; border-bottom: 1px solid var(--border-subtle); }
-    .after-reveal-item:last-child { border-bottom: none; }
-    .after-reveal-item:nth-child(3) { border-bottom: 1px solid var(--border-subtle); }
-    .after-reveal-item:nth-child(4) { border-bottom: none; }
   }
 
   /* ========= OPTIONAL RENEWAL ========= */
@@ -596,9 +586,9 @@
     <section id="plans" class="reveal">
       <div class="inner inner-wide">
         <h2>Pick Your Onboarding Plan</h2>
-        <p class="section-subtitle">Select the foundational plan that best fits your needs. Specialised combo plans are available below.</p>
+        <p class="section-subtitle">Select the foundational plan that best fits your needs.</p>
         <div class="plans">
-          {% for plan in plans %}{% if not plan.is_combo and forloop.counter <= 4 %}
+          {% for plan in plans %}{% if not plan.is_combo %}
             <div class="plan-card {% if 'Individual' in plan.name %}plan-card-popular{% endif %}">
               <div class="plan-card-header">
                 {% if 'Individual' in plan.name %}<span class="badge">Most Popular</span>{% endif %}
@@ -620,31 +610,7 @@
       </div>
     </section>
 
-    <!-- COMBO PLANS -->
-    <section id="combo-plans" class="reveal">
-      <div class="inner inner-wide" style="padding-top:0;">
-        <h2 style="margin-bottom: 3.5rem;">Specialised Combo Plans</h2>
-        <div class="plans">
-          {% for plan in plans %}{% if plan.is_combo %}
-            <div class="plan-card">
-              <div class="plan-card-header"><h3>{{ plan.name }}</h3></div>
-              <div class="plan-card-body">
-                <div class="price">₹{{ plan.price }}</div>
-                <ul class="plist">
-                  {% for f in plan.features %}<li>{{ f }}</li>{% endfor %}
-                  {% if plan.prerequisites %}<li><em>{{ plan.prerequisites }}</em></li>{% endif %}
-                </ul>
-              </div>
-              <div class="plan-card-footer">
-                <a class="btn btn-book" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hello%2C%20I%27m%20interested%20in%20the%20{{ plan.name|urlencode }}%20plan.&type=phone_number&app_absent=0" target="_blank">Book this plan</a>
-              </div>
-            </div>
-          {% endif %}{% endfor %}
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPARE -->
+    {% comment %} <!-- COMPARE -->
     <section id="compare" class="comparison reveal">
       <div class="inner">
         <h2>Compare All Plans</h2>
@@ -670,14 +636,6 @@
                 {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">{% if 'couple session' in plan.features|join:' ' or 'joint/couple session' in plan.features|join:' ' %}<i class="fas fa-check check-mark"></i>{% else %}-{% endif %}</td>{% endfor %}
               </tr>
               <tr>
-                <th>EMDR Add-on</th>
-                {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">{% if 'EMDR' in plan.name %}<i class="fas fa-check check-mark"></i>{% else %}-{% endif %}</td>{% endfor %}
-              </tr>
-              <tr>
-                <th>IFS Add-on</th>
-                {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}">{% if 'IFS' in plan.name %}<i class="fas fa-check check-mark"></i>{% else %}-{% endif %}</td>{% endfor %}
-              </tr>
-              <tr>
                 <th></th>
                 {% for plan in plans %}<td class="{% if 'Individual' in plan.name %}popular-col{% endif %}"><a class="btn" href="https://api.whatsapp.com/send/?phone=918879260310&text=Hello%2C%20I%20want%20to%20book%20the%20{{ plan.name|urlencode }}%20plan.&type=phone_number&app_absent=0" target="_blank">Book Now</a></td>{% endfor %}
               </tr>
@@ -685,7 +643,7 @@
           </table>
         </div>
       </div>
-    </section>
+    </section> {% endcomment %}
 
     <!-- ============================================================
          NEW SECTION 5: WHAT HAPPENS AFTER THE 3 SESSIONS?
@@ -768,8 +726,8 @@
           <div class="renewal-card">
             <div class="renewal-card-icon"><i class="fas fa-user"></i></div>
             <h3>Individual Therapy Supervision</h3>
-            <div class="renewal-price">₹3,000 <span class="renewal-duration">/ 3 months</span></div>
-            <p class="renewal-per">That's just <strong>₹250 per session</strong> of Aanchal's supervision input</p>
+            <div class="renewal-price">₹4,000 <span class="renewal-duration">/ 3 months</span></div>
+            <p class="renewal-per">That's just <strong>₹333 per session</strong> of Aanchal's supervision input</p>
             <ul class="renewal-features">
               <li><i class="fas fa-check"></i> Covers 12 weeks of weekly sessions</li>
               <li><i class="fas fa-check"></i> Aanchal reviews your therapist's case work</li>
@@ -784,8 +742,8 @@
             <div class="renewal-badge-tag">Couples</div>
             <div class="renewal-card-icon"><i class="fas fa-heart"></i></div>
             <h3>Couple / Relationship Therapy Supervision</h3>
-            <div class="renewal-price">₹5,000 <span class="renewal-duration">/ 3 months</span></div>
-            <p class="renewal-per">That's just <strong>₹417 per session</strong> of Aanchal's supervision input</p>
+            <div class="renewal-price">₹6,000 <span class="renewal-duration">/ 3 months</span></div>
+            <p class="renewal-per">That's just <strong>₹500 per session</strong> of Aanchal's supervision input</p>
             <ul class="renewal-features">
               <li><i class="fas fa-check"></i> Covers 12 weeks of weekly sessions</li>
               <li><i class="fas fa-check"></i> Relational dynamics supervision included</li>
@@ -1021,7 +979,10 @@
           otherBtn.setAttribute('aria-expanded', 'false');
           const otherId = otherBtn.getAttribute('aria-controls');
           const otherBody = document.getElementById(otherId);
-          if (otherBody) otherBody.classList.remove('open');
+          if (otherBody) {
+            otherBody.classList.remove('open');
+            otherBody.style.maxHeight = null;
+          }
         }
       });
 
@@ -1029,9 +990,11 @@
       if (!expanded) {
         btn.setAttribute('aria-expanded', 'true');
         body.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + "px";
       } else {
         btn.setAttribute('aria-expanded', 'false');
         body.classList.remove('open');
+        body.style.maxHeight = null;
       }
     });
   });

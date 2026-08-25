@@ -83,55 +83,7 @@
     <link rel="stylesheet" href="{% static 'css/skeleton.css' %}" />
     <link rel="stylesheet" href="{% static 'css/onboarding_plan.css' %}" />
     <link rel="stylesheet" href="{% static 'css/services.css' %}" />
-    <!-- NAV DROPDOWN POSITION FIX (Services mega-menu) -->
     <style>
-      /*
-        Desktop only (matches the 1400px JS breakpoint in the navbar script).
-        The navbar is right-aligned, so anchoring the wide Services menu to its
-        trigger always pushes it off to one side. Instead, we let ONLY the
-        Services menu break out of its narrow <li> so it anchors to the
-        full-width navbar and sits centered (≈ viewport centre).
-        Other dropdowns (Resources) keep their own trigger anchoring untouched.
-      */
-      @media (min-width: 1400px) {
-        /* Force the centering reference to be the full-width navbar */
-        #mainNavbarContent,
-        .navbar-nav {
-          position: static !important;
-        }
-        /* Only the <li> that contains the Services mega-menu becomes static */
-        .alc-nav-dropdown:has(.alc-services-menu) {
-          position: static;
-        }
-        .alc-services-menu {
-          left: 50% !important;
-          right: auto !important;
-          transform: translateX(-50%) !important;
-          max-width: min(880px, calc(100vw - 40px));
-        }
-      }
-
-      /* ---- Services nav dropdown: grouped-by-category layout ---- */
-      .alc-services-group {
-        min-width: 0;
-      }
-      .alc-services-group-heading {
-        font-weight: 700 !important;
-        font-size: 0.78rem !important;
-        text-transform: uppercase;
-        letter-spacing: 0.03em;
-        opacity: 0.75;
-        padding-bottom: 0.2rem !important;
-      }
-      .alc-services-view-all {
-        display: block;
-        margin-top: 0.5rem;
-        padding-top: 0.6rem;
-        border-top: 1px solid rgba(230, 83, 89, 0.15);
-        font-weight: 600;
-        text-align: center;
-      }
-
       /* =====================================================================
          FOOTER POLISH — visual only.
          Airy, borderless treatment. No cards, no rules under headings.
@@ -473,33 +425,8 @@
                   <a class="nav-link" href="{% url 'index' %}">Home</a>
                 </li>
                 <!-- Services -->
-                <li class="nav-item alc-nav-item alc-nav-dropdown">
-                  <button
-                    class="alc-dropdown-toggle nav-link"
-                    type="button"
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                  >
-                    Services <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                  </button>
-                  <div class="alc-dropdown-menu alc-services-menu">
-                    <div class="alc-dropdown-grid alc-services-grid">
-                      {% for group in service_categories %}
-                      <div class="alc-services-group">
-                        <a href="{% url 'services' %}#{{ group.key }}" class="alc-services-group-heading">{{ group.label }}</a>
-                        {% for service in group.services %}
-                        <a href="{% url 'service' service.slug %}">{{ service.title }}</a>
-                        {% endfor %}
-                      </div>
-                      {% endfor %}
-                      {% for service in uncategorized_services %}
-                      <a href="{% url 'service' service.slug %}">
-                        <strong>{{ service.title }}</strong>
-                      </a>
-                      {% endfor %}
-                    </div>
-                    <a href="{% url 'services' %}" class="alc-services-view-all">View all services</a>
-                  </div>
+                <li class="nav-item alc-nav-item">
+                  <a class="nav-link" href="{% url 'services' %}">Services</a>
                 </li>
                 <li class="nav-item alc-nav-item alc-nav-dropdown">
                   <button

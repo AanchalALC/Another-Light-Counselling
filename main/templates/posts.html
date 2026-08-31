@@ -149,6 +149,85 @@
     }
 
     /* ============================================================
+       SEARCH
+       ============================================================ */
+    .search-form {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        max-width: 480px;
+        margin-top: 34px;
+        background: #FFFFFF;
+        border: 1px solid rgba(22, 24, 29, .12);
+        border-radius: 999px;
+        padding: 6px 8px 6px 20px;
+        box-shadow: 0 10px 30px rgba(22, 24, 29, .07);
+        opacity: 0;
+        animation: fadeUp .7s ease .4s forwards;
+        transition: border-color .3s ease, box-shadow .3s ease;
+    }
+    .search-form:focus-within {
+        border-color: var(--alc-accent);
+        box-shadow: 0 10px 30px rgba(240, 140, 33, .18);
+    }
+    .search-icon {
+        flex: none;
+        color: var(--alc-slate);
+    }
+    .search-input {
+        flex: 1;
+        min-width: 0;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-family: inherit;
+        font-size: .92rem;
+        font-weight: 500;
+        color: var(--alc-ink);
+        padding: 10px 10px;
+    }
+    .search-input::placeholder { color: var(--alc-slate); }
+    .search-clear {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px; height: 22px;
+        border-radius: 50%;
+        color: var(--alc-slate);
+        font-size: 1.1rem;
+        line-height: 1;
+        text-decoration: none;
+        margin-right: 4px;
+        transition: background .25s ease, color .25s ease;
+    }
+    .search-clear:hover {
+        background: var(--alc-line);
+        color: var(--alc-ink);
+        text-decoration: none;
+    }
+    .search-submit {
+        flex: none;
+        border: none;
+        cursor: pointer;
+        background: var(--alc-accent);
+        color: #FFFFFF;
+        font-family: inherit;
+        font-size: .8rem;
+        font-weight: 800;
+        letter-spacing: .04em;
+        padding: 11px 22px;
+        border-radius: 999px;
+        transition: background .25s ease, transform .25s ease;
+    }
+    .search-submit:hover { background: #C96F12; transform: translateY(-1px); }
+
+    @media (max-width: 480px) {
+        .search-form { max-width: 100%; padding-left: 16px; }
+        .search-submit { padding: 11px 16px; }
+    }
+
+    /* ============================================================
        FEATURED
        ============================================================ */
     .featured-section { padding: 0; }
@@ -508,10 +587,53 @@
             <span class="eyebrow"><span class="dot"></span> The Journal</span>
             <h1><span class="reveal-line"><span>Blog</span></span></h1>
             <p class="hero-sub">Explore expert articles, therapy insights, and practical mental health guidance on trauma, relationships, anxiety, depression, emotional wellbeing, and more from the psychologists at Another Light Counselling.</p>
+
+            <form class="search-form" method="get" action="{% url 'blog' %}" role="search">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="search" name="q" class="search-input" placeholder="Search articles&hellip;" value="{{ query }}" aria-label="Search blog articles">
+                {% if query %}
+                    <a href="{% url 'blog' %}" class="search-clear" aria-label="Clear search">&times;</a>
+                {% endif %}
+                <button type="submit" class="search-submit">Search</button>
+            </form>
         </div>
     </section>
 
     {% if posts %}
+
+        {% if query %}
+            <!-- ================= SEARCH RESULTS ================= -->
+            <section class="list-section">
+                <div class="wrap">
+                    <div class="list-head reveal">
+                        <h2>Results for &ldquo;{{ query }}&rdquo;</h2>
+                        <span class="count">{{ posts|length }} article{{ posts|length|pluralize }}</span>
+                    </div>
+                    <div id="resource-list">
+                        {% for post in posts %}
+                        <a class="resource reveal" href="{% url 'post' post.slug %}"
+                           style="--card-accent: {% cycle '#6698CC' '#B4B534' '#E36888' '#F08C21' as cardaccent %};">
+                            <div class="media">
+                                {% if post.image_file %}
+                                    <img src="{{ post.image_file.url }}" class="thumbnail" alt="{{ post.title }}" loading="lazy">
+                                {% else %}
+                                    <div class="media-fallback" style="background: {% cycle cardaccent %};">{{ post.title|first }}</div>
+                                {% endif %}
+                                <span class="date-pill">{{ post.created|date:"d M Y" }}</span>
+                            </div>
+                            <div class="resource-content">
+                                <h3>{{ post.title }}</h3>
+                                <span class="read-link">Read more <span class="arrow">&rarr;</span></span>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div><!-- /#resource-list -->
+                </div>
+            </section>
+        {% else %}
 
         {% for post in posts %}
 
@@ -573,11 +695,19 @@
 
         {% endfor %}
 
+        {% endif %}
+
     {% else %}
         <section class="wrap">
             <div class="empty-state">
-                <h3>Nothing here just yet</h3>
-                <p>New articles from the Another Light team are on the way. Do check back soon.</p>
+                {% if query %}
+                    <h3>No articles found</h3>
+                    <p>Nothing matched &ldquo;{{ query }}&rdquo;. Try a different search term.</p>
+                    <a href="{% url 'blog' %}" class="read-link" style="justify-content: center; margin-top: 18px;">Clear search &amp; view all articles <span class="arrow">&rarr;</span></a>
+                {% else %}
+                    <h3>Nothing here just yet</h3>
+                    <p>New articles from the Another Light team are on the way. Do check back soon.</p>
+                {% endif %}
             </div>
         </section>
     {% endif %}

@@ -195,6 +195,136 @@ and experience a cost-effective and quality solution.{% endblock %}
     .media-cta { margin-top: 34px; padding: 12px 28px; }
   }
 
+  /* ===== Founder video — between the stats and the providesection heading ===== */
+  #foundervideosection {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 84px 6vw 90px;
+    background: linear-gradient(180deg, #FCF6E6 0%, #ffffff 100%);
+    text-align: center;
+    overflow: hidden;
+  }
+  #foundervideosection::before,
+  #foundervideosection::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: .32;
+    pointer-events: none;
+  }
+  #foundervideosection::before {
+    width: 260px;
+    height: 260px;
+    background: #F08C21;
+    top: -70px;
+    left: -70px;
+  }
+  #foundervideosection::after {
+    width: 300px;
+    height: 300px;
+    background: #6698CC;
+    bottom: -90px;
+    right: -90px;
+  }
+  .founder-video-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .founder-video-kicker {
+    display: inline-block;
+    margin: 0 0 18px;
+    padding: 8px 22px;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(90deg, #F08C21, #E36888);
+    border-radius: 999px;
+    box-shadow: 0 8px 20px rgba(240, 140, 33, .3);
+  }
+  #foundervideosection h2 {
+    position: relative;
+    display: inline-block;
+    margin: 0 0 26px;
+    font-size: 2.7rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #2b2b2b;
+    line-height: 1.15;
+  }
+  #foundervideosection h2::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -14px;
+    transform: translateX(-50%);
+    width: 84px;
+    height: 5px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #F08C21, #E36888);
+  }
+  .founder-video-wrap {
+    position: relative;
+    width: 100%;
+    margin-top: 40px;
+    padding: 8px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, #F08C21, #E36888 50%, #6698CC);
+    box-shadow: 0 20px 44px rgba(67, 40, 31, .22);
+    transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease;
+  }
+  .founder-video-wrap:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 26px 54px rgba(67, 40, 31, .3);
+  }
+  .founder-video-frame {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    border-radius: 19px;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+  .founder-video-frame iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .founder-video-caption {
+    max-width: 640px;
+    margin: 32px auto 0;
+    color: #5c534d;
+    font-size: 1.2rem;
+    line-height: 1.65;
+  }
+  .founder-video-caption .founder-link {
+    color: #F08C21;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(240, 140, 33, .35);
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .founder-video-caption .founder-link:hover {
+    color: #E36888;
+    border-color: #E36888;
+  }
+  @media (max-width: 600px) {
+    #foundervideosection { padding: 56px 6vw 60px; }
+    #foundervideosection h2 { font-size: 1.9rem; }
+    .founder-video-wrap { margin-top: 30px; padding: 6px; border-radius: 20px; }
+    .founder-video-frame { border-radius: 15px; }
+    .founder-video-caption { font-size: 1rem; margin-top: 24px; }
+  }
+
   /* Respect users who prefer reduced motion: stop scrolling,
      hide the duplicate set, and wrap logos into a centered grid. */
   @media (prefers-reduced-motion: reduce) {
@@ -534,6 +664,28 @@ and experience a cost-effective and quality solution.{% endblock %}
         </div>
     </div>
 
+    <div id="foundervideosection">
+        <div class="founder-video-inner">
+            <p class="founder-video-kicker">Get to Know Us</p>
+            <h2>Meet the Mind Behind Another Light Counselling</h2>
+            <div class="founder-video-wrap">
+                <div class="founder-video-frame">
+                    <iframe
+                        src="https://www.youtube.com/embed/Lw0kiVO1DM8"
+                        title="Meet the Mind Behind Another Light Counselling"
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <p class="founder-video-caption">
+                <a class="founder-link" href="/about/aanchal-narang/">Aanchal Narang</a> shares her perspective on
+                therapy, mental health, and creating a space where people can feel heard, understood, and supported.
+            </p>
+        </div>
+    </div>
 
     <div id="providesection">
 

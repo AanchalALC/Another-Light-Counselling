@@ -551,6 +551,18 @@ Aanchal Narang, Founder and Head Therapist of Another Light Counselling, offers 
 
     <hr class="rule">
     <section class="section longform">
+      {% if member.name == "Aanchal Narang" %}
+      <div class="video" style="margin-bottom:18px;">
+        <iframe
+          src="https://www.youtube.com/embed/a7nO4PjCwKc"
+          title="Aanchal Narang"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      {% endif %}
       <h2>Full Biography</h2>
       <div class="rich">
         {% if member.bio_long %}{{ member.bio_long|safe }}{% else %}{{ member.info|safe }}{% endif %}

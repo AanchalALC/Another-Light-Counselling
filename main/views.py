@@ -8,7 +8,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.templatetags.static import static
 from django.urls import reverse
-from django.db.models import Case, When, Value, IntegerField
+from django.db.models import Case, When, Value, IntegerField, Q
 
 from .models import (
     Post, PostType, FAQ, Resource, Review, Member, Statistic, ContactDetails,
@@ -700,6 +700,13 @@ def blog(request, pageno=1):
     # FETCH ALL POSTS
     posts = Post.objects.all().order_by('-created', 'title')
 
+    # FILTER BY SEARCH QUERY
+    query = request.GET.get('q', '').strip()
+    if query:
+        posts = posts.filter(
+            Q(title__icontains=query) | Q(content__icontains=query)
+        )
+
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()
 
@@ -711,6 +718,7 @@ def blog(request, pageno=1):
 
     context = {
         'posts': posts,
+        'query': query,
         'contactdetails': contactdetails,
         'services': services,
         'doifeels': doifeels,

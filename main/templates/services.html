@@ -96,8 +96,6 @@
         z-index: 2;
         background-color: #F08C21;
         padding: 90px 20px 130px 20px;
-        border-bottom-left-radius: 60px;
-        border-bottom-right-radius: 60px;
         text-align: center;
         overflow: hidden;
     }
@@ -157,12 +155,22 @@
     /* ===== VIDEO SLOT ===== */
     #video-section { max-width: 900px; margin: -70px auto 70px; padding: 0 20px; position: relative; z-index: 10; }
     .alc-video-frame {
-        position: relative; width: 100%; padding-top: 56.25%;
+        position: relative; width: 100%; padding-top: 56.25%; aspect-ratio: 16 / 9;
         border-radius: 22px; overflow: hidden; background: #1A1A1A;
         border: 2px solid #1A1A1A; box-shadow: 10px 10px 0px #B4B534;
     }
     .alc-video-frame video, .alc-video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .alc-video-caption { text-align: center; margin-top: 14px; color: #555; font-size: 0.95rem; }
+
+    /* ===== AANCHAL INTRO VIDEO ===== */
+    #intro-video { text-align: center; overflow: hidden; }
+    #intro-video .alc-kicker { background: #FFFFFF; display: inline-flex; }
+    #intro-video .alc-video-frame {
+        max-width: 880px; margin: 0 auto; box-shadow: 10px 10px 0px #E36888;
+    }
+    #intro-video .alc-video-caption {
+        max-width: 620px; margin: 22px auto 0; font-size: 1.05rem; line-height: 1.65;
+    }
 
     /* ===== SECTION shell =====
        .alc-band is the full-bleed colour strip (spans the whole viewport);
@@ -402,6 +410,24 @@
         {% if hub_page.video_caption %}<p class="alc-video-caption">{{ hub_page.video_caption }}</p>{% endif %}
     </section>
     {% endif %}
+
+    <!-- ============ AANCHAL INTRO VIDEO (Vimeo) ============ -->
+    <section class="alc-band alc-band-butter" id="intro-video">
+        <div class="doodle doodle-dot" style="top: 12%; left: 5%;" aria-hidden="true"></div>
+        <div class="doodle doodle-triangle" style="bottom: 8%; right: 5%;" aria-hidden="true"></div>
+        <div class="alc-section">
+            <span class="alc-kicker">Meet Aanchal</span>
+            <h2>Aanchal Narang on Finding the Right Approach to Therapy</h2>
+            <div class="alc-video-frame">
+                <iframe src="https://www.youtube.com/embed/btvDe3-9Aho?rel=0&amp;modestbranding=1"
+                        title="Aanchal Narang on Finding the Right Approach to Therapy"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+            </div>
+            <p class="alc-video-caption">From EMDR and somatic approaches to working with the mind and body, Aanchal explains how different therapeutic approaches can support different needs.</p>
+        </div>
+    </section>
 
     <!-- ============ HOW WE CAN HELP ============ -->
     <section class="alc-section" id="how-we-help">

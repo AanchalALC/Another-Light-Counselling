@@ -301,57 +301,80 @@
     /* ===== Filters ===== */
     section.filters, section.team-grid { width: var(--page); margin-inline: auto; }
     .filters{
-      display:flex; gap:14px; flex-wrap:wrap; align-items:center;
-      margin:32px 0 18px 0; padding:16px;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin:28px 0 18px 0; padding:12px;
       background:color-mix(in srgb, var(--butter) 26%, #fff);
       border:1px solid color-mix(in srgb, var(--butter), #000 6%);
-      border-radius:14px; box-shadow:0 12px 26px rgba(240,205,120,.35);
+      border-radius:14px; box-shadow:0 10px 22px rgba(240,205,120,.28);
+      font-size:14px; line-height:1.3;
     }
-    .filters .search{ flex:1 1 380px; min-width:260px; position:relative; }
+    .filters .search{ flex:1 1 220px; min-width:180px; position:relative; }
     .filters .search::before{
-      content:""; position:absolute; left:14px; top:50%; transform:translateY(-50%);
-      width:16px;height:16px;border:2px solid var(--muted);border-radius:50%;
+      content:""; position:absolute; left:13px; top:50%; transform:translateY(-50%);
+      width:14px;height:14px;border:2px solid var(--muted);border-radius:50%;
     }
     .filters .search::after{
-      content:""; position:absolute; left:26px; top:62%;
-      width:10px;height:2px;background:var(--muted); transform:rotate(45deg);
+      content:""; position:absolute; left:24px; top:63%;
+      width:8px;height:2px;background:var(--muted); transform:rotate(45deg);
     }
     .filters input{
-      width:100%; padding:12px 14px 12px 40px; border-radius:12px;
+      box-sizing:border-box; width:100%; height:40px;
+      padding:0 12px 0 36px; border-radius:10px; font-size:14px; font-family:inherit;
       border:1px solid var(--ring); background:#fff; outline:none;
       transition:border-color .15s, box-shadow .15s;
     }
     .filters input:focus{ border-color:var(--sea); box-shadow:0 0 0 3px color-mix(in srgb,var(--sea) 30%,#fff); }
-    .filters .select{ position:relative; display:flex; align-items:center; }
+    .filters-controls{ display:flex; gap:10px; flex-wrap:wrap; flex:1 1 300px; }
+    .filters .select{ position:relative; display:flex; align-items:center; flex:1 1 150px; min-width:140px; }
     .filters select{
-      appearance:none; padding:12px 40px 12px 14px; border-radius:12px;
+      box-sizing:border-box; width:100%; height:40px; appearance:none;
+      padding:0 32px 0 12px; border-radius:10px; font-size:14px; font-family:inherit;
       border:1px solid var(--ring); background:#fff; transition:border-color .15s, box-shadow .15s;
+      text-overflow:ellipsis; white-space:nowrap;
     }
     .filters .select::after{
-      content:""; position:absolute; right:14px; top:50%; transform:translateY(-50%) rotate(45deg);
-      width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);pointer-events:none;
+      content:""; position:absolute; right:13px; top:50%; transform:translateY(-50%) rotate(45deg);
+      width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);pointer-events:none;
     }
     .filters select:focus{ border-color:var(--sea); box-shadow:0 0 0 3px color-mix(in srgb,var(--sea) 30%,#fff); outline:none; }
-    .filters .multi{ position:relative; }
+    .filters .multi{ position:relative; flex:1 1 170px; min-width:160px; }
     .filters .multi > button{
-      padding:12px 40px 12px 14px; border-radius:12px; border:1px solid var(--ring);
+      box-sizing:border-box; width:100%; height:40px;
+      padding:0 32px 0 12px; border-radius:10px; border:1px solid var(--ring);
+      font-size:14px; font-family:inherit; text-align:left;
+      overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
       background:#fff; cursor:pointer; transition:border-color .15s, box-shadow .15s;
     }
     .filters .multi > button:focus{ border-color:var(--sea); box-shadow:0 0 0 3px color-mix(in srgb,var(--sea) 30%,#fff); outline:none; }
     .filters .multi::after{
-      content:""; position:absolute; right:14px; top:50%; transform:translateY(-50%) rotate(45deg);
-      width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);pointer-events:none;
+      content:""; position:absolute; right:13px; top:50%; transform:translateY(-50%) rotate(45deg);
+      width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);pointer-events:none;
     }
     .filters .menu{
-      position:absolute; z-index:40; top:calc(100% + 8px); left:0;
-      min-width:260px; max-height:260px; overflow:auto; background:#fff;
+      position:absolute; z-index:40; top:calc(100% + 8px); left:0; right:0;
+      min-width:220px; max-height:240px; overflow:auto; background:#fff;
       border:1px solid var(--ring); border-radius:12px; box-shadow:0 12px 24px rgba(0,0,0,.12);
-      padding:10px; display:none;
+      padding:8px; display:none;
     }
     .filters .menu.open{ display:block; }
-    .filters .menu label{ display:flex; align-items:center; gap:8px; padding:6px 4px; font-size:14px; cursor:pointer; }
-    .filters .menu input[type="checkbox"]{ width:16px; height:16px; }
-    .clear-filters{ margin-left:auto; font-size:13px; background:transparent; border:0; text-decoration:underline; color:var(--muted); cursor:pointer; }
+    .filters .menu label{ display:flex; align-items:center; gap:8px; padding:6px 4px; font-size:13.5px; cursor:pointer; }
+    .filters .menu input[type="checkbox"]{ width:15px; height:15px; flex:0 0 auto; }
+    .clear-filters{
+      flex:0 0 auto; margin-left:auto; font-size:13px; font-family:inherit;
+      background:transparent; border:0; text-decoration:underline; color:var(--muted); cursor:pointer; padding:4px 2px;
+    }
+
+    @media (max-width:760px){
+      .filters{ flex-direction:column; align-items:stretch; padding:12px; }
+      .filters .search{ flex:1 1 auto; width:100%; }
+      .filters-controls{ width:100%; flex:1 1 auto; }
+      .filters .select, .filters .multi{ flex:1 1 calc(50% - 5px); min-width:0; }
+      .clear-filters{ margin-left:0; align-self:flex-end; }
+    }
+    @media (max-width:420px){
+      .filters-controls{ flex-direction:column; }
+      .filters .select, .filters .multi{ flex:1 1 auto; width:100%; }
+    }
 
     /* ===== Grid ===== */
     .team-grid{
@@ -441,18 +464,20 @@
     <div class="search">
       <input id="searchInput" type="search" placeholder="Search by name or designation…" aria-label="Search team" />
     </div>
-    <div class="select">
-      <label for="availabilitySelect" class="sr-only">Availability</label>
-      <select id="availabilitySelect" aria-label="Availability">
-        <option value="">All availability</option>
-        <option value="open">Currently accepting new clients</option>
-        <option value="waitlist">Waitlist only</option>
-        <option value="unavailable">Not taking clients</option>
-      </select>
-    </div>
-    <div class="multi" id="tagSelectWrap">
-      <button id="tagsBtn" type="button" aria-haspopup="true" aria-expanded="false">Specializations: Any</button>
-      <div class="menu" id="tagsMenu" role="menu" aria-label="Specializations"></div>
+    <div class="filters-controls">
+      <div class="select">
+        <label for="availabilitySelect" class="sr-only">Availability</label>
+        <select id="availabilitySelect" aria-label="Availability">
+          <option value="">All availability</option>
+          <option value="open">Currently accepting new clients</option>
+          <option value="waitlist">Waitlist only</option>
+          <option value="unavailable">Not taking clients</option>
+        </select>
+      </div>
+      <div class="multi" id="tagSelectWrap">
+        <button id="tagsBtn" type="button" aria-haspopup="true" aria-expanded="false">Specializations: Any</button>
+        <div class="menu" id="tagsMenu" role="menu" aria-label="Specializations"></div>
+      </div>
     </div>
     <button class="clear-filters" id="clearFilters" type="button">Clear filters</button>
   </section>

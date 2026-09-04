@@ -155,7 +155,7 @@
     /* ===== VIDEO SLOT ===== */
     #video-section { max-width: 900px; margin: -70px auto 70px; padding: 0 20px; position: relative; z-index: 10; }
     .alc-video-frame {
-        position: relative; width: 100%; padding-top: 56.25%; aspect-ratio: 16 / 9;
+        position: relative; width: 100%; aspect-ratio: 16 / 9;
         border-radius: 22px; overflow: hidden; background: #1A1A1A;
         border: 2px solid #1A1A1A; box-shadow: 10px 10px 0px #B4B534;
     }
@@ -166,11 +166,13 @@
     #intro-video { text-align: center; overflow: hidden; }
     #intro-video .alc-kicker { background: #FFFFFF; display: inline-flex; }
     #intro-video .alc-video-frame {
-        max-width: 880px; margin: 0 auto; box-shadow: 10px 10px 0px #E36888;
+        max-width: 720px; margin: 0 auto; box-shadow: 10px 10px 0px #E36888;
     }
     #intro-video .alc-video-caption {
         max-width: 620px; margin: 22px auto 0; font-size: 1.05rem; line-height: 1.65;
     }
+    #intro-video .alc-video-caption a { color: #E36888; font-weight: 600; text-decoration: underline; }
+    #intro-video .alc-video-caption a:hover, #intro-video .alc-video-caption a:focus-visible { color: #1A1A1A; }
 
     /* ===== SECTION shell =====
        .alc-band is the full-bleed colour strip (spans the whole viewport);
@@ -425,7 +427,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe>
             </div>
-            <p class="alc-video-caption">From EMDR and somatic approaches to working with the mind and body, Aanchal explains how different therapeutic approaches can support different needs.</p>
+            <p class="alc-video-caption">From <a href="https://www.another-light.com/service/EMDR-therapy">EMDR</a> and somatic approaches to working with the mind and body, <a href="https://www.another-light.com/about/aanchal-narang/">Aanchal</a> explains how different therapeutic approaches can support different needs.</p>
         </div>
     </section>
 

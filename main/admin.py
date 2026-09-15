@@ -218,3 +218,58 @@ class MediaFeatureAdmin(admin.ModelAdmin):
             'fields': ('video_url',),
         }),
     )
+    
+
+from .models import (
+    FAQ, Resource, Review, Contact, Member, Post, ContactDetails, Statistic,
+    Service, ServiceFAQ, ServicesHubPage, DoIFeel, Policy, Committee, DynamicContent, PpcContact, Jd,
+    OnboardingPlan, SpecializationTag, TeamPage,  MemberBlogPost, MediaFeature,
+    InstagramAccount, InstagramPost
+)
+
+
+# ===========================================================================
+# EDIT 2 — paste everything below at the very END of admin.py.
+#
+# Style matches the existing file: @admin.register decorator plus
+# exclude = ('site',), same as MediaFeatureAdmin.
+# ===========================================================================
+
+
+@admin.register(InstagramAccount)
+class InstagramAccountAdmin(admin.ModelAdmin):
+    exclude = ('site',)
+    list_display = (
+        'username', 'is_active', 'last_synced_at',
+        'token_expires_at', 'last_sync_status',
+    )
+    readonly_fields = (
+        'ig_user_id', 'display_name', 'biography', 'followers_count',
+        'follows_count', 'avatar', 'token_expires_at', 'last_synced_at',
+        'last_sync_status',
+    )
+
+    def has_add_permission(self, request):
+        # One account only.
+        return not InstagramAccount.objects.exists()
+
+
+@admin.register(InstagramPost)
+class InstagramPostAdmin(admin.ModelAdmin):
+    exclude = ('site',)
+    list_display = (
+        'posted_at', 'media_type', 'caption_preview', 'is_demo', 'is_hidden',
+    )
+    list_editable = ('is_hidden',)
+    list_filter = ('media_type', 'is_hidden', 'is_demo')
+    search_fields = ('caption',)
+    ordering = ('-posted_at', '-id')
+    readonly_fields = (
+        'media_id', 'media_type', 'media_product_type', 'permalink',
+        'caption', 'thumbnail', 'remote_thumbnail_url', 'posted_at',
+        'is_demo', 'created_at',
+    )
+
+    def has_add_permission(self, request):
+        # Posts only ever arrive via the sync command.
+        return False

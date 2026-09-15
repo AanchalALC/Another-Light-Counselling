@@ -1019,3 +1019,160 @@ class MediaFeature(models.Model):
         ordering = ('order', 'id')
         verbose_name = 'Media Feature'
         verbose_name_plural = 'Media Features'
+        
+        
+
+
+class InstagramAccount(models.Model):
+    """
+    Holds the Instagram credentials for the site. Only one row is used.
+
+    The access token lives here rather than in .env so the sync job can
+    refresh it in place every 60 days without a redeploy or a commit.
+    """
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+
+    username = models.CharField(
+        max_length=100,
+        default='another_light_counselling',
+        help_text="Instagram handle without the @."
+    )
+    ig_user_id = models.CharField(
+        max_length=50, blank=True, default='',
+        help_text="Filled in automatically after the first successful sync."
+    )
+    display_name = models.CharField(
+        max_length=200, blank=True, default='',
+        help_text="Account's display name (not the @handle). Filled in by the sync job."
+    )
+    biography = models.TextField(
+        blank=True, default='',
+        help_text="Instagram bio text, line breaks and emoji included. Filled in by the sync job."
+    )
+    followers_count = models.PositiveIntegerField(null=True, blank=True)
+    follows_count = models.PositiveIntegerField(null=True, blank=True)
+    avatar = models.ImageField(
+        upload_to='instagram', blank=True,
+        help_text="Cached locally, same as post thumbnails — Instagram's own URL expires after a few days."
+    )
+    remote_avatar_url = models.URLField(max_length=1000, blank=True, default='')
+    access_token = models.TextField(
+        blank=True, default='',
+        help_text="Long-lived token from the Meta app dashboard. "
+                  "Refreshed automatically — paste this once and forget it."
+    )
+    token_expires_at = models.DateTimeField(
+        null=True, blank=True,
+        help_text="Managed automatically by the sync job."
+    )
+    last_synced_at = models.DateTimeField(null=True, blank=True)
+    last_sync_status = models.CharField(max_length=255, blank=True, default='')
+    is_active = models.BooleanField(
+        default=True,
+        help_text="Untick to stop syncing without deleting the saved token."
+    )
+
+    class Meta:
+        verbose_name = 'Instagram account'
+        verbose_name_plural = 'Instagram account'
+
+    def __str__(self):
+        return '@{}'.format(self.username)
+
+    @property
+    def biography_lines(self):
+        """Bio split into its own lines, e.g. one per emoji bullet."""
+        return [line.strip() for line in self.biography.splitlines() if line.strip()]
+
+    @property
+    def followers_display(self):
+        return '{:,}'.format(self.followers_count) if self.followers_count is not None else ''
+
+    @property
+    def follows_display(self):
+        return '{:,}'.format(self.follows_count) if self.follows_count is not None else ''
+
+
+class InstagramPost(models.Model):
+    MEDIA_TYPE_CHOICES = [
+        ('IMAGE', 'Image'),
+        ('VIDEO', 'Video / Reel'),
+        ('CAROUSEL_ALBUM', 'Carousel'),
+    ]
+
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, default=1)
+
+    media_id = models.CharField(max_length=50, unique=True, db_index=True)
+    media_type = models.CharField(
+        max_length=20, choices=MEDIA_TYPE_CHOICES, default='IMAGE'
+    )
+    media_product_type = models.CharField(
+        max_length=20, blank=True, default='',
+        help_text="FEED or REELS, as reported by Instagram."
+    )
+    permalink = models.URLField(max_length=500, blank=True, default='')
+    caption = models.TextField(blank=True, default='')
+    thumbnail = models.ImageField(
+        upload_to='instagram', blank=True,
+        help_text="Cached locally. Instagram's own image URLs expire after a few days."
+    )
+    remote_thumbnail_url = models.URLField(max_length=1000, blank=True, default='')
+    posted_at = models.DateTimeField(null=True, blank=True)
+    is_hidden = models.BooleanField(
+        default=False,
+        help_text="Tick to keep this post off the website without deleting it."
+    )
+    is_demo = models.BooleanField(
+        default=False,
+        help_text="Placeholder created by seed_instagram_demo. Cleared "
+                  "automatically once real posts sync in."
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-posted_at', '-id')
+        verbose_name = 'Instagram post'
+        verbose_name_plural = 'Instagram posts'
+
+    def __str__(self):
+        return '{} — {}'.format(self.media_type, self.caption_preview or self.media_id)
+
+    # -- display helpers ---------------------------------------------------
+
+    @property
+    def is_reel(self):
+        return self.media_type == 'VIDEO' or self.media_product_type == 'REELS'
+
+    @property
+    def is_carousel(self):
+        return self.media_type == 'CAROUSEL_ALBUM'
+
+    def _clean_caption(self, length):
+        if not self.caption:
+            return ''
+        text = ' '.join(self.caption.split())
+        # Drop hashtags — they read badly as alt text and as hover captions.
+        words = [w for w in text.split(' ') if not w.startswith('#')]
+        text = ' '.join(words).strip()
+        if len(text) <= length:
+            return text
+        return text[:length].rsplit(' ', 1)[0] + '…'
+
+    @property
+    def caption_preview(self):
+        return self._clean_caption(90)
+
+    @property
+    def alt_text(self):
+        preview = self._clean_caption(120)
+        if preview:
+            return preview
+        return 'Instagram post from Another Light Counselling'
+
+    @property
+    def accessible_label(self):
+        kind = 'reel' if self.is_reel else 'post'
+        preview = self._clean_caption(80)
+        if preview:
+            return 'Open Instagram {}: {}'.format(kind, preview)
+        return 'Open this Instagram {} in a new tab'.format(kind)

@@ -1,0 +1,152 @@
+{% comment %}
+Homepage Instagram widget — sits directly below the Media Recognition strip.
+
+Rendered server-side from cached data (main.InstagramPost), so there is no
+third-party JavaScript, no external request on page load, and nothing that
+breaks when Instagram changes its embed script.
+
+Deliberately styled as its own widget (cool pale-blue backdrop, floating
+doodle icons, a white card panel) rather than reusing the Media Recognition
+section's warm cream/orange treatment above it — see the #instagramsection
+rules in index.html — so the two read as separate modules, not one block.
+
+Expects `instagram_posts` and `instagram_account` in the context. Both are
+guarded, so the section simply does not render if the sync has not run yet.
+
+While demo placeholders are in use, a small preview strip appears above the
+grid so nobody reviewing the page mistakes them for live content. It
+disappears on its own once real posts sync in.
+{% endcomment %}
+
+{% if instagram_posts %}
+<div id="instagramsection">
+
+    <div class="ig-decor" aria-hidden="true">
+        <i class="ig-doodle ig-doodle-1 fas fa-heart"></i>
+        <i class="ig-doodle ig-doodle-2 far fa-comment-dots"></i>
+        <i class="ig-doodle ig-doodle-3 fas fa-camera-retro"></i>
+        <i class="ig-doodle ig-doodle-4 fab fa-instagram"></i>
+        <i class="ig-doodle ig-doodle-5 fas fa-star"></i>
+        <i class="ig-doodle ig-doodle-6 far fa-heart"></i>
+        <i class="ig-doodle ig-doodle-7 far fa-comment-dots"></i>
+    </div>
+
+    <div class="ig-panel">
+
+        {% if instagram_posts.0.is_demo %}
+        <p class="ig-demo-note">
+            Preview placeholders — live Instagram posts appear here once the account is connected.
+        </p>
+        {% endif %}
+
+        <div class="ig-head ig-reveal">
+            {% if instagram_account.avatar %}
+            <img class="ig-avatar"
+                 src="{{ instagram_account.avatar.url }}"
+                 alt="{{ instagram_account.display_name|default:instagram_account.username }} profile picture"
+                 width="96" height="96" loading="lazy">
+            {% endif %}
+            <p class="ig-kicker">On Instagram</p>
+            <h2>{{ instagram_account.display_name|default:"Another Light Counselling" }} on Instagram</h2>
+
+            {% if instagram_account.biography_lines %}
+            <div class="ig-bio">
+                {% for line in instagram_account.biography_lines %}
+                <p>{{ line }}</p>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="ig-sub">Reflections, reminders and resources from the Another Light team.</p>
+            {% endif %}
+
+            {% if instagram_account %}
+            <p class="ig-follow-line">
+                {% if instagram_account.followers_count %}
+                <strong>{{ instagram_account.followers_display }}</strong> followers &middot;
+                {% endif %}
+                Follow us
+                <a class="ig-handle" href="https://www.instagram.com/{{ instagram_account.username }}/"
+                   target="_blank" rel="noopener noreferrer">@{{ instagram_account.username }}</a>
+                for more.
+            </p>
+            {% endif %}
+        </div>
+
+        <ul class="ig-grid">
+            {% for post in instagram_posts %}
+            {% if post.thumbnail %}
+            <li class="ig-cell ig-reveal">
+                <a class="ig-tile"
+                   href="{{ post.permalink }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="{{ post.accessible_label }}">
+                    <img class="ig-image"
+                         src="{{ post.thumbnail.url }}"
+                         alt="{{ post.alt_text }}"
+                         loading="lazy"
+                         width="400"
+                         height="400">
+                    {% if post.is_reel %}
+                    <span class="ig-badge" aria-hidden="true">
+                        <i class="fas fa-play"></i>
+                    </span>
+                    {% elif post.is_carousel %}
+                    <span class="ig-badge" aria-hidden="true">
+                        <i class="fas fa-clone"></i>
+                    </span>
+                    {% endif %}
+                    {% if post.caption_preview %}
+                    <span class="ig-caption">{{ post.caption_preview }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+
+        {% if instagram_account %}
+        <a class="ig-cta ig-reveal"
+           href="https://www.instagram.com/{{ instagram_account.username }}/"
+           target="_blank"
+           rel="noopener noreferrer">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+            Follow Another Light on Instagram
+        </a>
+        {% endif %}
+
+    </div>
+</div>
+
+<script>
+    // Fades/slides the heading, each photo tile and the CTA up as they
+    // scroll into view. Falls back to showing everything immediately when
+    // the visitor prefers reduced motion or IntersectionObserver is missing.
+    (function () {
+        var section = document.getElementById('instagramsection');
+        if (!section) return;
+        var reveals = section.querySelectorAll('.ig-reveal');
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (reduceMotion || !('IntersectionObserver' in window)) {
+            reveals.forEach(function (el) { el.classList.add('in-view'); });
+            return;
+        }
+
+        reveals.forEach(function (el, i) {
+            el.style.transitionDelay = Math.min(i * 60, 480) + 'ms';
+        });
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        reveals.forEach(function (el) { observer.observe(el); });
+    })();
+</script>
+{% endif %}

@@ -15,7 +15,8 @@ from .models import (
     Service, ServicesHubPage, DoIFeel, Policy, Committee, DynamicContent, Jd, OnboardingPlan,
     # NEW models for Team module (add these in models.py)
     TeamPage, SpecializationTag,  Member,
-    MemberBlogPost, MediaFeature
+    MemberBlogPost, MediaFeature,
+    InstagramAccount, InstagramPost
 )
 from .forms import ContactForm, PpcContactForm
 
@@ -146,6 +147,16 @@ def index(request):
     # GET MEDIA FEATURES (press logos)
     media_features = MediaFeature.objects.filter(is_active=True, feature_type='logo').exclude(logo='').order_by('order', 'id')
 
+    # GET INSTAGRAM FEED (cached locally by the sync_instagram command)
+    instagram_posts = InstagramPost.objects.filter(
+        is_hidden=False
+    ).exclude(
+        thumbnail=''
+    ).exclude(
+        thumbnail__isnull=True
+    ).order_by('-posted_at', '-id')[:8]
+    instagram_account = InstagramAccount.objects.filter(is_active=True).first()
+
     context = {
         'stats': stats,
         'contactdetails': contactdetails,
@@ -155,7 +166,9 @@ def index(request):
         's1': s1,
         's2': s2,
         's3': s3,
-        'media_features': media_features,   # <-- add this line
+        'media_features': media_features,
+        'instagram_posts': instagram_posts,
+        'instagram_account': instagram_account,
     }
     return render(request, 'index.html', context=context)
 

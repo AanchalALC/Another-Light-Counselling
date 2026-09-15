@@ -37,6 +37,14 @@ RUN \
 
 RUN python manage.py makemigrations
 RUN python manage.py migrate
-RUN python manage.py createsuperuser --noinput
+# The superuser from a previous build already exists in the (persistent)
+# postgres_data volume by the second build onward, and createsuperuser
+# isn't idempotent — it exits non-zero on "username already taken", which
+# fails this RUN step and silently aborts the whole build (the image tag
+# then just keeps pointing at the last image that succeeded). The
+# docker-compose.yml runtime command already guards its own copy of this
+# same command with "|| true" for exactly this reason; this build-time
+# copy needs it too.
+RUN python manage.py createsuperuser --noinput || true
 
 # CMD sass --watch main/static/scss:main/static/css & python manage.py runserver 0.0.0.0:8000

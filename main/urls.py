@@ -90,8 +90,24 @@ urlpatterns = [
 
     
     path('about/<slug:slug>/blogs', views.member_blog_list, name='member-blog-list'),
-    path('about/<slug:slug>/blogs/', views.member_blog_list, name='member-blog-list'),
+    path(
+        'about/<slug:slug>/blogs/',
+        RedirectView.as_view(
+            pattern_name='member-blog-list',
+            permanent=True,
+            query_string=True,
+        ),
+        name='member-blog-list-trailing-slash',
+    ),
 
     path('about/<slug:slug>/blogs/<slug:post_slug>', views.member_blog_detail, name='member-blog-detail'),
-    path('about/<slug:slug>/blogs/<slug:post_slug>/', views.member_blog_detail, name='member-blog-detail'),
+    path(
+        'about/<slug:slug>/blogs/<slug:post_slug>/',
+        RedirectView.as_view(
+            pattern_name='member-blog-detail',
+            permanent=True,
+            query_string=True,
+        ),
+        name='member-blog-detail-trailing-slash',
+    ),
 ]

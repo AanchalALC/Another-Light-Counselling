@@ -19,6 +19,7 @@ media/**
 **/migrations/**
 !**/migrations
 !**/migrations/__init__.py
+!main/migrations/0024_contactdetails_order.py
 
 main/static/css/*
 

@@ -503,6 +503,30 @@ def reviews(request):
 def services(request):
     """Services hub: modalities grouped by category (same grouping as the nav dropdown)."""
     services = Service.objects.filter(is_published=True).order_by('id')
+    display_order = (
+        ('trauma',),
+        ('queer',),
+        ('couple',),
+        ('emdr',),
+        ('ifs', 'internal family systems'),
+        ('depression',),
+        ('panic attack',),
+        ('compassionate inquiry',),
+        ('somatic',),
+        ('brainspotting',),
+        ('link poly', 'link and poly', 'poly', 'polyamory', 'non monogamy'),
+    )
+
+    def service_priority(service):
+        service_text = re.sub(
+            r'[^a-z0-9]+', ' ', f'{service.title} {service.slug}'.lower()
+        )
+        for priority, keywords in enumerate(display_order):
+            if any(f' {keyword} ' in f' {service_text} ' for keyword in keywords):
+                return priority
+        return len(display_order)
+
+    services = sorted(services, key=service_priority)
 
     # GET CONTACTS FOR FOOTER
     contactdetails = ContactDetails.objects.all()

@@ -246,28 +246,23 @@
     position: relative;
     max-width: 1240px;
     margin: 0 auto;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
   }
+  .mf-logo-marquee::-webkit-scrollbar { display: none; }
   .mf-logo-track {
     display: flex;
     width: max-content;
     padding: 14px 0;
-    animation: mf-logo-scroll 42s linear infinite;
-    will-change: transform;
-  }
-  .mf-logo-marquee:hover .mf-logo-track,
-  .mf-logo-marquee:focus-within .mf-logo-track { animation-play-state: paused; }
-  @keyframes mf-logo-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    scroll-snap-type: x mandatory;
   }
   .mf-logo-item {
     flex: 0 0 auto;
     width: 210px;
     min-height: 130px;
     margin-right: 24px;
+    scroll-snap-align: start;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -867,7 +862,6 @@
     .mf-play { width: 62px; height: 62px; font-size: 1.2rem; }
     .mf-jump a { padding: 9px 16px; font-size: .78rem; }
     .mf-article-kicker { max-width: 50%; }
-    .mf-logo-track { animation-duration: 30s; }
     .mf-logo-item { width: 170px; min-height: 112px; margin-right: 16px; padding: 24px 18px; border-radius: 16px; }
     .mf-logo-item img { max-width: 130px; max-height: 56px; }
   }
@@ -875,12 +869,6 @@
   /* Respect reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     .mf-doodle { animation: none; }
-    .mf-logo-marquee {
-      overflow-x: auto;
-      -webkit-mask-image: none;
-              mask-image: none;
-    }
-    .mf-logo-track { animation: none; }
     .mf-play::before { animation: none; }
     .mf-logo-item:hover,
     .mf-logo-item:focus-visible { transform: none; }
@@ -1019,17 +1007,6 @@
             <img src="{{ feature.logo.url }}"
                  alt="{{ feature.logo_alt|default:feature.outlet_name }}"
                  loading="lazy">
-          </a>
-          {% endfor %}
-
-          {% for feature in logos %}
-          <a class="mf-logo-item"
-             href="{{ feature.link }}"
-             target="_blank"
-             rel="noopener noreferrer nofollow"
-             aria-hidden="true"
-             tabindex="-1">
-            <img src="{{ feature.logo.url }}" alt="" loading="lazy">
           </a>
           {% endfor %}
         </div>

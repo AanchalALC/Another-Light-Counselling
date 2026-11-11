@@ -23,6 +23,69 @@ from .forms import ContactForm, PpcContactForm
 
 # ------------------- HELPERS --------------------------
 
+MEDIA_LOGO_OUTLET_ORDER = (
+    ('TOI', ('TOI', 'Times of India')),
+    ('Hindustan Times', ('Hindustan Times',)),
+    ('TEDx', ('TEDx',)),
+    ('Vogue', ('Vogue',)),
+    ('GQ', ('GQ',)),
+    ('Midday', ('Midday', 'Mid-Day')),
+    ('Indian Express', ('Indian Express',)),
+    ('India Today', ('India Today',)),
+    ('MumbaiTimes', ('MumbaiTimes', 'Mumbai Times')),
+    ('News 18', ('News 18', 'News18')),
+    ('Dailypioneer', ('Dailypioneer', 'Daily Pioneer')),
+    ('Forbes', ('Forbes',)),
+    ('Outlook', ('Outlook',)),
+    ('AsianTalks', ('AsianTalks', 'Asian Talks')),
+    ('MadinAsia', ('MadinAsia', 'Mad in Asia', 'Made in Asia')),
+    ('Shethepeople', ('Shethepeople', 'She The People')),
+    ('HindustanSaga', ('HindustanSaga', 'Hindustan Saga')),
+    ('Medicircle', ('Medicircle', 'MediCircle')),
+)
+
+MEDIA_LOGO_LINK_ORDER = (
+    'timesofindia.indiatimes.com',
+    'hindustantimes.com',
+    'ted.com',
+    'vogue.in',
+    'gqindia.com',
+    'mid-day.com',
+    'indianexpress.com',
+    'indiatoday.in',
+    '',
+    'news18.com',
+    'dailypioneer.com',
+    'forbes.com',
+    'outlookindia.com',
+    'asiantalks.com',
+    'madinasia.com',
+    'shethepeople.tv',
+    'hindustansaga.com',
+    'medicircle.in',
+)
+
+
+def order_media_logos(queryset):
+    outlet_priorities = [
+        When(outlet_name__icontains=alias, then=Value(priority))
+        for priority, (_, aliases) in enumerate(MEDIA_LOGO_OUTLET_ORDER)
+        for alias in aliases
+    ]
+    outlet_priorities.extend(
+        When(link__icontains=domain, then=Value(priority))
+        for priority, domain in enumerate(MEDIA_LOGO_LINK_ORDER)
+        if domain
+    )
+    return queryset.annotate(
+        _logo_display_order=Case(
+            *outlet_priorities,
+            default=Value(len(MEDIA_LOGO_OUTLET_ORDER)),
+            output_field=IntegerField(),
+        )
+    ).order_by('_logo_display_order', 'order', 'id')
+
+
 def get_paragraph_preview(content):
     preview = ''
     try:
@@ -145,7 +208,9 @@ def index(request):
     #     's3': s3
     # }
     # GET MEDIA FEATURES (press logos)
-    media_features = MediaFeature.objects.filter(is_active=True, feature_type='logo').exclude(logo='').order_by('order', 'id')
+    media_features = order_media_logos(
+        MediaFeature.objects.filter(is_active=True, feature_type='logo').exclude(logo='')
+    )
 
     # GET INSTAGRAM FEED (cached locally by the sync_instagram command)
     instagram_posts = InstagramPost.objects.filter(
@@ -179,9 +244,10 @@ def media_features(request):
     doifeels = DoIFeel.objects.all().order_by('id')
 
     base = MediaFeature.objects.filter(is_active=True).order_by('order', 'id')
+    logos = order_media_logos(base.filter(feature_type='logo').exclude(logo=''))
 
     context = {
-        'logos':         base.filter(feature_type='logo'),
+        'logos':         logos,
         'videos':        base.filter(feature_type='video'),
         'articles':      base.filter(feature_type='article'),
         'more_features': base.filter(feature_type='more'),

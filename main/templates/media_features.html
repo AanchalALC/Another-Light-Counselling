@@ -20,7 +20,7 @@
      · HERO  → SEA (#6698CC) band, white type, palette doodles
      · BODY  → white, dotted texture
      · CARDS → white, Butter-derived border + corner palette wash
-     Distinct from the homepage "Media Recognition" logo strip.
+     Shares the homepage logo-carousel treatment, followed by the full archive.
 
      Tangerine #F08C21 · Butter #F2D88F · Blush #E36888
      Sea #6698CC · Matcha #B4B534
@@ -212,9 +212,10 @@
     transition: transform .25s ease, box-shadow .25s ease, color .25s ease;
   }
   .mf-jump a i { font-size: .82rem; }
-  .mf-jump li:nth-child(1) a i { color: var(--alc-blush); }
-  .mf-jump li:nth-child(2) a i { color: var(--alc-tangerine); }
-  .mf-jump li:nth-child(3) a i { color: var(--alc-matcha); }
+  .mf-jump li:nth-child(1) a i { color: var(--alc-sea); }
+  .mf-jump li:nth-child(2) a i { color: var(--alc-blush); }
+  .mf-jump li:nth-child(3) a i { color: var(--alc-tangerine); }
+  .mf-jump li:nth-child(4) a i { color: var(--alc-matcha); }
   .mf-jump a:hover {
     transform: translateY(-3px);
     color: var(--alc-tangerine);
@@ -227,6 +228,74 @@
     position: relative;
     background-color: var(--alc-body);
   }
+  .mf-logos-section {
+    position: relative;
+    z-index: 1;
+    padding: clamp(42px, 6vw, 68px) 0;
+    overflow: hidden;
+    background: linear-gradient(180deg, #ffffff 0%, #FCF6E6 100%);
+  }
+  .mf-logos-heading {
+    margin: 0 0 34px;
+    padding: 0 5vw;
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 800;
+    color: var(--alc-ink);
+  }
+  .mf-logo-marquee {
+    position: relative;
+    max-width: 1240px;
+    margin: 0 auto;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+  }
+  .mf-logo-track {
+    display: flex;
+    width: max-content;
+    padding: 14px 0;
+    animation: mf-logo-scroll 42s linear infinite;
+    will-change: transform;
+  }
+  .mf-logo-marquee:hover .mf-logo-track,
+  .mf-logo-marquee:focus-within .mf-logo-track { animation-play-state: paused; }
+  @keyframes mf-logo-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .mf-logo-item {
+    flex: 0 0 auto;
+    width: 210px;
+    min-height: 130px;
+    margin-right: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 22px;
+    background: #fff;
+    border: 1px solid #efe7d3;
+    border-radius: 20px;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .05);
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
+  }
+  .mf-logo-item img {
+    width: auto;
+    height: auto;
+    max-width: 170px;
+    max-height: 70px;
+    object-fit: contain;
+    transition: transform .3s ease;
+  }
+  .mf-logo-item:hover,
+  .mf-logo-item:focus-visible { transform: translateY(-10px); }
+  .mf-logo-item:hover img { transform: scale(1.05); }
+  .mf-logo-item:focus-visible { outline: 3px solid var(--alc-sea); outline-offset: 3px; }
+  .mf-logo-item:nth-child(5n+1):hover { border-color: #F08C21; box-shadow: 0 16px 30px rgba(240,140,33,.22); }
+  .mf-logo-item:nth-child(5n+2):hover { border-color: #E36888; box-shadow: 0 16px 30px rgba(227,104,136,.22); }
+  .mf-logo-item:nth-child(5n+3):hover { border-color: #6698CC; box-shadow: 0 16px 30px rgba(102,152,204,.22); }
+  .mf-logo-item:nth-child(5n+4):hover { border-color: #B4B534; box-shadow: 0 16px 30px rgba(180,181,52,.22); }
+  .mf-logo-item:nth-child(5n+5):hover { border-color: #F2D88F; box-shadow: 0 16px 30px rgba(242,216,143,.34); }
   /* faint dotted texture so the floor reads as a surface, not a void */
   .mf-body::before {
     content: "";
@@ -798,12 +867,24 @@
     .mf-play { width: 62px; height: 62px; font-size: 1.2rem; }
     .mf-jump a { padding: 9px 16px; font-size: .78rem; }
     .mf-article-kicker { max-width: 50%; }
+    .mf-logo-track { animation-duration: 30s; }
+    .mf-logo-item { width: 170px; min-height: 112px; margin-right: 16px; padding: 24px 18px; border-radius: 16px; }
+    .mf-logo-item img { max-width: 130px; max-height: 56px; }
   }
 
   /* Respect reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     .mf-doodle { animation: none; }
+    .mf-logo-marquee {
+      overflow-x: auto;
+      -webkit-mask-image: none;
+              mask-image: none;
+    }
+    .mf-logo-track { animation: none; }
     .mf-play::before { animation: none; }
+    .mf-logo-item:hover,
+    .mf-logo-item:focus-visible { transform: none; }
+    .mf-logo-item:hover img { transform: none; }
     .mf-video-card:hover,
     .mf-video-card:focus-visible,
     .mf-article-card:hover,
@@ -905,6 +986,9 @@
       </p>
 
       <ul class="mf-jump">
+        {% if logos %}
+        <li><a href="#mf-logos"><i class="fas fa-newspaper" aria-hidden="true"></i> Media Recognition</a></li>
+        {% endif %}
         {% if videos %}
         <li><a href="#mf-highlights"><i class="fas fa-play" aria-hidden="true"></i> Interviews &amp; Panels</a></li>
         {% endif %}
@@ -920,6 +1004,38 @@
 
   {# ================= 2 · BODY BAND ================= #}
   <div class="mf-body">
+
+    {% if logos %}
+    <section class="mf-logos-section" id="mf-logos" aria-labelledby="mf-logos-heading">
+      <h2 class="mf-logos-heading" id="mf-logos-heading">Media Recognition</h2>
+      <div class="mf-logo-marquee">
+        <div class="mf-logo-track">
+          {% for feature in logos %}
+          <a class="mf-logo-item"
+             href="{{ feature.link }}"
+             target="_blank"
+             rel="noopener noreferrer nofollow"
+             aria-label="{{ feature.outlet_name }}{% if feature.article_title %} — {{ feature.article_title }}{% endif %}">
+            <img src="{{ feature.logo.url }}"
+                 alt="{{ feature.logo_alt|default:feature.outlet_name }}"
+                 loading="lazy">
+          </a>
+          {% endfor %}
+
+          {% for feature in logos %}
+          <a class="mf-logo-item"
+             href="{{ feature.link }}"
+             target="_blank"
+             rel="noopener noreferrer nofollow"
+             aria-hidden="true"
+             tabindex="-1">
+            <img src="{{ feature.logo.url }}" alt="" loading="lazy">
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
 
     {# ---------- WATCH — 2-up grid, click-to-play modal ---------- #}
     {% if videos %}
@@ -1049,7 +1165,7 @@
     {% endif %}
 
     {# ---------- EMPTY STATE ---------- #}
-    {% if not videos and not articles and not more_features %}
+    {% if not logos and not videos and not articles and not more_features %}
     <p class="mf-empty">Media features are being curated and will appear here soon.</p>
     {% endif %}
 

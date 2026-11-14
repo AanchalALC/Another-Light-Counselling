@@ -247,15 +247,28 @@
     max-width: 1240px;
     margin: 0 auto;
     overflow-x: auto;
+    overflow-y: hidden;
     overscroll-behavior-x: contain;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: #F08C21 #efe7d3;
   }
-  .mf-logo-marquee::-webkit-scrollbar { display: none; }
+  .mf-logo-marquee::-webkit-scrollbar { height: 8px; }
+  .mf-logo-marquee::-webkit-scrollbar-track { background: #efe7d3; }
+  .mf-logo-marquee::-webkit-scrollbar-thumb { background: #F08C21; border-radius: 999px; }
+  .mf-logo-marquee:focus-visible { outline: 3px solid var(--alc-sea); outline-offset: 3px; }
   .mf-logo-track {
     display: flex;
     width: max-content;
     padding: 14px 0;
+    animation: mf-logo-scroll 42s linear infinite;
+    will-change: transform;
     scroll-snap-type: x mandatory;
+  }
+  .mf-logo-marquee:hover .mf-logo-track,
+  .mf-logo-marquee:focus-within .mf-logo-track { animation-play-state: paused; }
+  @keyframes mf-logo-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
   .mf-logo-item {
     flex: 0 0 auto;
@@ -862,6 +875,7 @@
     .mf-play { width: 62px; height: 62px; font-size: 1.2rem; }
     .mf-jump a { padding: 9px 16px; font-size: .78rem; }
     .mf-article-kicker { max-width: 50%; }
+    .mf-logo-track { animation-duration: 30s; }
     .mf-logo-item { width: 170px; min-height: 112px; margin-right: 16px; padding: 24px 18px; border-radius: 16px; }
     .mf-logo-item img { max-width: 130px; max-height: 56px; }
   }
@@ -870,6 +884,8 @@
   @media (prefers-reduced-motion: reduce) {
     .mf-doodle { animation: none; }
     .mf-play::before { animation: none; }
+    .mf-logo-track { animation: none; width: auto; }
+    .mf-logo-item[aria-hidden="true"] { display: none; }
     .mf-logo-item:hover,
     .mf-logo-item:focus-visible { transform: none; }
     .mf-logo-item:hover img { transform: none; }
@@ -996,7 +1012,7 @@
     {% if logos %}
     <section class="mf-logos-section" id="mf-logos" aria-labelledby="mf-logos-heading">
       <h2 class="mf-logos-heading" id="mf-logos-heading">Media Recognition</h2>
-      <div class="mf-logo-marquee">
+      <div class="mf-logo-marquee" role="region" aria-label="Media feature logos" tabindex="0">
         <div class="mf-logo-track">
           {% for feature in logos %}
           <a class="mf-logo-item"
@@ -1006,6 +1022,19 @@
              aria-label="{{ feature.outlet_name }}{% if feature.article_title %} — {{ feature.article_title }}{% endif %}">
             <img src="{{ feature.logo.url }}"
                  alt="{{ feature.logo_alt|default:feature.outlet_name }}"
+                 loading="lazy">
+          </a>
+          {% endfor %}
+
+          {% for feature in logos %}
+          <a class="mf-logo-item"
+             href="{{ feature.link }}"
+             target="_blank"
+             rel="noopener noreferrer nofollow"
+             aria-hidden="true"
+             tabindex="-1">
+            <img src="{{ feature.logo.url }}"
+                 alt=""
                  loading="lazy">
           </a>
           {% endfor %}

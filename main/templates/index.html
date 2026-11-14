@@ -100,10 +100,18 @@ and experience a cost-effective and quality solution.{% endblock %}
     position: relative;
     max-width: 1240px;
     margin: 0 auto;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #F08C21 #efe7d3;
     -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
             mask-image: linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
   }
+  .media-marquee::-webkit-scrollbar { height: 8px; }
+  .media-marquee::-webkit-scrollbar-track { background: #efe7d3; }
+  .media-marquee::-webkit-scrollbar-thumb { background: #F08C21; border-radius: 999px; }
+  .media-marquee:focus-visible { outline: 3px solid #6698CC; outline-offset: 3px; }
   .media-track {
     display: flex;
     width: max-content;
@@ -111,8 +119,9 @@ and experience a cost-effective and quality solution.{% endblock %}
     animation: media-scroll 42s linear infinite;
     will-change: transform;
   }
-  /* pause when the visitor is looking at a logo */
-  .media-marquee:hover .media-track { animation-play-state: paused; }
+  /* Pause for pointer and keyboard users so the strip can be browsed manually. */
+  .media-marquee:hover .media-track,
+  .media-marquee:focus-within .media-track { animation-play-state: paused; }
 
   @keyframes media-scroll {
     from { transform: translateX(0); }
@@ -1060,7 +1069,7 @@ and experience a cost-effective and quality solution.{% endblock %}
             </p>
         </div>
 
-        <div class="media-marquee">
+        <div class="media-marquee" role="region" aria-label="Media feature logos" tabindex="0">
             <div class="media-track">
                 {% comment %} Set A — the real, accessible logos {% endcomment %}
                 {% for feature in media_features %}

@@ -110,7 +110,8 @@ class ServiceAdmin(admin.ModelAdmin):
 
 @admin.register(ServicesHubPage)
 class ServicesHubPageAdmin(admin.ModelAdmin):
-    list_display = ('hub_heading', 'video_source')
+    list_display = ('page_label', 'hub_heading', 'video_source')
+    list_display_links = ('page_label',)
     fieldsets = (
         ('Hero', {
             'fields': ('hub_heading', 'hub_intro'),
@@ -130,6 +131,11 @@ class ServicesHubPageAdmin(admin.ModelAdmin):
             'fields': ('video_source', 'video_file', 'video_youtube_url', 'video_poster', 'video_caption'),
         }),
     )
+
+    def page_label(self, obj):
+        return 'Services Hub Page'
+    page_label.short_description = 'PAGE'
+
     def has_add_permission(self, request):
         if ServicesHubPage.objects.exists():
             return False

@@ -580,6 +580,10 @@ def services(request):
         ('compassionate inquiry',),
         ('somatic',),
         ('brainspotting',),
+        ('addiction', 'addictions'),
+        ('anxiety',),
+        ('eating disorder', 'eating disorders'),
+        ('kink',),
         ('link poly', 'link and poly', 'poly', 'polyamory', 'non monogamy'),
     )
 

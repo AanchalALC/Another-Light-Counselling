@@ -106,19 +106,6 @@
     .tag.v-butter{ background:color-mix(in srgb,var(--butter) 26%,#fff); border-color:color-mix(in srgb,var(--butter),black 10%); color:#4a3f1a; }
     .tag.v-blush{ background:color-mix(in srgb,var(--blush) 22%,#fff); border-color:color-mix(in srgb,var(--blush),black 10%); color:#3d2030; }
 
-    /* Short bio */
-    .about-brief{
-      margin-top:12px;
-      color:#2c2b2b;
-      line-height:1.65;
-      background:#fff;
-      border-radius:12px;
-      padding:12px 14px;
-      border:1px solid var(--ring);
-      max-width:100%;
-      overflow-wrap:anywhere;
-    }
-
     /* Blog cards */
     .section-head{ display:flex; justify-content:space-between; align-items:baseline; margin:22px 0 12px; }
     .section-head h2{ margin:0; font-size:20px; }
@@ -386,13 +373,6 @@
           </div>
           {% endif %}
 
-          <div class="about-brief">
-            {% if member.short_bio %}
-              {{ member.short_bio|striptags|html_unescape }}
-            {% else %}
-              {{ member.bio_long|default:member.info|striptags|html_unescape|truncatewords:38 }}
-            {% endif %}
-          </div>
         </div>
       </div>
     </section>

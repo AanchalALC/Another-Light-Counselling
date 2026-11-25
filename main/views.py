@@ -20,9 +20,7 @@ from .models import (
 )
 from .forms import ContactForm, PpcContactForm
 
-
 # ------------------- HELPERS --------------------------
-
 MEDIA_LOGO_OUTLET_ORDER = (
     ('TOI', ('TOI', 'Times of India')),
     ('Hindustan Times', ('Hindustan Times',)),
